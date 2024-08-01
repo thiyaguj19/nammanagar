@@ -28,7 +28,7 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [ 'localhost', 'www.nammanagar.in', 'nammanagar.in' ]
+ALLOWED_HOSTS = [ 'localhost', '.vercel.app', 'www.nammanagar.in', 'nammanagar.in' ]
 
 
 # Application definition

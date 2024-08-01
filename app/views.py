@@ -1,3 +1,5 @@
 from django.shortcuts import render
 
-# Create your views here.
+def nagarhome(request):
+    context = {'text': 'This is some text to be rendered as HTML.'}
+    return render(request, 'nagarhome.html', context)

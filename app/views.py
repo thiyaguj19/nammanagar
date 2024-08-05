@@ -1,5 +1,8 @@
 from django.shortcuts import render
+from random import randint
 
 def nagarhome(request):
-    context = {'text': 'This is some text to be rendered as HTML.'}
-    return render(request, 'index.html', context)
+    picture = "ReliefMaterial-" + str(randint(1, 4)) + ".jpeg"
+    context = {'picture': picture}
+    print("picture = ", picture)
+    return render(request, 'Independence.html', context)

@@ -66,9 +66,58 @@
 
 <main>
 
+  <div class="b-example-divider"></div>
+
+  <div class="container px-4 py-5" id="hanging-icons">
+    <h2 class="pb-2 border-bottom display-4 text-success">
+      <img src="{% static 'app/Nagar.png' %}" alt="NammaNagar" width="75" height="75" class="rounded-circle border border-white"> 
+      2024 சுதந்திர தினத்திற்கு தயாராகி வருகிறது
+    </h2>
+    <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+      <div class="col d-flex align-items-start">
+        <div class="icon-square bg-light text-dark flex-shrink-0 me-3">
+          <svg class="bi" width="1em" height="1em"><use xlink:href="#toggles2"/></svg>
+        </div>
+        <div>
+          <h2 class="text-primary display-6">நிகழ்ச்சிக்காக பணிகள்</h2>
+          <p>
+            <ul>
+              <li class="fs-5">இடம் சுத்தம் செய்யப்பட்டது</li>
+              <li class="fs-5">கேடயம் பெற்றோம்</li>
+              <li class="fs-5">நெகிழ்வு பலகை வடிவமைப்பு</li>
+              <li class="fs-5">நம்ம நகர் நம்ம விழா லேபிள் டிசைன்</li>
+              <li class="fs-5">சிறிய அளவிலான டி-சர்ட் ஆர்டர் செய்யப்பட்டது</li>
+            </ul>
+          </p>
+        </div>
+      </div>
+      <div class="col d-flex align-items-start">
+        <div class="icon-square bg-light text-dark flex-shrink-0 me-3">
+          <svg class="bi" width="1em" height="1em"><use xlink:href="#cpu-fill"/></svg>
+        </div>
+        <div>
+          <h2 class="text-primary display-6">நன்கொடைகள்</h2>
+          <p class="fs-5">
+            சுதந்திர தின விழாவிற்கு நன்கொடை அளிக்க முன்வந்தவர்களுக்கு நன்றி
+            <ul>
+              <li>Balasundaram</li>
+              <li>Kannan</li>
+              <li>Mohan c</li>
+              <li>Parameshwaran</li>
+              <li>Ravichandran</li>
+              <li>Rajendran</li>
+              <li>Sanjeevan</li>
+            </ul>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="b-example-divider"></div>
 
   <div class="container px-4 py-5" id="custom-cards">
-    <h2 class="pb-2 border-bottom text-success display-3">
+    <h2 class="pb-2 border-bottom text-success display-4">
       <img src="{% static 'app/Nagar.png' %}" alt="NammaNagar" width="75" height="75" class="rounded-circle border border-white"> 
       2023 சுதந்திர தினம் அன்று
     </h2>
@@ -147,7 +196,7 @@
       <div class="row featurette mt-5">
 
         <div class="col-md text-center">
-          <img src="{% static 'app/iday-3.jpg' %}" class="img-fluid" alt="Happy Independence">
+          <img src="{% static 'app/iday-9.jpg' %}" class="img-fluid" alt="Happy Independence">
           <audio id="Player" autoplay>
             <source src="{% static 'app/Thai_Mannai_Vanakkum_Tamil.mp3' %}" type="audio/mpeg"/>
           </audio>
@@ -192,32 +241,26 @@
             </div>
         </h5>
         <div class="card-body">
-          <h5 class="card-title display-4 text-center">உங்கள் கவனத்திற்கு</h5>
+          <h5 class="card-title display-4 text-center text-danger">உங்கள் கவனத்திற்கு</h5>
             <ul>
                 <li>
                     <p class="card-text display-6">
                         விளையாட்டு போட்டி மற்றும் கலை நிகழ்ச்சிகள் பங்கேற்க விரும்பும் குழந்தைகள் மற்றும் பெரியவர்கள் உங்கள் பெயர்களை பதிவு செய்யவும்
                     </p>
                 </li>
-                <li>
-                    <span class="placeholder col-12 bg-success"></span>
-                </li>
+                <br>
                 <li>
                     <p class="card-text display-6">
                         நன்கொடை அளிக்க விரும்புபவர்கள் முன்வாருங்கள். நாங்கள் உங்களுக்கு முன்கூட்டியே நன்றி கூறுகிறோம்
                     </p>
                 </li>
-                <li>
-                    <span class="placeholder col-12 bg-success"></span>
-                </li>
-                <li>
+                <br>
                     <div class="card-body">
-                        <h5 class="card-title display-4 text-center">தொடர்புக்கு</h5>
-                        <p class="card-text display-6">பத்மநாபன் - 98944 07411</p>
-                        <p class="card-text display-6">என்.மகேஷ் - 98422 40420</p>
-                        <p class="card-text display-6">G.குருநாதன் - 94432 07830</p>
+                        <h5 class="card-title display-4 text-center text-danger">தொடர்புக்கு</h5>
+                        <p class="card-text display-6 text-center">பத்மநாபன் - 98944 07411</p>
+                        <p class="card-text display-6 text-center">என்.மகேஷ் - 98422 40420</p>
+                        <p class="card-text display-6 text-center">G.குருநாதன் - 94432 07830</p>
                     </div>
-                </li>
             </ul>
         </div>
       </div>

@@ -2,10 +2,11 @@ from django.shortcuts import render
 from random import randint
 
 def nagarhome(request):
-    bucket = "https://nammanagar.blr1.cdn.digitaloceanspaces.com/"
-    picture = "ReliefMaterial-" + str(randint(0, 4)) + ".jpeg"
-    context = {'picture': picture, 'bucket': bucket}
-    print("picture = ", picture)
+    context = {}
+    return render(request, 'chaturthi.html', context)
+
+def idayhome(request):
+    context = {}
     return render(request, 'Independence.html', context)
 
 def reliefhome(request):

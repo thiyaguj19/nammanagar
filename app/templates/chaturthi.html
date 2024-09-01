@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+  {% load static %}
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.88.1">
+    <title>விநாயகர் சதுர்த்தி</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/jumbotron/">
+
+    
+
+    <!-- Bootstrap core CSS -->
+<link href="{% static 'app/css/bootstrap.min.css' %}" rel="stylesheet">
+<link href="{% static 'app/css/features.css' %}" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+    
+  </head>
+  <body>
+
+    <header>
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="{% url 'nagarhome' %}">Namma Nagar</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'nagarhome' %}">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'idayhome' %}">Independence</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'reliefhome' %}">Wayand</a>
+              </li>
+            </ul>
+            <form class="d-flex">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+    </header>
+  
+    
+<main>
+
+  <div class="p-5 mb-4 bg-body-tertiary rounded-3">
+    <div class="container-fluid py-5">
+      <h1 class="display-5 fw-bold text-center">
+        <p>
+          <div class="spinner-grow text-success" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <div class="spinner-grow text-danger" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <div class="spinner-grow text-warning" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        விநாயகர் சதுர்த்தி
+          <div class="spinner-grow text-success" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <div class="spinner-grow text-danger" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <div class="spinner-grow text-warning" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </p>
+      </h1>
+      <div class="row text-center">
+        <div class="col mx-auto">
+          <img src="https://nammanagar.blr1.cdn.digitaloceanspaces.com/Chaturthi/ganesha-banner-new.jpg" class="img-fluid img-thumbnail" alt="விநாயகர் சதுர்த்தி">
+        </div>
+      </div>
+      <div class="alert alert-primary text-center mt-5" role="alert">
+        <h4 class="alert-heading">
+          <div class="alert alert-warning alert-dismissible fade show text-center fw-bold mt-3" role="alert">
+            <h3><strong>கணபதி மந்திரம்</strong></h3>
+          </div>
+        </h4>
+        <p class="fw-bold">மூஷிக வாகன மோதக ஹஸ்த</p>
+        <p class="fw-bold">சாமர கர்ண விளம்பித சூத்ர</p>
+        <p class="fw-bold">வாமன ரூப மஹேஸ்வர புத்ர</p>
+        <p class="fw-bold">விக்ன விநாசக பாத நமஸ்தே</p>
+        <hr>
+        <p class="mb-0">
+          <p class="fw-bold">மூஷிக வாகன - மூஷிகம் என்றும் மூஞ்சுறு/எலியை ஊர்தியாகக் கொண்டவரும்</p>
+          <p class="fw-bold">மோதக ஹஸ்த - கொழுக்கட்டையை திருக்கைகளில் ஏந்தியவரும்</p>
+          <p class="fw-bold">சாமர கர்ண - விசிறி போன்ற திருக்காதுகளைக் கொண்டவரும்</p>
+          <p class="fw-bold">விளம்பித சூத்ர - கயிற்றினை இடையைச் சுற்றி அணிந்தவரும்</p>
+          <p class="fw-bold">வாமன ரூப - குறுகிய உருவை உடையவரும்</p>
+          <p class="fw-bold">மஹேஸ்வர புத்ர - மஹேஸ்வரனாம் சிவபெருமானின் திருமகனும் ஆன</p>
+          <p class="fw-bold">விக்ன விநாசக - தடைகளை நீக்கும் விநாயகரின்</p>
+          <p class="fw-bold">பாத நமஸ்தே - திருப்பாதங்களை வணங்குகிறேன்.</p>
+        </p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="container">
+    <div class="row align-items-md-stretch">
+      <div class="col-md-6">
+        <div class="h-100 text-white rounded-3">
+          <img src="https://nammanagar.blr1.cdn.digitaloceanspaces.com/Chaturthi/2024/1.jpg" class="img-fluid img-thumbnail" alt="விநாயகர் சதுர்த்தி">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="card-title text-center text-success fw-bold">அருள்மிகு ஸ்ரீ செல்வ விநாயகர் திருக்கோயில்</h2>
+            <h5 class="card-subtitle mb-2 text-muted text-center">K.N.G புதூர் பிரிவு, அரவிந்த நகர், கோவை - 25</h5>
+            <div class="alert alert-warning alert-dismissible fade show text-center fw-bold mt-3" role="alert">
+              <h3><strong>விநாயகர் சதுர்த்தி பெருவிழா</strong></h3>
+            </div>
+            <div class="card">
+              <h5 class="card-header text-center text-primary">06.09.2024, வெள்ளிக்கிழமை ( மாலை 6:00 முதல் )</h5>
+              <div class="card-body">
+                <table class="table">
+                  <thead>
+                    <tr class="fw-bold">
+                      <th scope="col" colspan="4"><h4>விக்ரஹ ஆலய பிரவேசம்</h4></th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+            </div>
+            <div class="card">
+              <h5 class="card-header text-center text-primary">07.09.2024, சனிக்கிழமை ( காலை 8:00 முதல் )</h5>
+              <div class="card-body">
+                <table class="table">
+                  <tbody>
+                    <tr class="fw-bold">
+                      <th scope="row"></th>
+                      <td><h5>மங்கள இசை (நாதஸ்வரம் தவில்)</h5></td>
+                    </tr>
+                    <tr class="fw-bold">
+                      <th scope="row"></th>
+                      <td><h5>கணபதி ஹோமம்</h5></td>
+                    </tr>
+                    <tr class="fw-bold">
+                      <th scope="row"></th>
+                      <td><h5>மஹாபிஷேகம்</h5></td>
+                    </tr>
+                    <tr class="fw-bold">
+                      <th scope="row"></th>
+                      <td><h5>பிரசாதம் வழங்குதல்</h5></td>
+                    </tr>
+                    <tr class="fw-bold">
+                      <th scope="row"></th>
+                      <td>
+                        <div class="alert alert-info" role="alert">
+                          <h4>
+                            மதியம் <a href="#" class="alert-link">12:00</a> மணிக்கு அன்னதானம் நடைபெறும்
+                          </h4>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr class="fw-bold">
+                      <th scope="row"></th>
+                      <td><h5>பக்தி பஜனை (ஸ்ரீ தர்ம சாஸ்தா பஜனை குழுவினர்)</h5></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="card">
+              <h5 class="card-header text-center text-primary">08.09.2024, ஞாயிற்றுக்கிழமை</h5>
+              <div class="card-body">
+                <table class="table">
+                  <tbody>
+                    <tr class="fw-bold">
+                      <th scope="row"></th>
+                      <td>
+                        <div class="alert alert-info" role="alert">
+                          <h4>
+                            காலை <a href="#" class="alert-link">8:00</a> மணி முதல் கைலாயவாத்தியம்
+                          </h4>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr class="fw-bold">
+                      <th scope="row"></th>
+                      <td>
+                        <div class="alert alert-info" role="alert">
+                          <h4>
+                            மாலை <a href="#" class="alert-link">4:00</a> மணி முதல்
+                            ஸ்ரீ செல்வ விநாயகர் திருவிதி உலா ஜமாப் இசையுடன் நடைபெறும்
+                            (தென்றல் ஜெபாப் குழுவினர்)
+                          </h4>
+                        </div>
+                      </td>
+                    </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="pt-3 mt-4 text-muted border-top">
+      &copy; 2021
+    </footer>
+  </div>
+</main>
+
+
+    
+  </body>
+</html>

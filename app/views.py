@@ -5,6 +5,15 @@ def nagarhome(request):
     context = {}
     return render(request, 'chaturthi.html', context)
 
+def chaturthi(request):
+    context = {"max": 6, "img-path": "https://nammanagar.blr1.cdn.digitaloceanspaces.com/Chaturthi/2024/img/", "extn": ".jpeg"}
+
+    items = []
+    for index in range(6):
+        imagepath = "https://nammanagar.blr1.cdn.digitaloceanspaces.com/Chaturthi/2024/img/VC-"+str(index+1)+".jpeg"
+        items.insert(index, imagepath)
+    return render(request, 'chaturthi.html', {"items": items})
+
 def idayhome(request):
     context = {}
     return render(request, 'Independence.html', context)

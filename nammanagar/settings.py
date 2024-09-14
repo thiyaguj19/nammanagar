@@ -81,9 +81,6 @@ WSGI_APPLICATION = 'nammanagar.wsgi.application'
 dburl = config("LOCAL_URL", False)
 if dburl == False:
     dburl = config("DO_POSTGRES_URL")
-dbname = config('LOCAL_DB', False)
-if dbname == False:
-    dbname = config("DO_POSTGRES_NAME")
 
 DATABASES = {
     'default': dj_database_url.config(

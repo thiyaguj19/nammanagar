@@ -78,9 +78,16 @@ WSGI_APPLICATION = 'nammanagar.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+dburl = config("LOCAL_URL", False)
+if dburl == False:
+    dburl = config("DO_POSTGRES_URL")
+dbname = config('LOCAL_DB', False)
+if dbname == False:
+    dbname = config("DO_POSTGRES_NAME")
+
 DATABASES = {
-    'default': dj_database_url.config(
-        default=config("POSTGRES_URL"),
+    dbname: dj_database_url.config(
+        default=dburl,
         conn_max_age=600,
         conn_health_checks=True,
     )

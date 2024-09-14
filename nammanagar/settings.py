@@ -86,8 +86,8 @@ if dbname == False:
     dbname = config("DO_POSTGRES_NAME")
 
 DATABASES = {
-    dbname: dj_database_url.config(
-        default=dburl,
+    'default': dj_database_url.config(
+        dbname=dburl,
         conn_max_age=600,
         conn_health_checks=True,
     )

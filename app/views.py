@@ -9,6 +9,10 @@ def chaturthi(request):
     context = {}
     return render(request, 'chaturthi.html', context)
 
+def sponsor(request):
+    context = {}
+    return render(request, 'Sponsor.html', context)
+
 def chaturthi(request):
     context = {"max": 6, "img-path": "https://nammanagar.blr1.cdn.digitaloceanspaces.com/Chaturthi/2024/img/", "extn": ".jpeg"}
 

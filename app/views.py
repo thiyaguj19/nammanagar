@@ -1,7 +1,11 @@
 from django.shortcuts import render
 from random import randint
 
-def nagarhome(request):
+def home(request):
+    context = {}
+    return render(request, 'index.html', context)
+
+def chaturthi(request):
     context = {}
     return render(request, 'chaturthi.html', context)
 

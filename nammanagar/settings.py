@@ -82,8 +82,6 @@ dburl = config("CloudCluster_DB", False)
 if dburl == False:
     dburl = config("DO_POSTGRES_URL")
 
-print(dburl)
-
 DATABASES = {
     'default': dj_database_url.config(
         default=dburl,

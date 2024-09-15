@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from random import randint
+from django.db.models import F
+from .models import SponsoredBy, Events, Sponsors
 
 def home(request):
     context = {}
@@ -10,8 +12,31 @@ def chaturthi(request):
     return render(request, 'chaturthi.html', context)
 
 def sponsor(request):
-    context = {}
-    return render(request, 'Sponsor.html', context)
+    events = Events.objects.all()
+    sponsor_list = []
+    for event in events:
+        sponsoredby = SponsoredBy.objects.filter(events_id=event.id)
+        event_count = len(sponsoredby)
+        if event_count > 0:
+            sponsor_dict = {}
+            isaevencount = event_count % 2
+            event_name = ""
+            sponsor_name = ""
+            for index in range(event_count):
+                modval = index % 2
+                sponsorbyobj = sponsoredby[index]
+                sponsor_dict['event'] = event.event_name
+                sponsor_dict['sponsor'+'_'+str(modval)] = sponsorbyobj.sponsor.name
+                sponsor_dict['amount'+'_'+str(modval)] = sponsorbyobj.amount
+            sponsor_list.append(sponsor_dict)
+            if isaevencount == 1:
+                sponsor_dict = {}
+                sponsor_dict['event'] = ''
+                sponsor_dict['sponsor'+'_'+str(isaevencount)] = ''
+                sponsor_dict['amount'+'_'+str(isaevencount)] = ''
+                sponsor_list.append(sponsor_dict)
+    return render(request, 'Sponsor.html', {"items": sponsor_list})
+                
 
 def chaturthi(request):
     context = {"max": 6, "img-path": "https://nammanagar.blr1.cdn.digitaloceanspaces.com/Chaturthi/2024/img/", "extn": ".jpeg"}

@@ -39,11 +39,11 @@ def sponsor(request):
                 
 
 def chaturthi(request):
-    context = {"max": 6, "img-path": "https://nammanagar.blr1.cdn.digitaloceanspaces.com/Chaturthi/2024/img/", "extn": ".jpeg"}
+    context = {"max": 6, "img-path": "https://nammanagar.s3.eu-north-1.amazonaws.com/ganesh/", "extn": ".jpeg"}
 
     items = []
     for index in range(6):
-        imagepath = "https://nammanagar.blr1.cdn.digitaloceanspaces.com/Chaturthi/2024/img/VC-"+str(index+1)+".jpeg"
+        imagepath = "https://nammanagar.s3.eu-north-1.amazonaws.com/ganesh/VC-"+str(index+1)+".jpeg"
         items.insert(index, imagepath)
     return render(request, 'chaturthi.html', {"items": items})
 

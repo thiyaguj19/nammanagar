@@ -52,7 +52,7 @@ def idayhome(request):
     return render(request, 'Independence.html', context)
 
 def reliefhome(request):
-    picture = "https://nammanagar.blr1.cdn.digitaloceanspaces.com/wayand/" + "ReliefMaterial-" + str(randint(0, 4)) + ".jpeg"
+    picture = "https://nammanagar.s3.eu-north-1.amazonaws.com/nationalrelief/" + "ReliefMaterial-" + str(randint(0, 4)) + ".jpeg"
     context = {'picture': picture}
     print("picture = ", picture)
     return render(request, 'Wayand.html', context)

@@ -12,40 +12,40 @@
             font-family: Arial, sans-serif;
             background: #fff7ed;
             color: #333;
-            text-align: center;
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 30px auto;
             padding: 20px;
         }
 
         .card {
-            background: #ffffff;
+            background: white;
             padding: 25px;
-            border-radius: 18px;
-            box-shadow: 0 4px 18px rgba(0,0,0,0.12);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
         }
 
         h1 {
-            color: #8b3a00;
+            color: #b45309;
             margin-bottom: 10px;
         }
 
         .time {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: bold;
-            color: #b45309;
+            color: #92400e;
         }
 
-        input {
+        input[type=text] {
             width: 90%;
-            max-width: 650px;
+            max-width: 700px;
             padding: 14px;
-            font-size: 16px;
-            border-radius: 10px;
             border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
             margin-top: 15px;
         }
 
@@ -53,10 +53,10 @@
             background: #d97706;
             color: white;
             border: none;
-            padding: 13px 22px;
-            border-radius: 10px;
-            font-size: 17px;
-            margin: 12px 6px;
+            padding: 12px 22px;
+            border-radius: 8px;
+            font-size: 16px;
+            margin: 10px 5px;
             cursor: pointer;
         }
 
@@ -64,39 +64,45 @@
             background: #b45309;
         }
 
+        .youtube-btn {
+            background: #dc2626;
+        }
+
+        .youtube-btn:hover {
+            background: #b91c1c;
+        }
+
         .video-wrapper {
             position: relative;
+            width: 100%;
             padding-bottom: 56.25%;
-            height: 0;
-            margin-top: 20px;
-            overflow: hidden;
-            border-radius: 14px;
-            background: #000;
+            margin-top: 25px;
         }
 
         .video-wrapper iframe {
             position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
+            left: 0;
+            top: 0;
+            border-radius: 12px;
         }
 
         #status {
-            margin-top: 15px;
+            margin-top: 20px;
             font-weight: bold;
-            color: #8b3a00;
-        }
-
-        .note {
-            font-size: 14px;
-            color: #666;
+            color: #92400e;
         }
 
         .quote {
             margin-top: 25px;
             font-style: italic;
-            color: #7c2d12;
+            color: #92400e;
+        }
+
+        .note {
+            color: #666;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -105,26 +111,38 @@
 
 <div class="container">
     <div class="card">
+
         <h1>Collective Prayer</h1>
 
         <p class="time">Daily Prayer Time: 9:00 PM</p>
 
         <p>
-            Paste a YouTube video link or YouTube playlist link below and start the prayer.
+            Paste a YouTube Video or Playlist URL.
         </p>
 
         <input
             type="text"
             id="youtubeUrl"
-            placeholder="Paste YouTube video or playlist link here">
+            value="https://www.youtube.com/playlist?list=PLfhs93SSoxqw77PEVaGBji2FqNj189aXl"
+            placeholder="Paste YouTube playlist or video URL">
 
         <br>
 
         <button onclick="loadYouTube()">Start Prayer</button>
+
         <button onclick="clearPlayer()">Clear</button>
 
+        <a
+            id="youtubeLink"
+            href="https://www.youtube.com/playlist?list=PLfhs93SSoxqw77PEVaGBji2FqNj189aXl"
+            target="_blank">
+            <button class="youtube-btn" type="button">
+                Open in YouTube
+            </button>
+        </a>
+
         <p class="note">
-            Supports normal YouTube links, short links, and playlist links.
+            If the playlist cannot be embedded, click "Open in YouTube".
         </p>
 
         <div class="video-wrapper">
@@ -132,93 +150,138 @@
                 id="youtubePlayer"
                 src=""
                 frameborder="0"
-                allow="autoplay; encrypted-media; picture-in-picture"
+                allow="autoplay; encrypted-media"
                 allowfullscreen>
             </iframe>
         </div>
 
-        <div id="status">Waiting for YouTube link.</div>
+        <div id="status">
+            Loading default prayer playlist...
+        </div>
 
         <p class="quote">
             “When there is unity in prayer, there is peace in the family.”
         </p>
+
     </div>
 </div>
 
 <script>
-    let lastReminderDate = "";
 
-    function loadYouTube() {
-        const input = document.getElementById("youtubeUrl");
-        const iframe = document.getElementById("youtubePlayer");
-        const statusText = document.getElementById("status");
+const DEFAULT_PLAYLIST =
+"https://www.youtube.com/playlist?list=PLfhs93SSoxqw77PEVaGBji2FqNj189aXl";
 
-        const url = input.value.trim();
+function loadYouTube() {
 
-        if (!url) {
-            alert("Please paste a YouTube video or playlist link.");
-            return;
-        }
+    const input = document.getElementById("youtubeUrl");
+    const iframe = document.getElementById("youtubePlayer");
+    const status = document.getElementById("status");
+    const youtubeLink = document.getElementById("youtubeLink");
+
+    let url = input.value.trim();
+
+    if (!url) {
+        url = DEFAULT_PLAYLIST;
+        input.value = DEFAULT_PLAYLIST;
+    }
+
+    youtubeLink.href = url;
+
+    try {
+
+        const parsedUrl = new URL(url);
 
         let embedUrl = "";
 
-        try {
-            const parsedUrl = new URL(url);
+        if (parsedUrl.searchParams.has("list")) {
 
-            // YouTube playlist
-            if (parsedUrl.searchParams.has("list")) {
-                const listId = parsedUrl.searchParams.get("list");
-                embedUrl = "https://www.youtube.com/embed/videoseries?list=" + listId;
-            }
+            const listId = parsedUrl.searchParams.get("list");
 
-            // Normal YouTube video
-            else if (parsedUrl.hostname.includes("youtube.com") && parsedUrl.searchParams.has("v")) {
-                const videoId = parsedUrl.searchParams.get("v");
-                embedUrl = "https://www.youtube.com/embed/" + videoId;
-            }
+            embedUrl =
+                "https://www.youtube.com/embed/videoseries?list=" +
+                listId +
+                "&autoplay=1";
 
-            // YouTube short link
-            else if (parsedUrl.hostname.includes("youtu.be")) {
-                const videoId = parsedUrl.pathname.replace("/", "");
-                embedUrl = "https://www.youtube.com/embed/" + videoId;
-            }
+            status.innerText = "Prayer playlist loaded.";
 
-            // YouTube shorts
-            else if (parsedUrl.pathname.includes("/shorts/")) {
-                const videoId = parsedUrl.pathname.split("/shorts/")[1];
-                embedUrl = "https://www.youtube.com/embed/" + videoId;
-            }
-
-            else {
-                alert("Invalid YouTube link. Please paste a valid YouTube video or playlist link.");
-                return;
-            }
-
-            iframe.src = embedUrl + (embedUrl.includes("?") ? "&" : "?") + "autoplay=1";
-            statusText.innerText = "Prayer video loaded.";
-
-        } catch (error) {
-            alert("Invalid link. Please paste a valid YouTube link.");
         }
+        else if (
+            parsedUrl.hostname.includes("youtube.com") &&
+            parsedUrl.searchParams.has("v")
+        ) {
+
+            const videoId = parsedUrl.searchParams.get("v");
+
+            embedUrl =
+                "https://www.youtube.com/embed/" +
+                videoId +
+                "?autoplay=1";
+
+            status.innerText = "Prayer video loaded.";
+        }
+        else if (parsedUrl.hostname.includes("youtu.be")) {
+
+            const videoId =
+                parsedUrl.pathname.replace("/", "");
+
+            embedUrl =
+                "https://www.youtube.com/embed/" +
+                videoId +
+                "?autoplay=1";
+
+            status.innerText = "Prayer video loaded.";
+        }
+        else {
+
+            status.innerText = "Invalid YouTube URL.";
+            return;
+        }
+
+        iframe.src = embedUrl;
+
+    } catch (e) {
+
+        status.innerText = "Invalid YouTube URL.";
+    }
+}
+
+function clearPlayer() {
+
+    document.getElementById("youtubePlayer").src = "";
+    document.getElementById("youtubeUrl").value = "";
+    document.getElementById("status").innerText =
+        "Player cleared.";
+}
+
+/* Auto-load default playlist when page opens */
+window.onload = function() {
+    loadYouTube();
+};
+
+/* 9 PM reminder */
+let lastReminderDate = "";
+
+setInterval(function () {
+
+    const now = new Date();
+    const today = now.toDateString();
+
+    if (
+        now.getHours() === 21 &&
+        now.getMinutes() === 0 &&
+        lastReminderDate !== today
+    ) {
+
+        lastReminderDate = today;
+
+        alert("It is 9:00 PM. Time for Collective Prayer.");
+
+        document.getElementById("status").innerText =
+            "It is 9:00 PM. Time for Collective Prayer.";
     }
 
-    function clearPlayer() {
-        document.getElementById("youtubePlayer").src = "";
-        document.getElementById("youtubeUrl").value = "";
-        document.getElementById("status").innerText = "Waiting for YouTube link.";
-    }
+}, 30000);
 
-    // 9 PM reminder
-    setInterval(function () {
-        const now = new Date();
-        const today = now.toDateString();
-
-        if (now.getHours() === 21 && now.getMinutes() === 0 && lastReminderDate !== today) {
-            lastReminderDate = today;
-            alert("It is 9:00 PM. Time for Collective Prayer.");
-            document.getElementById("status").innerText = "It is 9:00 PM. Please start Collective Prayer.";
-        }
-    }, 30000);
 </script>
 
 </body>

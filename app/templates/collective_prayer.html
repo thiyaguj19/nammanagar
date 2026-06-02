@@ -77,6 +77,9 @@
             width: 100%;
             padding-bottom: 56.25%;
             margin-top: 25px;
+            background: #1a1a1a;
+            border-radius: 12px;
+            overflow: hidden;
         }
 
         .video-wrapper iframe {
@@ -85,7 +88,7 @@
             height: 100%;
             left: 0;
             top: 0;
-            border-radius: 12px;
+            border: none;
         }
 
         #status {
@@ -128,7 +131,7 @@
 
         <br>
 
-        <button onclick="loadYouTube(false)">Start Prayer</button>
+        <button onclick="loadYouTube()">Start Prayer</button>
 
         <button onclick="clearPlayer()">Clear</button>
 
@@ -149,14 +152,13 @@
             <iframe
                 id="youtubePlayer"
                 src=""
-                frameborder="0"
                 allow="autoplay; encrypted-media"
                 allowfullscreen>
             </iframe>
         </div>
 
         <div id="status">
-            Loading default prayer playlist...
+            Ready to load prayer playlist. Click "Start Prayer".
         </div>
 
         <p class="quote">
@@ -171,8 +173,7 @@
 const DEFAULT_PLAYLIST =
 "https://www.youtube.com/playlist?list=PLfhs93SSoxqw77PEVaGBji2FqNj189aXl";
 
-// Modified to accept a boolean parameter controlling the autoplay addition
-function loadYouTube(isInitialLoad = false) {
+function loadYouTube() {
 
     const input = document.getElementById("youtubeUrl");
     const iframe = document.getElementById("youtubePlayer");
@@ -189,54 +190,28 @@ function loadYouTube(isInitialLoad = false) {
     youtubeLink.href = url;
 
     try {
-
         const parsedUrl = new URL(url);
         let embedUrl = "";
 
-        // Determine if parameters are initialized cleanly without causing browser autoplay errors
-        let playlistAutoplay = isInitialLoad ? "" : "&autoplay=1";
-        let singleVideoAutoplay = isInitialLoad ? "" : "?autoplay=1";
-
         if (parsedUrl.searchParams.has("list")) {
-
             const listId = parsedUrl.searchParams.get("list");
-
-            embedUrl =
-                "https://www.youtube.com/embed/videoseries?list=" +
-                listId +
-                playlistAutoplay;
-
+            embedUrl = "https://www.youtube.com/embed/videoseries?list=" + listId + "&autoplay=1";
             status.innerText = "Prayer playlist loaded.";
-
         }
         else if (
             parsedUrl.hostname.includes("youtube.com") &&
             parsedUrl.searchParams.has("v")
         ) {
-
             const videoId = parsedUrl.searchParams.get("v");
-
-            embedUrl =
-                "https://www.youtube.com/embed/" +
-                videoId +
-                singleVideoAutoplay;
-
+            embedUrl = "https://www.youtube.com/embed/" + videoId + "?autoplay=1";
             status.innerText = "Prayer video loaded.";
         }
         else if (parsedUrl.hostname.includes("youtu.be")) {
-
-            const videoId =
-                parsedUrl.pathname.replace("/", "");
-
-            embedUrl =
-                "https://www.youtube.com/embed/" +
-                videoId +
-                singleVideoAutoplay;
-
+            const videoId = parsedUrl.pathname.replace("/", "");
+            embedUrl = "https://www.youtube.com/embed/" + videoId + "?autoplay=1";
             status.innerText = "Prayer video loaded.";
         }
         else {
-
             status.innerText = "Invalid YouTube URL.";
             return;
         }
@@ -244,29 +219,25 @@ function loadYouTube(isInitialLoad = false) {
         iframe.src = embedUrl;
 
     } catch (e) {
-
         status.innerText = "Invalid YouTube URL.";
     }
 }
 
 function clearPlayer() {
-
     document.getElementById("youtubePlayer").src = "";
     document.getElementById("youtubeUrl").value = "";
-    document.getElementById("status").innerText =
-        "Player cleared.";
+    document.getElementById("status").innerText = "Player cleared.";
 }
 
-/* Auto-load default playlist when page opens WITHOUT violent autoplay bans */
+// Keeping window.onload completely clean to prevent domain-level autoplay blocks
 window.onload = function() {
-    loadYouTube(true);
+    document.getElementById("status").innerText = "Ready. Click 'Start Prayer' to begin.";
 };
 
 /* 9 PM reminder */
 let lastReminderDate = "";
 
 setInterval(function () {
-
     const now = new Date();
     const today = now.toDateString();
 
@@ -275,18 +246,15 @@ setInterval(function () {
         now.getMinutes() === 0 &&
         lastReminderDate !== today
     ) {
-
         lastReminderDate = today;
 
         alert("It is 9:00 PM. Time for Collective Prayer.");
 
-        document.getElementById("status").innerText =
-            "It is 9:00 PM. Time for Collective Prayer.";
+        document.getElementById("status").innerText = "It is 9:00 PM. Time for Collective Prayer.";
             
-        // Trigger player configuration with autoplay because the user interacted with an alert ok-button
-        loadYouTube(false);
+        // User clicks "OK" on the alert, registering a user gesture—now it's safe to load!
+        loadYouTube();
     }
-
 }, 30000);
 
 </script>

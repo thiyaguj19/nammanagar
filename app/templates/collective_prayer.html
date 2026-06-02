@@ -162,12 +162,12 @@
 <script src="https://www.youtube.com/iframe_api"></script>
 
 <script>
-const DEFAULT_PLAYLIST = "https://www.youtube.com/playlist?list=PLfhs93SSoxqw77PEVaGBji2FqNj189aXl";
+const DEFAULT_PLAYLIST = "PLfhs93SSoxqw77PEVaGBji2FqNj189aXl";
 let player = null;
 
-// The YouTube API calls this automatically when loaded
+// Global callback for the YouTube API frame initialization
 function onYouTubeIframeAPIReady() {
-    console.log("YouTube Player API Ready");
+    console.log("YouTube API Ready");
 }
 
 function loadYouTube() {
@@ -177,73 +177,100 @@ function loadYouTube() {
 
     if (!input || !status || !youtubeLink) return;
 
-    status.className = ""; // Reset status style styles
-    let url = input.value.trim();
-    if (!url) {
-        url = DEFAULT_PLAYLIST;
-        input.value = DEFAULT_PLAYLIST;
+    status.className = ""; 
+    let urlInput = input.value.trim();
+    
+    if (!urlInput) {
+        urlInput = "https://www.youtube.com/playlist?list=" + DEFAULT_PLAYLIST;
+        input.value = urlInput;
     }
 
-    youtubeLink.href = url;
+    youtubeLink.href = urlInput;
 
     try {
-        const parsedUrl = new URL(url);
         let targetId = "";
         let isPlaylist = false;
 
-        if (parsedUrl.searchParams.has("list")) {
-            targetId = parsedUrl.searchParams.get("list");
+        // Extract ID depending on link layout rule configurations
+        if (urlInput.includes("list=")) {
+            const urlParams = new URLSearchParams(urlInput.split('?')[1] || urlInput.split('#')[1]);
+            targetId = urlParams.get("list");
             isPlaylist = true;
-        } else if (parsedUrl.hostname.includes("youtube.com") && parsedUrl.searchParams.has("v")) {
-            targetId = parsedUrl.searchParams.get("v");
-        } else if (parsedUrl.hostname.includes("youtu.be")) {
-            targetId = parsedUrl.pathname.replace("/", "");
-        } else {
-            status.innerText = "Invalid YouTube URL.";
+        } 
+        else if (urlInput.includes("v=")) {
+            const urlParams = new URLSearchParams(urlInput.split('?')[1]);
+            targetId = urlParams.get("v");
+        } 
+        else if (urlInput.includes("youtu.be/")) {
+            const segments = urlInput.split("youtu.be/");
+            targetId = segments[1].split(/[?#]/)[0];
+        } 
+        else if (urlInput.length >= 11) {
+            targetId = urlInput;
+            isPlaylist = urlInput.length > 15; 
+        }
+
+        if (!targetId) {
+            status.innerText = "Invalid YouTube URL format.";
+            status.className = "error-status";
             return;
         }
 
-        // Clean up older instances if they exist
+        // Wipe out the prior frame cleanly before re-binding 
         if (player) {
-            player.destroy();
+            try { player.destroy(); } catch(err) {}
+            player = null;
         }
 
-        // Initialize Player via the API
-        player = new YT.Player('youtubePlayer', {
+        const wrapper = document.querySelector('.video-wrapper');
+        wrapper.innerHTML = '<div id="youtubePlayer"></div>';
+
+        // Base configuration setup object
+        let playerConfig = {
             height: '100%',
             width: '100%',
             playerVars: {
                 'autoplay': 1,
-                'listType': isPlaylist ? 'playlist' : undefined,
-                'list': isPlaylist ? targetId : undefined
+                'rel': 0
             },
-            videoId: isPlaylist ? undefined : targetId,
             events: {
                 'onReady': function(event) {
-                    status.innerText = isPlaylist ? "Prayer playlist loaded successfully." : "Prayer video loaded successfully.";
+                    status.innerText = isPlaylist ? "Prayer playlist loaded." : "Prayer video loaded.";
                     event.target.playVideo();
                 },
                 'onError': function(event) {
-                    // Catches error conditions including configuration blocks (Error 153/101/150)
-                    status.innerText = "This content has embedding disabled by YouTube. Please click 'Open in YouTube' above.";
+                    // Catches error configurations natively (Error 153 embedding bans)
+                    status.innerText = "Embedding restricted by owner. Click 'Open in YouTube' to play.";
                     status.className = "error-status";
                 }
             }
-        });
+        };
+
+        // Distribute parameters correctly
+        if (isPlaylist) {
+            playerConfig.playerVars.listType = 'playlist';
+            playerConfig.playerVars.list = targetId;
+        } else {
+            playerConfig.videoId = targetId;
+        }
+
+        // Spin up the application player
+        player = new YT.Player('youtubePlayer', playerConfig);
 
     } catch (e) {
-        status.innerText = "Error parsing URL.";
+        status.innerText = "Error parsing URL variables.";
+        status.className = "error-status";
     }
 }
 
 function clearPlayer() {
     if (player) {
-        player.destroy();
+        try { player.destroy(); } catch(err) {}
         player = null;
-        // Re-inject target placeholder div cleanly
-        const wrapper = document.querySelector('.video-wrapper');
-        wrapper.innerHTML = '<div id="youtubePlayer"></div>';
     }
+    const wrapper = document.querySelector('.video-wrapper');
+    if (wrapper) wrapper.innerHTML = '<div id="youtubePlayer"></div>';
+    
     const input = document.getElementById("youtubeUrl");
     const status = document.getElementById("status");
     if (input) input.value = "";
@@ -253,7 +280,7 @@ function clearPlayer() {
     }
 }
 
-/* 9 PM reminder loop */
+/* 9 PM reminder tracking interval */
 let lastReminderDate = "";
 setInterval(function () {
     const now = new Date();

@@ -9,4 +9,5 @@ urlpatterns = [
     path(r'iday/', views.idayhome, name='idayhome'),
     path(r'wayand/', views.reliefhome, name='reliefhome'),
     path(r'sponsor/', views.sponsor, name='sponsor'),
+    path(r'collective-prayer/', views.collective_prayer, name='collective_prayer'),
 ]

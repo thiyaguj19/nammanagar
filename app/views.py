@@ -11,6 +11,9 @@ def chaturthi(request):
     context = {}
     return render(request, 'chaturthi.html', context)
 
+def collective_prayer(request):
+    return render(request, 'collective_prayer.html')
+
 def sponsor(request):
     events = Events.objects.all()
     sponsor_list = []

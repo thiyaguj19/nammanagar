@@ -1,0 +1,152 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Collective Prayer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #fff8ef;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .box {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 18px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+        }
+
+        h1 {
+            color: #8b3a00;
+        }
+
+        button {
+            background: #d97706;
+            color: white;
+            border: none;
+            padding: 14px 22px;
+            border-radius: 10px;
+            font-size: 18px;
+            margin: 10px;
+            cursor: pointer;
+        }
+
+        video {
+            width: 100%;
+            max-height: 420px;
+            margin-top: 20px;
+            background: black;
+            border-radius: 12px;
+        }
+
+        input {
+            margin-top: 20px;
+        }
+
+        .note {
+            color: #666;
+            font-size: 14px;
+        }
+
+        #status {
+            margin-top: 15px;
+            font-weight: bold;
+            color: #8b3a00;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <h1>Collective Prayer</h1>
+
+        <p>Join together every night at <b>9:00 PM</b> for Collective Prayer.</p>
+
+        <button onclick="startPrayer()">Start Prayer Now</button>
+
+        <br>
+
+        <input type="file" id="videoUpload" accept="video/*" multiple>
+
+        <p class="note">
+            Select multiple video files. They will play one by one like a playlist.
+        </p>
+
+        <video id="player" controls></video>
+
+        <div id="status">No videos selected.</div>
+    </div>
+
+    <script>
+        let videos = [];
+        let currentIndex = 0;
+        let lastAutoPlayDate = "";
+
+        const player = document.getElementById("player");
+        const statusText = document.getElementById("status");
+
+        document.getElementById("videoUpload").addEventListener("change", function(event) {
+            videos = Array.from(event.target.files).map(file => ({
+                name: file.name,
+                url: URL.createObjectURL(file)
+            }));
+
+            currentIndex = 0;
+
+            if (videos.length > 0) {
+                statusText.innerText = videos.length + " video(s) selected. Click Start Prayer.";
+            }
+        });
+
+        function startPrayer() {
+            if (videos.length === 0) {
+                alert("Please upload prayer videos first.");
+                return;
+            }
+
+            currentIndex = 0;
+            playCurrentVideo();
+        }
+
+        function playCurrentVideo() {
+            player.src = videos[currentIndex].url;
+            player.play();
+
+            statusText.innerText = "Playing: " + videos[currentIndex].name;
+        }
+
+        player.addEventListener("ended", function() {
+            currentIndex++;
+
+            if (currentIndex < videos.length) {
+                playCurrentVideo();
+            } else {
+                statusText.innerText = "Prayer playlist completed.";
+            }
+        });
+
+        setInterval(function() {
+            const now = new Date();
+            const today = now.toDateString();
+
+            if (now.getHours() === 21 && now.getMinutes() === 0 && lastAutoPlayDate !== today) {
+                lastAutoPlayDate = today;
+
+                if (videos.length > 0) {
+                    startPrayer();
+                } else {
+                    statusText.innerText = "It is 9:00 PM. Please upload/select prayer videos and start.";
+                    alert("It is 9:00 PM. Time for Collective Prayer.");
+                }
+            }
+        }, 30000);
+    </script>
+</body>
+</html>

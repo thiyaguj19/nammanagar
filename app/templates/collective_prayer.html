@@ -82,7 +82,7 @@
             overflow: hidden;
         }
 
-        .video-wrapper iframe {
+        .video-wrapper div, .video-wrapper iframe {
             position: absolute;
             width: 100%;
             height: 100%;
@@ -95,6 +95,14 @@
             margin-top: 20px;
             font-weight: bold;
             color: #92400e;
+            padding: 10px;
+            border-radius: 6px;
+        }
+        
+        .error-status {
+            color: #b91c1c !important;
+            background: #fef2f2;
+            border: 1px solid #fca5a5;
         }
 
         .quote {
@@ -116,7 +124,6 @@
     <div class="card">
 
         <h1>Collective Prayer</h1>
-
         <p class="time">Daily Prayer Time: 9:00 PM</p>
 
         <p>Paste a YouTube Video or Playlist URL.</p>
@@ -142,12 +149,7 @@
         <p class="note">If the playlist cannot be embedded, click "Open in YouTube".</p>
 
         <div class="video-wrapper">
-            <iframe
-                id="youtubePlayer"
-                src="about:blank"
-                allow="autoplay; encrypted-media"
-                allowfullscreen>
-            </iframe>
+            <div id="youtubePlayer"></div>
         </div>
 
         <div id="status">Ready. Click "Start Prayer" to begin.</div>
@@ -157,18 +159,25 @@
     </div>
 </div>
 
+<script src="https://www.youtube.com/iframe_api"></script>
+
 <script>
 const DEFAULT_PLAYLIST = "https://www.youtube.com/playlist?list=PLfhs93SSoxqw77PEVaGBji2FqNj189aXl";
+let player = null;
+
+// The YouTube API calls this automatically when loaded
+function onYouTubeIframeAPIReady() {
+    console.log("YouTube Player API Ready");
+}
 
 function loadYouTube() {
     const input = document.getElementById("youtubeUrl");
-    const iframe = document.getElementById("youtubePlayer");
     const status = document.getElementById("status");
     const youtubeLink = document.getElementById("youtubeLink");
 
-    // Safety fallback check to prevent code execution if DOM elements are missing
-    if (!input || !iframe || !status || !youtubeLink) return;
+    if (!input || !status || !youtubeLink) return;
 
+    status.className = ""; // Reset status style styles
     let url = input.value.trim();
     if (!url) {
         url = DEFAULT_PLAYLIST;
@@ -179,56 +188,70 @@ function loadYouTube() {
 
     try {
         const parsedUrl = new URL(url);
-        let embedUrl = "";
-        const cacheBuster = "&t=" + new Date().getTime();
+        let targetId = "";
+        let isPlaylist = false;
 
         if (parsedUrl.searchParams.has("list")) {
-            const listId = parsedUrl.searchParams.get("list");
-            embedUrl = "https://www.youtube.com/embed/videoseries?list=" + listId + "&autoplay=1" + cacheBuster;
-            status.innerText = "Prayer playlist loaded.";
-        }
-        else if (
-            parsedUrl.hostname.includes("youtube.com") &&
-            parsedUrl.searchParams.has("v")
-        ) {
-            const videoId = parsedUrl.searchParams.get("v");
-            embedUrl = "https://www.youtube.com/embed/" + videoId + "?autoplay=1" + cacheBuster;
-            status.innerText = "Prayer video loaded.";
-        }
-        else if (parsedUrl.hostname.includes("youtu.be")) {
-            const videoId = parsedUrl.pathname.replace("/", "");
-            embedUrl = "https://www.youtube.com/embed/" + videoId + "?autoplay=1" + cacheBuster;
-            status.innerText = "Prayer video loaded.";
-        }
-        else {
+            targetId = parsedUrl.searchParams.get("list");
+            isPlaylist = true;
+        } else if (parsedUrl.hostname.includes("youtube.com") && parsedUrl.searchParams.has("v")) {
+            targetId = parsedUrl.searchParams.get("v");
+        } else if (parsedUrl.hostname.includes("youtu.be")) {
+            targetId = parsedUrl.pathname.replace("/", "");
+        } else {
             status.innerText = "Invalid YouTube URL.";
             return;
         }
 
-        iframe.src = embedUrl;
+        // Clean up older instances if they exist
+        if (player) {
+            player.destroy();
+        }
+
+        // Initialize Player via the API
+        player = new YT.Player('youtubePlayer', {
+            height: '100%',
+            width: '100%',
+            playerVars: {
+                'autoplay': 1,
+                'listType': isPlaylist ? 'playlist' : undefined,
+                'list': isPlaylist ? targetId : undefined
+            },
+            videoId: isPlaylist ? undefined : targetId,
+            events: {
+                'onReady': function(event) {
+                    status.innerText = isPlaylist ? "Prayer playlist loaded successfully." : "Prayer video loaded successfully.";
+                    event.target.playVideo();
+                },
+                'onError': function(event) {
+                    // Catches error conditions including configuration blocks (Error 153/101/150)
+                    status.innerText = "This content has embedding disabled by YouTube. Please click 'Open in YouTube' above.";
+                    status.className = "error-status";
+                }
+            }
+        });
 
     } catch (e) {
-        status.innerText = "Invalid YouTube URL.";
+        status.innerText = "Error parsing URL.";
     }
 }
 
 function clearPlayer() {
-    const iframe = document.getElementById("youtubePlayer");
+    if (player) {
+        player.destroy();
+        player = null;
+        // Re-inject target placeholder div cleanly
+        const wrapper = document.querySelector('.video-wrapper');
+        wrapper.innerHTML = '<div id="youtubePlayer"></div>';
+    }
     const input = document.getElementById("youtubeUrl");
     const status = document.getElementById("status");
-    
-    if(iframe) iframe.src = "about:blank";
-    if(input) input.value = "";
-    if(status) status.innerText = "Player cleared.";
-}
-
-// Safely listen to DOM content preparation without overwriting other events
-document.addEventListener("DOMContentLoaded", function() {
-    const status = document.getElementById("status");
+    if (input) input.value = "";
     if (status) {
-        status.innerText = "Ready. Click 'Start Prayer' to begin.";
+        status.innerText = "Player cleared.";
+        status.className = "";
     }
-});
+}
 
 /* 9 PM reminder loop */
 let lastReminderDate = "";

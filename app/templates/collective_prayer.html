@@ -128,7 +128,7 @@
 
         <br>
 
-        <button onclick="loadYouTube()">Start Prayer</button>
+        <button onclick="loadYouTube(false)">Start Prayer</button>
 
         <button onclick="clearPlayer()">Clear</button>
 
@@ -171,7 +171,8 @@
 const DEFAULT_PLAYLIST =
 "https://www.youtube.com/playlist?list=PLfhs93SSoxqw77PEVaGBji2FqNj189aXl";
 
-function loadYouTube() {
+// Modified to accept a boolean parameter controlling the autoplay addition
+function loadYouTube(isInitialLoad = false) {
 
     const input = document.getElementById("youtubeUrl");
     const iframe = document.getElementById("youtubePlayer");
@@ -190,8 +191,11 @@ function loadYouTube() {
     try {
 
         const parsedUrl = new URL(url);
-
         let embedUrl = "";
+
+        // Determine if parameters are initialized cleanly without causing browser autoplay errors
+        let playlistAutoplay = isInitialLoad ? "" : "&autoplay=1";
+        let singleVideoAutoplay = isInitialLoad ? "" : "?autoplay=1";
 
         if (parsedUrl.searchParams.has("list")) {
 
@@ -200,7 +204,7 @@ function loadYouTube() {
             embedUrl =
                 "https://www.youtube.com/embed/videoseries?list=" +
                 listId +
-                "&autoplay=1";
+                playlistAutoplay;
 
             status.innerText = "Prayer playlist loaded.";
 
@@ -215,7 +219,7 @@ function loadYouTube() {
             embedUrl =
                 "https://www.youtube.com/embed/" +
                 videoId +
-                "?autoplay=1";
+                singleVideoAutoplay;
 
             status.innerText = "Prayer video loaded.";
         }
@@ -227,7 +231,7 @@ function loadYouTube() {
             embedUrl =
                 "https://www.youtube.com/embed/" +
                 videoId +
-                "?autoplay=1";
+                singleVideoAutoplay;
 
             status.innerText = "Prayer video loaded.";
         }
@@ -253,9 +257,9 @@ function clearPlayer() {
         "Player cleared.";
 }
 
-/* Auto-load default playlist when page opens */
+/* Auto-load default playlist when page opens WITHOUT violent autoplay bans */
 window.onload = function() {
-    loadYouTube();
+    loadYouTube(true);
 };
 
 /* 9 PM reminder */
@@ -278,6 +282,9 @@ setInterval(function () {
 
         document.getElementById("status").innerText =
             "It is 9:00 PM. Time for Collective Prayer.";
+            
+        // Trigger player configuration with autoplay because the user interacted with an alert ok-button
+        loadYouTube(false);
     }
 
 }, 30000);

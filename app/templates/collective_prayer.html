@@ -1,58 +1,85 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Collective Prayer</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background: #fff8ef;
             margin: 0;
-            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: #fff7ed;
+            color: #333;
             text-align: center;
         }
 
-        .box {
-            max-width: 800px;
-            margin: auto;
-            background: white;
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: #ffffff;
             padding: 25px;
             border-radius: 18px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+            box-shadow: 0 4px 18px rgba(0,0,0,0.12);
         }
 
         h1 {
             color: #8b3a00;
+            margin-bottom: 10px;
+        }
+
+        .time {
+            font-size: 20px;
+            font-weight: bold;
+            color: #b45309;
+        }
+
+        input {
+            width: 90%;
+            max-width: 650px;
+            padding: 14px;
+            font-size: 16px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            margin-top: 15px;
         }
 
         button {
             background: #d97706;
             color: white;
             border: none;
-            padding: 14px 22px;
+            padding: 13px 22px;
             border-radius: 10px;
-            font-size: 18px;
-            margin: 10px;
+            font-size: 17px;
+            margin: 12px 6px;
             cursor: pointer;
         }
 
-        video {
+        button:hover {
+            background: #b45309;
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            margin-top: 20px;
+            overflow: hidden;
+            border-radius: 14px;
+            background: #000;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            max-height: 420px;
-            margin-top: 20px;
-            background: black;
-            border-radius: 12px;
-        }
-
-        input {
-            margin-top: 20px;
-        }
-
-        .note {
-            color: #666;
-            font-size: 14px;
+            height: 100%;
         }
 
         #status {
@@ -60,93 +87,139 @@
             font-weight: bold;
             color: #8b3a00;
         }
+
+        .note {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .quote {
+            margin-top: 25px;
+            font-style: italic;
+            color: #7c2d12;
+        }
     </style>
 </head>
 
 <body>
-    <div class="box">
+
+<div class="container">
+    <div class="card">
         <h1>Collective Prayer</h1>
 
-        <p>Join together every night at <b>9:00 PM</b> for Collective Prayer.</p>
+        <p class="time">Daily Prayer Time: 9:00 PM</p>
 
-        <button onclick="startPrayer()">Start Prayer Now</button>
+        <p>
+            Paste a YouTube video link or YouTube playlist link below and start the prayer.
+        </p>
+
+        <input
+            type="text"
+            id="youtubeUrl"
+            placeholder="Paste YouTube video or playlist link here">
 
         <br>
 
-        <input type="file" id="videoUpload" accept="video/*" multiple>
+        <button onclick="loadYouTube()">Start Prayer</button>
+        <button onclick="clearPlayer()">Clear</button>
 
         <p class="note">
-            Select multiple video files. They will play one by one like a playlist.
+            Supports normal YouTube links, short links, and playlist links.
         </p>
 
-        <video id="player" controls></video>
+        <div class="video-wrapper">
+            <iframe
+                id="youtubePlayer"
+                src=""
+                frameborder="0"
+                allow="autoplay; encrypted-media; picture-in-picture"
+                allowfullscreen>
+            </iframe>
+        </div>
 
-        <div id="status">No videos selected.</div>
+        <div id="status">Waiting for YouTube link.</div>
+
+        <p class="quote">
+            “When there is unity in prayer, there is peace in the family.”
+        </p>
     </div>
+</div>
 
-    <script>
-        let videos = [];
-        let currentIndex = 0;
-        let lastAutoPlayDate = "";
+<script>
+    let lastReminderDate = "";
 
-        const player = document.getElementById("player");
+    function loadYouTube() {
+        const input = document.getElementById("youtubeUrl");
+        const iframe = document.getElementById("youtubePlayer");
         const statusText = document.getElementById("status");
 
-        document.getElementById("videoUpload").addEventListener("change", function(event) {
-            videos = Array.from(event.target.files).map(file => ({
-                name: file.name,
-                url: URL.createObjectURL(file)
-            }));
+        const url = input.value.trim();
 
-            currentIndex = 0;
+        if (!url) {
+            alert("Please paste a YouTube video or playlist link.");
+            return;
+        }
 
-            if (videos.length > 0) {
-                statusText.innerText = videos.length + " video(s) selected. Click Start Prayer.";
+        let embedUrl = "";
+
+        try {
+            const parsedUrl = new URL(url);
+
+            // YouTube playlist
+            if (parsedUrl.searchParams.has("list")) {
+                const listId = parsedUrl.searchParams.get("list");
+                embedUrl = "https://www.youtube.com/embed/videoseries?list=" + listId;
             }
-        });
 
-        function startPrayer() {
-            if (videos.length === 0) {
-                alert("Please upload prayer videos first.");
+            // Normal YouTube video
+            else if (parsedUrl.hostname.includes("youtube.com") && parsedUrl.searchParams.has("v")) {
+                const videoId = parsedUrl.searchParams.get("v");
+                embedUrl = "https://www.youtube.com/embed/" + videoId;
+            }
+
+            // YouTube short link
+            else if (parsedUrl.hostname.includes("youtu.be")) {
+                const videoId = parsedUrl.pathname.replace("/", "");
+                embedUrl = "https://www.youtube.com/embed/" + videoId;
+            }
+
+            // YouTube shorts
+            else if (parsedUrl.pathname.includes("/shorts/")) {
+                const videoId = parsedUrl.pathname.split("/shorts/")[1];
+                embedUrl = "https://www.youtube.com/embed/" + videoId;
+            }
+
+            else {
+                alert("Invalid YouTube link. Please paste a valid YouTube video or playlist link.");
                 return;
             }
 
-            currentIndex = 0;
-            playCurrentVideo();
+            iframe.src = embedUrl + (embedUrl.includes("?") ? "&" : "?") + "autoplay=1";
+            statusText.innerText = "Prayer video loaded.";
+
+        } catch (error) {
+            alert("Invalid link. Please paste a valid YouTube link.");
         }
+    }
 
-        function playCurrentVideo() {
-            player.src = videos[currentIndex].url;
-            player.play();
+    function clearPlayer() {
+        document.getElementById("youtubePlayer").src = "";
+        document.getElementById("youtubeUrl").value = "";
+        document.getElementById("status").innerText = "Waiting for YouTube link.";
+    }
 
-            statusText.innerText = "Playing: " + videos[currentIndex].name;
+    // 9 PM reminder
+    setInterval(function () {
+        const now = new Date();
+        const today = now.toDateString();
+
+        if (now.getHours() === 21 && now.getMinutes() === 0 && lastReminderDate !== today) {
+            lastReminderDate = today;
+            alert("It is 9:00 PM. Time for Collective Prayer.");
+            document.getElementById("status").innerText = "It is 9:00 PM. Please start Collective Prayer.";
         }
+    }, 30000);
+</script>
 
-        player.addEventListener("ended", function() {
-            currentIndex++;
-
-            if (currentIndex < videos.length) {
-                playCurrentVideo();
-            } else {
-                statusText.innerText = "Prayer playlist completed.";
-            }
-        });
-
-        setInterval(function() {
-            const now = new Date();
-            const today = now.toDateString();
-
-            if (now.getHours() === 21 && now.getMinutes() === 0 && lastAutoPlayDate !== today) {
-                lastAutoPlayDate = today;
-
-                if (videos.length > 0) {
-                    startPrayer();
-                } else {
-                    statusText.innerText = "It is 9:00 PM. Please upload/select prayer videos and start.";
-                    alert("It is 9:00 PM. Time for Collective Prayer.");
-                }
-            }
-        }, 30000);
-    </script>
 </body>
 </html>

@@ -1,182 +1,25 @@
+{% load static %}
 <!doctype html>
-<html lang="en">
-  {% load static %}
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.88.1">
-    <title>Namma Nagar</title>
-
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/carousel/">
-
-    
-
-    <!-- Bootstrap core CSS -->
-<link href="{% static 'app/css/bootstrap.min.css' %}" rel="stylesheet">
-
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-
-      .bg-color {
-        background: rgb(131,58,180);
-        background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
-
-    
-    <!-- Custom styles for this template -->
-    <link href="{% static 'app/css/carousel.css' %}" rel="stylesheet">
-  </head>
-  <body>
-    
-<header>
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-color">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="{% url 'nagarhome' %}">Namma Nagar</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav me-auto mb-2 mb-md-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'nagarhome' %}">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'idayhome' %}">Independence</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'reliefhome' %}">Wayanad</a>
-          </li>
-        </ul>
-        <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-      </div>
-    </div>
-  </nav>
-</header>
-
-<main>
-
-  <div id="myCarousel" class="carousel slide mt-5" data-bs-ride="carousel">
-    <div class="carousel-indicators">
-      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    </div>
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
-
-        <div class="container">
-          <div class="carousel-caption text-start">
-            <h3>அன்பார்ந்த அரவிந்த நகர் குடியிருப்பாளர்கள் மற்றும் உறவினர்களுக்கு,</h3>
-            <p>சமீபத்தில் வயநாட்டில் ஏற்பட்ட நிலச்சரிவு சோகத்தின் போது உங்கள் தாராளமான ஆதரவிற்கும் கருணைக்கும் நாங்கள் ஆழ்ந்த நன்றியைத் தெரிவித்துக் கொள்கிறோம். இந்த அழிவுகரமான நிகழ்வால் பாதிக்கப்பட்டவர்களுக்கு நிவாரணம் மற்றும் ஆறுதல் அளிப்பதில் உங்கள் பங்களிப்புகள் குறிப்பிடத்தக்க மாற்றத்தை ஏற்படுத்தியுள்ளன.</p>
-            <p>உங்கள் இரக்கமும், தேவைப்படும் சமயங்களில் முன்னேறும் விருப்பமும் எங்கள் சமூகத்தின் வலிமையையும் ஒற்றுமையையும் உண்மையாகவே எடுத்துக்காட்டுகின்றன. உங்கள் உதவிக்கு நன்றி, எங்களால் மிகவும் தேவையானவர்களுக்கு அத்தியாவசிய நிவாரணப் பொருட்களை வழங்க முடிந்தது.</p>
-            <p>எங்கள் இதயங்களின் அடிப்பகுதியில் இருந்து, உங்கள் அசைக்க முடியாத ஆதரவிற்காகவும், பலரின் வாழ்க்கையில் நேர்மறையான தாக்கத்தை ஏற்படுத்தியதற்காகவும் நன்றி. ஒன்றாக, நாம் வலிமையானவர்கள் மற்றும் கடினமான சவால்களை கூட சமாளிக்க முடியும்.</p>
-            <p>அரவிந்த நகர் சங்கம் சார்பில் மனப்பூர்வமான நன்றியுடன்</p>
-          </div>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
-
-        <div class="container">
-          <div class="carousel-caption">
-            <h1>77வது சுதந்திர தின விழா</h1>
-            <p>அரவிந்த நகர், கே.எஸ் கார்டன், ஐஸ்வர்யம் கார்டன், இந்திரா நகர் பொது மக்கள்</p>
-            <p>ஒருங்கிணைந்த சுதந்திர தின விழாவிற்கு அனைவரையும் வருக வருக என வரவேற்கிறோம்</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
-  </div>
-
-
-  <!-- Marketing messaging and featurettes
-  ================================================== -->
-  <!-- Wrap the rest of the page in another container to center all the content. -->
-
-  <div class="container marketing">
-
-    <!-- START THE FEATURETTES -->
-
-    <hr class="featurette-divider">
-
-    <div class="row featurette">
-      <div class="col-md-7">
-        <h2>வயநாடு நிலச்சரிவு [01-August-2024]</h2>
-        <p class="lead mt-4">அனைவருக்கும் வணக்கம்,</p>
-        <p>நமது கேரளா வயநாடு மக்கள் நிவாரண நிதி மற்றும் உணவு பொருள்கள் அளிக்க விருப்பம் உள்ளவர்கள் தகவல் தெருவிக்கவும்</p>
-        <p class="lead">நன்றி!</p>
-        <p class="lead">அவர்கள் மீண்டு வர இறைவனை பிராத்திப்போம் </p>
-      </div>
-      <div class="col-md-5">
-        <img class="img-fluid" src="https://nammanagar.s3.eu-north-1.amazonaws.com/nationalrelief/IMG_DRONE_Wayand.jpg" alt="Wayand Drone Image">
-      </div>
-    </div>
-
-    <hr class="featurette-divider">
-
-    <div class="row featurette">
-      <div class="col-md-7 order-md-2">
-        <h2>நிவாரண பொருள்</span></h2>
-        <p>கோவை லயன்ஸ் கிளப்பில் ஞாயிற்றுக்கிழமை (04-August-2024) நிவாரணப் பொருட்கள் வைக்கப்பட்டன. 
-
-          பொருட்களை பேக்கிங் செய்து டெபாசிட் செய்ததற்காக பின்வருபவர்களுக்கு நன்றி தெரிவிக்கிறோம்
-          <ul>
-            <li>பத்மநாபன்</li>
-            <li>ரமேஷ்</li>
-            <li>ராஜா</li>
-            <li>மனோஜ்</li>
-          </ul>
-        </p>
-        <p>அனைவருக்கும் நன்றி!</p>
-      </div>
-      <div class="col-md-5 order-md-1">
-        <img class="img-fluid" src="{{picture}}" alt="Wayand Drone Image">
-      </div>
-    </div>
-
-    <hr class="featurette-divider">
-
-    <!-- /END THE FEATURETTES -->
-
-  </div><!-- /.container -->
-
-
-  <!-- FOOTER -->
-  <footer class="container">
-    <p class="float-end"><a href="#">Back to top</a></p>
-    <p>&copy; Namma Nagar. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
-  </footer>
-</main>
-
-
-    <script src="{% static 'app/js/bootstrap.bundle.min.js' %}"></script>
-
-      
-  </body>
+<html lang="ta">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="வயநாடு நிவாரண முயற்சி — நம்ம நகரம்.">
+  <title>வயநாடு நிவாரணம் | நம்ம நகரம்</title>
+  <link href="{% static 'app/css/bootstrap.min.css' %}" rel="stylesheet">
+  <style>
+    :root{--paper:#f7f2e9;--deep:#0c2721;--green:#15372f;--sun:#f6b941;--coral:#e76f51;--mist:#dce8de;--muted:#577169}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--deep);font-family:system-ui,-apple-system,"Noto Sans Tamil",sans-serif}.wrap{width:min(100% - 2.5rem,1280px);margin:auto}.topbar{padding:1.1rem 0;display:flex;align-items:center;justify-content:space-between}.brand{display:flex;align-items:center;gap:.7rem;text-decoration:none;color:var(--deep);font-weight:800;font-size:1.25rem}.brand img{width:42px;height:42px;border-radius:50%;object-fit:cover;box-shadow:0 3px var(--sun)}.home{padding:.65rem 1rem;border-radius:99px;background:var(--green);color:#fff;text-decoration:none;font-weight:800}.hero{position:relative;overflow:hidden;min-height:500px;display:grid;grid-template-columns:1fr .95fr;border-radius:28px;background:var(--green);color:#fff}.hero:after{content:"";position:absolute;right:-100px;bottom:-150px;width:500px;height:500px;border-radius:50%;background:var(--coral)}.hero-copy{z-index:1;padding:clamp(2.4rem,6vw,6rem);align-self:center}.eyebrow{color:var(--sun);font-size:.77rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase}.hero h1,.title,h2{font-family:Georgia,"Noto Serif Tamil",serif}.hero h1{margin:.6rem 0 1.1rem;font-size:clamp(3rem,6vw,5.8rem);line-height:.93;letter-spacing:-.06em}.hero p{max-width:520px;color:#d6e6da;font-size:1.1rem;line-height:1.7}.hero-image{z-index:1;min-height:300px;position:relative}.hero-image img{width:100%;height:100%;object-fit:cover;mix-blend-mode:luminosity;opacity:.82}.hero-image:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--green),transparent 40%)}.section{padding:clamp(4rem,8vw,7.5rem) 0}.intro{max-width:800px;margin:auto;text-align:center}.title{margin:.3rem 0 1rem;font-size:clamp(2.2rem,4vw,4rem);letter-spacing:-.055em}.intro p,.copy p{color:var(--muted);font-size:1.1rem;line-height:1.8}.statement{padding:clamp(2rem,5vw,4rem);border-radius:24px;background:var(--mist);text-align:center}.statement blockquote{max-width:850px;margin:0 auto;font-family:Georgia,"Noto Serif Tamil",serif;font-size:clamp(1.7rem,3.3vw,3rem);line-height:1.2;letter-spacing:-.04em}.statement cite{display:block;margin-top:1.5rem;color:var(--coral);font:700 .85rem system-ui;letter-spacing:.1em;text-transform:uppercase}.story{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:clamp(2rem,8vw,8rem);padding:clamp(3.5rem,7vw,7rem) 0;border-bottom:1px solid #d5cec0}.story.flip{grid-template-columns:1fr 1fr}.story-image{position:relative;min-height:390px;overflow:hidden;border-radius:23px;background:var(--coral)}.story-image img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.story-image span{position:absolute;z-index:1;left:1.2rem;bottom:1.2rem;padding:.45rem .7rem;border-radius:99px;background:var(--sun);font-size:.78rem;font-weight:800}.copy h2{margin:.4rem 0 1.2rem;font-size:clamp(2rem,3.5vw,3.6rem);letter-spacing:-.05em}.help-list{padding:0;margin:1.4rem 0 0;display:grid;grid-template-columns:repeat(2,1fr);gap:.7rem;list-style:none}.help-list li{padding:.8rem 1rem;border-radius:12px;background:#fff;color:var(--green);font-weight:750}.help-list li:before{content:"✓";margin-right:.55rem;color:var(--coral)}.thanks{padding:clamp(2rem,5vw,4rem);border-radius:25px;background:var(--coral);color:white;display:flex;align-items:center;justify-content:space-between;gap:2rem}.thanks h2{margin:0;max-width:750px;font-size:clamp(2rem,4vw,3.6rem);line-height:1;letter-spacing:-.055em}.thanks a{padding:.85rem 1.2rem;border-radius:99px;background:var(--deep);color:#fff;text-decoration:none;font-weight:800;white-space:nowrap}footer{padding:2rem 0;color:#657a72;font-size:.9rem}footer .wrap{display:flex;justify-content:space-between}@media(max-width:800px){.hero,.story,.story.flip{grid-template-columns:1fr}.hero-image{min-height:270px}.hero-image:after{background:linear-gradient(0deg,var(--green),transparent 40%)}.story-image{min-height:300px}.story.flip .story-image{order:0}.thanks{align-items:flex-start;flex-direction:column}}@media(max-width:560px){.wrap{width:min(100% - 1.5rem,1280px)}.hero{border-radius:20px}.hero-copy{padding:2.5rem 1.6rem}.help-list{grid-template-columns:1fr}footer .wrap{flex-direction:column;gap:.5rem}}
+  </style>
+</head>
+<body>
+  <header class="wrap topbar"><a class="brand" href="{% url 'nagarhome' %}"><img src="{% static 'app/NammaNagarIcon.jpeg' %}" alt="நம்ம நகரம்"><span>நம்ம நகரம்</span></a><a class="home" href="{% url 'nagarhome' %}">முகப்புப் பக்கம்</a></header>
+  <main>
+    <section class="wrap hero"><div class="hero-copy"><span class="eyebrow">சமூக நிவாரண முயற்சி · ஆகஸ்ட் 2024</span><h1>துணை நிற்கும்<br>கைகள்.</h1><p>வயநாட்டில் ஏற்பட்ட நிலச்சரிவால் பாதிக்கப்பட்ட மக்களுக்காக, நம் சமூகத்தினர் ஒன்றிணைந்து நிவாரணப் பொருட்களையும் ஆதரவையும் வழங்கினர்.</p></div><div class="hero-image"><img src="https://nammanagar.s3.eu-north-1.amazonaws.com/nationalrelief/IMG_DRONE_Wayand.jpg" alt="வயநாடு நிலச்சரிவு பகுதி"></div></section>
+    <section class="wrap section"><div class="intro"><span class="eyebrow" style="color:var(--coral)">நன்றியுடன்</span><h1 class="title">ஒன்றிணைந்த மனிதநேயம்</h1><p>அன்பார்ந்த அரவிந்த நகர் குடியிருப்பாளர்கள் மற்றும் உறவினர்களுக்கு, உங்கள் தாராளமான ஆதரவும் கருணையும் நிவாரண முயற்சியில் குறிப்பிடத்தக்க மாற்றத்தை ஏற்படுத்தியது. தேவைப்படும் நேரத்தில் முன்னேறி உதவுவது நம் சமூகத்தின் வலிமையை உணர்த்துகிறது.</p></div></section>
+    <section class="wrap statement"><blockquote>“உங்கள் உதவியால், மிகவும் தேவைப்படுபவர்களுக்கு அத்தியாவசிய நிவாரணப் பொருட்களை வழங்க முடிந்தது.”</blockquote><cite>அரவிந்த நகர் சங்கம்</cite></section>
+    <section class="wrap"><article class="story"><div class="copy"><span class="eyebrow" style="color:var(--coral)">01 · நிவாரண அழைப்பு</span><h2>வயநாடு மக்களுக்காக ஒன்றிணைந்தோம்.</h2><p>கேரளா வயநாடு மக்களுக்கான நிவாரண நிதி மற்றும் உணவுப் பொருட்களை வழங்க விரும்பிய அனைவரும் இணைந்தனர். ஒவ்வொரு பங்களிப்பும் நம்பிக்கையை அளித்தது.</p><p>அவர்கள் மீண்டு வர இறைவனைப் பிரார்த்திப்போம்.</p></div><div class="story-image"><img src="https://nammanagar.s3.eu-north-1.amazonaws.com/nationalrelief/IMG_DRONE_Wayand.jpg" alt="வயநாடு"><span>01 ஆகஸ்ட் 2024</span></div></article><article class="story flip"><div class="story-image"><img src="{{ picture }}" alt="நிவாரணப் பொருட்கள்"><span>04 ஆகஸ்ட் 2024</span></div><div class="copy"><span class="eyebrow" style="color:var(--coral)">02 · நிவாரணப் பொருட்கள்</span><h2>அக்கறையுடன் தயாரான உதவிகள்.</h2><p>கோவை லயன்ஸ் கிளப்பில் நிவாரணப் பொருட்கள் சேகரிக்கப்பட்டு, பேக்கிங் செய்து அனுப்பத் தயாராக்கப்பட்டன. இந்த முயற்சியில் உதவிய அனைவருக்கும் மனமார்ந்த நன்றி.</p><ul class="help-list"><li>பத்மநாபன்</li><li>ரமேஷ்</li><li>ராஜா</li><li>மனோஜ்</li></ul></div></article></section>
+    <section class="wrap section"><div class="thanks"><h2>உதவிய ஒவ்வொருவருக்கும் நன்றியுடன்.</h2><a href="{% url 'nagarhome' %}">நம்ம நகரம் செல்ல →</a></div></section>
+  </main>
+  <footer><div class="wrap"><span>© {% now "Y" %} நம்ம நகரம்</span><a href="#top">மேலே செல்ல ↑</a></div></footer>
+</body>
 </html>

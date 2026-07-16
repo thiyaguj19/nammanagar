@@ -1,273 +1,121 @@
 {% load static %}
-
 <!doctype html>
-<html lang="en" data-bs-theme="auto">
-  <head><script src="../assets/js/color-modes.js"></script>
+<html lang="ta" data-bs-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Namma Nagar community stories, celebrations and initiatives.">
+  <title>நம்ம நகரம் | Namma Nagar</title>
+  <link href="{% static 'app/css/bootstrap.min.css' %}" rel="stylesheet">
+  <style>
+    :root { --navy: #071a2b; --navy-deep: #04111d; --mint: #63d6c0; --coral: #ff7867; --paper: #f5f3ed; --muted: #aebeca; }
+    body { background: var(--navy-deep); color: var(--paper); }
+    .site-header { background: rgba(4,17,29,.85); backdrop-filter: blur(14px); }
+    .navbar-brand { color: var(--paper); letter-spacing: -.02em; }
+    .brand-icon { width: 36px; height: 36px; object-fit: cover; border-radius: 50%; }
+    .nav-link { color: #cedbe3; } .nav-link:hover { color: var(--mint); }
+    .carousel-item { height: min(72vh, 680px); min-height: 520px; background: var(--navy); }
+    .carousel-item img { width: 100%; height: 100%; object-fit: cover; opacity: .55; }
+    .carousel-item::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(4,17,29,.92) 0%, rgba(4,17,29,.48) 52%, rgba(4,17,29,.15) 100%); }
+    .carousel-caption { z-index: 1; right: auto; bottom: 16%; left: max(6vw, calc((100vw - 1140px)/2)); width: min(590px, 82vw); text-align: left; }
+    .eyebrow { color: var(--mint); font-size: .75rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+    .carousel-caption h1 { font-size: clamp(3rem, 6vw, 5.5rem); line-height: .95; letter-spacing: -.06em; }
+    .carousel-caption p { color: #d8e2e7; font-size: clamp(1rem, 1.8vw, 1.2rem); }
+    .btn-mint { --bs-btn-bg: var(--mint); --bs-btn-border-color: var(--mint); --bs-btn-color: #052237; --bs-btn-hover-bg: #9df3df; --bs-btn-hover-border-color: #9df3df; --bs-btn-hover-color: #052237; font-weight: 700; }
+    .btn-coral { --bs-btn-bg: var(--coral); --bs-btn-border-color: var(--coral); --bs-btn-color: #32110f; --bs-btn-hover-bg: #ffab9f; --bs-btn-hover-border-color: #ffab9f; --bs-btn-hover-color: #32110f; font-weight: 700; }
+    .story-intro { background: var(--paper); color: var(--navy-deep); }
+    .story-intro .text-muted { color: #526675 !important; }
+    .round-image { aspect-ratio: 1; width: min(180px, 55vw); object-fit: cover; border: 8px solid white; box-shadow: 0 14px 35px rgba(7,26,43,.16); }
+    .story-intro h2 { letter-spacing: -.04em; }
+    .feature { border-top: 1px solid rgba(255,255,255,.17); }
+    .feature h2 { letter-spacing: -.045em; }
+    .feature-copy { color: var(--muted); font-size: 1.1rem; }
+    .feature-image { min-height: 340px; height: 100%; object-fit: cover; border-radius: 1.25rem; }
+    .quote-panel { background: linear-gradient(135deg, #0d3449, #082438); border-radius: 1.25rem; }
+    footer { border-top: 1px solid rgba(255,255,255,.16); color: var(--muted); }
+    @media (max-width: 767.98px) { .carousel-item { min-height: 560px; } .carousel-caption { bottom: 12%; } .feature-image { min-height: 260px; } }
+  </style>
+</head>
+<body>
+  <header class="site-header sticky-top border-bottom border-light border-opacity-10">
+    <nav class="navbar navbar-expand-md container py-3" aria-label="Main navigation">
+      <a class="navbar-brand d-flex align-items-center gap-2 fw-bold" href="#top">
+        <img class="brand-icon" src="{% static 'app/NammaNagarIcon.jpeg' %}" alt="Namma Nagar logo">
+        <span>நம்ம நகரம்</span>
+      </a>
+      <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto align-items-md-center gap-md-2">
+          <li class="nav-item"><a class="nav-link" href="#stories">நிகழ்வுகள்</a></li>
+          <li class="nav-item"><a class="nav-link" href="#community">சமூகம்</a></li>
+          <li class="nav-item ms-md-2"><a class="btn btn-sm btn-mint rounded-pill px-3" href="{% url 'sponsor' %}">ஆதரவு அளியுங்கள்</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.118.2">
-    <title>Namma Nagar / நம்ம நகர்</title>
-
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/masonry/">
-
-    
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
-
-    <link href="{% static 'app/css/bootstrap.min.css' %}" rel="stylesheet">
-
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-
-      .b-example-divider {
-        width: 100%;
-        height: 3rem;
-        background-color: rgba(0, 0, 0, .1);
-        border: solid rgba(0, 0, 0, .15);
-        border-width: 1px 0;
-        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
-      }
-
-      .b-example-vr {
-        flex-shrink: 0;
-        width: 1.5rem;
-        height: 100vh;
-      }
-
-      .bi {
-        vertical-align: -.125em;
-        fill: currentColor;
-      }
-
-      .nav-scroller {
-        position: relative;
-        z-index: 2;
-        height: 2.75rem;
-        overflow-y: hidden;
-      }
-
-      .nav-scroller .nav {
-        display: flex;
-        flex-wrap: nowrap;
-        padding-bottom: 1rem;
-        margin-top: -1px;
-        overflow-x: auto;
-        text-align: center;
-        white-space: nowrap;
-        -webkit-overflow-scrolling: touch;
-      }
-
-      .btn-bd-primary {
-        --bd-violet-bg: #712cf9;
-        --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
-
-        --bs-btn-font-weight: 600;
-        --bs-btn-color: var(--bs-white);
-        --bs-btn-bg: var(--bd-violet-bg);
-        --bs-btn-border-color: var(--bd-violet-bg);
-        --bs-btn-hover-color: var(--bs-white);
-        --bs-btn-hover-bg: #6528e0;
-        --bs-btn-hover-border-color: #6528e0;
-        --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
-        --bs-btn-active-color: var(--bs-btn-hover-color);
-        --bs-btn-active-bg: #5a23c8;
-        --bs-btn-active-border-color: #5a23c8;
-      }
-
-      .bd-mode-toggle {
-        z-index: 1500;
-      }
-
-      .bd-mode-toggle .dropdown-menu .active .bi {
-        display: block !important;
-      }
-    </style>
-
-    
-  </head>
-  <body>
-    <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
-      <symbol id="check2" viewBox="0 0 16 16">
-        <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-      </symbol>
-      <symbol id="circle-half" viewBox="0 0 16 16">
-        <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"/>
-      </symbol>
-      <symbol id="moon-stars-fill" viewBox="0 0 16 16">
-        <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/>
-        <path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"/>
-      </symbol>
-      <symbol id="sun-fill" viewBox="0 0 16 16">
-        <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
-      </symbol>
-    </svg>
-
-    <div class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
-      <button class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center"
-              id="bd-theme"
-              type="button"
-              aria-expanded="false"
-              data-bs-toggle="dropdown"
-              aria-label="Toggle theme (auto)">
-        <svg class="bi my-1 theme-icon-active" width="1em" height="1em"><use href="#circle-half"></use></svg>
-        <span class="visually-hidden" id="bd-theme-text">Toggle theme</span>
-      </button>
-      <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="bd-theme-text">
-        <li>
-          <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
-            <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"><use href="#sun-fill"></use></svg>
-            Light
-            <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
-          </button>
-        </li>
-        <li>
-          <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
-            <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"><use href="#moon-stars-fill"></use></svg>
-            Dark
-            <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
-          </button>
-        </li>
-        <li>
-          <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto" aria-pressed="true">
-            <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"><use href="#circle-half"></use></svg>
-            Auto
-            <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
-          </button>
-        </li>
-      </ul>
+  <main id="top">
+    <div id="communityCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#communityCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Vinayagar Chaturthi"></button>
+        <button type="button" data-bs-target="#communityCarousel" data-bs-slide-to="1" aria-label="Independence Day"></button>
+        <button type="button" data-bs-target="#communityCarousel" data-bs-slide-to="2" aria-label="Wayanad Relief"></button>
+      </div>
+      <div class="carousel-inner">
+        <section class="carousel-item active">
+          <img src="https://nammanagar.s3.eu-north-1.amazonaws.com/ganesh/1.jpg" alt="Vinayagar Chaturthi celebration">
+          <div class="carousel-caption">
+            <p class="eyebrow">செப்டம்பர் 2024 · அரவிந்த் நகர்</p>
+            <h1 class="fw-bold">கொண்டாடும்<br>நம் நகரம்.</h1>
+            <p class="mt-3 mb-4">ஸ்ரீ செல்வ விநாயகர் ஆலயத்தில் நடைபெற்ற விநாயகர் சதுர்த்தியின் நினைவுகள்.</p>
+            <a class="btn btn-mint btn-lg rounded-pill px-4" href="{% url 'chaturthi' %}">நிகழ்வைப் பார்க்க</a>
+          </div>
+        </section>
+        <section class="carousel-item">
+          <img src="https://nammanagar.blr1.cdn.digitaloceanspaces.com/I-day-2024/iday-6.jpeg" alt="Independence Day celebration">
+          <div class="carousel-caption">
+            <p class="eyebrow">ஆகஸ்ட் 2024 · கோயம்புத்தூர்</p>
+            <h1 class="fw-bold">ஒன்றாய்<br>உயரும் பெருமிதம்.</h1>
+            <p class="mt-3 mb-4">கொடியேற்றமும் தேசிய கீதமும் இணைத்த ஒரு அழகான காலை.</p>
+            <a class="btn btn-coral btn-lg rounded-pill px-4" href="{% url 'idayhome' %}">நினைவுகளைப் பார்க்க</a>
+          </div>
+        </section>
+        <section class="carousel-item">
+          <img src="{% static 'app/IMG_DRONE_Wayand.jpg' %}" alt="Wayanad landscape">
+          <div class="carousel-caption">
+            <p class="eyebrow">சமூக முயற்சி</p>
+            <h1 class="fw-bold">தேவைப்படும்<br>நேரத்தில் துணை.</h1>
+            <p class="mt-3 mb-4">வயநாடு நிவாரணத்திற்காக ஒன்றிணைந்த நமது சமூகத்தின் முயற்சி.</p>
+            <a class="btn btn-mint btn-lg rounded-pill px-4" href="{% url 'reliefhome' %}">முயற்சியை அறிய</a>
+          </div>
+        </section>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#communityCarousel" data-bs-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="visually-hidden">Previous</span></button>
+      <button class="carousel-control-next" type="button" data-bs-target="#communityCarousel" data-bs-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span><span class="visually-hidden">Next</span></button>
     </div>
 
-    
-<main class="container py-3">
-
-<!-- Image and text -->
-<nav class="navbar navbar-light justify-content-center">
-  <a class="navbar-brand" href="#">
-    <h1 class="display-1 text-center bg-warning shadow-lg p-3 mb-3 rounded">
-    <img src="https://nammanagar.s3.eu-north-1.amazonaws.com/nagarlogo/Nagar.png" width="150" height="150" class="d-inline-block align-top" alt="">
-    நம்ம நகர்
-    </h1>
-  </a>
-</nav>
-
-<!-- 
-  <div class="alert alert-danger" role="alert">
-    <h3 class="text-center">நாங்கள் இந்த வலைத்தளத்தின் முகப்பு பக்கத்தில் வேலை செய்கிறோம். தயவுசெய்து பின்னர் வந்து பார்வையிடவும்</h3>
-  </div>
--->
-
-  <hr class="my-3">
-  <div class="row" data-masonry='{"percentPosition": true }'>
-    <div class="col-sm-6 col-lg-4 mb-4">
-      <div class="card">
-        <img class="card-img-top" src="https://nammanagar.s3.eu-north-1.amazonaws.com/ganesh/1.jpg">
-        <div class="card-body bg-black">
-          <h5 class="card-title">
-            <div class="card-title d-inline bg-primary text-white fs-4">விநாயகர் சதுர்த்தி, செப்டம்பர் 2024</div>
-          </h5>
-          <p class="card-text text-warning fs-5">
-            கோயம்புத்தூர் கே.என்.ஜி புதூர் பிரிவு அரவிந்த நகரில் அமைந்துள்ள ஸ்ரீ செல்வ விநாயகர் ஆலயத்தில் விநாயகர் சதுர்த்தி கொண்டாட்டத்தின் பிரமாண்ட விழா
-          </p>
-          <p class="card-text text-center">
-            <a href="{% url 'chaturthi' %}" class="btn btn-primary stretched-link">பார்க்க கிளிக் செய்யவும்</a>
-          </p>
+    <section id="stories" class="story-intro py-5 py-lg-6">
+      <div class="container py-lg-4">
+        <div class="row text-center g-5 justify-content-center">
+          <div class="col-md-4"><img class="rounded-circle round-image mb-4" src="https://nammanagar.s3.eu-north-1.amazonaws.com/ganesh/1.jpg" alt="Temple celebration"><h2 class="h3 fw-bold">கொண்டாட்டங்கள்</h2><p class="text-muted">நம் ஊரின் மகிழ்ச்சியான தருணங்களை ஒன்றாக நினைவுகூர்வோம்.</p><a class="link-dark fw-bold" href="{% url 'chaturthi' %}">பார்க்கவும் →</a></div>
+          <div class="col-md-4"><img class="rounded-circle round-image mb-4" src="https://nammanagar.blr1.cdn.digitaloceanspaces.com/I-day-2024/iday-6.jpeg" alt="Flag ceremony"><h2 class="h3 fw-bold">நிகழ்வுகள்</h2><p class="text-muted">நமது பகுதியின் நிகழ்வுகள், செய்திகள் மற்றும் புகைப்படங்கள்.</p><a class="link-dark fw-bold" href="{% url 'idayhome' %}">பார்க்கவும் →</a></div>
+          <div class="col-md-4"><img class="rounded-circle round-image mb-4" src="{% static 'app/ReliefMaterial-0.jpeg' %}" alt="Community relief materials"><h2 class="h3 fw-bold">உதவும் கைகள்</h2><p class="text-muted">அவசர காலங்களில் சமூகமாகச் சேர்ந்து செய்யும் உதவிகள்.</p><a class="link-dark fw-bold" href="{% url 'reliefhome' %}">பார்க்கவும் →</a></div>
         </div>
       </div>
-    </div>
-    <div class="col-sm-6 col-lg-4 mb-4">
-      <div class="card p-3">
-        <figure class="p-3 mb-0">
-          <blockquote class="blockquote">
-            <p>நம்மால் நேற்றை சரிசெய்ய முடியாது, ஆனால்
-            நாளையை உருவாக்க முடியும்.</p>
-          </blockquote>
-          <figcaption class="blockquote-footer mb-0 text-body-secondary">
-            சத்குரு <cite title="Source Title">isha.sadhguru.org</cite>
-          </figcaption>
-        </figure>
-      </div>
-    </div>
-    <div class="col-sm-6 col-lg-4 mb-4">
-      <div class="card bg-black">
-        <img class="card-img-top" src="https://nammanagar.blr1.cdn.digitaloceanspaces.com/I-day-2024/iday-6.jpeg">
-        <div class="card-body">
-          <div class="card-title d-inline bg-primary text-white fs-4 text-center">சுதந்திர தினம், ஆகஸ்ட் 2024</div>
-          <p class="card-text text-warning fs-5">
-            கோயம்புத்தூர் கே.என்.ஜி புதூர் பிரிவு அரவிந்த நகரில் அமைந்துள்ள ஒதுக்கப்பட்ட இடத்தில், சுதந்திர தினத்தன்று கொடி ஏற்றப்பட்டதுடன், தேசிய கீதமும் பாடப்பட்டது. ஜெய் ஹிந்த்!
-          </p>
-          <p class="card-text text-center">
-            <a href="{% url 'idayhome' %}" class="btn btn-primary stretched-link">பார்க்க கிளிக் செய்யவும்</a>
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-6 col-lg-4 mb-4">
-      <div class="card text-bg-primary text-center p-3">
-        <figure class="mb-0">
-          <blockquote class="blockquote">
-            <p>அப்படியானால், இந்த விஷயங்களுக்கு நாம் என்ன பதில் சொல்வது? கடவுள் நமக்கு ஆதரவாக இருந்தால், நமக்கு எதிராக யார் இருக்க முடியும்?</p>
-          </blockquote>
-          <figcaption class="blockquote-footer mb-0 text-body-secondary">
-            Romans 8:31 <cite title="Source Title">புனித பைபிள்</cite>
-          </figcaption>
-        </figure>
-      </div>
-    </div>
-    <div class="col-sm-6 col-lg-4 mb-4">
-      <div class="card text-center">
-        <div class="card-body bg-black">
-          <div class="card-title d-inline p-2 bg-primary text-white fs-4">வயநாடு நிலச்சரிவு, ஜூலை 2024</div>
-          <p class="card-text mt-3 text-warning fs-5">
-            2024 வயநாடு நிலச்சரிவுகள் 30 ஜூலை 2024 அன்று அதிகாலையில் இந்தியாவின் கேரளாவில் உள்ள வயநாடு மாவட்டத்தில் உள்ள வைத்திரி தாலுகாவில்[5] மேப்பாடி பஞ்சாயத்தில் உள்ள புஞ்சிரிமட்டம், முண்டக்காய், சூரல்மலா மற்றும் வெள்ளரிமலா கிராமங்களில் ஏற்பட்ட தொடர் நிலச்சரிவு ஆகும். நிலச்சரிவுகள் ஏற்பட்டன. கனமழையால் மலைப்பகுதிகள் சரிந்து கீழே உள்ள பகுதிகளை அழித்தது. பேரழிவு கேரளாவின் வரலாற்றில் மிக மோசமான ஒன்றாகும், 336 இறப்புகள், 397 காயங்கள், மற்றும் 78 பேர் காணவில்லை. காடழிப்பு, நில அதிர்வு உணர்திறன், மோசமான கட்டிட கட்டுமானம் மற்றும் புவி வெப்பமடைதல் ஆகியவை நிலச்சரிவுகள் மற்றும் உயிரிழப்புகளுக்கான சாத்தியமான காரணங்களாக அடையாளம் காணப்பட்டுள்ளன.
-          </p>
-          <p class="card-text">
-            <a href="{% url 'reliefhome' %}" class="btn btn-primary stretched-link">பார்க்க கிளிக் செய்யவும்</a>
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-6 col-lg-4 mb-4">
-      <div class="card">
-        <img class="card-img-top" src="https://nammanagar.s3.eu-north-1.amazonaws.com/nagarlogo/namma_nagar_logo.png">
-      </div>
-    </div>
-    <div class="col-sm-6 col-lg-4 mb-4">
-      <div class="card p-3 text-end alert alert-success">
-        <figure class="mb-0">
-          <blockquote class="blockquote fs-4">
-            <p>2024 இல் நடக்கும் நிகழ்வுகளுக்கான ஸ்பான்சர்கள்</p>
-          </blockquote>
-          <figcaption class="blockquote-footer mb-0 text-body-secondary">
-            நிகழ்வின் ஸ்பான்சரைப் பார்க்க <cite title="Source Title">
-              <a href="{% url 'sponsor' %}">இங்கே கிளிக் செய்யவும்</a></cite>
-          </figcaption>
-        </figure>
-      </div>
-    </div>
-    <div class="col-sm-6 col-lg-4 mb-4">
-      <div class="card">
-        <img class="card-img-top" src="https://nammanagar.s3.eu-north-1.amazonaws.com/ganesh/1.jpg">
-      </div>
-    </div>
-  </div>
-  <hr class="my-5">
-</main>
-<script src="{% static 'app/js/bootstrap.bundle.min.js' %}"></script>
+    </section>
 
-  <script async src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous"></script></body>
+    <section id="community" class="container py-5 py-lg-6">
+      <div class="row feature align-items-center g-5 py-5">
+        <div class="col-md-7"><p class="eyebrow">எங்கள் கதை</p><h2 class="display-5 fw-bold">ஒவ்வொரு தெருவிலும் ஒரு கதை இருக்கிறது.</h2><p class="feature-copy mt-3">நம்ம நகரம், நம் சுற்றுப்புறத்தை இணைக்கும் ஒரு எளிய இடம். கொண்டாட்டங்கள் முதல் சமூக உதவிகள் வரை, முக்கியமான தருணங்களை இங்கே பகிர்கிறோம்.</p></div>
+        <div class="col-md-5"><img class="feature-image w-100" src="{% static 'app/NammaNagar.png' %}" alt="Namma Nagar"></div>
+      </div>
+      <div class="row feature align-items-center g-5 py-5 flex-md-row-reverse">
+        <div class="col-md-7"><p class="eyebrow">ஒன்றாக முன்னேறுவோம்</p><h2 class="display-5 fw-bold">சிறிய பங்களிப்புகளும் பெரிய மாற்றங்களை உருவாக்கும்.</h2><p class="feature-copy mt-3">நம் நிகழ்வுகள் மற்றும் சமூக முயற்சிகளுக்கு ஆதரவளிக்கும் மனிதர்கள்தான் நம்ம நகரத்தின் பலம்.</p><a class="btn btn-coral rounded-pill px-4 mt-2" href="{% url 'sponsor' %}">ஆதரவாளர்களை அறிய</a></div>
+        <div class="col-md-5"><div class="quote-panel p-4 p-lg-5"><p class="eyebrow">நினைவில் கொள்ள</p><blockquote class="fs-3 fw-semibold mt-4 mb-4">“நம்மால் நேற்றை சரிசெய்ய முடியாது, ஆனால் நாளையை உருவாக்க முடியும்.”</blockquote><p class="mb-0 text-white-50">சத்குரு · isha.sadhguru.org</p></div></div>
+      </div>
+    </section>
+  </main>
+  <footer class="py-4"><div class="container d-flex flex-wrap gap-2 justify-content-between small"><span>© {% now "Y" %} நம்ம நகரம்</span><a class="link-light text-decoration-none" href="#top">மேலே செல்ல ↑</a></div></footer>
+  <script src="{% static 'app/js/bootstrap.bundle.min.js' %}"></script>
+</body>
 </html>

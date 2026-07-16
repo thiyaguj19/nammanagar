@@ -1,23 +1,25 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 280" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" role="img" aria-labelledby="title desc">
   <title id="title">நம்ம நகரம் logo</title>
-  <desc id="desc">A simple community logo with a stylized house, leaf, and the text நம்ம நகரம் / nammanagar.in</desc>
+  <desc id="desc">A bold community logo with a sunrise, home, and leaf symbol for nammanagar.in</desc>
   <defs>
-    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#36775f"/>
-      <stop offset="100%" stop-color="#15372f"/>
-    </linearGradient>
-    <linearGradient id="sun" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#f6b941"/>
       <stop offset="100%" stop-color="#e76f51"/>
     </linearGradient>
+    <linearGradient id="green" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3a8a68"/>
+      <stop offset="100%" stop-color="#15372f"/>
+    </linearGradient>
   </defs>
-  <rect width="280" height="280" rx="40" fill="#f7f2e9"/>
-  <circle cx="140" cy="110" r="90" fill="url(#grad)" opacity=".95"/>
-  <path d="M92 130 L92 180 L118 180 L118 147 L162 147 L162 180 L188 180 L188 130 L140 90 Z" fill="#f7f2e9"/>
-  <path d="M140 90 L162 112 L118 112 Z" fill="#f6b941" opacity=".95"/>
-  <path d="M104 160 C104 150 118 142 140 142 C162 142 176 150 176 160" fill="#f6b941" opacity=".55"/>
-  <path d="M74 180 C74 166 88 154 104 154 C120 154 134 162 148 162 C162 162 176 154 192 154 C208 154 222 166 222 180 Z" fill="#f7f2e9"/>
-  <path d="M70 135 C70 115 90 104 110 104 C130 104 142 118 156 118 C170 118 190 110 210 127" stroke="#f6b941" stroke-width="10" fill="none" opacity=".85" stroke-linecap="round"/>
-  <text x="50%" y="215" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="28" fill="#15372f" font-weight="700">நம்ம நகரம்</text>
-  <text x="50%" y="246" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#36775f">nammanagar.in</text>
+  <rect width="300" height="300" rx="50" fill="#fff5e8"/>
+  <circle cx="150" cy="140" r="104" fill="url(#bg)"/>
+  <circle cx="150" cy="140" r="84" fill="#ffffff" opacity="0.18"/>
+  <path d="M92 178 L92 138 L150 98 L208 138 L208 178 L178 178 L178 140 L122 140 L122 178 Z" fill="#ffffff"/>
+  <path d="M122 140 L178 140 L178 178 L122 178 Z" fill="#f8f2e7"/>
+  <path d="M146 118 L154 118 L154 166 L146 166 Z" fill="#e76f51"/>
+  <path d="M210 120 C230 102 234 74 214 56 C194 38 164 54 158 70 C162 58 176 49 190 52 C204 55 216 69 212 86 C206 106 190 114 170 112" fill="#ffffff" opacity="0.95"/>
+  <path d="M205 124 C225 106 229 80 212 64 C195 48 170 60 167 70 C170 58 183 51 196 54 C209 57 219 69 216 86 C213 102 200 114 184 112" fill="url(#green)" opacity="0.95"/>
+  <circle cx="116" cy="192" r="8" fill="#ffffff" opacity="0.9"/>
+  <circle cx="150" cy="192" r="10" fill="#ffffff" opacity="0.95"/>
+  <circle cx="184" cy="192" r="8" fill="#ffffff" opacity="0.9"/>
 </svg>

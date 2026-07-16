@@ -54,6 +54,9 @@ def idayhome(request):
     context = {}
     return render(request, 'Independence.html', context)
 
+def aug15(request):
+    return render(request, 'aug15.html')
+
 def reliefhome(request):
     picture = "https://nammanagar.s3.eu-north-1.amazonaws.com/nationalrelief/" + "ReliefMaterial-" + str(randint(0, 4)) + ".jpeg"
     context = {'picture': picture}

@@ -1,0 +1,56 @@
+{% load static %}
+<!doctype html>
+<html lang="ta">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="அரவிந்தா நகரின் 80வது சுதந்திர தின நிகழ்ச்சி விவரம்.">
+  <title>80வது சுதந்திர தின விழா | நம்ம நகரம்</title>
+  <link href="{% static 'app/css/bootstrap.min.css' %}" rel="stylesheet">
+  <style>
+    :root{--paper:#fff7ee;--ink:#142b29;--deep:#0d2620;--sun:#f4a93c;--coral:#de5d38;--leaf:#316c55;--mist:#e9eee9;--shadow:0 18px 45px rgba(13,38,32,.12)}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--deep);font-family:system-ui,-apple-system,"Noto Sans Tamil",sans-serif}a{color:inherit;text-decoration:none}img{max-width:100%;display:block}button,a.button{display:inline-flex;align-items:center;justify-content:center;padding:.85rem 1.4rem;border-radius:99px;font-weight:800;text-decoration:none;border:0}a.button.sun{background:var(--sun);color:var(--deep)}a.button.outline{border:1px solid var(--deep);background:transparent;color:var(--deep)}.wrap{width:min(100% - 2rem,1400px);margin:auto}.nav{height:88px;display:flex;align-items:center;justify-content:space-between;gap:1rem}.brand{display:flex;align-items:center;gap:.8rem;color:var(--deep);font-size:1.3rem;font-weight:800}.brand img{width:44px;height:44px;object-fit:cover;border-radius:50%;box-shadow:0 3px 0 rgba(0,0,0,.1)}.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:2rem;align-items:center;min-height:560px;padding:3rem 0}.hero-copy{padding:1rem 0}.eyebrow{display:inline-flex;padding:.55rem 1rem;border-radius:999px;background:var(--sun);color:var(--deep);font-size:.82rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}.hero h1{margin:1.1rem 0 .75rem;font-family:Georgia,"Noto Serif Tamil",serif;font-size:clamp(3rem,5vw,4.6rem);line-height:1}.hero p{max-width:560px;font-size:1.05rem;line-height:1.8;color:#38524a}.hero-art{position:relative;overflow:hidden;border-radius:32px;box-shadow:var(--shadow);min-height:420px;background:linear-gradient(135deg,rgba(246,169,60,.13),rgba(222,93,56,.12))}.hero-art img{height:100%;width:100%;object-fit:cover}.section{padding:4rem 0}.section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:1.5rem;margin-bottom:2rem}.section-title{margin:0;font-size:clamp(2rem,4vw,3.4rem);letter-spacing:-.05em}.intro{max-width:720px;color:#3f5a52;line-height:1.75}.event-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}.event-card{padding:1.6rem;border-radius:24px;background:white;box-shadow:var(--shadow);border:1px solid rgba(22,48,42,.08)}.event-card h3{margin:.6rem 0 .35rem;font-size:1.2rem}.event-card p{margin:0;color:#556d65;line-height:1.7}.feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-top:2rem}.feature{padding:1.4rem;border-radius:22px;background:var(--mist);color:var(--deep);box-shadow:0 12px 30px rgba(13,38,32,.08)}.feature h3{margin:.8rem 0 .35rem;font-size:1.05rem}.feature p{margin:0;color:#3f5a52;line-height:1.6}.heroes{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1rem;margin-top:2rem}.hero-card{padding:1.5rem;border-radius:24px;background:white;box-shadow:var(--shadow);border:1px solid rgba(22,48,42,.08)}.hero-card h3{margin:.8rem 0 .25rem;font-size:1.1rem}.hero-card p{margin:0;color:#53665d;line-height:1.6}.banner{margin-top:2.5rem;padding:2rem;border-radius:26px;background:linear-gradient(135deg,var(--sun),var(--coral));color:white;box-shadow:0 18px 45px rgba(222,93,56,.22)}.banner h2{margin:0;font-size:clamp(2rem,4vw,3rem);line-height:1.1}.banner p{margin:.9rem 0 0;font-size:1rem;line-height:1.7}.footer{padding:2rem 0;color:#5b6a66;font-size:.95rem}footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.75rem}.back-link{color:var(--deep);font-weight:700}
+    @media(max-width:900px){.hero{grid-template-columns:1fr}.section-head{flex-direction:column;align-items:flex-start}.hero-art{min-height:300px}}@media(max-width:620px){.wrap{width:min(100% - 1rem,1400px)}.hero p{font-size:1rem}.event-grid,.feature-grid,.heroes{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <header class="wrap nav"><a class="brand" href="{% url 'nagarhome' %}"><img src="{% static 'app/logo.svg' %}" alt="நம்ம நகரம் logo"><span>நம்ம நகரம்</span></a><nav class="nav-links"><a class="back-link" href="{% url 'nagarhome' %}">முகப்பிற்கு</a></nav></header>
+  <main>
+    <section class="wrap hero">
+      <div class="hero-copy">
+        <span class="eyebrow">அரவிந்தா நகர் மற்றும் சுற்றுவட்டாரக் குடியிருப்போர் நலச்சங்கம்</span>
+        <h1>இந்தியாவின் 80வது சுதந்திர தின விழா</h1>
+        <p>15 ஆகஸ்ட் 2026 அன்று அரவிந்தா நகரில் தேசிய உற்சாகத்துடன் கொண்டாடப்படும் இந்த நிகழ்ச்சி, ஒற்றுமை, முன்னேற்றம் மற்றும் பாரம்பரியம் கொண்ட நம்முடைய பெருமைக்கு அர்ப்பணிப்பு.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:.9rem;margin-top:1.7rem"><a class="button sun" href="#details">நிகழ்ச்சி விவரம்</a><a class="button outline" href="#programme">நிகழ்ச்சிகள்</a></div>
+      </div>
+      <div class="hero-art"><img src="https://nammanagar.blr1.cdn.digitaloceanspaces.com/I-day-2024/iday-6.jpeg" alt="80வது சுதந்திர தின விழா"></div>
+    </section>
+    <section id="details" class="wrap section">
+      <div class="section-head"><h2 class="section-title">நிகழ்ச்சி விவரம்</h2><p class="intro">இந்த நாளில் நாம் கூடிக்கொண்டு தேசியத்தின் பெருமையை மனதில் அமர்த்தி, புதிய தலைமுறைക്കും நமது பாரம்பரியத்தையும் இலக்காகக் கொண்டு முன்வைவோம்.</p></div>
+      <div class="event-grid">
+        <article class="event-card"><h3>நாள்</h3><p>15.08.2026 (சனிக்கிழமை)</p></article>
+        <article class="event-card"><h3>காலங்கள்</h3><p>காலை 9 மணி - கூடிவட்டம்<br>காலை 10 மணி முதல் நிகழ்ச்சிகள்</p></article>
+        <article class="event-card"><h3>முதல் இடம்</h3><p>அரவிந்தா நகர பூங்கா திடல்</p></article>
+        <article class="event-card"><h3>பிறகு இடம்</h3><p>சாரா ஸ்போர்ட்ஸ் அகாடமி</p></article>
+      </div>
+      <div class="feature-grid">
+        <div class="feature"><h3>கொடி ஏற்றுதல்</h3><p>தேசிய இசையுடன் நாடு சார்ந்த அணிகலன்கள்.</p></div>
+        <div class="feature"><h3>தேசபாட்டுப் பாடல்கள்</h3><p>பாட்டு, இசை மற்றும் உயிர்நிறைந்த patriotic பாடல்கள்.</p></div>
+        <div class="feature"><h3>குழந்தை ஓட்டப்பந்தயம்</h3><p>மாணவர் மற்றும் குழந்தைகளுக்கான வேடிக்கை ஓட்டப்பந்தயம்.</p></div>
+        <div class="feature"><h3>கலை நிகழ்ச்சிகள்</h3><p>நாட்டுப்புற நடனங்கள் மற்றும் இசை திருவிழா.</p></div>
+        <div class="feature"><h3>பரிசளிப்பு</h3><p>வினாடி வெற்றி, சிறந்த நிகழ்ச்சியாளர்கள் மற்றும் பங்கெடுத்தோருக்கு பரிசு.</p></div>
+      </div>
+    </section>
+    <section id="programme" class="wrap section">
+      <div class="section-head"><h2 class="section-title">நம் பெருமை, நம் பொறுப்பு</h2><p class="intro">நம் நாட்டின் சுதந்திரத்தை நினைவுகூரும் இந்த விழாவில் ஒவ்வொரு நபரும் கலந்துகொண்டு சமூகத்தின் உறவை மேலும் வளர்ப்போம்.</p></div>
+      <div class="heroes">
+        <article class="hero-card"><h3>வி.உ. சிதம்பரநாராயணர்</h3><p>கப்பானீடியத் தமிழன்</p></article>
+        <article class="hero-card"><h3>மகாகவி பாரதியார்</h3><p>தேசியக் கவிஞர்</p></article>
+        <article class="hero-card"><h3>சுப்ரமணிய சிவா</h3><p>சுதந்திரப் போராட்ட வீரர் தியாகச் செல்வம்</p></article>
+        <article class="hero-card"><h3>திருப்பூர் குமார்</h3><p>கொள்நையக் காந்த மனிதன்</p></article>
+      </div>
+      <div class="banner"><h2>நம் பெருமை! நம் பொறுப்பு! நம் பாரம்பரியம்!</h2><p>அனைவரும் வருக! இந்த 80வது சுதந்திர தினத்தை நம்மால் சிறப்பிக்க வாருங்கள்.</p></div>
+    </section>
+  </main>
+  <footer class="footer"><div class="wrap"><span>© {% now "Y" %} நம்ம நகரம்</span><a class="back-link" href="{% url 'nagarhome' %}">முகப்பிற்கு மீண்டும்</a></div></footer>
+</body>
+</html>

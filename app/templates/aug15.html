@@ -33,6 +33,312 @@
       .hero p{font-size:1rem}
       .event-grid,.feature-grid,.heroes{grid-template-columns:1fr}
     }
+    /* Custom Table Layout Styles */
+.event-table {
+  background: white;
+  border: 1px solid #316c55;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  margin-top: 2rem;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* Header Row styling */
+.table-header {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 1.25fr;
+  background: #fbf6f0;
+  padding: 1.25rem 1rem;
+  border-bottom: 1px solid rgba(49, 108, 85, 0.2);
+  text-align: center;
+}
+
+.header-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: white;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+/* Badge specific colors matching your reference */
+.badge-orange { background-color: #de5d38; } /* நாள் */
+.badge-blue { background-color: #0c356a; }   /* நேரம் & நிகழ்ச்சி */
+.badge-green { background-color: #0d2620; }  /* இடம் */
+
+/* Table Data Rows styling */
+.table-row {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 1.25fr;
+  border-bottom: 1px solid rgba(49, 108, 85, 0.2);
+  background: white;
+}
+
+.table-row:last-child {
+  border-bottom: none;
+}
+
+.table-cell {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  position: relative;
+}
+
+/* Dotted vertical column separator */
+.table-cell:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 15%;
+  height: 70%;
+  border-right: 1.5px dotted #316c55;
+  opacity: 0.6;
+}
+
+/* Text and Emoji Icon elements inside cells */
+.cell-icon {
+  font-size: 1.8rem;
+  flex-shrink: 0;
+}
+
+.cell-content h4 {
+  margin: 0 0 0.25rem;
+  font-size: 1.15rem;
+  color: #0d2620;
+  font-weight: 800;
+}
+
+.cell-content p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #53665d;
+  line-height: 1.4;
+}
+
+/* --- MOBILE RESPONSIVENESS --- */
+@media (max-width: 768px) {
+  /* Hide the desktop header row on small screens */
+  .table-header {
+    display: none;
+  }
+  
+  /* Stack columns vertically like individual event blocks */
+  .table-row {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+    border-bottom: 3px double rgba(49, 108, 85, 0.3);
+  }
+  
+  .table-cell {
+    padding: 0.75rem 0.5rem;
+  }
+  
+  /* Remove vertical divider on mobile */
+  .table-cell:not(:last-child)::after {
+    display: none;
+  }
+  
+  /* Add tiny dynamic labels above stacked fields on mobile for context */
+  .table-cell::before {
+    content: attr(data-label);
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #de5d38;
+    margin-bottom: 0.25rem;
+    width: 100%;
+  }
+  
+  .table-cell {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+}
+
+/* Upgraded Colorful Feature Grid */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 1.25rem;
+  margin-top: 2.5rem;
+}
+
+.feature {
+  padding: 1.6rem;
+  border-radius: 24px;
+  box-shadow: 0 10px 25px rgba(13,38,32,0.05);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.feature:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 35px rgba(13,38,32,0.1);
+}
+
+/* Custom icon circle helper */
+.feature-icon-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  font-size: 1.6rem;
+  margin-bottom: 0.4rem;
+}
+
+.feature h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.feature p {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+/* Individual Color Palettes for each Card */
+/* Card 1: Indian Saffron */
+.feat-saffron {
+  background-color: #fff6ed;
+  border-left: 5px solid #de5d38;
+}
+.feat-saffron .feature-icon-wrapper { background-color: #ffdacf; }
+.feat-saffron h3 { color: #b03a1a; }
+.feat-saffron p { color: #5c413b; }
+
+/* Card 2: Deep Blue */
+.feat-blue {
+  background-color: #f0f5ff;
+  border-left: 5px solid #0c356a;
+}
+.feat-blue .feature-icon-wrapper { background-color: #d6e4ff; }
+.feat-blue h3 { color: #072247; }
+.feat-blue p { color: #3b4657; }
+
+/* Card 3: Marigold Yellow */
+.feat-yellow {
+  background-color: #fffcf0;
+  border-left: 5px solid #f4a93c;
+}
+.feat-yellow .feature-icon-wrapper { background-color: #fff1c5; }
+.feat-yellow h3 { color: #9c620c; }
+.feat-yellow p { color: #5c523d; }
+
+/* Card 4: Ashoka Green */
+.feat-green {
+  background-color: #f1fbf6;
+  border-left: 5px solid #316c55;
+}
+.feat-green .feature-icon-wrapper { background-color: #d1f4e5; }
+.feat-green h3 { color: #164230; }
+.feat-green p { color: #384d43; }
+
+/* Card 5: Festive Purple/Pink */
+.feat-purple {
+  background-color: #fdf5fc;
+  border-left: 5px solid #9c27b0;
+}
+.feat-purple .feature-icon-wrapper { background-color: #f8dbf8; }
+.feat-purple h3 { color: #6a0b7b; }
+.feat-purple p { color: #534054; }
+
+/* Upgraded Colorful Freedom Heroes Section */
+.heroes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.25rem;
+  margin-top: 2.5rem;
+}
+
+.hero-card {
+  padding: 1.75rem;
+  border-radius: 24px;
+  box-shadow: 0 12px 30px rgba(13,38,32,0.06);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hero-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 35px rgba(13,38,32,0.12);
+}
+
+/* Vibrant typography for the Leader Names */
+.hero-card h3 {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+
+.hero-card p {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+/* Individual Palettes for the 4 Leaders */
+/* Card 1: V.O.C - Saffron Theme */
+.leader-voc {
+  background-color: #fff5ed;
+  border-left: 6px solid #de5d38;
+}
+.leader-voc h3 { color: #c43d14; }
+.leader-voc p { color: #6e4e46; }
+
+/* Card 2: Bharathiyar - Deep Royal Blue Theme */
+.leader-bharathi {
+  background-color: #f0f4ff;
+  border-left: 6px solid #0c356a;
+}
+.leader-bharathi h3 { color: #092c5c; }
+.leader-bharathi p { color: #434d5c; }
+
+/* Card 3: Subramaniya Siva - Marigold Gold Theme */
+.leader-siva {
+  background-color: #fffdf0;
+  border-left: 6px solid #f4a93c;
+}
+.leader-siva h3 { color: #a1670b; }
+.leader-siva p { color: #615644; }
+
+/* Card 4: Tiruppur Kumaran - Ashoka Green Theme */
+.leader-kumaran {
+  background-color: #f2fbf7;
+  border-left: 6px solid #316c55;
+}
+.leader-kumaran h3 { color: #1a4d3a; }
+.leader-kumaran p { color: #43544e; }
+
+/* Mobile Stack Adjustment */
+@media(max-width:620px){
+  .heroes {
+    grid-template-columns: 1fr;
+  }
+}
   </style>
 </head>
 <body>
@@ -51,28 +357,129 @@
     </section>
     <section id="details" class="wrap section">
       <div class="section-head"><h2 class="section-title">நிகழ்ச்சி விவரம்</h2><p class="intro">இந்த நாளில் நாம் கூடிக்கொண்டு தேசியத்தின் பெருமையை மனதில் அமர்த்தி, புதிய தலைமுறைക്കും நமது பாரம்பரியத்தையும் இலக்காகக் கொண்டு முன்வைவோம்.</p></div>
-      <div class="event-grid">
-        <article class="event-card"><h3>நாள்</h3><p>15.08.2026 (சனிக்கிழமை)</p></article>
-        <article class="event-card"><h3>காலங்கள்</h3><p>காலை 9 மணி - கூடிவட்டம்<br>காலை 10 மணி முதல் நிகழ்ச்சிகள்</p></article>
-        <article class="event-card"><h3>முதல் இடம்</h3><p>அரவிந்தா நகர பூங்கா திடல்</p></article>
-        <article class="event-card"><h3>பிறகு இடம்</h3><p>சாரா ஸ்போர்ட்ஸ் அகாடமி</p></article>
+      <div class="event-table">
+        <!-- Table Header Row -->
+        <div class="table-header">
+          <div><span class="header-badge badge-orange">நாள்</span></div>
+          <div><span class="header-badge badge-blue">நேரம் & நிகழ்ச்சி</span></div>
+          <div><span class="header-badge badge-green">இடம்</span></div>
+        </div>
+
+        <!-- Table Row 1 (Flag Hoisting) -->
+        <div class="table-row">
+          <div class="table-cell" data-label="நாள்">
+            <span class="cell-icon">📅</span>
+            <div class="cell-content">
+              <h4>15.08.2026</h4>
+              <p>(சனிக்கிழமை)</p>
+            </div>
+          </div>
+          <div class="table-cell" data-label="நேரம் & நிகழ்ச்சி">
+            <span class="cell-icon">🕒</span>
+            <div class="cell-content">
+              <h4>காலை 9 மணிக்குக்</h4>
+              <p>கொடியேற்றம்</p>
+            </div>
+          </div>
+          <div class="table-cell" data-label="இடம்">
+            <span class="cell-icon">📍</span>
+            <div class="cell-content">
+              <h4>அரவிந்தா நகர்</h4>
+              <p>பூங்கா திடல்</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Table Row 2 (Sports & Cultural events) -->
+        <div class="table-row">
+          <div class="table-cell" data-label="நாள்">
+            <span class="cell-icon">📅</span>
+            <div class="cell-content">
+              <h4>15.08.2026</h4>
+              <p>(சனிக்கிழமை)</p>
+            </div>
+          </div>
+          <div class="table-cell" data-label="நேரம் & நிகழ்ச்சி">
+            <span class="cell-icon">🕒</span>
+            <div class="cell-content">
+              <h4>காலை 10 மணி முதல்</h4>
+              <p>விளையாட்டு நிகழ்ச்சிகள், அதனைத் தொடர்ந்து கலை நிகழ்ச்சிகள்</p>
+            </div>
+          </div>
+          <div class="table-cell" data-label="இடம்">
+            <span class="cell-icon">📍</span>
+            <div class="cell-content">
+              <h4>சாரா ஸ்போர்ட்ஸ்</h4>
+              <p>அகாடமி</p>
+            </div>
+          </div>
+        </div>
+
       </div>
       <div class="feature-grid">
-        <div class="feature"><h3>கொடி ஏற்றுதல்</h3><p>தேசிய இசையுடன் நாடு சார்ந்த அணிகலன்கள்.</p></div>
-        <div class="feature"><h3>தேசபாட்டுப் பாடல்கள்</h3><p>பாட்டு, இசை மற்றும் உயிர்நிறைந்த patriotic பாடல்கள்.</p></div>
-        <div class="feature"><h3>குழந்தை ஓட்டப்பந்தயம்</h3><p>மாணவர் மற்றும் குழந்தைகளுக்கான வேடிக்கை ஓட்டப்பந்தயம்.</p></div>
-        <div class="feature"><h3>கலை நிகழ்ச்சிகள்</h3><p>நாட்டுப்புற நடனங்கள் மற்றும் இசை திருவிழா.</p></div>
-        <div class="feature"><h3>பரிசளிப்பு</h3><p>வினாடி வெற்றி, சிறந்த நிகழ்ச்சியாளர்கள் மற்றும் பங்கெடுத்தோருக்கு பரிசு.</p></div>
-      </div>
+          <!-- Card 1 (Saffron) -->
+          <div class="feature feat-saffron">
+            <div class="feature-icon-wrapper">🇮🇳</div>
+            <h3>கொடி ஏற்றுதல்</h3>
+            <p>தேசிய இசையுடன் நாடு சார்ந்த அணிகலன்கள்.</p>
+          </div>
+
+          <!-- Card 2 (Blue) -->
+          <div class="feature feat-blue">
+            <div class="feature-icon-wrapper">🎶</div>
+            <h3>தேசபாட்டுப் பாடல்கள்</h3>
+            <p>பாட்டு, இசை மற்றும் உயிர்நிறைந்த patriotic பாடல்கள்.</p>
+          </div>
+
+          <!-- Card 3 (Yellow) -->
+          <div class="feature feat-yellow">
+            <div class="feature-icon-wrapper">🏃</div>
+            <h3>குழந்தை ஓட்டப்பந்தயம்</h3>
+            <p>மாணவர் மற்றும் குழந்தைகளுக்கான வேடிக்கை ஓட்டப்பந்தயம்.</p>
+          </div>
+
+          <!-- Card 4 (Green) -->
+          <div class="feature feat-green">
+            <div class="feature-icon-wrapper">💃</div>
+            <h3>கலை நிகழ்ச்சிகள்</h3>
+            <p>நாட்டுப்புற நடனங்கள் மற்றும் இசை திருவிழா.</p>
+          </div>
+
+          <!-- Card 5 (Purple) -->
+          <div class="feature feat-purple">
+            <div class="feature-icon-wrapper">🏆</div>
+            <h3>பரிசளிப்பு</h3>
+            <p>வினாடி வெற்றி, சிறந்த நிகழ்ச்சியாளர்கள் மற்றும் பங்கெடுத்தோருக்கு பரிசு.</p>
+          </div>
+        </div>
     </section>
     <section id="programme" class="wrap section">
       <div class="section-head"><h2 class="section-title">நம் பெருமை, நம் பொறுப்பு</h2><p class="intro">நம் நாட்டின் சுதந்திரத்தை நினைவுகூரும் இந்த விழாவில் ஒவ்வொரு நபரும் கலந்துகொண்டு சமூகத்தின் உறவை மேலும் வளர்ப்போம்.</p></div>
       <div style="margin-bottom:1.75rem; border-radius:28px;overflow:hidden;box-shadow:0 20px 40px rgba(0,0,0,.12);"><img src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2026/iday_2026.jpg" alt="Independence Day 2026" style="width:100%;height:auto;display:block;"></div>
       <div class="heroes">
-        <article class="hero-card"><h3>வி.உ. சிதம்பரநாராயணர்</h3><p>கப்பானீடியத் தமிழன்</p></article>
-        <article class="hero-card"><h3>மகாகவி பாரதியார்</h3><p>தேசியக் கவிஞர்</p></article>
-        <article class="hero-card"><h3>சுப்ரமணிய சிவா</h3><p>சுதந்திரப் போராட்ட வீரர் தியாகச் செல்வம்</p></article>
-        <article class="hero-card"><h3>திருப்பூர் குமார்</h3><p>கொள்நையக் காந்த மனிதன்</p></article>
+        <!-- Leader 1: V.O.C -->
+        <article class="hero-card leader-voc">
+          <h3>வி.உ. சிதம்பரனார்</h3>
+          <p>கப்பலோட்டிய தமிழன்</p>
+        </article>
+
+        <!-- Leader 2: Bharathiyar -->
+        <article class="hero-card leader-bharathi">
+          <h3>மகாகவி பாரதியார்</h3>
+          <p>தேசியக் கவிஞர்</p>
+        </article>
+
+        <!-- Leader 3: Subramaniya Siva -->
+        <article class="hero-card leader-siva">
+          <h3>சுப்ரமணிய சிவா</h3>
+          <p>சுதந்திரப் போராட்ட வீரர், தியாகச் செல்வம்</p>
+        </article>
+
+        <!-- Leader 4: Tiruppur Kumaran -->
+        <article class="hero-card leader-kumaran">
+          <h3>திருப்பூர் குமரன்</h3>
+          <p>கொடிகாத்த குமரன்</p>
+        </article>
       </div>
       <div class="banner"><h2>நம் பெருமை! நம் பொறுப்பு! நம் பாரம்பரியம்!</h2><p>அனைவரும் வருக! இந்த 80வது சுதந்திர தினத்தை நம்மால் சிறப்பிக்க வாருங்கள்.</p></div>
     </section>

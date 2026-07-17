@@ -1,18 +1,34 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ta">
 <head>
     <meta charset="UTF-8">
-    <title>Collective Prayer</title>
+    <title>सामूहिक प्रार्थना | नम्म नगरम्</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <style>
+        :root{--paper:#f7f2e9;--ink:#15372f;--deep:#0c2721;--leaf:#36775f;--sun:#f6b941;--coral:#e76f51;--mist:#dce8de}
+        
+        * {
+            box-sizing: border-box;
+        }
+        
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
-            background: #fff7ed;
-            color: #333;
+            font-family: system-ui,-apple-system,"Noto Sans Tamil",sans-serif;
+            background: var(--paper);
+            color: var(--deep);
         }
+        
+        .wrap{width:min(100% - 2.5rem,1440px);margin:auto}
+        
+        .topbar{height:76px;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:0 1rem}
+        
+        .brand{display:flex;align-items:center;gap:.7rem;color:var(--deep);font-size:1.3rem;font-weight:800;text-decoration:none}
+        
+        .brand img{width:43px;height:43px;object-fit:cover;border-radius:50%;box-shadow:0 3px var(--sun)}
+        
+        .back{padding:.65rem 1rem;border-radius:99px;background:var(--leaf);color:#fff;text-decoration:none;font-weight:800}
 
         .container {
             max-width: 1000px;
@@ -29,28 +45,29 @@
         }
 
         h1 {
-            color: #b45309;
+            color: var(--deep);
             margin-bottom: 10px;
+            font-family: Georgia,"Noto Serif Tamil",serif;
         }
 
         .time {
             font-size: 22px;
             font-weight: bold;
-            color: #92400e;
+            color: var(--coral);
         }
 
         input[type=text] {
             width: 90%;
             max-width: 700px;
             padding: 14px;
-            border: 1px solid #ccc;
+            border: 2px solid var(--leaf);
             border-radius: 8px;
             font-size: 16px;
             margin-top: 15px;
         }
 
         button {
-            background: #d97706;
+            background: var(--leaf);
             color: white;
             border: none;
             padding: 12px 22px;
@@ -58,18 +75,19 @@
             font-size: 16px;
             margin: 10px 5px;
             cursor: pointer;
+            font-weight: 700;
         }
 
         button:hover {
-            background: #b45309;
+            background: var(--deep);
         }
 
         .youtube-btn {
-            background: #dc2626;
+            background: var(--coral);
         }
 
         .youtube-btn:hover {
-            background: #b91c1c;
+            background: #c44a2a;
         }
 
         .video-wrapper {
@@ -94,9 +112,15 @@
         #status {
             margin-top: 20px;
             font-weight: bold;
-            color: #92400e;
+            color: var(--leaf);
             padding: 10px;
             border-radius: 6px;
+        }
+        
+        .success-status {
+            color: #166534;
+            background: #dcfce7;
+            border: 1px solid #86efac;
         }
         
         .error-status {
@@ -108,56 +132,67 @@
         .quote {
             margin-top: 25px;
             font-style: italic;
-            color: #92400e;
+            color: var(--coral);
+            font-family: Georgia,"Noto Serif Tamil",serif;
         }
 
         .note {
             color: #666;
             margin-top: 10px;
         }
+        
+        footer{padding:2rem 0;text-align:center;color:#8a9a92}
     </style>
 </head>
 
 <body>
+<header class="wrap topbar">
+    <a class="brand" href="{% url 'nagarhome' %}"><img src="{% static 'app/logo.png' %}" alt="नम्म नगरम् logo"><span>नम्म नगरम्</span></a>
+    <a class="back" href="{% url 'nagarhome' %}">முகப்பு</a>
+</header>
 
 <div class="container">
     <div class="card">
 
-        <h1>Collective Prayer</h1>
-        <p class="time">Daily Prayer Time: 9:00 PM</p>
+        <h1>सामूहिक प्रार्थना</h1>
+        <p class="time">दैनिक प्रार्थना समय: रात 9:00 बजे</p>
 
-        <p>Paste a YouTube Video or Playlist URL.</p>
+        <p>यूट्यूब वीडियो या प्लेलिस्ट यूआरएल पेस्ट करें।</p>
 
         <input
             type="text"
             id="youtubeUrl"
             value="https://www.youtube.com/playlist?list=PLfhs93SSoxqw77PEVaGBji2FqNj189aXl"
-            placeholder="Paste YouTube playlist or video URL">
+            placeholder="यूट्यूब प्लेलिस्ट या वीडियो यूआरएल पेस्ट करें">
 
         <br>
 
-        <button onclick="loadYouTube()">Start Prayer</button>
-        <button onclick="clearPlayer()">Clear</button>
+        <button onclick="loadYouTube()">प्रार्थना शुरू करें</button>
+        <button onclick="clearPlayer()">अस्पष्ट</button>
 
         <a
             id="youtubeLink"
             href="https://www.youtube.com/playlist?list=PLfhs93SSoxqw77PEVaGBji2FqNj189aXl"
             target="_blank">
-            <button class="youtube-btn" type="button">Open in YouTube</button>
+            <button class="youtube-btn" type="button">यूट्यूब में खोलें</button>
         </a>
 
-        <p class="note">If the playlist cannot be embedded, click "Open in YouTube".</p>
+        <p class="note">यदि प्लेलिस्ट एम्बेड नहीं की जा सकती है, तो "यूट्यूब में खोलें" पर क्लिक करें।</p>
 
         <div class="video-wrapper">
             <div id="youtubePlayer"></div>
         </div>
 
-        <div id="status">Ready. Click "Start Prayer" to begin.</div>
+        <div id="status">तैयार है। प्रार्थना शुरू करने के लिए "प्रार्थना शुरू करें" पर क्लिक करें।</div>
 
-        <p class="quote">“When there is unity in prayer, there is peace in the family.”</p>
+        <p class="quote">"जब प्रार्थना में एकता है, तब परिवार में शांति होती है।"</p>
 
     </div>
 </div>
+
+<footer class="wrap">
+    <span>© {% now "Y" %} नम्म नगरम्</span>
+</footer>
 
 <script src="https://www.youtube.com/iframe_api"></script>
 
@@ -165,7 +200,6 @@
 const DEFAULT_PLAYLIST = "PLfhs93SSoxqw77PEVaGBji2FqNj189aXl";
 let player = null;
 
-// Global callback for the YouTube API frame initialization
 function onYouTubeIframeAPIReady() {
     console.log("YouTube API Ready");
 }
@@ -191,7 +225,6 @@ function loadYouTube() {
         let targetId = "";
         let isPlaylist = false;
 
-        // Extract ID depending on link layout rule configurations
         if (urlInput.includes("list=")) {
             const urlParams = new URLSearchParams(urlInput.split('?')[1] || urlInput.split('#')[1]);
             targetId = urlParams.get("list");
@@ -211,12 +244,11 @@ function loadYouTube() {
         }
 
         if (!targetId) {
-            status.innerText = "Invalid YouTube URL format.";
+            status.innerText = "अमान्य YouTube URL प्रारूप।";
             status.className = "error-status";
             return;
         }
 
-        // Wipe out the prior frame cleanly before re-binding 
         if (player) {
             try { player.destroy(); } catch(err) {}
             player = null;
@@ -225,7 +257,6 @@ function loadYouTube() {
         const wrapper = document.querySelector('.video-wrapper');
         wrapper.innerHTML = '<div id="youtubePlayer"></div>';
 
-        // Base configuration setup object
         let playerConfig = {
             height: '100%',
             width: '100%',
@@ -235,18 +266,17 @@ function loadYouTube() {
             },
             events: {
                 'onReady': function(event) {
-                    status.innerText = isPlaylist ? "Prayer playlist loaded." : "Prayer video loaded.";
+                    status.innerText = isPlaylist ? "प्रार्थना प्लेलिस्ट लोड हुई।" : "प्रार्थना वीडियो लोड हुई।";
+                    status.className = "success-status";
                     event.target.playVideo();
                 },
                 'onError': function(event) {
-                    // Catches error configurations natively (Error 153 embedding bans)
-                    status.innerText = "Embedding restricted by owner. Click 'Open in YouTube' to play.";
+                    status.innerText = "मालिक द्वारा एम्बेडिंग प्रतिबंधित है। यूट्यूब में खोलने के लिए क्लिक करें।";
                     status.className = "error-status";
                 }
             }
         };
 
-        // Distribute parameters correctly
         if (isPlaylist) {
             playerConfig.playerVars.listType = 'playlist';
             playerConfig.playerVars.list = targetId;
@@ -254,11 +284,10 @@ function loadYouTube() {
             playerConfig.videoId = targetId;
         }
 
-        // Spin up the application player
         player = new YT.Player('youtubePlayer', playerConfig);
 
     } catch (e) {
-        status.innerText = "Error parsing URL variables.";
+        status.innerText = "URL पार्स करने में त्रुटि।";
         status.className = "error-status";
     }
 }
@@ -275,12 +304,11 @@ function clearPlayer() {
     const status = document.getElementById("status");
     if (input) input.value = "";
     if (status) {
-        status.innerText = "Player cleared.";
+        status.innerText = "खिलाड़ी साफ कर दिया गया।";
         status.className = "";
     }
 }
 
-/* 9 PM reminder tracking interval */
 let lastReminderDate = "";
 setInterval(function () {
     const now = new Date();
@@ -292,10 +320,10 @@ setInterval(function () {
         lastReminderDate !== today
     ) {
         lastReminderDate = today;
-        alert("It is 9:00 PM. Time for Collective Prayer.");
+        alert("यह 9:00 बजे है। सामूहिक प्रार्थना का समय।");
         
         const status = document.getElementById("status");
-        if(status) status.innerText = "It is 9:00 PM. Time for Collective Prayer.";
+        if(status) status.innerText = "यह 9:00 बजे है। सामूहिक प्रार्थना का समय।";
         
         loadYouTube();
     }

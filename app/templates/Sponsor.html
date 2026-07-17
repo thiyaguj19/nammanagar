@@ -1,113 +1,56 @@
+{% load static %}
 <!doctype html>
-<html lang="en">
-  {% load static %}
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.88.1">
-    <title>Namma Nagar</title>
-
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/carousel/">
-
-    
-
-    <!-- Bootstrap core CSS -->
-<link href="{% static 'app/css/bootstrap.min.css' %}" rel="stylesheet">
-
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-
-      .bg-color {
-        background: rgb(131,58,180);
-        background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
-
-    
-    <!-- Custom styles for this template -->
-    <link href="{% static 'app/css/carousel.css' %}" rel="stylesheet">
-  </head>
-  <body>
-    
-<header>
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-color">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="{% url 'nagarhome' %}">Namma Nagar</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav me-auto mb-2 mb-md-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'nagarhome' %}">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'idayhome' %}">Independence</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'reliefhome' %}">Wayanad</a>
-          </li>
-        </ul>
-        <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-      </div>
-    </div>
-  </nav>
-</header>
-
-<main>
-
-  <h2 class="mt-5 text-center">நிகழ்வுகளுக்கான ஸ்பான்சர்கள்</h2>
-      <div class="table-responsive small">
-        <table class="table table-striped table-sm">
+<html lang="ta">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="நம்ம நகரம் — பங்களிப்பாளர்கள் மற்றும் ஸ்பான்சர்கள்.">
+  <title>பங்களிப்பாளர்கள் | நம்ம நகரம்</title>
+  <link href="{% static 'app/css/bootstrap.min.css' %}" rel="stylesheet">
+  <style>
+    :root{--paper:#f7f2e9;--ink:#15372f;--deep:#0c2721;--leaf:#36775f;--sun:#f6b941;--coral:#e76f51;--mist:#dce8de}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--deep);font-family:system-ui,-apple-system,"Noto Sans Tamil",sans-serif}.wrap{width:min(100% - 2.5rem,1440px);margin:auto}.topbar{height:76px;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:0 1rem}.brand{display:flex;align-items:center;gap:.7rem;color:var(--deep);font-size:1.3rem;font-weight:800;text-decoration:none}.brand img{width:43px;height:43px;object-fit:cover;border-radius:50%;box-shadow:0 3px var(--sun)}.back{padding:.65rem 1rem;border-radius:99px;background:var(--leaf);color:#fff;text-decoration:none;font-weight:800}.section{max-width:1200px;margin:3rem auto;padding:0 1.5rem}.sponsor-title{font-size:2rem;text-align:center;margin-bottom:2rem;color:var(--deep);font-family:Georgia,"Noto Serif Tamil",serif}.table-responsive{border-radius:16px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.08)}.table{margin-bottom:0;background:white}.table th{background:var(--leaf);color:white;font-weight:800;padding:1rem}.table td{padding:1rem;vertical-align:middle;border-color:#e8e8e8}.table tbody tr:hover{background:#f9f7f4}.footer-section{margin-top:4rem;padding:2rem;text-align:center;border-radius:16px;background:var(--mist);color:var(--deep)}.footer-section a{color:var(--leaf);font-weight:700}footer{padding:2rem 0;text-align:center;color:#8a9a92}@media(max-width:600px){.table{font-size:.9rem}.table th,.table td{padding:.75rem}}
+  </style>
+</head>
+<body>
+  <header class="wrap topbar">
+    <a class="brand" href="{% url 'nagarhome' %}"><img src="{% static 'app/logo.png' %}" alt="नम्म नगरम् logo"><span>नम्म नगरम्</span></a>
+    <a class="back" href="{% url 'nagarhome' %}">முகப்பு</a>
+  </header>
+  <main>
+    <section class="wrap section">
+      <h1 class="sponsor-title">நிகழ்வுகளுக்கான பங்களிப்பாளர்கள்</h1>
+      <div class="table-responsive">
+        <table class="table table-striped">
           <thead>
             <tr>
-              <th scope="col">Event Name</th>
-              <th scope="col">Sponsor Name</th>
-              <th scope="col">Amount</th>
-              <th scope="col">Sponsor Name</th>
-              <th scope="col">Amount</th>
+              <th>நிகழ்வு</th>
+              <th>பங்களிப்பாளர் 1</th>
+              <th>தொகை</th>
+              <th>பங்களிப்பாளர் 2</th>
+              <th>தொகை</th>
             </tr>
           </thead>
           <tbody>
-              {% for item in items %}
-                <tr>
-                  <td>{{item.event}}</td>>
-                  <td>{{item.sponsor_0}}</td>>
-                  <td>{{item.amount_0}}</td>>
-                  <td>{{item.sponsor_1}}</td>>
-                  <td>{{item.amount_1}}</td>>
-                </tr>
-              {% endfor %}
+            {% for item in items %}
+              <tr>
+                <td>{{ item.event }}</td>
+                <td>{{ item.sponsor_0 }}</td>
+                <td>{{ item.amount_0 }}</td>
+                <td>{{ item.sponsor_1 }}</td>
+                <td>{{ item.amount_1 }}</td>
+              </tr>
+            {% endfor %}
           </tbody>
         </table>
       </div>
-  <!-- FOOTER -->
-  <footer class="container mt-5">
-    <p class="float-end"><a href="#">Back to top</a></p>
-    <p>&copy; Namma Nagar. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+    </section>
+    <section class="wrap section footer-section">
+      <h3>நம்ம நகரத்தின் வளர்ச்சிக்க பங்களிப்பு அளிக்க விரும்பினால் <a href="{% url 'nagarhome' %}">இணைந்திடுங்கள்</a></h3>
+    </section>
+  </main>
+  <footer class="wrap">
+    <span>© {% now "Y" %} நம்ம நகரம்</span>
   </footer>
-</main>
-
-
-    <script src="{% static 'app/js/bootstrap.bundle.min.js' %}"></script>
-
-      
-  </body>
+  <script src="{% static 'app/js/bootstrap.bundle.min.js' %}"></script>
+</body>
 </html>

@@ -9,7 +9,30 @@
   <link href="{% static 'app/css/bootstrap.min.css' %}" rel="stylesheet">
   <style>
     :root{--paper:#fff7ee;--ink:#142b29;--deep:#0d2620;--sun:#f4a93c;--coral:#de5d38;--leaf:#316c55;--mist:#e9eee9;--shadow:0 18px 45px rgba(13,38,32,.12)}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--deep);font-family:system-ui,-apple-system,"Noto Sans Tamil",sans-serif}a{color:inherit;text-decoration:none}img{max-width:100%;display:block}button,a.button{display:inline-flex;align-items:center;justify-content:center;padding:.85rem 1.4rem;border-radius:99px;font-weight:800;text-decoration:none;border:0}a.button.sun{background:var(--sun);color:var(--deep)}a.button.outline{border:1px solid var(--deep);background:transparent;color:var(--deep)}.wrap{width:min(100% - 2rem,1400px);margin:auto}.nav{height:88px;display:flex;align-items:center;justify-content:space-between;gap:1rem}.brand{display:flex;align-items:center;gap:.8rem;color:var(--deep);font-size:1.3rem;font-weight:800}.brand img{width:44px;height:44px;object-fit:cover;border-radius:50%;box-shadow:0 3px 0 rgba(0,0,0,.1)}.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:2rem;align-items:center;min-height:560px;padding:3rem 0}.hero-copy{padding:1rem 0}.eyebrow{display:inline-flex;padding:.55rem 1rem;border-radius:999px;background:var(--sun);color:var(--deep);font-size:.82rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}.hero h1{margin:1.1rem 0 .75rem;font-family:Georgia,"Noto Serif Tamil",serif;font-size:clamp(3rem,5vw,4.6rem);line-height:1}.hero p{max-width:560px;font-size:1.05rem;line-height:1.8;color:#38524a}.hero-art{position:relative;overflow:hidden;border-radius:32px;box-shadow:var(--shadow);min-height:320px;aspect-ratio:16/9;background:linear-gradient(135deg,rgba(246,169,60,.13),rgba(222,93,56,.12))}.hero-art img{height:100%;width:100%;object-fit:cover}.section{padding:4rem 0}.section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:1.5rem;margin-bottom:2rem}.section-title{margin:0;font-size:clamp(2rem,4vw,3.4rem);letter-spacing:-.05em}.intro{max-width:720px;color:#3f5a52;line-height:1.75}.event-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}.event-card{padding:1.6rem;border-radius:24px;background:white;box-shadow:var(--shadow);border:1px solid rgba(22,48,42,.08)}.event-card h3{margin:.6rem 0 .35rem;font-size:1.2rem}.event-card p{margin:0;color:#556d65;line-height:1.7}.feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-top:2rem}.feature{padding:1.4rem;border-radius:22px;background:var(--mist);color:var(--deep);box-shadow:0 12px 30px rgba(13,38,32,.08)}.feature h3{margin:.8rem 0 .35rem;font-size:1.05rem}.feature p{margin:0;color:#3f5a52;line-height:1.6}.heroes{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1rem;margin-top:2rem}.hero-card{padding:1.5rem;border-radius:24px;background:white;box-shadow:var(--shadow);border:1px solid rgba(22,48,42,.08)}.hero-card h3{margin:.8rem 0 .25rem;font-size:1.1rem}.hero-card p{margin:0;color:#53665d;line-height:1.6}.banner{margin-top:2.5rem;padding:2rem;border-radius:26px;background:linear-gradient(135deg,var(--sun),var(--coral));color:white;box-shadow:0 18px 45px rgba(222,93,56,.22)}.banner h2{margin:0;font-size:clamp(2rem,4vw,3rem);line-height:1.1}.banner p{margin:.9rem 0 0;font-size:1rem;line-height:1.7}.footer{padding:2rem 0;color:#5b6a66;font-size:.95rem}footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.75rem}.back-link{color:var(--deep);font-weight:700}
-    @media(max-width:900px){.hero{grid-template-columns:1fr}.section-head{flex-direction:column;align-items:flex-start}.hero-art{min-height:300px}}@media(max-width:620px){.wrap{width:min(100% - 1rem,1400px)}.hero p{font-size:1rem}.event-grid,.feature-grid,.heroes{grid-template-columns:1fr}}
+    
+    /* UPDATED MEDIA QUERIES FOR PERFECT SCALING */
+    @media(max-width:900px){
+      .hero{grid-template-columns:1fr}
+      .section-head{flex-direction:column;align-items:flex-start}
+      
+      /* This overrides desktop aspect ratio constraints, letting the image scale safely */
+      .hero-art{
+        min-height: auto !important;
+        height: auto !important;
+        aspect-ratio: auto !important;
+      }
+      .hero-art img {
+        width: 100% !important;
+        height: auto !important;
+        object-fit: contain !important;
+      }
+    }
+    
+    @media(max-width:620px){
+      .wrap{width:min(100% - 1rem,1400px)}
+      .hero p{font-size:1rem}
+      .event-grid,.feature-grid,.heroes{grid-template-columns:1fr}
+    }
   </style>
 </head>
 <body>

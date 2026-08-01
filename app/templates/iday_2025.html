@@ -4,28 +4,40 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>2025 Independence Day - Unity Cup | நம்ம நகரம்</title>
+  <title>2025 சுதந்திர தினம் | நம்ம நகரம்</title>
+  <meta name="description" content="2025 சுதந்திர தின நிகழ்வின் தயாரிப்பு, கொடியேற்றம், மற்றும் Unity Cup நினைவுப் புகைப்படங்கள்.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anek+Tamil:wght@400;600;700;800&family=Noto+Serif+Tamil:wght@600;700&display=swap" rel="stylesheet">
   <link href="{% static 'app/css/bootstrap.min.css' %}" rel="stylesheet">
   <style>
     :root {
-      --paper: #f8f5ee;
-      --ink: #123c43;
-      --navy: #092f45;
-      --saffron: #e98a2e;
-      --green: #438850;
+      --paper: #f2f6f8;
+      --ink: #0d3442;
+      --navy: #0a3e5e;
+      --saffron: #f09a34;
+      --green: #20865a;
+      --maroon: #7c3a2d;
+      --mist: #e7ede7;
+      --card: rgba(255, 255, 255, 0.68);
+      --line: rgba(16, 47, 58, 0.12);
     }
 
     * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      background: var(--paper);
+      background:
+        radial-gradient(1300px 520px at -120px 0, rgba(240, 154, 52, 0.14), transparent 60%),
+        radial-gradient(980px 540px at 110% 16%, rgba(32, 134, 90, 0.14), transparent 60%),
+        linear-gradient(180deg, #f7fbfd 0%, #eef5f8 100%);
       color: var(--ink);
-      font-family: system-ui, -apple-system, "Noto Sans Tamil", sans-serif;
+      font-family: "Anek Tamil", "Noto Sans Tamil", sans-serif;
+      min-height: 100vh;
     }
 
     .wrap {
-      width: min(100% - 2rem, 1280px);
+      width: min(100% - 2rem, 1360px);
       margin: auto;
     }
 
@@ -58,25 +70,29 @@
     .back {
       padding: 0.65rem 1rem;
       border-radius: 99px;
-      background: var(--navy);
-      color: #fff;
+      background: rgba(10, 44, 69, 0.9);
+      color: #fefefe;
       text-decoration: none;
       font-weight: 800;
     }
 
     .hero {
-      margin-top: 0.5rem;
-      border-radius: 24px;
-      padding: clamp(1.5rem, 3vw, 2.4rem);
-      background: linear-gradient(135deg, var(--navy), #0e4660);
+      margin-top: 0.4rem;
+      border-radius: 28px;
+      padding: clamp(1.8rem, 3.8vw, 3.3rem);
+      background:
+        linear-gradient(120deg, rgba(10, 62, 94, 0.97), rgba(8, 70, 86, 0.95)),
+        linear-gradient(180deg, rgba(240, 154, 52, 0.12), rgba(32, 134, 90, 0.1));
       color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 20px 55px rgba(10, 44, 69, 0.22);
     }
 
     .eyebrow {
       display: inline-flex;
       padding: 0.35rem 0.75rem;
       border-radius: 999px;
-      background: rgba(255, 201, 109, 0.2);
+      background: rgba(255, 201, 109, 0.22);
       color: #ffc96d;
       font-size: 0.78rem;
       font-weight: 800;
@@ -84,14 +100,14 @@
       text-transform: uppercase;
     }
 
-    h1, h2 {
-      font-family: Georgia, "Noto Serif Tamil", serif;
+    h1, h2, h3 {
+      font-family: "Noto Serif Tamil", serif;
       letter-spacing: -0.03em;
     }
 
     h1 {
       margin: 0.7rem 0 0.6rem;
-      font-size: clamp(2rem, 4.2vw, 3.2rem);
+      font-size: clamp(2.2rem, 4.8vw, 3.95rem);
       line-height: 1.05;
     }
 
@@ -99,27 +115,267 @@
       margin: 0;
       color: #d9e9e3;
       line-height: 1.7;
-      max-width: 760px;
+      max-width: 900px;
+      font-size: 1.1rem;
+    }
+
+    .hero-meta {
+      margin-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .hero-meta span {
+      padding: 0.42rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #e8f3ef;
+      font-size: 0.85rem;
+      font-weight: 650;
     }
 
     .section {
-      padding: clamp(2.5rem, 6vw, 4.5rem) 0;
+      padding: clamp(2.6rem, 5.8vw, 4.8rem) 0;
     }
 
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    .event-block {
+      margin-top: 1.65rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(16, 47, 58, 0.14);
+    }
+
+    .event-block:first-child {
+      margin-top: 0;
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    .event-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
       gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.9rem;
     }
 
-    .gallery img {
+    .event-date {
+      margin: 0;
+      font-family: "Anek Tamil", "Noto Sans Tamil", sans-serif;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #1b4055;
+    }
+
+    .event-place {
+      margin: 0;
+      color: #4f6b63;
+      font-size: 1.02rem;
+      font-weight: 650;
+    }
+
+    .event-desc {
+      margin: 0 0 0.9rem;
+      color: #2f4d45;
+      font-size: 1.08rem;
+      line-height: 1.7;
+      max-width: 1060px;
+    }
+
+    .photo-stream {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 0.65rem;
+      grid-auto-flow: dense;
+    }
+
+    .photo-stream img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      box-shadow: 0 8px 18px rgba(16, 47, 58, 0.12);
+      background: #efefef;
+    }
+
+    .photo-stream .p-lg {
+      grid-column: span 4;
+      grid-row: span 2;
+      min-height: 520px;
+    }
+
+    .photo-stream .p-md {
+      grid-column: span 4;
+      min-height: 255px;
+    }
+
+    .photo-stream .p-sm {
+      grid-column: span 3;
+      min-height: 210px;
+    }
+
+    .chapter {
+      margin-top: 1.35rem;
+      border-radius: 28px;
+      padding: clamp(1rem, 2vw, 1.2rem);
+      border: 1px solid var(--line);
+      background: linear-gradient(160deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.52));
+      backdrop-filter: blur(8px);
+      box-shadow: 0 14px 30px rgba(16, 47, 58, 0.08);
+      position: relative;
+      margin-left: 1.8rem;
+    }
+
+    .chapter.prep {
+      border-top: 5px solid var(--saffron);
+    }
+
+    .chapter.flag {
+      border-top: 5px solid var(--navy);
+    }
+
+    .chapter.unity {
+      border-top: 5px solid var(--green);
+    }
+
+    .story {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(1.25rem, 4vw, 2.5rem);
+      align-items: stretch;
+    }
+
+    .chapter.alt .story-media {
+      order: 2;
+    }
+
+    .chapter.alt .story-copy {
+      order: 1;
+    }
+
+    .story-media {
+      margin: 0;
+      height: 100%;
+      display: flex;
+    }
+
+    .story-frame {
+      width: 100%;
+      border-radius: 24px;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(10, 44, 69, 0.95), rgba(10, 44, 69, 0.84)),
+        repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.06) 0 8px, transparent 8px 16px);
+      box-shadow: 0 18px 35px rgba(9, 47, 69, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      height: 100%;
+      position: relative;
+      padding: 0.65rem;
+    }
+
+    .story-frame::before {
+      content: attr(data-label);
+      position: absolute;
+      top: 0.9rem;
+      left: 0.95rem;
+      z-index: 4;
+      background: rgba(0, 0, 0, 0.45);
+      color: #fff;
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      padding: 0.3rem 0.58rem;
+      border-radius: 999px;
+      backdrop-filter: blur(4px);
+    }
+
+    .lead-photo {
+      width: 100%;
+      min-height: 620px;
+      object-fit: contain;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 16px;
+    }
+
+    .thumb-strip {
+      margin-top: 0.75rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(78px, 1fr));
+      gap: 0.45rem;
+    }
+
+    .thumb-strip img {
       width: 100%;
       aspect-ratio: 1;
       object-fit: cover;
-      border-radius: 18px;
-      box-shadow: 0 12px 25px rgba(9, 47, 69, 0.12);
-      border: 1px solid rgba(0, 0, 0, 0.05);
-      background: #fff;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      opacity: 0.92;
+    }
+
+    .thumb-strip img:hover {
+      opacity: 1;
+    }
+
+    .story-copy {
+      padding: 1.1rem 1rem;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.74);
+      border: 1px solid rgba(16, 47, 58, 0.08);
+    }
+
+    .story-copy h2 {
+      margin: 0.6rem 0 0.55rem;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      color: var(--navy);
+    }
+
+    .chapter.prep .story-copy h2 { color: #7f4510; }
+    .chapter.flag .story-copy h2 { color: #0a3152; }
+    .chapter.unity .story-copy h2 { color: #1e6742; }
+
+    .story-copy p {
+      margin: 0.3rem 0 0;
+      color: #38524a;
+      line-height: 1.8;
+      font-size: 1.02rem;
+    }
+
+    .story-points {
+      margin: 0.9rem 0 0;
+      padding-left: 1rem;
+      color: #2e4b44;
+      line-height: 1.7;
+    }
+
+    .story-points li {
+      margin-bottom: 0.35rem;
+    }
+
+    .closing {
+      margin-top: 1.6rem;
+      border-radius: 24px;
+      padding: clamp(1.2rem, 2.5vw, 1.8rem);
+      background: linear-gradient(120deg, rgba(229, 139, 42, 0.12), rgba(44, 132, 82, 0.12));
+      border: 1px solid rgba(16, 47, 58, 0.12);
+    }
+
+    .closing h3 {
+      margin: 0;
+      color: var(--navy);
+      font-size: clamp(1.25rem, 2.4vw, 1.7rem);
+    }
+
+    .closing p {
+      margin: 0.4rem 0 0;
+      color: #325048;
+      line-height: 1.75;
     }
 
     footer {
@@ -127,9 +383,65 @@
       color: #607773;
     }
 
+    @media (max-width: 900px) {
+      .chapter {
+        margin-left: 0;
+      }
+
+      .story {
+        grid-template-columns: 1fr;
+      }
+
+      .chapter.alt .story-media,
+      .chapter.alt .story-copy {
+        order: initial;
+      }
+
+      .story-media img {
+        aspect-ratio: auto;
+        max-height: none;
+      }
+
+      .lead-photo {
+        min-height: 380px;
+      }
+
+      .photo-stream {
+        grid-template-columns: repeat(6, 1fr);
+      }
+
+      .photo-stream .p-lg,
+      .photo-stream .p-md {
+        grid-column: span 3;
+        min-height: 320px;
+      }
+
+      .photo-stream .p-sm {
+        grid-column: span 2;
+        min-height: 210px;
+      }
+    }
+
     @media (max-width: 560px) {
       .wrap { width: min(100% - 1.25rem, 1280px); }
-      .gallery { grid-template-columns: repeat(2, 1fr); }
+      .lead-photo {
+        min-height: 300px;
+      }
+
+      .thumb-strip {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .photo-stream {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .photo-stream .p-lg,
+      .photo-stream .p-md,
+      .photo-stream .p-sm {
+        grid-column: span 2;
+        min-height: 250px;
+      }
     }
   </style>
 </head>
@@ -144,26 +456,67 @@
 
   <main>
     <section class="wrap hero">
-      <span class="eyebrow">2025 · Independence Day Program</span>
-      <h1>Unity Cup 2025 புகைப்படங்கள்</h1>
-      <p>2025 சுதந்திர தின நிகழ்வின் Unity Cup நினைவுப் புகைப்படங்கள் அனைத்தும் இங்கே.</p>
+      <span class="eyebrow">2025 · சுதந்திர தின நிகழ்வுகள்</span>
+      <h1>ஒரு வாரம் கொண்டாட்டம், ஒரு நாள் பெருமிதம்</h1>
+      <p>தயாரிப்பிலிருந்து கொடியேற்றம் வரை, Unity Cup உற்சாகத்திலிருந்து பரிசளிப்பு தருணம் வரை - 2025 சுதந்திர தின நினைவுகளை ஒரே இடத்தில் தொகுத்துள்ளோம்.</p>
+      <div class="hero-meta">
+        <span>தயாரிப்பு கூட்டம்</span>
+        <span>கொடியேற்றம் - KNG Pudur Pirivu</span>
+        <span>Unity Cup & பரிசளிப்பு</span>
+      </div>
     </section>
 
     <section class="wrap section">
-      <div class="gallery">
-        <img src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/unity_cup/UnityCup001.jpg" alt="Unity Cup 2025 - 001">
-        <img src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/unity_cup/UnityCup002.jpg" alt="Unity Cup 2025 - 002">
-        <img src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/unity_cup/UnityCup003.jpg" alt="Unity Cup 2025 - 003">
-        <img src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/unity_cup/UnityCup004.jpg" alt="Unity Cup 2025 - 004">
-        <img src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/unity_cup/UnityCup005.jpg" alt="Unity Cup 2025 - 005">
-        <img src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/unity_cup/UnityCup006.jpg" alt="Unity Cup 2025 - 006">
-        <img src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/unity_cup/UnityCup007.jpg" alt="Unity Cup 2025 - 007">
-        <img src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/unity_cup/UnityCup008.jpg" alt="Unity Cup 2025 - 008">
-        <img src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/unity_cup/UnityCup009.jpg" alt="Unity Cup 2025 - 009">
-        <img src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/unity_cup/UnityCup010.jpg" alt="Unity Cup 2025 - 010">
-        <img src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/unity_cup/UnityCup011.jpg" alt="Unity Cup 2025 - 011">
-        <img src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/unity_cup/UnityCup012.jpg" alt="Unity Cup 2025 - 012">
-      </div>
+      <article class="event-block">
+        <div class="event-head">
+          <h2 class="event-date">வியாழன், ஆகஸ்ட் 14, 2025</h2>
+          <p class="event-place">தயாரிப்பு கூட்டம் · KNG Pudur Pirivu</p>
+        </div>
+        <p class="event-desc">சுதந்திர தினத்திற்கு முந்தைய நாள், ஒருங்கிணைப்பாளர்கள் மற்றும் தன்னார்வலர்கள் ஒன்று கூடி மறுநாள் நிகழ்ச்சிகளுக்கான பொறுப்புகள், நேர அட்டவணை, மற்றும் செயல்முறைகளை உறுதிப்படுத்தினர்.</p>
+        <div class="photo-stream">
+          <img class="p-lg" src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/Prepare001.jpg" alt="தயாரிப்பு - 001">
+          <img class="p-md" src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/Prepare002.jpg" alt="தயாரிப்பு - 002">
+          <img class="p-md" src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/Prepare003.jpg" alt="தயாரிப்பு - 003">
+          <img class="p-md" src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/Prepare004.jpg" alt="தயாரிப்பு - 004">
+        </div>
+      </article>
+
+      <article class="event-block">
+        <div class="event-head">
+          <h2 class="event-date">வெள்ளி, ஆகஸ்ட் 15, 2025</h2>
+          <p class="event-place">கொடியேற்றம் · KNG Pudur Pirivu, Coimbatore</p>
+        </div>
+        <p class="event-desc">ஆகஸ்ட் 15 காலை, தேசியக் கொடி ஏற்றப்பட்ட தருணத்தில் அனைத்து வயதினரும் திரளாகக் கூடி மரியாதை செலுத்தினர். ஒற்றுமை மற்றும் தேசப்பற்று நிரம்பிய இந்த நிகழ்வு நாளின் முக்கிய தருணமாக அமைந்தது.</p>
+        <div class="photo-stream">
+          <img class="p-lg" src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/FlagHoisting001.jpg" alt="கொடியேற்றம் - 001">
+          <img class="p-md" src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/FlagHoisting002.jpg" alt="கொடியேற்றம் - 002">
+          <img class="p-md" src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/FlagHoisting003.jpg" alt="கொடியேற்றம் - 003">
+          <img class="p-md" src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/FlagHoisting004.jpg" alt="கொடியேற்றம் - 004">
+          <img class="p-md" src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/FlagHoisting005.jpg" alt="கொடியேற்றம் - 005">
+        </div>
+      </article>
+
+      <article class="event-block">
+        <div class="event-head">
+          <h2 class="event-date">ஞாயிறு, ஆகஸ்ட் 10, 2025</h2>
+          <p class="event-place">Unity Cup கிரிக்கெட் போட்டி · KNG Pudur Pirivu, Coimbatore</p>
+        </div>
+        <p class="event-desc">Unity Cup கிரிக்கெட் போட்டிகள் சுதந்திர தினத்திற்கு ஒரு வாரம் முன்பே பல அணிகள் பங்கேற்புடன் நடத்தப்பட்டன. வெற்றியாளர்கள் மற்றும் பங்கேற்பாளர்களுக்கான பாராட்டு/பரிசளிப்பு ஆகஸ்ட் 15 நிகழ்வில் வழங்கப்பட்டது.</p>
+        <div class="photo-stream">
+          <img class="p-lg" src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/unity_cup/UnityCup001.jpg" alt="Unity Cup - 001">
+          <img class="p-md" src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/unity_cup/UnityCup002.jpg" alt="Unity Cup - 002">
+          <img class="p-md" src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/unity_cup/UnityCup003.jpg" alt="Unity Cup - 003">
+          <img class="p-md" src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/unity_cup/UnityCup004.jpg" alt="Unity Cup - 004">
+          <img class="p-sm" src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/unity_cup/UnityCup005.jpg" alt="Unity Cup - 005">
+          <img class="p-sm" src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/unity_cup/UnityCup006.jpg" alt="Unity Cup - 006">
+          <img class="p-sm" src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/unity_cup/UnityCup007.jpg" alt="Unity Cup - 007">
+          <img class="p-sm" src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/unity_cup/UnityCup008.jpg" alt="Unity Cup - 008">
+          <img class="p-sm" src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/unity_cup/UnityCup009.jpg" alt="Unity Cup - 009">
+          <img class="p-sm" src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/unity_cup/UnityCup010.jpg" alt="Unity Cup - 010">
+          <img class="p-sm" src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/unity_cup/UnityCup011.jpg" alt="Unity Cup - 011">
+          <img class="p-sm" src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/unity_cup/UnityCup012.jpg" alt="Unity Cup - 012">
+        </div>
+      </article>
     </section>
   </main>
 

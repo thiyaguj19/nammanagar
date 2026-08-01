@@ -234,6 +234,142 @@
       background: #112f3b;
     }
 
+    .gallery-option {
+      margin-top: 1.2rem;
+      padding: 0.9rem;
+      border-radius: 16px;
+      border: 1px solid rgba(16, 47, 58, 0.12);
+      background: rgba(255, 255, 255, 0.74);
+    }
+
+    .gallery-option:first-of-type {
+      margin-top: 0;
+    }
+
+    .option-title {
+      margin: 0 0 0.6rem;
+      color: #134155;
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: 0.01em;
+    }
+
+    .option-help {
+      margin: 0 0 0.85rem;
+      color: #2f5c52;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .masonry-grid {
+      column-count: 4;
+      column-gap: 0.72rem;
+    }
+
+    .masonry-item {
+      break-inside: avoid;
+      margin: 0 0 0.72rem;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(15, 56, 70, 0.18);
+      background: #d7e2de;
+      box-shadow: 0 5px 12px rgba(16, 47, 58, 0.08);
+      cursor: zoom-in;
+    }
+
+    .masonry-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 180ms ease;
+      background: #d7e2de;
+    }
+
+    .masonry-item:hover img {
+      transform: scale(1.02);
+    }
+
+    .masonry-actions {
+      margin-top: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .masonry-status {
+      margin: 0;
+      color: #245264;
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    .masonry-load {
+      border: none;
+      border-radius: 10px;
+      padding: 0.5rem 0.9rem;
+      background: #0f4d6d;
+      color: #fff;
+      font-weight: 760;
+      cursor: pointer;
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(6, 21, 30, 0.82);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      padding: 1.2rem;
+    }
+
+    .lightbox.is-open {
+      display: flex;
+    }
+
+    .lightbox-figure {
+      margin: 0;
+      max-width: min(1100px, 96vw);
+      max-height: 88vh;
+      width: auto;
+    }
+
+    .lightbox-figure img {
+      width: 100%;
+      max-height: 80vh;
+      object-fit: contain;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      background: #0a1f2b;
+      display: block;
+    }
+
+    .lightbox-caption {
+      margin-top: 0.6rem;
+      color: #e5f0ec;
+      font-size: 0.95rem;
+      text-align: center;
+      font-weight: 650;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 0.9rem;
+      right: 0.9rem;
+      width: 40px;
+      height: 40px;
+      border: none;
+      border-radius: 999px;
+      font-size: 1.45rem;
+      line-height: 1;
+      color: #fff;
+      background: rgba(9, 36, 51, 0.72);
+      cursor: pointer;
+    }
+
     .final-message {
       margin-top: 2.2rem;
       border-radius: 20px;
@@ -289,6 +425,10 @@
       .video-grid {
         grid-template-columns: 1fr;
       }
+
+      .masonry-grid {
+        column-count: 3;
+      }
     }
 
     @media (max-width: 560px) {
@@ -303,6 +443,14 @@
       .photo-stream .p-sm {
         grid-column: span 2;
         min-height: 250px;
+      }
+
+      .masonry-grid {
+        column-count: 2;
+      }
+
+      .lightbox-caption {
+        font-size: 0.88rem;
       }
     }
   </style>
@@ -432,6 +580,24 @@
         </div>
       </article>
 
+      <article class="event-block">
+        <div class="event-head">
+          <h2 class="event-date">2025 நிகழ்வுகள் · முழு புகைப்படத் தொகுப்பு</h2>
+          <p class="event-place">178 படங்கள் · அரவிந்த் நகர்</p>
+        </div>
+        <p class="event-desc">2025 நிகழ்வுகளின் 178 படங்களும் Masonry வடிவில் இங்கே காட்டப்படுகின்றன. ஒவ்வொரு முறை பக்கம் திறக்கும்போதும் படங்களின் வரிசை random-ஆக மாறும்.</p>
+
+        <div class="gallery-option">
+          <h3 class="option-title">Masonry Gallery</h3>
+          <p class="option-help">பல படங்களை ஒரே பார்வையில் பார்க்க உதவும் layout. ஒரு படத்தை கிளிக் செய்தால் பெரிய view-ல் திறக்கும்.</p>
+          <div id="iday-masonry-grid" class="masonry-grid" data-total="178" data-base="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/output/2025_Iday_Events" data-ext=".jpg"></div>
+          <div class="masonry-actions">
+            <p class="masonry-status" id="iday-masonry-status">0 / 178 படங்கள் காட்டப்பட்டுள்ளன</p>
+            <button class="masonry-load" type="button" id="iday-masonry-load">மேலும் 24 படங்கள்</button>
+          </div>
+        </div>
+      </article>
+
       <div class="final-message">
         <h3>நாம் பெருமைமிகு தமிழரும் இந்தியரும்; நம் கொண்டாட்டம் வருடா வருடம் தொடரும்.</h3>
         <p>ஒற்றுமை, பாரம்பரியம், மற்றும் சமூகப் பொறுப்பை முன்னிறுத்தும் இந்த உறவை அடுத்த தலைமுறைக்கும் கொண்டு செல்லும் நோக்கில், ஒவ்வொரு ஆண்டும் இன்னும் சிறப்பாக சுதந்திர தினத்தை கொண்டாடுவோம். நம் அடையாளம், நம் நாட்டுப் பெருமை, நம் மக்கள் - இவை என்றும் வளரட்டும்.</p>
@@ -440,5 +606,141 @@
   </main>
 
   <footer class="wrap">© {% now "Y" %} நம்ம நகரம்</footer>
+  <div class="lightbox" id="iday-lightbox" aria-hidden="true" role="dialog" aria-label="பெரிய புகைப்படம்">
+    <button class="lightbox-close" type="button" id="iday-lightbox-close" aria-label="மூடு">&times;</button>
+    <figure class="lightbox-figure">
+      <img id="iday-lightbox-image" src="" alt="">
+      <figcaption class="lightbox-caption" id="iday-lightbox-caption"></figcaption>
+    </figure>
+  </div>
+  <script>
+    (function () {
+      var masonryGrid = document.getElementById("iday-masonry-grid");
+      if (!masonryGrid) {
+        return;
+      }
+
+      var total = Number(masonryGrid.dataset.total || 0);
+      var base = masonryGrid.dataset.base || "";
+      var ext = masonryGrid.dataset.ext || ".jpg";
+
+      if (!total || !base) {
+        return;
+      }
+
+      var masonryStatus = document.getElementById("iday-masonry-status");
+      var masonryLoadBtn = document.getElementById("iday-masonry-load");
+      var masonryStep = 24;
+      var masonryShown = 0;
+
+      var lightbox = document.getElementById("iday-lightbox");
+      var lightboxImage = document.getElementById("iday-lightbox-image");
+      var lightboxCaption = document.getElementById("iday-lightbox-caption");
+      var lightboxClose = document.getElementById("iday-lightbox-close");
+
+      function padded(n) {
+        return String(n).padStart(3, "0");
+      }
+
+      function imageUrl(n) {
+        return base + padded(n) + ext;
+      }
+
+      function imageAlt(n) {
+        return "2025 நிகழ்வு படம் " + padded(n);
+      }
+
+      var allImages = [];
+      for (var i = 1; i <= total; i += 1) {
+        allImages.push({
+          index: i,
+          url: imageUrl(i),
+          alt: imageAlt(i)
+        });
+      }
+
+      function shuffle(items) {
+        for (var j = items.length - 1; j > 0; j -= 1) {
+          var k = Math.floor(Math.random() * (j + 1));
+          var temp = items[j];
+          items[j] = items[k];
+          items[k] = temp;
+        }
+      }
+
+      shuffle(allImages);
+
+      function updateMasonryStatus() {
+        masonryStatus.textContent = masonryShown + " / " + total + " படங்கள் காட்டப்பட்டுள்ளன";
+        masonryLoadBtn.disabled = masonryShown >= total;
+        masonryLoadBtn.style.opacity = masonryShown >= total ? "0.6" : "1";
+        masonryLoadBtn.textContent = masonryShown >= total ? "அனைத்தும் காட்டப்பட்டது" : "மேலும் 24 படங்கள்";
+      }
+
+      function openLightbox(item) {
+        lightboxImage.src = item.url;
+        lightboxImage.alt = item.alt;
+        lightboxCaption.textContent = item.alt + " (" + item.index + " / " + total + ")";
+        lightbox.classList.add("is-open");
+        lightbox.setAttribute("aria-hidden", "false");
+      }
+
+      function closeLightbox() {
+        lightbox.classList.remove("is-open");
+        lightbox.setAttribute("aria-hidden", "true");
+      }
+
+      function appendMasonryBatch() {
+        var nextCount = Math.min(masonryShown + masonryStep, total);
+        for (var itemIndex = masonryShown; itemIndex < nextCount; itemIndex += 1) {
+          var item = allImages[itemIndex];
+          var tile = document.createElement("button");
+          tile.type = "button";
+          tile.className = "masonry-item";
+          tile.setAttribute("aria-label", item.alt);
+
+          var pic = document.createElement("img");
+          pic.src = item.url;
+          pic.alt = item.alt;
+          pic.loading = "lazy";
+          pic.decoding = "async";
+
+          tile.appendChild(pic);
+          tile.addEventListener("click", (function (current) {
+            return function () {
+              openLightbox(current);
+            };
+          })(item));
+
+          masonryGrid.appendChild(tile);
+        }
+
+        masonryShown = nextCount;
+        updateMasonryStatus();
+      }
+
+      masonryLoadBtn.addEventListener("click", function () {
+        appendMasonryBatch();
+      });
+
+      lightboxClose.addEventListener("click", function () {
+        closeLightbox();
+      });
+
+      lightbox.addEventListener("click", function (event) {
+        if (event.target === lightbox) {
+          closeLightbox();
+        }
+      });
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && lightbox.classList.contains("is-open")) {
+          closeLightbox();
+        }
+      });
+
+      appendMasonryBatch();
+    })();
+  </script>
 </body>
 </html>

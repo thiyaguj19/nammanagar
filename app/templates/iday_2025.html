@@ -1,0 +1,172 @@
+{% load static %}
+<!doctype html>
+<html lang="ta">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2025 Independence Day - Unity Cup | நம்ம நகரம்</title>
+  <link href="{% static 'app/css/bootstrap.min.css' %}" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f8f5ee;
+      --ink: #123c43;
+      --navy: #092f45;
+      --saffron: #e98a2e;
+      --green: #438850;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: system-ui, -apple-system, "Noto Sans Tamil", sans-serif;
+    }
+
+    .wrap {
+      width: min(100% - 2rem, 1280px);
+      margin: auto;
+    }
+
+    .nav {
+      height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 1.15rem;
+    }
+
+    .brand img {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 3px var(--saffron);
+    }
+
+    .back {
+      padding: 0.65rem 1rem;
+      border-radius: 99px;
+      background: var(--navy);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 800;
+    }
+
+    .hero {
+      margin-top: 0.5rem;
+      border-radius: 24px;
+      padding: clamp(1.5rem, 3vw, 2.4rem);
+      background: linear-gradient(135deg, var(--navy), #0e4660);
+      color: #fff;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      background: rgba(255, 201, 109, 0.2);
+      color: #ffc96d;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h1, h2 {
+      font-family: Georgia, "Noto Serif Tamil", serif;
+      letter-spacing: -0.03em;
+    }
+
+    h1 {
+      margin: 0.7rem 0 0.6rem;
+      font-size: clamp(2rem, 4.2vw, 3.2rem);
+      line-height: 1.05;
+    }
+
+    .hero p {
+      margin: 0;
+      color: #d9e9e3;
+      line-height: 1.7;
+      max-width: 760px;
+    }
+
+    .section {
+      padding: clamp(2.5rem, 6vw, 4.5rem) 0;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 1rem;
+    }
+
+    .gallery img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      border-radius: 18px;
+      box-shadow: 0 12px 25px rgba(9, 47, 69, 0.12);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      background: #fff;
+    }
+
+    footer {
+      padding: 2rem 0;
+      color: #607773;
+    }
+
+    @media (max-width: 560px) {
+      .wrap { width: min(100% - 1.25rem, 1280px); }
+      .gallery { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <header class="wrap nav">
+    <a class="brand" href="{% url 'nagarhome' %}">
+      <img src="https://nammanagar.s3.eu-north-1.amazonaws.com/nagarlogo/logo.png" alt="நம்ம நகரம் logo">
+      <span>நம்ம நகரம்</span>
+    </a>
+    <a class="back" href="{% url 'nagarhome' %}#independence-archive">திரும்ப</a>
+  </header>
+
+  <main>
+    <section class="wrap hero">
+      <span class="eyebrow">2025 · Independence Day Program</span>
+      <h1>Unity Cup 2025 புகைப்படங்கள்</h1>
+      <p>2025 சுதந்திர தின நிகழ்வின் Unity Cup நினைவுப் புகைப்படங்கள் அனைத்தும் இங்கே.</p>
+    </section>
+
+    <section class="wrap section">
+      <div class="gallery">
+        <img src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/unity_cup/UnityCup001.jpg" alt="Unity Cup 2025 - 001">
+        <img src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/unity_cup/UnityCup002.jpg" alt="Unity Cup 2025 - 002">
+        <img src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/unity_cup/UnityCup003.jpg" alt="Unity Cup 2025 - 003">
+        <img src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/unity_cup/UnityCup004.jpg" alt="Unity Cup 2025 - 004">
+        <img src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/unity_cup/UnityCup005.jpg" alt="Unity Cup 2025 - 005">
+        <img src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/unity_cup/UnityCup006.jpg" alt="Unity Cup 2025 - 006">
+        <img src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/unity_cup/UnityCup007.jpg" alt="Unity Cup 2025 - 007">
+        <img src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/unity_cup/UnityCup008.jpg" alt="Unity Cup 2025 - 008">
+        <img src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/unity_cup/UnityCup009.jpg" alt="Unity Cup 2025 - 009">
+        <img src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/unity_cup/UnityCup010.jpg" alt="Unity Cup 2025 - 010">
+        <img src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/unity_cup/UnityCup011.jpg" alt="Unity Cup 2025 - 011">
+        <img src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/unity_cup/UnityCup012.jpg" alt="Unity Cup 2025 - 012">
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap">© {% now "Y" %} நம்ம நகரம்</footer>
+</body>
+</html>

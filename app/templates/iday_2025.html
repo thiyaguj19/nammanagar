@@ -216,6 +216,42 @@
       min-height: 210px;
     }
 
+    .video-wrap {
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      box-shadow: 0 12px 25px rgba(16, 47, 58, 0.16);
+      background: #0f2f3b;
+    }
+
+    .video-wrap video {
+      width: 100%;
+      display: block;
+      max-height: 660px;
+      background: #0f2f3b;
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.8rem;
+    }
+
+    .video-item {
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      background: #112f3b;
+      box-shadow: 0 8px 18px rgba(16, 47, 58, 0.14);
+    }
+
+    .video-item video {
+      width: 100%;
+      display: block;
+      aspect-ratio: 16 / 9;
+      background: #112f3b;
+    }
+
     .chapter {
       margin-top: 1.35rem;
       border-radius: 28px;
@@ -420,6 +456,10 @@
         grid-column: span 2;
         min-height: 210px;
       }
+
+      .video-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     @media (max-width: 560px) {
@@ -493,6 +533,58 @@
           <img class="p-md" src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/FlagHoisting003.jpg" alt="கொடியேற்றம் - 003">
           <img class="p-md" src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/FlagHoisting004.jpg" alt="கொடியேற்றம் - 004">
           <img class="p-md" src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/FlagHoisting005.jpg" alt="கொடியேற்றம் - 005">
+        </div>
+      </article>
+
+      <article class="event-block">
+        <div class="event-head">
+          <h2 class="event-date">வெள்ளி, ஆகஸ்ட் 15, 2025 · மதியத்திற்குப் பிறகு</h2>
+          <p class="event-place">போட்டிகள் மற்றும் கலை நிகழ்ச்சிகள் · அரவிந்த நகர்</p>
+        </div>
+        <p class="event-desc">சுதந்திர தினம் மதிய உணவிற்குப் பிறகு பல்வேறு போட்டிகள் மற்றும் கலைநிகழ்ச்சிகள் நடைபெற்றன. அந்த உற்சாகமான தருணங்களிலிருந்து சில வீடியோ காட்சிகள் கீழே வழங்கப்பட்டுள்ளன.</p>
+        <div class="video-grid">
+          <div class="video-item">
+            <video controls preload="metadata">
+              <source src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/2025-Iday-001.mp4" type="video/mp4">
+              உங்கள் உலாவியில் வீடியோ இயக்கம் ஆதரிக்கப்படவில்லை.
+            </video>
+          </div>
+          <div class="video-item">
+            <video controls preload="metadata">
+              <source src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/2025-Iday-002.mp4" type="video/mp4">
+              உங்கள் உலாவியில் வீடியோ இயக்கம் ஆதரிக்கப்படவில்லை.
+            </video>
+          </div>
+          <div class="video-item">
+            <video controls preload="metadata">
+              <source src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/2025-Iday-003.mp4" type="video/mp4">
+              உங்கள் உலாவியில் வீடியோ இயக்கம் ஆதரிக்கப்படவில்லை.
+            </video>
+          </div>
+          <div class="video-item">
+            <video controls preload="metadata">
+              <source src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/2025-Iday-004.mp4" type="video/mp4">
+              உங்கள் உலாவியில் வீடியோ இயக்கம் ஆதரிக்கப்படவில்லை.
+            </video>
+          </div>
+          <div class="video-item">
+            <video controls preload="metadata">
+              <source src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/2025-Iday-005.mp4" type="video/mp4">
+              உங்கள் உலாவியில் வீடியோ இயக்கம் ஆதரிக்கப்படவில்லை.
+            </video>
+          </div>
+          <div class="video-item">
+            <video controls preload="metadata">
+              <source src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/2025-Iday-006.mp4" type="video/mp4">
+              உங்கள் உலாவியில் வீடியோ இயக்கம் ஆதரிக்கப்படவில்லை.
+            </video>
+          </div>
+          <div class="video-item">
+            <video controls preload="metadata">
+              <source src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/2025-Iday-007.mp4" type="video/mp4">
+              உங்கள் உலாவியில் வீடியோ இயக்கம் ஆதரிக்கப்படவில்லை.
+            </video>
+          </div>
         </div>
       </article>
 

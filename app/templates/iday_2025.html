@@ -17,10 +17,6 @@
       --navy: #0a3e5e;
       --saffron: #f09a34;
       --green: #20865a;
-      --maroon: #7c3a2d;
-      --mist: #e7ede7;
-      --card: rgba(255, 255, 255, 0.68);
-      --line: rgba(16, 47, 58, 0.12);
     }
 
     * { box-sizing: border-box; }
@@ -141,14 +137,15 @@
 
     .event-block {
       margin-top: 1.65rem;
-      padding-top: 1rem;
-      border-top: 1px solid rgba(16, 47, 58, 0.14);
+      padding: 1.15rem;
+      border-radius: 18px;
+      border: 1px solid rgba(16, 47, 58, 0.11);
+      background: rgba(255, 255, 255, 0.66);
+      box-shadow: 0 10px 24px rgba(13, 52, 66, 0.08);
     }
 
     .event-block:first-child {
       margin-top: 0;
-      border-top: 0;
-      padding-top: 0;
     }
 
     .event-head {
@@ -196,7 +193,7 @@
       object-fit: cover;
       border-radius: 14px;
       border: 1px solid rgba(255, 255, 255, 0.45);
-      box-shadow: 0 8px 18px rgba(16, 47, 58, 0.12);
+      box-shadow: 0 8px 16px rgba(16, 47, 58, 0.1);
       background: #efefef;
     }
 
@@ -214,21 +211,6 @@
     .photo-stream .p-sm {
       grid-column: span 3;
       min-height: 210px;
-    }
-
-    .video-wrap {
-      border-radius: 16px;
-      overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.55);
-      box-shadow: 0 12px 25px rgba(16, 47, 58, 0.16);
-      background: #0f2f3b;
-    }
-
-    .video-wrap video {
-      width: 100%;
-      display: block;
-      max-height: 660px;
-      background: #0f2f3b;
     }
 
     .video-grid {
@@ -279,194 +261,14 @@
       line-height: 1.8;
     }
 
-    .chapter {
-      margin-top: 1.35rem;
-      border-radius: 28px;
-      padding: clamp(1rem, 2vw, 1.2rem);
-      border: 1px solid var(--line);
-      background: linear-gradient(160deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.52));
-      backdrop-filter: blur(8px);
-      box-shadow: 0 14px 30px rgba(16, 47, 58, 0.08);
-      position: relative;
-      margin-left: 1.8rem;
-    }
-
-    .chapter.prep {
-      border-top: 5px solid var(--saffron);
-    }
-
-    .chapter.flag {
-      border-top: 5px solid var(--navy);
-    }
-
-    .chapter.unity {
-      border-top: 5px solid var(--green);
-    }
-
-    .story {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: clamp(1.25rem, 4vw, 2.5rem);
-      align-items: stretch;
-    }
-
-    .chapter.alt .story-media {
-      order: 2;
-    }
-
-    .chapter.alt .story-copy {
-      order: 1;
-    }
-
-    .story-media {
-      margin: 0;
-      height: 100%;
-      display: flex;
-    }
-
-    .story-frame {
-      width: 100%;
-      border-radius: 24px;
-      overflow: hidden;
-      background:
-        linear-gradient(180deg, rgba(10, 44, 69, 0.95), rgba(10, 44, 69, 0.84)),
-        repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.06) 0 8px, transparent 8px 16px);
-      box-shadow: 0 18px 35px rgba(9, 47, 69, 0.18);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      height: 100%;
-      position: relative;
-      padding: 0.65rem;
-    }
-
-    .story-frame::before {
-      content: attr(data-label);
-      position: absolute;
-      top: 0.9rem;
-      left: 0.95rem;
-      z-index: 4;
-      background: rgba(0, 0, 0, 0.45);
-      color: #fff;
-      font-size: 0.74rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      padding: 0.3rem 0.58rem;
-      border-radius: 999px;
-      backdrop-filter: blur(4px);
-    }
-
-    .lead-photo {
-      width: 100%;
-      min-height: 620px;
-      object-fit: contain;
-      background: rgba(255, 255, 255, 0.03);
-      border-radius: 16px;
-    }
-
-    .thumb-strip {
-      margin-top: 0.75rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(78px, 1fr));
-      gap: 0.45rem;
-    }
-
-    .thumb-strip img {
-      width: 100%;
-      aspect-ratio: 1;
-      object-fit: cover;
-      border-radius: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.24);
-      opacity: 0.92;
-    }
-
-    .thumb-strip img:hover {
-      opacity: 1;
-    }
-
-    .story-copy {
-      padding: 1.1rem 1rem;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      border-radius: 22px;
-      background: rgba(255, 255, 255, 0.74);
-      border: 1px solid rgba(16, 47, 58, 0.08);
-    }
-
-    .story-copy h2 {
-      margin: 0.6rem 0 0.55rem;
-      font-size: clamp(1.6rem, 3vw, 2.2rem);
-      color: var(--navy);
-    }
-
-    .chapter.prep .story-copy h2 { color: #7f4510; }
-    .chapter.flag .story-copy h2 { color: #0a3152; }
-    .chapter.unity .story-copy h2 { color: #1e6742; }
-
-    .story-copy p {
-      margin: 0.3rem 0 0;
-      color: #38524a;
-      line-height: 1.8;
-      font-size: 1.02rem;
-    }
-
-    .story-points {
-      margin: 0.9rem 0 0;
-      padding-left: 1rem;
-      color: #2e4b44;
-      line-height: 1.7;
-    }
-
-    .story-points li {
-      margin-bottom: 0.35rem;
-    }
-
-    .closing {
-      margin-top: 1.6rem;
-      border-radius: 24px;
-      padding: clamp(1.2rem, 2.5vw, 1.8rem);
-      background: linear-gradient(120deg, rgba(229, 139, 42, 0.12), rgba(44, 132, 82, 0.12));
-      border: 1px solid rgba(16, 47, 58, 0.12);
-    }
-
-    .closing h3 {
-      margin: 0;
-      color: var(--navy);
-      font-size: clamp(1.25rem, 2.4vw, 1.7rem);
-    }
-
-    .closing p {
-      margin: 0.4rem 0 0;
-      color: #325048;
-      line-height: 1.75;
-    }
-
     footer {
       padding: 2rem 0;
       color: #607773;
     }
 
     @media (max-width: 900px) {
-      .chapter {
-        margin-left: 0;
-      }
-
-      .story {
-        grid-template-columns: 1fr;
-      }
-
-      .chapter.alt .story-media,
-      .chapter.alt .story-copy {
-        order: initial;
-      }
-
-      .story-media img {
-        aspect-ratio: auto;
-        max-height: none;
-      }
-
-      .lead-photo {
-        min-height: 380px;
+      .event-block {
+        padding: 0.9rem;
       }
 
       .photo-stream {
@@ -491,13 +293,6 @@
 
     @media (max-width: 560px) {
       .wrap { width: min(100% - 1.25rem, 1280px); }
-      .lead-photo {
-        min-height: 300px;
-      }
-
-      .thumb-strip {
-        grid-template-columns: repeat(4, 1fr);
-      }
 
       .photo-stream {
         grid-template-columns: repeat(2, 1fr);

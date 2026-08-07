@@ -61,3 +61,7 @@ def reliefhome(request):
     context = {'picture': picture}
     print("picture = ", picture)
     return render(request, 'Wayand.html', context)
+
+
+def sides_sample(request):
+    return render(request, 'sides_sample.html')

@@ -2,7 +2,6 @@
 <!doctype html>
 <html lang="ta">
 <head>
-  <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-GBD3RJKWN1"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -14,22 +13,653 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="நம்ம நகரம் — நம் ஊரின் நிகழ்வுகள், நினைவுகள், உதவிகள்.">
   <title>நம்ம நகரம்</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anek+Tamil:wght@400;500;700;800&family=Noto+Serif+Tamil:wght@600;700&display=swap" rel="stylesheet">
   <link href="{% static 'app/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'app/css/site_chrome.css' %}" rel="stylesheet">
   <style>
-    :root{--paper:#f7f2e9;--ink:#15372f;--deep:#0c2721;--leaf:#36775f;--sun:#f6b941;--coral:#e76f51;--mist:#dce8de}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--deep);font-family:system-ui,-apple-system,"Noto Sans Tamil",sans-serif}.wrap{width:min(100% - 2.5rem,1440px);margin:auto}.topbar{height:76px;display:flex;align-items:center;justify-content:space-between;gap:1rem}.brand{display:flex;align-items:center;gap:.7rem;color:var(--deep);font-size:1.3rem;font-weight:800;text-decoration:none}.brand img{width:43px;height:43px;object-fit:cover;border-radius:50%;box-shadow:0 3px var(--sun)}.nav{display:flex;align-items:center;gap:1.5rem}.nav a{color:var(--deep);font-weight:700;text-decoration:none}.nav a:hover{color:var(--coral)}.nav .join{padding:.65rem 1rem;border-radius:99px;background:var(--ink);color:white}.hero{min-height:570px;position:relative;overflow:hidden;display:grid;grid-template-columns:1.05fr .95fr;border-radius:28px;background:var(--ink);color:#fff}.hero:before{content:"";position:absolute;right:-160px;top:-245px;width:610px;height:610px;border-radius:50%;background:var(--sun)}.hero:after{content:"";position:absolute;left:44%;bottom:-210px;width:320px;height:320px;border-radius:50%;background:var(--coral)}.hero-copy{z-index:1;padding:clamp(2.5rem,6vw,6.5rem);padding-right:2rem;align-self:center}.eyebrow{font-size:.76rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--sun)}h1,h2,h3{font-family:Georgia,"Noto Serif Tamil",serif}.hero h1{margin:.65rem 0 1.1rem;max-width:650px;font-size:clamp(3.1rem,6vw,6.4rem);line-height:.92;letter-spacing:-.065em}.hero p{max-width:500px;color:#d5e6d9;font-size:1.1rem;line-height:1.7}.buttons{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.3rem}.button{display:inline-flex;align-items:center;justify-content:center;padding:.84rem 1.2rem;border-radius:99px;font-weight:800;text-decoration:none}.button.sun{background:var(--sun);color:var(--deep)}.button.outline{border:1px solid #d5e6d9;color:white}.button.outline:hover{background:white;color:var(--ink)}.hero-art{z-index:1;position:relative;display:flex;align-items:flex-end;justify-content:center;padding:4rem 2rem 0}.hero-art img{width:min(100%,530px);height:460px;object-fit:cover;border:10px solid var(--paper);border-radius:220px 220px 0 0}.note{position:absolute;z-index:2;left:4%;bottom:7%;max-width:200px;padding:1.1rem;background:var(--paper);border-radius:16px;color:var(--deep);box-shadow:0 15px 32px #05181266;transform:rotate(-4deg)}.note strong{display:block;font-family:Georgia,serif;font-size:1.2rem}.section{padding:clamp(4rem,8vw,8rem) 0}.section-head{display:flex;justify-content:space-between;align-items:end;gap:2rem;margin-bottom:2rem}.section-title{margin:.3rem 0 0;font-size:clamp(2.2rem,4vw,4rem);letter-spacing:-.055em}.intro{max-width:380px;color:#4d655c;line-height:1.65}.stories{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem}.partner-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,320px));gap:1rem;justify-content:center;width:-webkit-fit-content;width:-moz-fit-content;width:fit-content;margin-top:1.5rem}.partner-card{min-height:220px;display:flex;align-items:flex-end;padding:1.8rem;border-radius:22px;background-color:#d63384;background-image:linear-gradient(180deg,rgba(214,51,132,.85),rgba(214,51,132,.65)),url('https://liquidlove.ssssoindia.org/static/media/blood_background.566df5c4231e2c76b5ca.png');background-size:cover;background-position:center center;color:white;text-decoration:none;position:relative;overflow:hidden;box-shadow:0 18px 36px rgba(214,51,132,.18);transition:.25s transform,.25s box-shadow}.partner-card::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.15) 0%,rgba(0,0,0,.2) 100%);pointer-events:none}.partner-card:hover{transform:translateY(-3px);box-shadow:0 24px 44px rgba(214,51,132,.24)}.partner-card > div{position:relative;z-index:1}.partner-card .tag{display:inline-block;margin-bottom:.65rem;padding:.28rem .7rem;border-radius:999px;background:rgba(255,255,255,.95);color:var(--deep);font-size:.75rem;font-weight:800}.partner-card h3{margin:.3rem 0 .45rem;font-size:1.2rem;letter-spacing:-.02em}.partner-card p{margin:0;color:rgba(255,255,255,.96);line-height:1.6;font-size:.98rem;max-width:18rem}.partner-actions{display:flex;flex-direction:column;gap:.75rem;margin-top:1rem}.partner-card .button-link{display:inline-flex;padding:.65rem 1rem;border-radius:999px;background:#fff;color:var(--deep);font-weight:700;text-decoration:none}.partner-card .button-link:hover{background:#f5f5f5}.partner-card .card-link{display:inline-flex;padding:.65rem 1rem;border-radius:999px;border:1px solid rgba(255,255,255,.9);color:#fff;font-weight:700;text-decoration:none}.partner-card .card-link:hover{background:rgba(255,255,255,.12)}.story{min-height:415px;position:relative;overflow:hidden;display:flex;align-items:end;padding:1.5rem;border-radius:22px;color:white;text-decoration:none;background:var(--ink)}.story:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(7,30,24,.94),rgba(7,30,24,.78) 65%)}.story img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center;transition:.35s}.story:hover img{transform:scale(1.05)}.story>div{position:relative;z-index:1}.story h3,.story p,.story .arrow{position:relative;text-shadow:0 1px 4px rgba(0,0,0,.55)}.tag{display:inline-block;padding:.34rem .65rem;border-radius:99px;background:var(--sun);color:var(--deep);font-size:.73rem;font-weight:800}.story h3{margin:.7rem 0 .45rem;font-size:clamp(1.6rem,2.4vw,2.45rem);letter-spacing:-.045em}.story p{margin:0;color:#e1ece4;line-height:1.55}.arrow{display:inline-flex;margin-top:1.1rem;font-weight:800}.community{background:var(--mist)}.community-grid{display:grid;grid-template-columns:.95fr 1.05fr;align-items:center;gap:clamp(2rem,7vw,8rem)}.community-image{min-height:480px;position:relative;overflow:hidden;border-radius:26px;background:var(--coral)}.community-image img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.87;mix-blend-mode:multiply}.community-image span{position:absolute;z-index:1;bottom:1.5rem;left:1.5rem;color:white;font-weight:800}.community-copy p{color:#406158;font-size:1.08rem;line-height:1.75}.quote{margin:1.8rem 0;padding:1.5rem 0 1.5rem 1.5rem;border-left:5px solid var(--coral);font-family:Georgia,"Noto Serif Tamil",serif;font-size:1.55rem;line-height:1.3}.values{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}.value{padding:1.4rem;border-radius:16px;background:white}.number{color:var(--coral);font:700 2.1rem Georgia}.value h3{margin:.25rem 0;font:700 1rem system-ui}.value p{margin:0!important;font-size:.9rem!important;color:#61776e!important}.cta{padding:clamp(2rem,5vw,4rem);display:flex;align-items:center;justify-content:space-between;gap:2rem;border-radius:25px;background:var(--coral);color:white}.cta h2{margin:0;max-width:720px;font-size:clamp(2rem,4vw,3.7rem);line-height:1;letter-spacing:-.06em}.cta .button{background:var(--deep);color:white;flex:0 0 auto}footer{padding:2.3rem 0;color:#6d8279;font-size:.9rem}footer .wrap{display:flex;justify-content:space-between}@media(max-width:900px){.hero,.community-grid{grid-template-columns:1fr}.hero{min-height:unset}.hero-art{padding-top:0}.hero-art img{height:380px}.stories{grid-template-columns:1fr}.story{min-height:330px}.community-image{min-height:350px}}@media(max-width:620px){.wrap{width:min(100% - 1.5rem,1440px)}.nav{gap:.8rem}.nav a:not(.join){display:none}.hero{border-radius:19px}.hero-copy{padding:2.5rem 1.6rem}.hero-art{padding-inline:1.1rem}.hero-art img{height:300px;border-width:7px}.note{display:none}.section-head,.cta{align-items:flex-start;flex-direction:column}.values{grid-template-columns:1fr}footer .wrap{flex-direction:column}}
+    :root {
+      --paper: #f7f2e9;
+      --ink: #15372f;
+      --deep: #0c2721;
+      --leaf: #36775f;
+      --sun: #f6b941;
+      --coral: #e76f51;
+      --mist: #dce8de;
+      --slate: #46645b;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background:
+        linear-gradient(90deg, rgba(54, 119, 95, 0.08) 0 13%, transparent 13% 87%, rgba(231, 111, 81, 0.08) 87% 100%),
+        radial-gradient(900px 460px at -8% -6%, rgba(246, 185, 65, 0.2), transparent 65%),
+        radial-gradient(850px 420px at 108% 16%, rgba(54, 119, 95, 0.15), transparent 66%),
+        var(--paper);
+      color: var(--deep);
+      font-family: "Anek Tamil", "Noto Sans Tamil", sans-serif;
+    }
+
+    h1, h2, h3 {
+      font-family: "Noto Serif Tamil", serif;
+      letter-spacing: -0.03em;
+    }
+
+    .layout {
+      width: min(100% - 2.4rem, 1380px);
+      margin: 1.4rem auto 0;
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr) 220px;
+      gap: 1rem;
+    }
+
+    .rail {
+      align-self: start;
+      position: sticky;
+      top: 96px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.86);
+      border: 1px solid rgba(12, 39, 33, 0.1);
+      box-shadow: 0 14px 30px rgba(12, 39, 33, 0.07);
+      padding: 1rem;
+      min-height: 68vh;
+    }
+
+    .rail h3 {
+      margin: 0 0 0.7rem;
+      font-size: 1.02rem;
+    }
+
+    .rail-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .rail-list a {
+      display: block;
+      text-decoration: none;
+      color: var(--ink);
+      font-weight: 700;
+      border-radius: 10px;
+      padding: 0.5rem 0.64rem;
+      background: #eef6f1;
+    }
+
+    .rail-list a:hover {
+      background: #ddecdf;
+    }
+
+    .pill {
+      display: inline-flex;
+      margin: 0 0.28rem 0.35rem 0;
+      border-radius: 999px;
+      background: #fff0d0;
+      color: #6a4a10;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.35rem 0.6rem;
+    }
+
+    .content {
+      min-width: 0;
+    }
+
+    .hero {
+      min-height: 540px;
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      border-radius: 26px;
+      background: var(--ink);
+      color: #fff;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      right: -180px;
+      top: -240px;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: var(--sun);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      left: 46%;
+      bottom: -190px;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background: var(--coral);
+    }
+
+    .hero-copy {
+      z-index: 1;
+      align-self: center;
+      padding: clamp(2.2rem, 6vw, 5.8rem);
+      padding-right: 1.5rem;
+    }
+
+    .eyebrow {
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--sun);
+    }
+
+    .hero h1 {
+      margin: 0.65rem 0 0.9rem;
+      font-size: clamp(2.8rem, 5vw, 5.2rem);
+      line-height: 0.96;
+      letter-spacing: -0.05em;
+      max-width: 560px;
+    }
+
+    .hero p {
+      margin: 0;
+      color: #d7e8dc;
+      max-width: 500px;
+      line-height: 1.7;
+      font-size: 1.06rem;
+    }
+
+    .buttons {
+      margin-top: 1.1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 800;
+      padding: 0.78rem 1.1rem;
+    }
+
+    .button.sun {
+      background: var(--sun);
+      color: var(--deep);
+    }
+
+    .button.outline {
+      border: 1px solid #d6e7db;
+      color: #fff;
+    }
+
+    .button.outline:hover {
+      background: #fff;
+      color: var(--ink);
+    }
+
+    .hero-art {
+      z-index: 1;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 3.5rem 1.6rem 0;
+      position: relative;
+    }
+
+    .hero-art img {
+      width: min(100%, 500px);
+      height: 430px;
+      object-fit: cover;
+      border: 9px solid var(--paper);
+      border-radius: 220px 220px 0 0;
+    }
+
+    .note {
+      position: absolute;
+      left: 4%;
+      bottom: 8%;
+      z-index: 2;
+      max-width: 210px;
+      padding: 1rem;
+      border-radius: 14px;
+      background: var(--paper);
+      color: var(--deep);
+      box-shadow: 0 14px 28px rgba(5, 24, 18, 0.36);
+      transform: rotate(-3deg);
+    }
+
+    .note strong {
+      display: block;
+      font-size: 1.15rem;
+      font-family: "Noto Serif Tamil", serif;
+    }
+
+    .section {
+      padding: clamp(3.2rem, 7vw, 6.7rem) 0;
+    }
+
+    .section-head {
+      margin-bottom: 1.7rem;
+      display: flex;
+      gap: 1.2rem;
+      justify-content: space-between;
+      align-items: end;
+    }
+
+    .section-title {
+      margin: 0.25rem 0 0;
+      font-size: clamp(2rem, 3.6vw, 3.7rem);
+      letter-spacing: -0.05em;
+    }
+
+    .intro {
+      max-width: 380px;
+      color: var(--slate);
+      line-height: 1.65;
+    }
+
+    .stories {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+
+    .story {
+      min-height: 390px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: end;
+      padding: 1.3rem;
+      border-radius: 20px;
+      color: #fff;
+      text-decoration: none;
+      background: var(--ink);
+    }
+
+    .story::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(0deg, rgba(7, 30, 24, 0.95), rgba(7, 30, 24, 0.76) 65%);
+    }
+
+    .story img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition: 0.3s;
+    }
+
+    .story:hover img { transform: scale(1.05); }
+
+    .story > div { z-index: 1; }
+
+    .tag {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 0.32rem 0.6rem;
+      background: var(--sun);
+      color: var(--deep);
+      font-size: 0.72rem;
+      font-weight: 800;
+    }
+
+    .story h3 {
+      margin: 0.65rem 0 0.45rem;
+      font-size: clamp(1.55rem, 2.2vw, 2.2rem);
+      letter-spacing: -0.04em;
+    }
+
+    .story p {
+      margin: 0;
+      color: #e2ece5;
+      line-height: 1.55;
+    }
+
+    .arrow {
+      display: inline-flex;
+      margin-top: 1rem;
+      font-weight: 800;
+    }
+
+    .community {
+      border-radius: 24px;
+      background: var(--mist);
+      padding: 2rem;
+    }
+
+    .community-grid {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: clamp(1.8rem, 5vw, 4.5rem);
+      align-items: center;
+    }
+
+    .community-image {
+      min-height: 420px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 22px;
+      background: var(--coral);
+    }
+
+    .community-image img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.88;
+      mix-blend-mode: multiply;
+    }
+
+    .community-image span {
+      position: absolute;
+      left: 1.2rem;
+      bottom: 1.2rem;
+      color: #fff;
+      font-weight: 800;
+      z-index: 1;
+    }
+
+    .community-copy p {
+      color: #45665c;
+      line-height: 1.72;
+      font-size: 1.04rem;
+    }
+
+    .quote {
+      margin: 1.3rem 0;
+      border-left: 5px solid var(--coral);
+      padding: 1rem 0 1rem 1.1rem;
+      font-size: 1.4rem;
+      line-height: 1.35;
+    }
+
+    .values {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.9rem;
+    }
+
+    .value {
+      border-radius: 14px;
+      background: #fff;
+      padding: 1rem;
+    }
+
+    .number {
+      color: var(--coral);
+      font: 700 1.9rem "Noto Serif Tamil", serif;
+    }
+
+    .value h3 {
+      margin: 0.2rem 0;
+      font-size: 0.98rem;
+      letter-spacing: normal;
+    }
+
+    .value p {
+      margin: 0;
+      color: #62786e;
+      font-size: 0.9rem;
+    }
+
+    .cta {
+      border-radius: 24px;
+      background: var(--coral);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: clamp(1.7rem, 4vw, 3rem);
+    }
+
+    .cta h2 {
+      margin: 0;
+      max-width: 680px;
+      font-size: clamp(1.9rem, 3.7vw, 3.2rem);
+      line-height: 1.05;
+    }
+
+    .cta .button {
+      background: var(--deep);
+      color: #fff;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 1180px) {
+      .layout {
+        grid-template-columns: 1fr;
+        width: min(100% - 2rem, 1380px);
+      }
+
+      .rail {
+        position: static;
+        min-height: auto;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .hero,
+      .community-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-art {
+        padding-top: 0;
+      }
+
+      .hero-art img {
+        height: 360px;
+      }
+
+      .stories {
+        grid-template-columns: 1fr;
+      }
+
+      .story {
+        min-height: 320px;
+      }
+
+      .values {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .layout {
+        width: min(100% - 1.2rem, 1380px);
+      }
+
+      .hero {
+        border-radius: 18px;
+      }
+
+      .hero-copy {
+        padding: 2.1rem 1.4rem;
+      }
+
+      .hero-art {
+        padding-inline: 1rem;
+      }
+
+      .hero-art img {
+        height: 290px;
+      }
+
+      .note {
+        display: none;
+      }
+
+      .section-head,
+      .cta {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
   </style>
 </head>
 <body>
-  <header class="wrap topbar"><a class="brand" href="#top"><img src="https://nammanagar.s3.eu-north-1.amazonaws.com/nagarlogo/logo.png" alt="நம்ம நகரம் logo"><span>நம்ம நகரம்</span></a><nav class="nav"><a href="#stories">நிகழ்வுகள்</a><a href="#community">நம் சமூகம்</a><a class="join" href="{% url 'sponsor' %}">இணைந்திடுங்கள்</a></nav></header>
-  <main id="top">
-    <section id="upcoming-events" class="wrap section"><div class="section-head"><div><span class="eyebrow" style="color:var(--coral)">வரவிருக்கும் நிகழ்வுகள்</span><h2 class="section-title">வரவிருக்கும் நிகழ்வுகள்</h2></div><p class="intro">முன்னோக்கி பார்க்கும் நிகழ்வுகள் மற்றும் முக்கியமான தருணங்கள்.</p></div><div class="stories"><a class="story" href="{% url 'aug15' %}"><img src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2026/2026_iday_home.jpg" alt="80வது சுதந்திர தின விழா"><div><span class="tag">15 ஆகஸ்ட் 2026</span><h3>80வது சுதந்திர தின விழா</h3><p>அரவிந்தா நகரில் தேசிய உற்சாகத்துடன் கொண்டாடும் புதிய நிகழ்வு.</p><span class="arrow">விபரம் பார்க்க →</span></div></a></div></section>
-    <section class="wrap hero"><div class="hero-copy"><span class="eyebrow">கோயம்புத்தூர் · நம் மக்கள் · நம் கதை</span><h1>சேர்ந்து வாழும்<br>நம் நகரம்.</h1><p>நம் தெருக்களின் மகிழ்ச்சி, நினைவுகள் மற்றும் உதவும் கரங்களை ஒன்றாகக் கொண்டாடும் ஒரு இடம்.</p><div class="buttons"><a class="button sun" href="#stories">கதைகளைப் பாருங்கள்</a><a class="button outline" href="{% url 'sponsor' %}">பங்கெடுங்கள்</a></div></div><div class="hero-art"><img src="https://nammanagar.s3.eu-north-1.amazonaws.com/ganesh/1.jpg" alt="விநாயகர் சதுர்த்தி கொண்டாட்டம்"><div class="note"><strong>நகரம் என்பது மக்கள்.</strong><span>ஒவ்வொரு நல்ல தருணமும் பகிரப்பட வேண்டும்.</span></div></div></section>
-    <section id="stories" class="wrap section"><div class="section-head"><div><span class="eyebrow" style="color:var(--coral)">இப்போது நம் நகரத்தில்</span><h2 class="section-title">நினைவில் நிற்கும் தருணங்கள்</h2></div><p class="intro">கொண்டாட்டங்கள், நிகழ்வுகள் மற்றும் நம்பிக்கையூட்டும் சமூக முயற்சிகள் — நம் மக்களுக்காகத் தொகுக்கப்பட்டவை.</p></div><div class="stories"><a class="story" href="{% url 'chaturthi' %}"><img src="https://nammanagar.s3.eu-north-1.amazonaws.com/ganesh/1.jpg" alt="விநாயகர் சதுர்த்தி"><div><span class="tag">செப்டம்பர் 2024</span><h3>விநாயகர் சதுர்த்தி</h3><p>அரவிந்த் நகரின் மகிழ்ச்சியான திருவிழா.</p><span class="arrow">கதை முழுவதும் →</span></div></a><a class="story" href="{% url 'idayhome' %}"><img src="{% static 'app/iday.png' %}" alt="சுதந்திர தினம்"><div><span class="tag">ஆகஸ்ட் 2024</span><h3>சுதந்திர தினம்</h3><p>ஒன்றிணைந்த பெருமிதத்தின் ஒரு காலை.</p><span class="arrow">கதை முழுவதும் →</span></div></a><a class="story" href="{% url 'reliefhome' %}"><img src="{% static 'app/ReliefMaterial-0.jpeg' %}" alt="நிவாரண உதவி"><div><span class="tag">சமூக உதவி</span><h3>வயநாடு நிவாரணம்</h3><p>தேவைப்படும் நேரத்தில் துணை நிற்கும் கைகள்.</p><span class="arrow">கதை முழுவதும் →</span></div></a></div></section>
-    <section id="independence-archive" class="wrap section"><div class="section-head"><div><span class="eyebrow" style="color:var(--sun)">சுதந்திர தினம்</span><h2 class="section-title">Independence Day Archive</h2></div><p class="intro">2023 முதல் 2026 வரை ஒவ்வொரு ஆண்டும் சுதந்திர தின நினைவுகளை இங்கே பதிவு செய்வோம். இப்போது வெறும் இடைவெளிகளைத் தயாரித்து வைக்கவும்.</p></div><div style="margin-bottom:1.75rem;"><img src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2026/iday_2026.jpg" alt="Independence Day 2026" style="width:100%;height:auto;border-radius:24px;box-shadow:0 20px 40px rgba(0,0,0,.12);"></div><div class="stories"><div class="story" style="background:linear-gradient(180deg,rgba(21,45,39,.95),rgba(10,20,17,.85));"><div><span class="tag">2023</span><h3>2023 புகைப்படங்கள்</h3><p>விரைவில் உள்ளடக்கம்.</p><span class="arrow">Coming soon →</span></div></div><div class="story" style="background:linear-gradient(180deg,rgba(21,45,39,.95),rgba(10,20,17,.85));"><div><span class="tag">2024</span><h3>2024 புகைப்படங்கள்</h3><p>விரைவில் உள்ளடக்கம்.</p><span class="arrow">Coming soon →</span></div></div><a class="story" href="{% url 'iday_2025' %}" style="background:linear-gradient(180deg,rgba(21,45,39,.95),rgba(10,20,17,.85));"><div><span class="tag">2025</span><h3>2025 புகைப்படங்கள்</h3><p>Unity Cup படங்கள் பார்க்க.</p><span class="arrow">புகைப்படங்கள் பார்க்க →</span></div></a></div></section>
-    <section id="partners" class="wrap section"><div class="section-head"><div><span class="eyebrow" style="color:var(--sun)">பின்னணியில்</span><h2 class="section-title">மற்றொரு சமூக இணையதளம்</h2></div><p class="intro">நறுச்சத்து தந்துத் தன்னார்வசேவைக்கு அருகிலுள்ள வாய்ப்புகளை வழங்குகிறது.</p></div><div class="partner-cards"><div class="partner-card" style="background-image:url('https://liquidlove.ssssoindia.org/static/media/blood_background.566df5c4231e2c76b5ca.png');"><div><span class="tag">இரத்த தானம்</span><h3>Liquid Love</h3><p>இது இரத்த தானம் மற்றும் திரவ ஆதரவு சேவைக்கான தளம். ஆரோக்கியமான இரத்த தானியாக இணைந்து, உதவி செய்யுங்கள்.</p><div class="partner-actions"><a class="card-link" href="https://liquidlove.ssssoindia.org/" target="_blank" rel="noopener">தளத்தைப் பாருங்கள்</a><a class="button-link" href="https://liquidlove.ssssoindia.org/liquidlove/donorRegistration" target="_blank" rel="noopener">இரத்த தானியாக இணையுங்கள்</a></div></div></div></div></section>
-    <section id="community" class="community section"><div class="wrap community-grid"><div class="community-image"><img src="{% static 'app/NammaNagar.png' %}" alt="நம்ம நகரம்"><span>நம்ம நகரம் · ஒன்றாக வளர்0</span></div><div class="community-copy"><span class="eyebrow" style="color:var(--coral)">நம் சமூகத்தின் குரல்</span><h2 class="section-title">ஒரு நல்ல நகரம் என்பது, ஒருவர் மற்றொருவரை அறிந்திருப்பது.</h2><p>நம்ம நகரம் என்பது செய்திகளை மட்டும் பகிரும் தளம் அல்ல. நம் மக்களின் மகிழ்ச்சியையும், அவர்களின் முயற்சிகளையும், உதவி தேவைப்படும் தருணங்களையும் இணைக்கும் இடம்.</p><blockquote class="quote">“நம்மால் நேற்றை சரிசெய்ய முடியாது, ஆனால் நாளையை உருவாக்க முடியும்.”</blockquote><div class="values"><div class="value"><div class="number">01</div><h3>கொண்டாடுவோம்</h3><p>நம் ஊரின் மகிழ்ச்சியான நிகழ்வுகள்.</p></div><div class="value"><div class="number">02</div><h3>இணைவோம்</h3><p>நண்பர்கள் மற்றும் அண்டை வீட்டாருடன்.</p></div><div class="value"><div class="number">03</div><h3>உதவுவோம்</h3><p>தேவைப்படும் நேரத்தில்அணாக.</p></div></div></div></div></section>
-    <section class="wrap section"><div class="cta"><h2>நம் நகரத்தின் அடுத்த நல்ல கதையில் நீங்களும் ஒரு பகுதியாகுங்கள்.</h2><a class="button" href="{% url 'sponsor' %}">ஆதரவு அளிக்க →</a></div></section>
+  {% include 'partials/site_header.html' %}
+
+  <main id="top" class="layout">
+    <aside class="rail">
+      <h3>விரைவு அணுகல்</h3>
+      <ul class="rail-list">
+        <li><a href="#upcoming-events">வரவிருக்கும் நிகழ்வுகள்</a></li>
+        <li><a href="#stories">நினைவுகள்</a></li>
+        <li><a href="#community">நம் சமூகக் குரல்</a></li>
+        <li><a href="{% url 'sponsor' %}">பங்களிப்பாளர்கள்</a></li>
+      </ul>
+      <div style="margin-top: 1rem;">
+        <span class="pill">நகர நிகழ்வுகள்</span>
+        <span class="pill">சமூக சேவை</span>
+        <span class="pill">தன்னார்வம்</span>
+      </div>
+    </aside>
+
+    <div class="content">
+      <section class="hero">
+        <div class="hero-copy">
+          <span class="eyebrow">கோயம்புத்தூர் · நம் மக்கள் · நம் கதை</span>
+          <h1>சேர்ந்து வாழும்<br>நம் நகரம்.</h1>
+          <p>நம் தெருக்களின் மகிழ்ச்சி, நினைவுகள் மற்றும் உதவும் கரங்களை ஒன்றாகக் கொண்டாடும் ஒரு இடம்.</p>
+          <div class="buttons">
+            <a class="button sun" href="#stories">கதைகளைப் பாருங்கள்</a>
+            <a class="button outline" href="{% url 'sponsor' %}">பங்கெடுங்கள்</a>
+          </div>
+        </div>
+        <div class="hero-art">
+          <img src="https://nammanagar.s3.eu-north-1.amazonaws.com/ganesh/1.jpg" alt="விநாயகர் சதுர்த்தி கொண்டாட்டம்">
+          <div class="note">
+            <strong>நகரம் என்பது மக்கள்.</strong>
+            <span>ஒவ்வொரு நல்ல தருணமும் பகிரப்பட வேண்டும்.</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="upcoming-events" class="section">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow" style="color: var(--coral);">வரவிருக்கும் நிகழ்வுகள்</span>
+            <h2 class="section-title">வரவிருக்கும் நிகழ்வுகள்</h2>
+          </div>
+          <p class="intro">முன்னோக்கி பார்க்கும் நிகழ்வுகள் மற்றும் முக்கியமான தருணங்கள்.</p>
+        </div>
+        <div class="stories">
+          <a class="story" href="{% url 'aug15' %}">
+            <img src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2026/2026_iday_home.jpg" alt="80வது சுதந்திர தின விழா">
+            <div>
+              <span class="tag">15 ஆகஸ்ட் 2026</span>
+              <h3>80வது சுதந்திர தின விழா</h3>
+              <p>அரவிந்தா நகரில் தேசிய உற்சாகத்துடன் கொண்டாடும் புதிய நிகழ்வு.</p>
+              <span class="arrow">விபரம் பார்க்க →</span>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <section id="stories" class="section">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow" style="color: var(--coral);">இப்போது நம் நகரத்தில்</span>
+            <h2 class="section-title">நினைவில் நிற்கும் தருணங்கள்</h2>
+          </div>
+          <p class="intro">கொண்டாட்டங்கள், நிகழ்வுகள் மற்றும் நம்பிக்கையூட்டும் சமூக முயற்சிகள் — நம் மக்களுக்காகத் தொகுக்கப்பட்டவை.</p>
+        </div>
+
+        <div class="stories">
+          <a class="story" href="{% url 'chaturthi' %}">
+            <img src="https://nammanagar.s3.eu-north-1.amazonaws.com/ganesh/1.jpg" alt="விநாயகர் சதுர்த்தி">
+            <div>
+              <span class="tag">செப்டம்பர் 2024</span>
+              <h3>விநாயகர் சதுர்த்தி</h3>
+              <p>அரவிந்த் நகரின் மகிழ்ச்சியான திருவிழா.</p>
+              <span class="arrow">கதை முழுவதும் →</span>
+            </div>
+          </a>
+
+          <a class="story" href="{% url 'idayhome' %}">
+            <img src="{% static 'app/iday.png' %}" alt="சுதந்திர தினம்">
+            <div>
+              <span class="tag">ஆகஸ்ட் 2024</span>
+              <h3>சுதந்திர தினம்</h3>
+              <p>ஒன்றிணைந்த பெருமிதத்தின் ஒரு காலை.</p>
+              <span class="arrow">கதை முழுவதும் →</span>
+            </div>
+          </a>
+
+          <a class="story" href="{% url 'reliefhome' %}">
+            <img src="{% static 'app/ReliefMaterial-0.jpeg' %}" alt="நிவாரண உதவி">
+            <div>
+              <span class="tag">சமூக உதவி</span>
+              <h3>வயநாடு நிவாரணம்</h3>
+              <p>தேவைப்படும் நேரத்தில் துணை நிற்கும் கைகள்.</p>
+              <span class="arrow">கதை முழுவதும் →</span>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <section id="community" class="section">
+        <div class="community">
+          <div class="community-grid">
+            <div class="community-image">
+              <img src="{% static 'app/NammaNagar.png' %}" alt="நம்ம நகரம்">
+              <span>நம்ம நகரம் · ஒன்றாக வளரும் சமூக வட்டம்</span>
+            </div>
+            <div class="community-copy">
+              <span class="eyebrow" style="color: var(--coral);">நம் சமூகத்தின் குரல்</span>
+              <h2 class="section-title">ஒரு நல்ல நகரம் என்பது, ஒருவர் மற்றொருவரை அறிந்திருப்பது.</h2>
+              <p>நம்ம நகரம் என்பது செய்திகளை மட்டும் பகிரும் தளம் அல்ல. நம் மக்களின் மகிழ்ச்சியையும், அவர்களின் முயற்சிகளையும், உதவி தேவைப்படும் தருணங்களையும் இணைக்கும் இடம்.</p>
+              <blockquote class="quote">“நம்மால் நேற்றை சரிசெய்ய முடியாது, ஆனால் நாளையை உருவாக்க முடியும்.”</blockquote>
+              <div class="values">
+                <div class="value"><div class="number">01</div><h3>கொண்டாடுவோம்</h3><p>நம் ஊரின் மகிழ்ச்சியான நிகழ்வுகள்.</p></div>
+                <div class="value"><div class="number">02</div><h3>இணைவோம்</h3><p>நண்பர்கள் மற்றும் அண்டை வீட்டாருடன்.</p></div>
+                <div class="value"><div class="number">03</div><h3>உதவுவோம்</h3><p>தேவைப்படும் நேரத்தில் அணுகும் கரங்கள்.</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" style="padding-top: 0;">
+        <div class="cta">
+          <h2>நம் நகரத்தின் அடுத்த நல்ல கதையில் நீங்களும் ஒரு பகுதியாகுங்கள்.</h2>
+          <a class="button" href="{% url 'sponsor' %}">ஆதரவு அளிக்க →</a>
+        </div>
+      </section>
+    </div>
+
+    <aside class="rail">
+      <h3>இந்த வார நினைவூட்டல்</h3>
+      <ul class="rail-list">
+        <li><a href="{% url 'aug15' %}">80வது சுதந்திர தின விழா</a></li>
+        <li><a href="{% url 'collective_prayer' %}">கூட்டு பிரார்த்தனை</a></li>
+        <li><a href="{% url 'sponsor' %}">பங்களிப்பு விபரம்</a></li>
+      </ul>
+      <div style="margin-top: 1rem; color: #4b675e; line-height: 1.6;">
+        நம் சமுதாய செயல்பாடுகளுக்கான அறிவிப்புகள் மற்றும் விரைவு செயல்பாட்டு இணைப்புகளை இங்கே இடலாம்.
+      </div>
+    </aside>
   </main>
-  <footer><div class="wrap"><span>© {% now "Y" %} நம்ம நகரம்</span><a href="#top">மேலே செல்ல ↑</a></div></footer>
+
+  {% include 'partials/site_footer.html' %}
 </body>
 </html>

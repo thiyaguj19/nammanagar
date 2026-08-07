@@ -1,0 +1,293 @@
+{% load static %}
+<!doctype html>
+<html lang="ta">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Side Layout Sample | நம்ம நகரம்</title>
+  <meta name="description" content="Left and right side usage sample layout for நம்ம நகரம் pages.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anek+Tamil:wght@400;600;700;800&family=Noto+Serif+Tamil:wght@700&display=swap" rel="stylesheet">
+  <link href="{% static 'app/css/site_chrome.css' %}" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f6f1e7;
+      --ink: #133830;
+      --deep: #0b241f;
+      --leaf: #2e6a56;
+      --sun: #f2b544;
+      --coral: #df6f50;
+      --mist: #e2ece6;
+      --card: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--deep);
+      font-family: "Anek Tamil", "Noto Sans Tamil", sans-serif;
+      background:
+        linear-gradient(90deg, rgba(46, 106, 86, 0.06) 0 17%, transparent 17% 83%, rgba(223, 111, 80, 0.06) 83% 100%),
+        radial-gradient(520px 260px at 3% 0%, rgba(242, 181, 68, 0.18), transparent 74%),
+        radial-gradient(620px 260px at 97% 100%, rgba(46, 106, 86, 0.16), transparent 74%),
+        var(--paper);
+      min-height: 100vh;
+    }
+
+    .layout {
+      width: min(100% - 2rem, 1320px);
+      margin: 1.4rem auto 2rem;
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr) 220px;
+      gap: 1rem;
+    }
+
+    .rail {
+      position: sticky;
+      top: 88px;
+      align-self: start;
+      border-radius: 20px;
+      background: var(--card);
+      border: 1px solid rgba(19, 56, 48, 0.09);
+      box-shadow: 0 14px 28px rgba(11, 36, 31, 0.08);
+      padding: 1rem;
+      min-height: 70vh;
+    }
+
+    .rail h3 {
+      margin: 0 0 0.75rem;
+      font-size: 1rem;
+      letter-spacing: 0;
+      font-family: "Noto Serif Tamil", serif;
+    }
+
+    .rail-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .rail-list a {
+      display: block;
+      text-decoration: none;
+      color: var(--ink);
+      background: #f3f8f5;
+      border-radius: 10px;
+      padding: 0.52rem 0.65rem;
+      font-weight: 700;
+    }
+
+    .rail-list a:hover {
+      background: #e6f2ec;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      background: #fff3da;
+      color: #6a4d16;
+      padding: 0.36rem 0.6rem;
+      font-size: 0.78rem;
+      margin: 0.2rem 0.3rem 0.35rem 0;
+      font-weight: 700;
+    }
+
+    .main {
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid rgba(19, 56, 48, 0.12);
+      background: var(--card);
+      box-shadow: 0 20px 40px rgba(11, 36, 31, 0.1);
+    }
+
+    .hero {
+      padding: 2.2rem;
+      color: #fff;
+      background:
+        linear-gradient(125deg, rgba(11, 36, 31, 0.96), rgba(26, 77, 63, 0.94));
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero:after {
+      content: "";
+      position: absolute;
+      right: -90px;
+      top: -120px;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background: rgba(242, 181, 68, 0.9);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      background: rgba(255, 255, 255, 0.16);
+      border-radius: 999px;
+      padding: 0.28rem 0.68rem;
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      margin: 0.75rem 0 0.5rem;
+      font-size: clamp(2rem, 4.6vw, 3.4rem);
+      line-height: 1;
+      letter-spacing: -0.04em;
+      font-family: "Noto Serif Tamil", serif;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 650px;
+      color: #d7e9e1;
+      line-height: 1.72;
+      position: relative;
+      z-index: 1;
+    }
+
+    .sample-grid {
+      padding: 1.2rem;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.9rem;
+    }
+
+    .card {
+      border-radius: 16px;
+      padding: 1rem;
+      background: #f8fbf9;
+      border: 1px solid #e4efe9;
+      min-height: 180px;
+    }
+
+    .card h4 {
+      margin: 0.4rem 0 0.35rem;
+      font-size: 1.08rem;
+      font-family: "Noto Serif Tamil", serif;
+    }
+
+    .card p {
+      margin: 0;
+      color: #4a645b;
+      line-height: 1.62;
+    }
+
+    .note {
+      margin: 0 1.2rem 1.2rem;
+      border-left: 4px solid var(--coral);
+      background: #fff5f1;
+      border-radius: 12px;
+      padding: 0.9rem 1rem;
+      color: #714539;
+      font-weight: 600;
+    }
+
+    @media (max-width: 1080px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .rail {
+        position: static;
+        min-height: auto;
+      }
+
+      .sample-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .layout {
+        width: min(100% - 1.1rem, 1320px);
+      }
+
+      .hero {
+        padding: 1.6rem;
+      }
+
+      .sample-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  {% include 'partials/site_header.html' %}
+
+  <main class="layout" id="top">
+    <aside class="rail">
+      <h3>Left Rail</h3>
+      <ul class="rail-list">
+        <li><a href="#">Quick Links</a></li>
+        <li><a href="#">Past Events</a></li>
+        <li><a href="#">Archive</a></li>
+        <li><a href="#">Gallery</a></li>
+      </ul>
+      <div style="margin-top: 1rem;">
+        <span class="chip">நிகழ்ச்சி</span>
+        <span class="chip">சமூக சேவை</span>
+        <span class="chip">அறிவிப்பு</span>
+      </div>
+    </aside>
+
+    <section class="main">
+      <div class="hero">
+        <span class="eyebrow">Sample Layout</span>
+        <h1>இரு பக்கங்களையும் பயன்படுத்தும் புதிய அமைப்பு</h1>
+        <p>
+          இது center content + left rail + right rail design sample. Desktop-ல் இரண்டு பக்கங்களும் பயன்படும்.
+          Mobile-ல் rails கீழே stack ஆகும்.
+        </p>
+      </div>
+
+      <div class="sample-grid">
+        <article class="card">
+          <span class="chip">Main Block</span>
+          <h4>Primary Story Card</h4>
+          <p>முக்கிய உள்ளடக்கம் நடுப்பகுதியில் அதிக கவனத்துடன் காண்பிக்கப்படும்.</p>
+        </article>
+        <article class="card">
+          <span class="chip">Info</span>
+          <h4>Community Update</h4>
+          <p>சுருக்கமான செய்தி, தேதி, CTA போன்றவை card வடிவில் இருக்கலாம்.</p>
+        </article>
+        <article class="card">
+          <span class="chip">Action</span>
+          <h4>Join CTA</h4>
+          <p>உங்கள் sponsor, register, volunteer போன்ற முக்கிய செயல்பாட்டு இணைப்புகள்.</p>
+        </article>
+      </div>
+
+      <p class="note">
+        இந்த sample-ல் sides decorative மட்டும் அல்ல, useful navigation / highlights க்காக பயன்படுத்தப்பட்டுள்ளன.
+      </p>
+    </section>
+
+    <aside class="rail">
+      <h3>Right Rail</h3>
+      <ul class="rail-list">
+        <li><a href="#">Today Schedule</a></li>
+        <li><a href="#">Volunteers</a></li>
+        <li><a href="#">Supporters</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <div style="margin-top: 1rem;">
+        <span class="chip">Sticky Panel</span>
+        <span class="chip">Useful Widgets</span>
+      </div>
+    </aside>
+  </main>
+  {% include 'partials/site_footer.html' %}
+</body>
+</html>

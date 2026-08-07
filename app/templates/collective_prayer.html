@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>सामूहिक प्रार्थना | नम्म नगरम्</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{% static 'app/css/site_chrome.css' %}" rel="stylesheet">
 
     <style>
         :root{--paper:#f7f2e9;--ink:#15372f;--deep:#0c2721;--leaf:#36775f;--sun:#f6b941;--coral:#e76f51;--mist:#dce8de}
@@ -146,10 +147,7 @@
 </head>
 
 <body>
-<header class="wrap topbar">
-    <a class="brand" href="{% url 'nagarhome' %}"><img src="https://nammanagar.s3.eu-north-1.amazonaws.com/nagarlogo/logo.png" alt="नம்ம नगरम् logo"><span>नम्म नगरम्</span></a>
-    <a class="back" href="{% url 'nagarhome' %}">முகப்பு</a>
-</header>
+{% include 'partials/site_header.html' %}
 
 <div class="container">
     <div class="card">
@@ -190,9 +188,7 @@
     </div>
 </div>
 
-<footer class="wrap">
-    <span>© {% now "Y" %} नम्म नगरम्</span>
-</footer>
+{% include 'partials/site_footer.html' %}
 
 <script src="https://www.youtube.com/iframe_api"></script>
 

@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anek+Tamil:wght@400;600;700;800&family=Noto+Serif+Tamil:wght@600;700&display=swap" rel="stylesheet">
   <link href="{% static 'app/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'app/css/site_chrome.css' %}" rel="stylesheet">
   <style>
     :root {
       --paper: #f2f6f8;
@@ -456,13 +457,7 @@
   </style>
 </head>
 <body>
-  <header class="wrap nav">
-    <a class="brand" href="{% url 'nagarhome' %}">
-      <img src="https://nammanagar.s3.eu-north-1.amazonaws.com/nagarlogo/logo.png" alt="நம்ம நகரம் logo">
-      <span>நம்ம நகரம்</span>
-    </a>
-    <a class="back" href="{% url 'nagarhome' %}#independence-archive">திரும்ப</a>
-  </header>
+  {% include 'partials/site_header.html' %}
 
   <main>
     <section class="wrap hero">
@@ -605,7 +600,7 @@
     </section>
   </main>
 
-  <footer class="wrap">© {% now "Y" %} நம்ம நகரம்</footer>
+  {% include 'partials/site_footer.html' %}
   <div class="lightbox" id="iday-lightbox" aria-hidden="true" role="dialog" aria-label="பெரிய புகைப்படம்">
     <button class="lightbox-close" type="button" id="iday-lightbox-close" aria-label="மூடு">&times;</button>
     <figure class="lightbox-figure">

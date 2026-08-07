@@ -1,0 +1,40 @@
+{% load static %}
+<footer class="nn-footer" id="contact">
+  <div class="nn-footer-inner">
+    <div class="nn-footer-grid">
+      <section>
+        <h2 class="nn-footer-brand">நம்ம நகரம்</h2>
+        <p class="nn-footer-copy">நிகழ்வுகள், நலத்திட்டங்கள், சமூக இணைப்புகள் மற்றும் நம் பகுதியின் நல்ல முயற்சிகளை ஒரே இடத்தில் பகிரும் தளம்.</p>
+      </section>
+
+      <section>
+        <h3 class="nn-footer-title">வழிசெல்கள்</h3>
+        <ul class="nn-footer-links">
+          <li><a href="{% url 'nagarhome' %}">முகப்பு</a></li>
+          <li><a href="{% url 'nagarhome' %}#stories">நிகழ்வுகள்</a></li>
+          <li><a href="{% url 'collective_prayer' %}">கூட்டு பிரார்த்தனை</a></li>
+          <li><a href="{% url 'sponsor' %}">பங்களிப்பு</a></li>
+        </ul>
+      </section>
+
+      <section>
+        <h3 class="nn-footer-title">சமூக தளங்கள்</h3>
+        <span class="nn-pill">திருவிழா நிகழ்வுகள்</span>
+        <span class="nn-pill">நிவாரண சேவை</span>
+        <span class="nn-pill">தன்னார்வ குழு</span>
+      </section>
+
+      <section>
+        <h3 class="nn-footer-title">செயலில் இணைய</h3>
+        <p class="nn-footer-copy">உங்கள் யோசனை அல்லது சேவையை நம்முடன் பகிர்ந்து அடுத்த நிகழ்வை சேர்ந்து உருவாக்கலாம்.</p>
+        <a class="nn-footer-btn" href="{% url 'sponsor' %}">இப்போது இணைக</a>
+      </section>
+    </div>
+
+    <div class="nn-footer-bottom">
+      <span>© {% now "Y" %} நம்ம நகரம்</span>
+      <a href="#top">மேலே செல்ல ↑</a>
+    </div>
+  </div>
+</footer>
+<script src="{% static 'app/js/site_chrome.js' %}"></script>

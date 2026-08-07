@@ -1,107 +1,246 @@
 {% load static %}
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ta">
 <head>
     <meta charset="UTF-8">
-    <title>सामूहिक प्रार्थना | नम्म नगरम्</title>
+    <title>கூட்டு பிரார்த்தனை | நம்ம நகரம்</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anek+Tamil:wght@400;500;700;800&family=Noto+Serif+Tamil:wght@600;700&display=swap" rel="stylesheet">
     <link href="{% static 'app/css/site_chrome.css' %}" rel="stylesheet">
 
     <style>
-        :root{--paper:#f7f2e9;--ink:#15372f;--deep:#0c2721;--leaf:#36775f;--sun:#f6b941;--coral:#e76f51;--mist:#dce8de}
-        
+        :root {
+            --paper: #f5efe2;
+            --ink: #193a34;
+            --deep: #102c26;
+            --leaf: #2f6553;
+            --sun: #cda15a;
+            --coral: #c97554;
+            --mist: #e5ddd0;
+            --line: #dbcdb7;
+        }
+
         * {
             box-sizing: border-box;
         }
-        
+
         body {
             margin: 0;
-            font-family: system-ui,-apple-system,"Noto Sans Tamil",sans-serif;
-            background: var(--paper);
+            font-family: "Anek Tamil", "Noto Sans Tamil", sans-serif;
+            background:
+                radial-gradient(760px 320px at 0% 0%, rgba(205, 161, 90, 0.14), transparent 70%),
+                radial-gradient(900px 340px at 100% 100%, rgba(47, 101, 83, 0.12), transparent 70%),
+                var(--paper);
             color: var(--deep);
         }
-        
-        .wrap{width:min(100% - 2.5rem,1440px);margin:auto}
-        
-        .topbar{height:76px;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:0 1rem}
-        
-        .brand{display:flex;align-items:center;gap:.7rem;color:var(--deep);font-size:1.3rem;font-weight:800;text-decoration:none}
-        
-        .brand img{width:43px;height:43px;object-fit:cover;border-radius:50%;box-shadow:0 3px var(--sun)}
-        
-        .back{padding:.65rem 1rem;border-radius:99px;background:var(--leaf);color:#fff;text-decoration:none;font-weight:800}
 
-        .container {
-            max-width: 1000px;
-            margin: 30px auto;
-            padding: 20px;
+        .page-shell {
+            width: min(100% - 2.5rem, 1380px);
+            margin: 1.5rem auto 0;
+            display: grid;
+            grid-template-columns: 0.92fr 1.08fr;
+            gap: 1.2rem;
         }
 
-        .card {
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            text-align: center;
+        .intro-panel,
+        .player-panel {
+            background: rgba(255, 255, 255, 0.72);
+            border: 1px solid rgba(16, 44, 38, 0.08);
+            border-radius: 28px;
+            box-shadow: 0 18px 38px rgba(16, 44, 38, 0.08);
+            backdrop-filter: blur(8px);
         }
 
-        h1 {
-            color: var(--deep);
-            margin-bottom: 10px;
-            font-family: Georgia,"Noto Serif Tamil",serif;
+        .intro-panel {
+            padding: clamp(1.8rem, 4vw, 3rem);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
-        .time {
-            font-size: 22px;
-            font-weight: bold;
+        .player-panel {
+            padding: clamp(1.4rem, 3vw, 2rem);
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: #7f6635;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            font-weight: 800;
+            font-size: 0.76rem;
+        }
+
+        h1,
+        h2 {
+            font-family: "Noto Serif Tamil", serif;
+            letter-spacing: -0.03em;
+            margin: 0;
+        }
+
+        .page-title {
+            margin-top: 0.9rem;
+            font-size: clamp(2.4rem, 4vw, 4rem);
+            line-height: 1;
+        }
+
+        .lead {
+            margin: 1rem 0 0;
+            color: #536b63;
+            font-size: 1.03rem;
+            line-height: 1.8;
+            max-width: 34rem;
+        }
+
+        .time-block {
+            margin-top: 1.6rem;
+            padding: 1rem 1.05rem;
+            border-radius: 18px;
+            background: linear-gradient(135deg, rgba(205, 161, 90, 0.16), rgba(255, 255, 255, 0.72));
+            border: 1px solid rgba(205, 161, 90, 0.24);
+        }
+
+        .time-label {
+            color: #7b6342;
+            font-size: 0.8rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+
+        .time-value {
+            margin-top: 0.32rem;
             color: var(--coral);
+            font-size: 1.55rem;
+            font-weight: 800;
+        }
+
+        .info-list {
+            margin: 1.6rem 0 0;
+            padding: 0;
+            list-style: none;
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .info-list li {
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--line);
+            color: #586e66;
+            line-height: 1.7;
+        }
+
+        .info-list strong {
+            display: block;
+            color: var(--deep);
+            margin-bottom: 0.18rem;
+        }
+
+        .quote {
+            margin-top: 1.8rem;
+            padding-left: 1rem;
+            border-left: 4px solid var(--coral);
+            color: var(--coral);
+            font-family: "Noto Serif Tamil", serif;
+            line-height: 1.6;
+        }
+
+        .panel-head {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            align-items: end;
+            margin-bottom: 1rem;
+        }
+
+        .panel-head p {
+            margin: 0;
+            color: #667b74;
+            line-height: 1.7;
+            max-width: 20rem;
+        }
+
+        .input-label {
+            display: block;
+            font-weight: 700;
+            color: #425e55;
+            margin-bottom: 0.55rem;
         }
 
         input[type=text] {
-            width: 90%;
-            max-width: 700px;
-            padding: 14px;
-            border: 2px solid var(--leaf);
-            border-radius: 8px;
-            font-size: 16px;
-            margin-top: 15px;
+            width: 100%;
+            padding: 0.95rem 1rem;
+            border: 1px solid rgba(47, 101, 83, 0.38);
+            border-radius: 14px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--deep);
         }
 
-        button {
+        input[type=text]:focus {
+            outline: 2px solid rgba(205, 161, 90, 0.24);
+            border-color: var(--sun);
+        }
+
+        .button-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.7rem;
+            margin-top: 1rem;
+        }
+
+        button,
+        .button-link {
             background: var(--leaf);
-            color: white;
+            color: #fff;
             border: none;
-            padding: 12px 22px;
-            border-radius: 8px;
-            font-size: 16px;
-            margin: 10px 5px;
+            padding: 0.78rem 1.15rem;
+            border-radius: 999px;
+            font-size: 0.96rem;
             cursor: pointer;
             font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        button:hover {
+        button:hover,
+        .button-link:hover {
             background: var(--deep);
         }
 
-        .youtube-btn {
+        .button-link.secondary {
             background: var(--coral);
         }
 
-        .youtube-btn:hover {
-            background: #c44a2a;
+        .button-link.secondary:hover {
+            background: #ad6247;
+        }
+
+        .note {
+            color: #677a72;
+            margin: 0.85rem 0 0;
+            line-height: 1.7;
         }
 
         .video-wrapper {
             position: relative;
             width: 100%;
             padding-bottom: 56.25%;
-            margin-top: 25px;
+            margin-top: 1.2rem;
             background: #1a1a1a;
-            border-radius: 12px;
+            border-radius: 24px;
             overflow: hidden;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
         }
 
-        .video-wrapper div, .video-wrapper iframe {
+        .video-wrapper div,
+        .video-wrapper iframe {
             position: absolute;
             width: 100%;
             height: 100%;
@@ -111,82 +250,120 @@
         }
 
         #status {
-            margin-top: 20px;
-            font-weight: bold;
+            margin-top: 1rem;
+            font-weight: 700;
             color: var(--leaf);
-            padding: 10px;
-            border-radius: 6px;
+            padding: 0.85rem 1rem;
+            border-radius: 14px;
+            background: rgba(47, 101, 83, 0.08);
         }
-        
+
         .success-status {
             color: #166534;
-            background: #dcfce7;
+            background: #dcfce7 !important;
             border: 1px solid #86efac;
         }
-        
+
         .error-status {
             color: #b91c1c !important;
-            background: #fef2f2;
+            background: #fef2f2 !important;
             border: 1px solid #fca5a5;
         }
 
-        .quote {
-            margin-top: 25px;
-            font-style: italic;
-            color: var(--coral);
-            font-family: Georgia,"Noto Serif Tamil",serif;
+        @media (max-width: 960px) {
+            .page-shell {
+                grid-template-columns: 1fr;
+            }
+
+            .panel-head {
+                flex-direction: column;
+                align-items: flex-start;
+            }
         }
 
-        .note {
-            color: #666;
-            margin-top: 10px;
+        @media (max-width: 620px) {
+            .page-shell {
+                width: min(100% - 1.2rem, 1380px);
+            }
+
+            .intro-panel,
+            .player-panel {
+                border-radius: 20px;
+            }
+
+            .button-row {
+                flex-direction: column;
+            }
+
+            button,
+            .button-link {
+                width: 100%;
+            }
         }
-        
-        footer{padding:2rem 0;text-align:center;color:#8a9a92}
     </style>
 </head>
 
 <body>
 {% include 'partials/site_header.html' %}
 
-<div class="container">
-    <div class="card">
+<main id="top" class="page-shell">
+    <section class="intro-panel">
+        <div>
+            <span class="eyebrow">Daily Prayer Room</span>
+            <h1 class="page-title">கூட்டு பிரார்த்தனை</h1>
+            <p class="lead">ஒன்றாக இணைந்து அமைதியாக பிரார்த்திக்க ஒரு எளிய டிஜிட்டல் இடம். YouTube பிரார்த்தனை வீடியோ அல்லது playlist இணைப்பை இங்கே ஒட்டிப் பயன்படுத்தலாம்.</p>
 
-        <h1>सामूहिक प्रार्थना</h1>
-        <p class="time">दैनिक प्रार्थना समय: रात 9:00 बजे</p>
+            <div class="time-block">
+                <div class="time-label">தினசரி பிரார்த்தனை நேரம்</div>
+                <div class="time-value">இரவு 9:00 மணி</div>
+            </div>
 
-        <p>यूट्यूब वीडियो या प्लेलिस्ट यूआरएल पेस्ट करें।</p>
+            <ul class="info-list">
+                <li><strong>எப்படி பயன்படுத்துவது?</strong> வீடியோ அல்லது playlist URL ஐ ஒட்டி, கீழே உள்ள பொத்தானை அழுத்துங்கள்.</li>
+                <li><strong>Embedding வேலை செய்யவில்லையா?</strong> YouTube-ல் நேரடியாக திறக்கும் மாற்று இணைப்பு கீழே தரப்பட்டுள்ளது.</li>
+                <li><strong>தினசரி நினைவூட்டல்</strong> 9:00 மணிக்கு இந்தப் பக்கம் தானாகவே பிரார்த்தனையை தொடங்க முயலும்.</li>
+            </ul>
+        </div>
 
+        <p class="quote">“பிரார்த்தனையில் ஒற்றுமை இருக்கும் இடத்தில், இல்லத்தில் அமைதி மலரும்.”</p>
+    </section>
+
+    <section class="player-panel">
+        <div class="panel-head">
+            <div>
+                <span class="eyebrow">Prayer Player</span>
+                <h2 style="margin-top: 0.5rem; font-size: clamp(1.8rem, 3vw, 2.7rem);">பிரார்த்தனை இயக்கி</h2>
+            </div>
+            <p>இந்த player desktop மற்றும் mobile இரண்டிலும் வேலை செய்யும் வகையில் அமைக்கப்பட்டுள்ளது.</p>
+        </div>
+
+        <label class="input-label" for="youtubeUrl">YouTube வீடியோ அல்லது playlist URL</label>
         <input
             type="text"
             id="youtubeUrl"
             value="https://www.youtube.com/playlist?list=PLfhs93SSoxqw77PEVaGBji2FqNj189aXl"
-            placeholder="यूट्यूब प्लेलिस्ट या वीडियो यूआरएल पेस्ट करें">
+            placeholder="YouTube playlist அல்லது video link ஒட்டுங்கள்">
 
-        <br>
+        <div class="button-row">
+            <button onclick="loadYouTube()" type="button">பிரார்த்தனை தொடங்கு</button>
+            <button onclick="clearPlayer()" type="button">அழி</button>
+            <a
+                id="youtubeLink"
+                class="button-link secondary"
+                href="https://www.youtube.com/playlist?list=PLfhs93SSoxqw77PEVaGBji2FqNj189aXl"
+                target="_blank"
+                rel="noopener">YouTube-ல் திறக்க</a>
+        </div>
 
-        <button onclick="loadYouTube()">प्रार्थना शुरू करें</button>
-        <button onclick="clearPlayer()">अस्पष्ट</button>
-
-        <a
-            id="youtubeLink"
-            href="https://www.youtube.com/playlist?list=PLfhs93SSoxqw77PEVaGBji2FqNj189aXl"
-            target="_blank">
-            <button class="youtube-btn" type="button">यूट्यूब में खोलें</button>
-        </a>
-
-        <p class="note">यदि प्लेलिस्ट एम्बेड नहीं की जा सकती है, तो "यूट्यूब में खोलें" पर क्लिक करें।</p>
+        <p class="note">Playlist embed செய்ய முடியாவிட்டால், மேலே உள்ள YouTube இணைப்பை பயன்படுத்தலாம்.</p>
 
         <div class="video-wrapper">
             <div id="youtubePlayer"></div>
         </div>
 
-        <div id="status">तैयार है। प्रार्थना शुरू करने के लिए "प्रार्थना शुरू करें" पर क्लिक करें।</div>
-
-        <p class="quote">"जब प्रार्थना में एकता है, तब परिवार में शांति होती है।"</p>
-
-    </div>
-</div>
+        <div id="status">தயார். பிரார்த்தனையை தொடங்க, “பிரார்த்தனை தொடங்கு” என்பதை அழுத்துங்கள்.</div>
+    </section>
+</main>
 
 {% include 'partials/site_footer.html' %}
 
@@ -207,9 +384,9 @@ function loadYouTube() {
 
     if (!input || !status || !youtubeLink) return;
 
-    status.className = ""; 
+    status.className = "";
     let urlInput = input.value.trim();
-    
+
     if (!urlInput) {
         urlInput = "https://www.youtube.com/playlist?list=" + DEFAULT_PLAYLIST;
         input.value = urlInput;
@@ -225,28 +402,28 @@ function loadYouTube() {
             const urlParams = new URLSearchParams(urlInput.split('?')[1] || urlInput.split('#')[1]);
             targetId = urlParams.get("list");
             isPlaylist = true;
-        } 
+        }
         else if (urlInput.includes("v=")) {
             const urlParams = new URLSearchParams(urlInput.split('?')[1]);
             targetId = urlParams.get("v");
-        } 
+        }
         else if (urlInput.includes("youtu.be/")) {
             const segments = urlInput.split("youtu.be/");
             targetId = segments[1].split(/[?#]/)[0];
-        } 
+        }
         else if (urlInput.length >= 11) {
             targetId = urlInput;
-            isPlaylist = urlInput.length > 15; 
+            isPlaylist = urlInput.length > 15;
         }
 
         if (!targetId) {
-            status.innerText = "अमान्य YouTube URL प्रारूप।";
+            status.innerText = "தவறான YouTube இணைப்பு வடிவம்.";
             status.className = "error-status";
             return;
         }
 
         if (player) {
-            try { player.destroy(); } catch(err) {}
+            try { player.destroy(); } catch (err) {}
             player = null;
         }
 
@@ -262,12 +439,12 @@ function loadYouTube() {
             },
             events: {
                 'onReady': function(event) {
-                    status.innerText = isPlaylist ? "प्रार्थना प्लेलिस्ट लोड हुई।" : "प्रार्थना वीडियो लोड हुई।";
+                    status.innerText = isPlaylist ? "பிரார்த்தனை playlist ஏற்றப்பட்டது." : "பிரார்த்தனை video ஏற்றப்பட்டது.";
                     status.className = "success-status";
                     event.target.playVideo();
                 },
-                'onError': function(event) {
-                    status.innerText = "मालिक द्वारा एम्बेडिंग प्रतिबंधित है। यूट्यूब में खोलने के लिए क्लिक करें।";
+                'onError': function() {
+                    status.innerText = "இந்த video embed செய்ய அனுமதிக்கப்படவில்லை. YouTube-ல் திறக்கவும்.";
                     status.className = "error-status";
                 }
             }
@@ -283,24 +460,24 @@ function loadYouTube() {
         player = new YT.Player('youtubePlayer', playerConfig);
 
     } catch (e) {
-        status.innerText = "URL पार्स करने में त्रुटि।";
+        status.innerText = "இணைப்பை வாசிப்பதில் பிழை ஏற்பட்டது.";
         status.className = "error-status";
     }
 }
 
 function clearPlayer() {
     if (player) {
-        try { player.destroy(); } catch(err) {}
+        try { player.destroy(); } catch (err) {}
         player = null;
     }
     const wrapper = document.querySelector('.video-wrapper');
     if (wrapper) wrapper.innerHTML = '<div id="youtubePlayer"></div>';
-    
+
     const input = document.getElementById("youtubeUrl");
     const status = document.getElementById("status");
     if (input) input.value = "";
     if (status) {
-        status.innerText = "खिलाड़ी साफ कर दिया गया।";
+        status.innerText = "பிளேயர் அழிக்கப்பட்டது.";
         status.className = "";
     }
 }
@@ -316,11 +493,11 @@ setInterval(function () {
         lastReminderDate !== today
     ) {
         lastReminderDate = today;
-        alert("यह 9:00 बजे है। सामूहिक प्रार्थना का समय।");
-        
+        alert("இப்போது 9:00 மணி. கூட்டு பிரார்த்தனை நேரம்.");
+
         const status = document.getElementById("status");
-        if(status) status.innerText = "यह 9:00 बजे है। सामूहिक प्रार्थना का समय।";
-        
+        if (status) status.innerText = "இப்போது 9:00 மணி. கூட்டு பிரார்த்தனை நேரம்.";
+
         loadYouTube();
     }
 }, 30000);

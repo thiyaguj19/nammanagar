@@ -2,7 +2,10 @@
   <div class="nn-header-inner">
     <a class="nn-brand" href="{% url 'nagarhome' %}">
       <img src="https://nammanagar.s3.eu-north-1.amazonaws.com/nagarlogo/logo.png" alt="நம்ம நகரம் logo">
-      <span>நம்ம நகரம்</span>
+      <span class="nn-brand-copy">
+        <strong>நம்ம நகரம்</strong>
+        <small>அரவிந்த் நகர் சமூக வட்டம்</small>
+      </span>
     </a>
 
     <button class="nn-menu-toggle" type="button" aria-expanded="false" aria-controls="nnNav">மெனு</button>
@@ -12,7 +15,7 @@
       <a href="{% url 'nagarhome' %}#upcoming-events">வரவிருக்கும்</a>
       <a href="{% url 'nagarhome' %}#stories">நிகழ்வுகள்</a>
       <a href="{% url 'nagarhome' %}#community">சமூகம்</a>
-      <a class="nn-cta" href="{% url 'collective_prayer' %}">இணைந்திடுங்கள்</a>
+      <a class="nn-cta" href="{% url 'collective_prayer' %}">இணையலாம்</a>
     </nav>
   </div>
 </header>

@@ -149,6 +149,38 @@
             line-height: 1.6;
         }
 
+        .detail-card {
+            margin-top: 1.4rem;
+            padding: 1rem 1.05rem;
+            border-radius: 18px;
+            background: rgba(229, 221, 208, 0.48);
+            border: 1px solid rgba(16, 44, 38, 0.08);
+        }
+
+        .detail-card h3,
+        .detail-card h4 {
+            margin: 0;
+            font-size: 1rem;
+            color: var(--deep);
+        }
+
+        .detail-card p {
+            margin: 0.55rem 0 0;
+            color: #586e66;
+            line-height: 1.7;
+        }
+
+        .prayer-flow {
+            margin: 0.85rem 0 0;
+            padding-left: 1.1rem;
+            color: #425e55;
+            line-height: 1.8;
+        }
+
+        .prayer-flow li + li {
+            margin-top: 0.38rem;
+        }
+
         .panel-head {
             display: flex;
             justify-content: space-between;
@@ -162,6 +194,44 @@
             color: #667b74;
             line-height: 1.7;
             max-width: 20rem;
+        }
+
+        .playlist-meta {
+            margin: 0.8rem 0 1rem;
+            color: #586e66;
+            line-height: 1.7;
+        }
+
+        .playlist-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .playlist-day {
+            padding: 0.9rem 1rem;
+            border-radius: 18px;
+            border: 1px solid rgba(47, 101, 83, 0.16);
+            background: rgba(255, 255, 255, 0.82);
+        }
+
+        .playlist-day strong {
+            display: block;
+            color: var(--deep);
+        }
+
+        .playlist-day span {
+            display: block;
+            margin-top: 0.28rem;
+            color: #6a7c75;
+            font-size: 0.92rem;
+        }
+
+        .playlist-day.active {
+            border-color: rgba(201, 117, 84, 0.45);
+            background: rgba(201, 117, 84, 0.08);
+            box-shadow: inset 0 0 0 1px rgba(201, 117, 84, 0.12);
         }
 
         .input-label {
@@ -222,9 +292,36 @@
             background: #ad6247;
         }
 
+        .button-link.tertiary {
+            background: #b45309;
+        }
+
+        .button-link.tertiary:hover {
+            background: #92400e;
+        }
+
         .note {
             color: #677a72;
             margin: 0.85rem 0 0;
+            line-height: 1.7;
+        }
+
+        .fallback-box {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 18px;
+            border: 1px dashed rgba(180, 83, 9, 0.38);
+            background: rgba(251, 191, 36, 0.12);
+        }
+
+        .fallback-box strong {
+            display: block;
+            color: #7c2d12;
+        }
+
+        .fallback-box p {
+            margin: 0.45rem 0 0.9rem;
+            color: #7c2d12;
             line-height: 1.7;
         }
 
@@ -295,6 +392,10 @@
                 flex-direction: column;
             }
 
+            .playlist-grid {
+                grid-template-columns: 1fr;
+            }
+
             button,
             .button-link {
                 width: 100%;
@@ -311,18 +412,33 @@
         <div>
             <span class="eyebrow">Daily Prayer Room</span>
             <h1 class="page-title">கூட்டு பிரார்த்தனை</h1>
-            <p class="lead">ஒன்றாக இணைந்து அமைதியாக பிரார்த்திக்க ஒரு எளிய டிஜிட்டல் இடம். YouTube பிரார்த்தனை வீடியோ அல்லது playlist இணைப்பை இங்கே ஒட்டிப் பயன்படுத்தலாம்.</p>
+            <p class="lead">ஒவ்வொரு நாளுக்கும் தனியான YouTube playlist இணைக்கப்பட்ட கூட்டு பிரார்த்தனை அறை இது. இந்திய நேரப்படி தினமும் இரவு 9:30 மணிக்கு அன்றைய playlist தானாகத் தொடங்க முயலும்.</p>
 
             <div class="time-block">
                 <div class="time-label">தினசரி பிரார்த்தனை நேரம்</div>
-                <div class="time-value">இரவு 9:00 மணி</div>
+                <div class="time-value">இரவு 9:30 மணி IST</div>
             </div>
 
             <ul class="info-list">
-                <li><strong>எப்படி பயன்படுத்துவது?</strong> வீடியோ அல்லது playlist URL ஐ ஒட்டி, கீழே உள்ள பொத்தானை அழுத்துங்கள்.</li>
-                <li><strong>Embedding வேலை செய்யவில்லையா?</strong> YouTube-ல் நேரடியாக திறக்கும் மாற்று இணைப்பு கீழே தரப்பட்டுள்ளது.</li>
-                <li><strong>தினசரி நினைவூட்டல்</strong> 9:00 மணிக்கு இந்தப் பக்கம் தானாகவே பிரார்த்தனையை தொடங்க முயலும்.</li>
+                <li><strong>தானியங்கி தேர்வு</strong> இன்று என்ன நாள் என IST அடிப்படையில் பார்த்து அதற்கான playlist கீழே ஏற்றப்படும்.</li>
+                <li><strong>Autoplay குறிப்பு</strong> சில browser-கள் user interaction இல்லாமல் video அல்லது audio autoplay-ஐ தடுக்கலாம். அப்படியானால் கீழே உள்ள தொடங்கு பொத்தானை ஒருமுறை அழுத்தினால் audio கேட்கும்.</li>
+                <li><strong>மாற்று இணைப்பு</strong> Embed play ஆகவில்லை என்றாலும் அதே playlist-ஐ YouTube-ல் திறக்க direct link தரப்பட்டுள்ளது.</li>
             </ul>
+
+            <div class="detail-card">
+                <h3>பிரார்த்தனை அமைப்பு</h3>
+                <p>ஒவ்வொரு நாளும் playlist இந்த ஒரே ஓட்டத்தை பின்பற்றும் வகையில் அமைக்கப்பட்டுள்ளது.</p>
+                <ol class="prayer-flow">
+                    <li>2 நிமிடங்கள் கூட்டு பிரார்த்தனை அறிமுகம் மற்றும் அதன் அவசியம்</li>
+                    <li>4 நிமிடங்கள் கணபதி மந்திரம் அல்லது கணபதி பஜன்</li>
+                    <li>4 முதல் 5 நிமிடங்கள் சாய் அல்லது பல மத பஜன்</li>
+                    <li>4 முதல் 5 நிமிடங்கள் சாய் அல்லது பல மத பஜன்</li>
+                    <li>7 முதல் 10 நிமிடங்கள் மந்திர ஜபம்: ஓம் நம சிவாய, ஓம் சர்வ பாவ நமஹ, ஓம் நமோ பகவதே வாசுதேவாய, காயத்ரி மந்திரம் போன்றவை</li>
+                    <li>5 நிமிடங்கள் சாய் அல்லது பல மத பஜன்</li>
+                    <li>1 முதல் 3 நிமிடங்கள் நிறைவு பிரார்த்தனை</li>
+                    <li>2 முதல் 4 நிமிடங்கள் சாய் காயத்ரி</li>
+                </ol>
+            </div>
         </div>
 
         <p class="quote">“பிரார்த்தனையில் ஒற்றுமை இருக்கும் இடத்தில், இல்லத்தில் அமைதி மலரும்.”</p>
@@ -337,31 +453,55 @@
             <p>இந்த player desktop மற்றும் mobile இரண்டிலும் வேலை செய்யும் வகையில் அமைக்கப்பட்டுள்ளது.</p>
         </div>
 
-        <label class="input-label" for="youtubeUrl">YouTube வீடியோ அல்லது playlist URL</label>
+        <p id="todayPlaylistMeta" class="playlist-meta">இன்றைய playlist ஏற்றப்படுகிறது...</p>
+
+        <div id="playlistGrid" class="playlist-grid">
+            <div class="playlist-day" data-day="Monday"><strong>திங்கள்</strong><span>Monday playlist</span></div>
+            <div class="playlist-day" data-day="Tuesday"><strong>செவ்வாய்</strong><span>Tuesday playlist</span></div>
+            <div class="playlist-day" data-day="Wednesday"><strong>புதன்</strong><span>Wednesday playlist</span></div>
+            <div class="playlist-day" data-day="Thursday"><strong>வியாழன்</strong><span>Thursday playlist</span></div>
+            <div class="playlist-day" data-day="Friday"><strong>வெள்ளி</strong><span>Friday playlist</span></div>
+            <div class="playlist-day" data-day="Saturday"><strong>சனி</strong><span>Saturday playlist</span></div>
+            <div class="playlist-day" data-day="Sunday"><strong>ஞாயிறு</strong><span>Sunday playlist</span></div>
+        </div>
+
+        <label class="input-label" for="youtubeUrl">இன்றைய YouTube playlist URL</label>
         <input
             type="text"
             id="youtubeUrl"
-            value="https://www.youtube.com/playlist?list=PLfhs93SSoxqw77PEVaGBji2FqNj189aXl"
-            placeholder="YouTube playlist அல்லது video link ஒட்டுங்கள்">
+            value=""
+            placeholder="இன்றைய playlist URL தானாக நிரப்பப்படும்">
 
         <div class="button-row">
-            <button onclick="loadYouTube()" type="button">பிரார்த்தனை தொடங்கு</button>
+            <button onclick="loadTodayPlaylist(false)" type="button">இன்றைய playlist தொடங்கு</button>
+            <button onclick="loadYouTube()" type="button">இந்த இணைப்பை தொடங்கு</button>
             <button onclick="clearPlayer()" type="button">அழி</button>
             <a
                 id="youtubeLink"
                 class="button-link secondary"
-                href="https://www.youtube.com/playlist?list=PLfhs93SSoxqw77PEVaGBji2FqNj189aXl"
+                href="https://www.youtube.com/playlist?list=PLEADJIa32huQ"
                 target="_blank"
                 rel="noopener">YouTube-ல் திறக்க</a>
+            <a
+                id="youtubeAudioLink"
+                class="button-link tertiary"
+                href="https://www.youtube.com/playlist?list=PLEADJIa32huQ"
+                target="_self"
+                rel="noopener">YouTube audio mode</a>
         </div>
 
-        <p class="note">Playlist embed செய்ய முடியாவிட்டால், மேலே உள்ள YouTube இணைப்பை பயன்படுத்தலாம்.</p>
+        <p class="note">பக்கம் திறந்த நிலையில் இருந்தால் இரவு 9:30 IST-க்கு autoplay முயற்சி செய்யும். Browser autoplay-ஐ தடுத்தால், மேலே உள்ள தொடங்கு பொத்தானை அழுத்தினால் audio உடனே கேட்கும்.</p>
+
+        <div class="fallback-box">
+            <strong>Embed block ஆனால் என்ன ஆகும்?</strong>
+            <p>YouTube embed-ஐ தடுத்தால், இந்தப் பக்கத்திலிருந்து நேராக YouTube playlist-க்கு செல்லும் audio fallback பொத்தான் மேலே உள்ளது. அங்கு playlist play செய்தால் audio கேட்கும்.</p>
+        </div>
 
         <div class="video-wrapper">
             <div id="youtubePlayer"></div>
         </div>
 
-        <div id="status">தயார். பிரார்த்தனையை தொடங்க, “பிரார்த்தனை தொடங்கு” என்பதை அழுத்துங்கள்.</div>
+        <div id="status">தயார். இன்றைய playlist தானாகத் தேர்வு செய்யப்பட்டுள்ளது.</div>
     </section>
 </main>
 
@@ -370,50 +510,174 @@
 <script src="https://www.youtube.com/iframe_api"></script>
 
 <script>
-const DEFAULT_PLAYLIST = "PLfhs93SSoxqw77PEVaGBji2FqNj189aXl";
+const PLAYLISTS = {
+    Monday: {
+        id: "PLEBSW6sKqSCw",
+        url: "https://www.youtube.com/playlist?list=PLEBSW6sKqSCw",
+        tamil: "திங்கள்"
+    },
+    Tuesday: {
+        id: "PLWK1-1a48feY",
+        url: "https://www.youtube.com/playlist?list=PLWK1-1a48feY",
+        tamil: "செவ்வாய்"
+    },
+    Wednesday: {
+        id: "PLZC-Nu45b964",
+        url: "https://www.youtube.com/playlist?list=PLZC-Nu45b964",
+        tamil: "புதன்"
+    },
+    Thursday: {
+        id: "PLfNcyq292CVQ",
+        url: "https://www.youtube.com/playlist?list=PLfNcyq292CVQ",
+        tamil: "வியாழன்"
+    },
+    Friday: {
+        id: "PLA6hXO98oi-s",
+        url: "https://www.youtube.com/playlist?list=PLA6hXO98oi-s",
+        tamil: "வெள்ளி"
+    },
+    Saturday: {
+        id: "PLcifcAlObZkI",
+        url: "https://www.youtube.com/playlist?list=PLcifcAlObZkI",
+        tamil: "சனி"
+    },
+    Sunday: {
+        id: "PLEADJIa32huQ",
+        url: "https://www.youtube.com/playlist?list=PLEADJIa32huQ",
+        tamil: "ஞாயிறு"
+    }
+};
+
+const AUTOPLAY_HOUR_IST = 21;
+const AUTOPLAY_MINUTE_IST = 30;
 let player = null;
+let lastAutoStartDate = "";
+let lastRequestedUrl = "";
+let lastRequestedMode = "manual";
 
 function onYouTubeIframeAPIReady() {
-    console.log("YouTube API Ready");
+    syncTodayPlaylist();
+    maybeStartScheduledPrayer();
+}
+
+function getIstNow() {
+    const now = new Date();
+    const weekday = new Intl.DateTimeFormat("en-US", {
+        timeZone: "Asia/Kolkata",
+        weekday: "long"
+    }).format(now);
+    const hour = Number(new Intl.DateTimeFormat("en-GB", {
+        timeZone: "Asia/Kolkata",
+        hour: "2-digit",
+        hour12: false
+    }).format(now));
+    const minute = Number(new Intl.DateTimeFormat("en-GB", {
+        timeZone: "Asia/Kolkata",
+        minute: "2-digit"
+    }).format(now));
+    const dateKey = new Intl.DateTimeFormat("en-CA", {
+        timeZone: "Asia/Kolkata",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+    }).format(now);
+
+    return { weekday, hour, minute, dateKey };
+}
+
+function getTodayPlaylist() {
+    const ist = getIstNow();
+    return {
+        ...ist,
+        playlist: PLAYLISTS[ist.weekday] || PLAYLISTS.Sunday
+    };
+}
+
+function updatePlaylistMeta() {
+    const info = getTodayPlaylist();
+    const meta = document.getElementById("todayPlaylistMeta");
+    const input = document.getElementById("youtubeUrl");
+    const youtubeLink = document.getElementById("youtubeLink");
+    const youtubeAudioLink = document.getElementById("youtubeAudioLink");
+    const cards = document.querySelectorAll(".playlist-day");
+
+    if (meta) {
+        meta.innerText = info.playlist.tamil + " கிழமையிற்கான playlist தயார். தினசரி autoplay நேரம்: இரவு 9:30 IST.";
+    }
+
+    if (input) {
+        input.value = info.playlist.url;
+    }
+
+    if (youtubeLink) {
+        youtubeLink.href = info.playlist.url;
+    }
+
+    if (youtubeAudioLink) {
+        youtubeAudioLink.href = info.playlist.url;
+    }
+
+    cards.forEach(function(card) {
+        card.classList.toggle("active", card.dataset.day === info.weekday);
+    });
+}
+
+function syncTodayPlaylist() {
+    updatePlaylistMeta();
 }
 
 function loadYouTube() {
     const input = document.getElementById("youtubeUrl");
+    if (!input) return;
+    loadYouTubeFromUrl(input.value.trim(), false);
+}
+
+function loadTodayPlaylist(isAutoTriggered) {
+    const info = getTodayPlaylist();
+    loadYouTubeFromUrl(info.playlist.url, isAutoTriggered);
+}
+
+function loadYouTubeFromUrl(urlInput, isAutoTriggered) {
+    const input = document.getElementById("youtubeUrl");
     const status = document.getElementById("status");
     const youtubeLink = document.getElementById("youtubeLink");
+    const youtubeAudioLink = document.getElementById("youtubeAudioLink");
 
-    if (!input || !status || !youtubeLink) return;
+    if (!input || !status || !youtubeLink || !youtubeAudioLink) return;
 
     status.className = "";
-    let urlInput = input.value.trim();
+    let normalizedUrl = (urlInput || "").trim();
 
-    if (!urlInput) {
-        urlInput = "https://www.youtube.com/playlist?list=" + DEFAULT_PLAYLIST;
-        input.value = urlInput;
+    if (!normalizedUrl) {
+        normalizedUrl = getTodayPlaylist().playlist.url;
     }
 
-    youtubeLink.href = urlInput;
+    input.value = normalizedUrl;
+    youtubeLink.href = normalizedUrl;
+    youtubeAudioLink.href = normalizedUrl;
+    lastRequestedUrl = normalizedUrl;
+    lastRequestedMode = isAutoTriggered ? "auto" : "manual";
 
     try {
         let targetId = "";
         let isPlaylist = false;
 
-        if (urlInput.includes("list=")) {
-            const urlParams = new URLSearchParams(urlInput.split('?')[1] || urlInput.split('#')[1]);
+        if (normalizedUrl.includes("list=")) {
+            const urlParams = new URLSearchParams(normalizedUrl.split('?')[1] || normalizedUrl.split('#')[1]);
             targetId = urlParams.get("list");
             isPlaylist = true;
         }
-        else if (urlInput.includes("v=")) {
-            const urlParams = new URLSearchParams(urlInput.split('?')[1]);
+        else if (normalizedUrl.includes("v=")) {
+            const urlParams = new URLSearchParams(normalizedUrl.split('?')[1]);
             targetId = urlParams.get("v");
         }
-        else if (urlInput.includes("youtu.be/")) {
-            const segments = urlInput.split("youtu.be/");
+        else if (normalizedUrl.includes("youtu.be/")) {
+            const segments = normalizedUrl.split("youtu.be/");
             targetId = segments[1].split(/[?#]/)[0];
         }
-        else if (urlInput.length >= 11) {
-            targetId = urlInput;
-            isPlaylist = urlInput.length > 15;
+        else if (normalizedUrl.length >= 11) {
+            targetId = normalizedUrl;
+            isPlaylist = normalizedUrl.length > 15;
         }
 
         if (!targetId) {
@@ -435,17 +699,23 @@ function loadYouTube() {
             width: '100%',
             playerVars: {
                 'autoplay': 1,
+                'playsinline': 1,
                 'rel': 0
             },
             events: {
                 'onReady': function(event) {
-                    status.innerText = isPlaylist ? "பிரார்த்தனை playlist ஏற்றப்பட்டது." : "பிரார்த்தனை video ஏற்றப்பட்டது.";
+                    status.innerText = isAutoTriggered
+                        ? "9:30 PM IST prayer autoplay முயற்சி செய்யப்பட்டது. Audio தடுக்கப்பட்டால் மேலே உள்ள தொடங்கு பொத்தானை அழுத்துங்கள்."
+                        : (isPlaylist ? "பிரார்த்தனை playlist ஏற்றப்பட்டது." : "பிரார்த்தனை video ஏற்றப்பட்டது.");
                     status.className = "success-status";
+                    event.target.unMute();
+                    event.target.setVolume(100);
                     event.target.playVideo();
                 },
                 'onError': function() {
-                    status.innerText = "இந்த video embed செய்ய அனுமதிக்கப்படவில்லை. YouTube-ல் திறக்கவும்.";
+                    status.innerText = "இந்த video embed செய்ய அனுமதிக்கப்படவில்லை. YouTube audio mode-க்கு மாற்றப்படுகிறது.";
                     status.className = "error-status";
+                    redirectToYouTubeFallback(lastRequestedUrl, lastRequestedMode === "auto");
                 }
             }
         };
@@ -465,6 +735,24 @@ function loadYouTube() {
     }
 }
 
+function redirectToYouTubeFallback(targetUrl, isAutoTriggered) {
+    if (!targetUrl) {
+        return;
+    }
+
+    const status = document.getElementById("status");
+    if (status) {
+        status.innerText = isAutoTriggered
+            ? "Embed block ஆனதால் YouTube playlist-க்கு மாற்றப்படுகிறது. அங்கு audio play செய்யலாம்."
+            : "Embed block ஆனதால் YouTube playlist-க்கு மாற்றப்படுகிறது. அங்கு audio play செய்யலாம்.";
+        status.className = "error-status";
+    }
+
+    window.setTimeout(function() {
+        window.location.href = targetUrl;
+    }, 1200);
+}
+
 function clearPlayer() {
     if (player) {
         try { player.destroy(); } catch (err) {}
@@ -482,25 +770,30 @@ function clearPlayer() {
     }
 }
 
-let lastReminderDate = "";
-setInterval(function () {
-    const now = new Date();
-    const today = now.toDateString();
+function maybeStartScheduledPrayer() {
+    const info = getTodayPlaylist();
+    const shouldStartNow = (
+        (info.hour > AUTOPLAY_HOUR_IST) ||
+        (info.hour === AUTOPLAY_HOUR_IST && info.minute >= AUTOPLAY_MINUTE_IST)
+    );
 
-    if (
-        now.getHours() === 21 &&
-        now.getMinutes() === 0 &&
-        lastReminderDate !== today
-    ) {
-        lastReminderDate = today;
-        alert("இப்போது 9:00 மணி. கூட்டு பிரார்த்தனை நேரம்.");
-
-        const status = document.getElementById("status");
-        if (status) status.innerText = "இப்போது 9:00 மணி. கூட்டு பிரார்த்தனை நேரம்.";
-
-        loadYouTube();
+    if (shouldStartNow && lastAutoStartDate !== info.dateKey) {
+        lastAutoStartDate = info.dateKey;
+        loadTodayPlaylist(true);
+        return;
     }
-}, 30000);
+
+    const status = document.getElementById("status");
+    if (status && !player) {
+        status.innerText = info.playlist.tamil + " கிழமையிற்கான playlist தயார். தினசரி autoplay இரவு 9:30 IST-க்கு நடைபெறும்.";
+    }
+}
+
+syncTodayPlaylist();
+setInterval(function () {
+    syncTodayPlaylist();
+    maybeStartScheduledPrayer();
+}, 15000);
 </script>
 
 </body>

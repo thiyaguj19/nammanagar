@@ -309,6 +309,10 @@
             margin-bottom: 0.55rem;
         }
 
+        .source-group.is-hidden {
+            display: none;
+        }
+
         input[type=text] {
             width: 100%;
             padding: 0.95rem 1rem;
@@ -632,12 +636,14 @@
         </div>
 
         <div class="player-main">
-            <label class="input-label" for="youtubeUrl">இன்றைய prayer source</label>
-            <input
-                type="text"
-                id="youtubeUrl"
-                value=""
-                placeholder="இன்றைய source தானாக நிரப்பப்படும்">
+            <div id="sourceGroup" class="source-group">
+                <label class="input-label" for="youtubeUrl">இன்றைய prayer source</label>
+                <input
+                    type="text"
+                    id="youtubeUrl"
+                    value=""
+                    placeholder="இன்றைய source தானாக நிரப்பப்படும்">
+            </div>
 
             <div class="button-row">
                 <button onclick="loadTodayPlaylist(false)" type="button">இன்றைய பிரார்த்தனை தொடங்கு</button>
@@ -889,6 +895,7 @@ function updatePlaylistMeta() {
     const info = getTodayPlaylist();
     const meta = document.getElementById("todayPlaylistMeta");
     const input = document.getElementById("youtubeUrl");
+    const sourceGroup = document.getElementById("sourceGroup");
     const youtubeLink = document.getElementById("youtubeLink");
     const youtubeAudioLink = document.getElementById("youtubeAudioLink");
     const fallbackBox = document.querySelector(".fallback-box");
@@ -903,6 +910,10 @@ function updatePlaylistMeta() {
 
     if (input) {
         input.value = info.playlist.url;
+    }
+
+    if (sourceGroup) {
+        sourceGroup.classList.toggle("is-hidden", info.playlist.source === "hosted");
     }
 
     if (youtubeLink) {

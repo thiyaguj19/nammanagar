@@ -37,15 +37,17 @@
         }
 
         .page-shell {
-            width: min(100% - 2.5rem, 1380px);
+            width: min(100% - 2rem, 1700px);
             margin: 1.5rem auto 0;
             display: grid;
-            grid-template-columns: 0.92fr 1.08fr;
+            grid-template-columns: minmax(320px, 0.9fr) minmax(520px, 1.08fr) minmax(280px, 0.62fr);
             gap: 1.2rem;
+            align-items: start;
         }
 
         .intro-panel,
-        .player-panel {
+        .player-panel,
+        .queue-panel {
             background: rgba(255, 255, 255, 0.72);
             border: 1px solid rgba(16, 44, 38, 0.08);
             border-radius: 28px;
@@ -234,6 +236,72 @@
             box-shadow: inset 0 0 0 1px rgba(201, 117, 84, 0.12);
         }
 
+        .player-main {
+            min-width: 0;
+        }
+
+        .queue-panel {
+            padding: 1.2rem;
+            position: sticky;
+            top: 1rem;
+        }
+
+        .queue-head {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            align-items: start;
+        }
+
+        .queue-head h3,
+        .now-playing-card h4 {
+            margin: 0;
+            color: var(--deep);
+        }
+
+        .queue-head p,
+        .now-playing-meta,
+        .queue-note {
+            margin: 0.45rem 0 0;
+            color: #63766f;
+            line-height: 1.7;
+        }
+
+        .queue-count {
+            padding: 0.45rem 0.7rem;
+            border-radius: 999px;
+            background: rgba(47, 101, 83, 0.08);
+            color: var(--leaf);
+            font-size: 0.82rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .now-playing-card {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 18px;
+            background: linear-gradient(135deg, rgba(201, 117, 84, 0.12), rgba(255, 255, 255, 0.7));
+            border: 1px solid rgba(201, 117, 84, 0.2);
+        }
+
+        .now-playing-label {
+            display: inline-block;
+            color: #8a5a3f;
+            font-size: 0.76rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .now-playing-title {
+            margin-top: 0.45rem;
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--deep);
+            line-height: 1.5;
+        }
+
         .input-label {
             display: block;
             font-weight: 700;
@@ -325,6 +393,43 @@
             line-height: 1.7;
         }
 
+        .hosted-tracklist {
+            margin-top: 1rem;
+            display: grid;
+            gap: 0.55rem;
+            max-height: 34rem;
+            overflow: auto;
+            padding-right: 0.1rem;
+        }
+
+        .hosted-track {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 0.8rem 0.95rem;
+            border-radius: 16px;
+            border: 1px solid rgba(47, 101, 83, 0.12);
+            background: rgba(255, 255, 255, 0.78);
+            color: #4b625a;
+            line-height: 1.5;
+        }
+
+        .hosted-track.active {
+            border-color: rgba(201, 117, 84, 0.4);
+            background: rgba(201, 117, 84, 0.1);
+            color: var(--deep);
+        }
+
+        .hosted-track small {
+            color: #7d8e87;
+        }
+
+        .hosted-track.empty {
+            display: block;
+            color: #6a7c75;
+            background: rgba(255, 255, 255, 0.68);
+        }
+
         .video-wrapper {
             position: relative;
             width: 100%;
@@ -337,13 +442,24 @@
         }
 
         .video-wrapper div,
-        .video-wrapper iframe {
+        .video-wrapper iframe,
+        .video-wrapper video,
+        .video-wrapper audio {
             position: absolute;
             width: 100%;
             height: 100%;
             left: 0;
             top: 0;
             border: none;
+        }
+
+        .video-wrapper audio {
+            top: auto;
+            bottom: 1rem;
+            left: 1rem;
+            width: calc(100% - 2rem);
+            height: 54px;
+            border-radius: 12px;
         }
 
         #status {
@@ -367,6 +483,17 @@
             border: 1px solid #fca5a5;
         }
 
+        @media (max-width: 1360px) {
+            .page-shell {
+                grid-template-columns: minmax(320px, 0.92fr) minmax(520px, 1.08fr);
+            }
+
+            .queue-panel {
+                grid-column: 2;
+                position: static;
+            }
+        }
+
         @media (max-width: 960px) {
             .page-shell {
                 grid-template-columns: 1fr;
@@ -375,6 +502,11 @@
             .panel-head {
                 flex-direction: column;
                 align-items: flex-start;
+            }
+
+            .queue-panel {
+                position: static;
+                grid-column: auto;
             }
         }
 
@@ -465,44 +597,65 @@
             <div class="playlist-day" data-day="Sunday"><strong>ஞாயிறு</strong><span>Sunday playlist</span></div>
         </div>
 
-        <label class="input-label" for="youtubeUrl">இன்றைய YouTube playlist URL</label>
-        <input
-            type="text"
-            id="youtubeUrl"
-            value=""
-            placeholder="இன்றைய playlist URL தானாக நிரப்பப்படும்">
+        <div class="player-main">
+            <label class="input-label" for="youtubeUrl">இன்றைய prayer source</label>
+            <input
+                type="text"
+                id="youtubeUrl"
+                value=""
+                placeholder="இன்றைய source தானாக நிரப்பப்படும்">
 
-        <div class="button-row">
-            <button onclick="loadTodayPlaylist(false)" type="button">இன்றைய playlist தொடங்கு</button>
-            <button onclick="loadYouTube()" type="button">இந்த இணைப்பை தொடங்கு</button>
-            <button onclick="clearPlayer()" type="button">அழி</button>
-            <a
-                id="youtubeLink"
-                class="button-link secondary"
-                href="https://www.youtube.com/playlist?list=PLEADJIa32huQ"
-                target="_blank"
-                rel="noopener">YouTube-ல் திறக்க</a>
-            <a
-                id="youtubeAudioLink"
-                class="button-link tertiary"
-                href="https://www.youtube.com/playlist?list=PLEADJIa32huQ"
-                target="_self"
-                rel="noopener">YouTube audio mode</a>
+            <div class="button-row">
+                <button onclick="loadTodayPlaylist(false)" type="button">இன்றைய பிரார்த்தனை தொடங்கு</button>
+                <button onclick="loadYouTube()" type="button">இந்த source-ஐ தொடங்கு</button>
+                <button onclick="clearPlayer()" type="button">அழி</button>
+                <a
+                    id="youtubeLink"
+                    class="button-link secondary"
+                    href="https://www.youtube.com/playlist?list=PLEADJIa32huQ"
+                    target="_blank"
+                    rel="noopener">Source திறக்க</a>
+                <a
+                    id="youtubeAudioLink"
+                    class="button-link tertiary"
+                    href="https://www.youtube.com/playlist?list=PLEADJIa32huQ"
+                    target="_self"
+                    rel="noopener">Audio mode</a>
+            </div>
+
+            <p class="note">பக்கம் திறந்த நிலையில் இருந்தால் இரவு 9:30 IST-க்கு autoplay முயற்சி செய்யும். Browser autoplay-ஐ தடுத்தால், மேலே உள்ள தொடங்கு பொத்தானை அழுத்தினால் audio உடனே கேட்கும்.</p>
+
+            <div class="fallback-box">
+                <strong>Embed block ஆனால் என்ன ஆகும்?</strong>
+                <p>வெள்ளிக்கிழமைக்கு Nammanagar S3-ல் hosted செய்யப்பட்ட audio/video tracks பயன்படுத்தப்படும். மற்ற நாட்களில் YouTube embed block ஆனால், இந்தப் பக்கத்திலிருந்து source link திறந்து audio கேட்கலாம்.</p>
+            </div>
+
+            <div class="video-wrapper">
+                <div id="youtubePlayer"></div>
+            </div>
+
+            <div id="status">தயார். இன்றைய playlist தானாகத் தேர்வு செய்யப்பட்டுள்ளது.</div>
         </div>
-
-        <p class="note">பக்கம் திறந்த நிலையில் இருந்தால் இரவு 9:30 IST-க்கு autoplay முயற்சி செய்யும். Browser autoplay-ஐ தடுத்தால், மேலே உள்ள தொடங்கு பொத்தானை அழுத்தினால் audio உடனே கேட்கும்.</p>
-
-        <div class="fallback-box">
-            <strong>Embed block ஆனால் என்ன ஆகும்?</strong>
-            <p>YouTube embed-ஐ தடுத்தால், இந்தப் பக்கத்திலிருந்து நேராக YouTube playlist-க்கு செல்லும் audio fallback பொத்தான் மேலே உள்ளது. அங்கு playlist play செய்தால் audio கேட்கும்.</p>
-        </div>
-
-        <div class="video-wrapper">
-            <div id="youtubePlayer"></div>
-        </div>
-
-        <div id="status">தயார். இன்றைய playlist தானாகத் தேர்வு செய்யப்பட்டுள்ளது.</div>
     </section>
+
+    <aside class="queue-panel">
+        <div class="queue-head">
+            <div>
+                <span class="eyebrow">Track Queue</span>
+                <h3 style="margin-top: 0.45rem; font-size: 1.35rem;">இயங்கும் Track</h3>
+                <p class="queue-note" id="queueHint">Hosted track list இங்கே உடனே தெரியும்.</p>
+            </div>
+            <span id="queueCount" class="queue-count">0 tracks</span>
+        </div>
+
+        <div class="now-playing-card">
+            <span class="now-playing-label">Now Playing</span>
+            <div id="currentTrackName" class="now-playing-title">பிரார்த்தனை தொடங்கவில்லை</div>
+            <p id="currentTrackMeta" class="now-playing-meta">இன்றைய source தேர்வு செய்யப்பட்டவுடன் track விவரம் இங்கே வரும்.</p>
+        </div>
+
+        <div id="hostedTrackList" class="hosted-tracklist"></div>
+    </aside>
 </main>
 
 {% include 'partials/site_footer.html' %}
@@ -512,36 +665,84 @@
 <script>
 const PLAYLISTS = {
     Monday: {
+        source: "youtube",
         id: "PLEBSW6sKqSCw",
         url: "https://www.youtube.com/playlist?list=PLEBSW6sKqSCw",
         tamil: "திங்கள்"
     },
     Tuesday: {
+        source: "youtube",
         id: "PLWK1-1a48feY",
         url: "https://www.youtube.com/playlist?list=PLWK1-1a48feY",
         tamil: "செவ்வாய்"
     },
     Wednesday: {
+        source: "youtube",
         id: "PLZC-Nu45b964",
         url: "https://www.youtube.com/playlist?list=PLZC-Nu45b964",
         tamil: "புதன்"
     },
     Thursday: {
+        source: "youtube",
         id: "PLfNcyq292CVQ",
         url: "https://www.youtube.com/playlist?list=PLfNcyq292CVQ",
         tamil: "வியாழன்"
     },
     Friday: {
-        id: "PLA6hXO98oi-s",
-        url: "https://www.youtube.com/playlist?list=PLA6hXO98oi-s",
-        tamil: "வெள்ளி"
+        source: "hosted",
+        url: "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/01_Collective+Prayer.webm",
+        tamil: "வெள்ளி",
+        media: [
+            {
+                title: "Collective Prayer Introduction",
+                duration: "2 min",
+                url: "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/01_Collective+Prayer.webm"
+            },
+            {
+                title: "Shuklambaradharam Ganapathi Mantram",
+                duration: "4 min",
+                url: "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/02_Shuklambaradharam_Ganapathi_Mantram.webm"
+            },
+            {
+                title: "Devi Neeye Thunai",
+                duration: "4-5 min",
+                url: "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/03_Devi+Neeye+Thunai.webm"
+            },
+            {
+                title: "Kandu Konden Nan Kandu Konden",
+                duration: "4-5 min",
+                url: "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/04_Kandu+Konden+Nan+Kandu+Konden.webm"
+            },
+            {
+                title: "Gayatri Mantra Chanting",
+                duration: "7-10 min",
+                url: "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/05_Gayatri_Mantra_Chanting.m4a"
+            },
+            {
+                title: "Mannanaalum Parthipuriyil Mannaven",
+                duration: "5 min",
+                url: "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/06_Mannanaalum+Parthipuriyil+Mannaven.webm"
+            },
+            {
+                title: "Samastha Lokah Sukhino Bhavanthu",
+                duration: "1-3 min",
+                url: "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/07_Samastha+Lokah+Sukhino+Bhavanthu!.webm"
+            },
+            {
+                title: "Thank You",
+                duration: "2-4 min",
+                url: "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/08_Thank+You.webm"
+            }
+        ]
     },
     Saturday: {
+        source: "youtube",
         id: "PLcifcAlObZkI",
         url: "https://www.youtube.com/playlist?list=PLcifcAlObZkI",
         tamil: "சனி"
     },
     Sunday: {
+        source: "youtube",
         id: "PLEADJIa32huQ",
         url: "https://www.youtube.com/playlist?list=PLEADJIa32huQ",
         tamil: "ஞாயிறு"
@@ -554,6 +755,9 @@ let player = null;
 let lastAutoStartDate = "";
 let lastRequestedUrl = "";
 let lastRequestedMode = "manual";
+let hostedPlayer = null;
+let hostedPlaylist = [];
+let hostedTrackIndex = 0;
 
 function onYouTubeIframeAPIReady() {
     syncTodayPlaylist();
@@ -602,7 +806,9 @@ function updatePlaylistMeta() {
     const cards = document.querySelectorAll(".playlist-day");
 
     if (meta) {
-        meta.innerText = info.playlist.tamil + " கிழமையிற்கான playlist தயார். தினசரி autoplay நேரம்: இரவு 9:30 IST.";
+        meta.innerText = info.playlist.source === "hosted"
+            ? info.playlist.tamil + " கிழமையிற்கான hosted prayer tracks தயார். தினசரி autoplay நேரம்: இரவு 9:30 IST."
+            : info.playlist.tamil + " கிழமையிற்கான playlist தயார். தினசரி autoplay நேரம்: இரவு 9:30 IST.";
     }
 
     if (input) {
@@ -617,9 +823,25 @@ function updatePlaylistMeta() {
         youtubeAudioLink.href = info.playlist.url;
     }
 
+    if (youtubeLink) {
+        youtubeLink.innerText = info.playlist.source === "hosted" ? "முதல் track திறக்க" : "Source திறக்க";
+    }
+
+    if (youtubeAudioLink) {
+        youtubeAudioLink.innerText = info.playlist.source === "hosted" ? "Hosted audio mode" : "Audio mode";
+    }
+
     cards.forEach(function(card) {
         card.classList.toggle("active", card.dataset.day === info.weekday);
     });
+
+    updateNowPlaying(
+        info.playlist.source === "hosted" ? "Hosted prayer தயார்" : info.playlist.tamil + " playlist தயார்",
+        info.playlist.source === "hosted"
+            ? "இந்த நாளுக்கான individual tracks வலப்புறத்தில் காண்பிக்கப்படும்."
+            : "இந்த நாளுக்கான YouTube source பயன்படுத்தப்படும். Hosted track queue இல்லை."
+    );
+    renderHostedTrackList(info.playlist.source === "hosted" ? info.playlist.media : []);
 }
 
 function syncTodayPlaylist() {
@@ -634,7 +856,145 @@ function loadYouTube() {
 
 function loadTodayPlaylist(isAutoTriggered) {
     const info = getTodayPlaylist();
+    if (info.playlist.source === "hosted") {
+        startHostedPlaylist(info.playlist, isAutoTriggered);
+        return;
+    }
+
     loadYouTubeFromUrl(info.playlist.url, isAutoTriggered);
+}
+
+function renderHostedTrackList(tracks) {
+    const trackList = document.getElementById("hostedTrackList");
+    const queueCount = document.getElementById("queueCount");
+    const queueHint = document.getElementById("queueHint");
+    if (!trackList) {
+        return;
+    }
+
+    if (!tracks || tracks.length === 0) {
+        if (queueCount) {
+            queueCount.innerText = "0 tracks";
+        }
+        if (queueHint) {
+            queueHint.innerText = "YouTube நாட்களில் individual hosted track queue இருக்காது.";
+        }
+        trackList.innerHTML = '<div class="hosted-track empty">இந்த நாளுக்கான hosted track list இல்லை. மேலே உள்ள player source வழியாக பிரார்த்தனை ஒலியும் / video-வும் இயங்கும்.</div>';
+        return;
+    }
+
+    if (queueCount) {
+        queueCount.innerText = tracks.length + " tracks";
+    }
+
+    if (queueHint) {
+        queueHint.innerText = "இப்போது இயங்கும் track highlight ஆகும். அடுத்த track தானாக தொடரும்.";
+    }
+
+    trackList.innerHTML = tracks.map(function(track, index) {
+        return '<div class="hosted-track' + (index === hostedTrackIndex && hostedPlaylist === tracks ? ' active' : '') + '" data-track-index="' + index + '"><span>' + (index + 1) + '. ' + track.title + '</span><small>' + track.duration + '</small></div>';
+    }).join('');
+}
+
+function updateNowPlaying(title, meta) {
+    const currentTrackName = document.getElementById("currentTrackName");
+    const currentTrackMeta = document.getElementById("currentTrackMeta");
+
+    if (currentTrackName) {
+        currentTrackName.innerText = title;
+    }
+
+    if (currentTrackMeta) {
+        currentTrackMeta.innerText = meta;
+    }
+}
+
+function highlightHostedTrack(index) {
+    const trackList = document.getElementById("hostedTrackList");
+    if (!trackList) {
+        return;
+    }
+
+    trackList.querySelectorAll(".hosted-track").forEach(function(item) {
+        item.classList.toggle("active", Number(item.dataset.trackIndex) === index);
+    });
+}
+
+function resetHostedPlayer() {
+    hostedPlayer = null;
+    hostedPlaylist = [];
+    hostedTrackIndex = 0;
+}
+
+function startHostedPlaylist(playlistConfig, isAutoTriggered) {
+    const status = document.getElementById("status");
+    const wrapper = document.querySelector(".video-wrapper");
+    const input = document.getElementById("youtubeUrl");
+    const youtubeLink = document.getElementById("youtubeLink");
+    const youtubeAudioLink = document.getElementById("youtubeAudioLink");
+
+    if (!status || !wrapper || !input || !youtubeLink || !youtubeAudioLink || !playlistConfig.media || playlistConfig.media.length === 0) {
+        return;
+    }
+
+    if (player) {
+        try { player.destroy(); } catch (err) {}
+        player = null;
+    }
+
+    hostedPlaylist = playlistConfig.media;
+    hostedTrackIndex = 0;
+    input.value = playlistConfig.url;
+    youtubeLink.href = playlistConfig.media[0].url;
+    youtubeAudioLink.href = playlistConfig.media[0].url;
+    youtubeLink.innerText = "முதல் track திறக்க";
+    youtubeAudioLink.innerText = "Hosted audio mode";
+
+    wrapper.innerHTML = '<audio id="hostedPrayerPlayer" controls autoplay preload="auto" playsinline></audio>';
+    hostedPlayer = document.getElementById("hostedPrayerPlayer");
+
+    if (!hostedPlayer) {
+        return;
+    }
+
+    hostedPlayer.addEventListener("ended", function() {
+        playHostedTrack(hostedTrackIndex + 1, false);
+    });
+
+    renderHostedTrackList(hostedPlaylist);
+    updateNowPlaying("Hosted prayer தொடங்குகிறது", "முதல் track ஏற்றப்படுகிறது.");
+    playHostedTrack(0, isAutoTriggered);
+}
+
+function playHostedTrack(index, isAutoTriggered) {
+    const status = document.getElementById("status");
+    if (!hostedPlayer || !hostedPlaylist[index] || !status) {
+        return;
+    }
+
+    hostedTrackIndex = index;
+    const track = hostedPlaylist[index];
+    hostedPlayer.src = track.url;
+    hostedPlayer.load();
+    highlightHostedTrack(index);
+    updateNowPlaying(track.title, "Track " + (index + 1) + " of " + hostedPlaylist.length + " • " + track.duration);
+
+    const playPromise = hostedPlayer.play();
+    if (playPromise && typeof playPromise.then === "function") {
+        playPromise.then(function() {
+            status.innerText = (isAutoTriggered
+                ? "வெள்ளிக்கிழமையிற்கான hosted prayer autoplay தொடங்கியது. "
+                : "வெள்ளிக்கிழமையிற்கான hosted prayer தொடங்கியது. ") + track.title;
+            status.className = "success-status";
+        }).catch(function() {
+            status.innerText = "Browser autoplay-ஐ தடுத்தது. வெள்ளிக்கிழமை hosted prayer audio-ஐ தொடங்க மீண்டும் பொத்தானை அழுத்துங்கள்.";
+            status.className = "error-status";
+        });
+        return;
+    }
+
+    status.innerText = "வெள்ளிக்கிழமையிற்கான hosted prayer தொடங்கியது. " + track.title;
+    status.className = "success-status";
 }
 
 function loadYouTubeFromUrl(urlInput, isAutoTriggered) {
@@ -644,6 +1004,19 @@ function loadYouTubeFromUrl(urlInput, isAutoTriggered) {
     const youtubeAudioLink = document.getElementById("youtubeAudioLink");
 
     if (!input || !status || !youtubeLink || !youtubeAudioLink) return;
+
+    if (/\.(webm|m4a|mp3|mp4)(\?|$)/i.test(urlInput || "")) {
+        startHostedPlaylist({
+            source: "hosted",
+            url: (urlInput || "").trim(),
+            media: [{
+                title: "Hosted Prayer Track",
+                duration: "direct",
+                url: (urlInput || "").trim()
+            }]
+        }, isAutoTriggered);
+        return;
+    }
 
     status.className = "";
     let normalizedUrl = (urlInput || "").trim();
@@ -758,8 +1131,18 @@ function clearPlayer() {
         try { player.destroy(); } catch (err) {}
         player = null;
     }
+    if (hostedPlayer) {
+        try {
+            hostedPlayer.pause();
+            hostedPlayer.removeAttribute("src");
+            hostedPlayer.load();
+        } catch (err) {}
+    }
+    resetHostedPlayer();
     const wrapper = document.querySelector('.video-wrapper');
     if (wrapper) wrapper.innerHTML = '<div id="youtubePlayer"></div>';
+    renderHostedTrackList([]);
+    updateNowPlaying("பிரார்த்தனை தொடங்கவில்லை", "இன்றைய source தேர்வு செய்யப்பட்டவுடன் track விவரம் இங்கே வரும்.");
 
     const input = document.getElementById("youtubeUrl");
     const status = document.getElementById("status");
@@ -784,8 +1167,10 @@ function maybeStartScheduledPrayer() {
     }
 
     const status = document.getElementById("status");
-    if (status && !player) {
-        status.innerText = info.playlist.tamil + " கிழமையிற்கான playlist தயார். தினசரி autoplay இரவு 9:30 IST-க்கு நடைபெறும்.";
+    if (status && !player && !hostedPlayer) {
+        status.innerText = info.playlist.source === "hosted"
+            ? info.playlist.tamil + " கிழமையிற்கான hosted prayer தயார். தினசரி autoplay இரவு 9:30 IST-க்கு நடைபெறும்."
+            : info.playlist.tamil + " கிழமையிற்கான playlist தயார். தினசரி autoplay இரவு 9:30 IST-க்கு நடைபெறும்.";
     }
 }
 

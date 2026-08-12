@@ -671,7 +671,7 @@
 
             <div class="fallback-box">
                 <strong>Embed block ஆனால் என்ன ஆகும்?</strong>
-                <p>வெள்ளி மற்றும் சனிக்கிழமைகளுக்கு Nammanagar S3-ல் hosted செய்யப்பட்ட audio/video tracks பயன்படுத்தப்படும். மற்ற நாட்களில் YouTube embed block ஆனால், இந்தப் பக்கத்திலிருந்து source link திறந்து audio கேட்கலாம்.</p>
+                <p>புதன், வெள்ளி மற்றும் சனிக்கிழமைகளுக்கு Nammanagar S3-ல் hosted செய்யப்பட்ட audio/video tracks பயன்படுத்தப்படும். மற்ற நாட்களில் YouTube embed block ஆனால், இந்தப் பக்கத்திலிருந்து source link திறந்து audio கேட்கலாம்.</p>
             </div>
 
             <div class="video-wrapper">
@@ -721,10 +721,46 @@ const PLAYLISTS = {
         tamil: "செவ்வாய்"
     },
     Wednesday: {
-        source: "youtube",
-        id: "PLZC-Nu45b964",
-        url: "https://www.youtube.com/playlist?list=PLZC-Nu45b964",
-        tamil: "புதன்"
+        source: "hosted",
+        url: "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/01_Collective+Prayer.webm",
+        tamil: "புதன்",
+        media: [
+            {
+                title: "Collective Prayer Introduction",
+                duration: "Opening",
+                url: "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/01_Collective+Prayer.webm"
+            },
+            {
+                title: "Shuklambaradharam Ganapathi Mantram",
+                duration: "Ganapathi",
+                url: "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/02_Shuklambaradharam_Ganapathi_Mantram.webm"
+            },
+            {
+                title: "Kasturi Tilakam Narayanam",
+                duration: "Bhajan",
+                url: "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/14_Kasturi%20Tilakam%20Narayanam.webm"
+            },
+            {
+                title: "Om Namo Bhagavate Vasudevaya",
+                duration: "Chanting",
+                url: "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/15_Om%20Namo%20Bhagavate%20Vasudevaya.webm"
+            },
+            {
+                title: "Vizhi Kidaithadhu",
+                duration: "Bhajan",
+                url: "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/16_Vizhi%20Kidaithadhu.webm"
+            },
+            {
+                title: "Samastha Lokah Sukhino Bhavanthu",
+                duration: "Closing",
+                url: "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/07_Samastha+Lokah+Sukhino+Bhavanthu!.webm"
+            },
+            {
+                title: "Thank You",
+                duration: "End",
+                url: "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/08_Thank+You.webm"
+            }
+        ]
     },
     Thursday: {
         source: "youtube",

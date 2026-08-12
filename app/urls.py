@@ -13,4 +13,5 @@ urlpatterns = [
     path(r'wayand/', views.reliefhome, name='reliefhome'),
     path(r'sponsor/', views.sponsor, name='sponsor'),
     path(r'collective-prayer/', views.collective_prayer, name='collective_prayer'),
+    path(r'traffic-signals/', views.traffic_signals, name='traffic_signals'),
 ]

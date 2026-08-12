@@ -56,6 +56,9 @@ def aug15(request):
 def iday_2025(request):
     return render(request, 'iday_2025.html')
 
+def traffic_signals(request):
+    return render(request, 'traffic_signals.html')
+
 def reliefhome(request):
     picture = "https://nammanagar.s3.eu-north-1.amazonaws.com/nationalrelief/" + "ReliefMaterial-" + str(randint(0, 4)) + ".jpeg"
     context = {'picture': picture}

@@ -97,6 +97,41 @@
       background: #ddecdf;
     }
 
+    .rail-mosaic {
+      margin-top: 1rem;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.45rem;
+    }
+
+    .rail-mosaic-tile {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      min-height: 92px;
+      background: #d9e7df;
+      border: 1px solid rgba(12, 39, 33, 0.12);
+      margin: 0;
+    }
+
+    .rail-mosaic-tile.large {
+      grid-column: span 2;
+      min-height: 116px;
+    }
+
+    .rail-mosaic-tile img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.28s ease;
+    }
+
+    .rail-mosaic-tile:hover img {
+      transform: scale(1.04);
+    }
+
     .pill {
       display: inline-flex;
       margin: 0 0.28rem 0.35rem 0;
@@ -526,11 +561,18 @@
         <li><a href="#stories">நினைவுகள்</a></li>
         <li><a href="#community">நம் சமூகக் குரல்</a></li>
         <li><a href="{% url 'collective_prayer' %}">கூட்டு பிரார்த்தனை</a></li>
+        <li><a href="{% url 'traffic_signals' %}">இந்திய சாலை அறிகுறிகள்</a></li>
       </ul>
       <div style="margin-top: 1rem;">
         <span class="pill">நகர நிகழ்வுகள்</span>
         <span class="pill">சமூக சேவை</span>
         <span class="pill">தன்னார்வம்</span>
+      </div>
+
+      <div class="rail-mosaic" id="railMosaic">
+        <figure class="rail-mosaic-tile large"><img id="railMosaicImage1" alt="நகர நினைவு"></figure>
+        <figure class="rail-mosaic-tile"><img id="railMosaicImage2" alt="நகர நிகழ்வு"></figure>
+        <figure class="rail-mosaic-tile"><img id="railMosaicImage3" alt="சமூக தருணம்"></figure>
       </div>
     </aside>
 
@@ -585,6 +627,16 @@
         </div>
 
         <div class="stories">
+          <a class="story" href="{% url 'traffic_signals' %}">
+            <img src="https://images.unsplash.com/photo-1481437156560-3205f6a55735?auto=format&fit=crop&w=1200&q=80" alt="Traffic signals and road safety">
+            <div>
+              <span class="tag">Road Safety</span>
+              <h3>Indian Traffic Signs</h3>
+              <p>முக்கிய போக்குவரத்து அறிகுறிகளை தமிழ் மற்றும் ஆங்கிலத்தில் விரைவாக அறிந்துகொள்ளுங்கள்.</p>
+              <span class="arrow">விபரம் பார்க்க →</span>
+            </div>
+          </a>
+
           <a class="story" href="{% url 'chaturthi' %}">
             <img src="https://nammanagar.s3.eu-north-1.amazonaws.com/ganesh/1.jpg" alt="விநாயகர் சதுர்த்தி">
             <div>
@@ -662,6 +714,7 @@
       <ul class="rail-list">
         <li><a href="{% url 'aug15' %}">80வது சுதந்திர தின விழா</a></li>
         <li><a href="{% url 'collective_prayer' %}">கூட்டு பிரார்த்தனை</a></li>
+        <li><a href="{% url 'traffic_signals' %}">Traffic Signs Guide</a></li>
       </ul>
       <div style="margin-top: 1rem; color: #4b675e; line-height: 1.6;">
         நம் சமுதாய செயல்பாடுகளுக்கான அறிவிப்புகள் மற்றும் விரைவு செயல்பாட்டு இணைப்புகளை இங்கே இடலாம்.
@@ -670,5 +723,46 @@
   </main>
 
   {% include 'partials/site_footer.html' %}
+  <script>
+    (function () {
+      var pool = [
+        "https://nammanagar.s3.eu-north-1.amazonaws.com/ganesh/1.jpg",
+        "https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2026/2026_iday_home.jpg",
+        "{% static 'app/iday.png' %}",
+        "{% static 'app/ReliefMaterial-0.jpeg' %}",
+        "{% static 'app/NammaNagar.png' %}",
+        "https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/FlagHoisting001.jpg",
+        "https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/FlagHoisting002.jpg",
+        "https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/Prepare001.jpg",
+        "https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/unity_cup/UnityCup001.jpg",
+        "https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2025/unity_cup/UnityCup009.jpg",
+        "https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2024/iday-1.jpeg",
+        "https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2024/iday-2.jpeg",
+        "https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2024/iday-4.jpeg",
+        "https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2023-iday-1.jpeg",
+        "https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2023-iday-5.jpeg",
+        "https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2023-iday-2.jpeg"
+      ];
+
+      var targets = [
+        document.getElementById("railMosaicImage1"),
+        document.getElementById("railMosaicImage2"),
+        document.getElementById("railMosaicImage3")
+      ];
+
+      if (targets.some(function (el) { return !el; })) {
+        return;
+      }
+
+      var shuffled = pool
+        .map(function (value) { return { value: value, sort: Math.random() }; })
+        .sort(function (a, b) { return a.sort - b.sort; })
+        .map(function (entry) { return entry.value; });
+
+      targets.forEach(function (img, index) {
+        img.src = shuffled[index % shuffled.length];
+      });
+    })();
+  </script>
 </body>
 </html>

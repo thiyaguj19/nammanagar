@@ -1,0 +1,397 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Indian Road Traffic Signs | Namma Nagar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="{% static 'app/css/site_chrome.css' %}" rel="stylesheet">
+  <style>
+    :root{
+      --ink:#1b1f24;
+      --paper:#f6f7f9;
+      --card:#ffffff;
+      --line:#dde1e6;
+      --red:#c8102e;
+      --red-tint:#fdecef;
+      --blue:#0056a3;
+      --blue-tint:#e9f1fa;
+      --amber:#ffc72c;
+      --amber-ink:#7a5600;
+      --amber-tint:#fff8e0;
+      --green:#0b6e4f;
+      --green-dark:#084c37;
+      --muted:#5b6470;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{
+      background:var(--paper);
+      color:var(--ink);
+      font-family:'Inter',sans-serif;
+      padding-bottom:60px;
+    }
+    .ta{font-family:'Noto Sans Tamil','Inter',sans-serif;}
+
+    .gantry-wrap{position:relative;padding:56px 20px 90px;display:flex;justify-content:center;}
+    .gantry-wrap::before,
+    .gantry-wrap::after{
+      content:"";
+      position:absolute;
+      bottom:0;
+      width:14px;
+      height:56px;
+      background:repeating-linear-gradient(180deg,#c7cbd1 0 8px,#9aa0a8 8px 10px);
+      border-radius:2px;
+    }
+    .gantry-wrap::before{left:8%;}
+    .gantry-wrap::after{right:8%;}
+    .gantry{
+      background:linear-gradient(180deg,var(--green) 0%,var(--green-dark) 100%);
+      border:5px solid #fff;
+      outline:3px solid var(--green-dark);
+      border-radius:6px;
+      padding:34px 44px;
+      max-width:900px;
+      width:100%;
+      text-align:center;
+      box-shadow:0 14px 30px rgba(8,76,55,0.28);
+    }
+    .gantry .eyebrow{
+      color:#d9f2e6;
+      font-family:'Oswald',sans-serif;
+      letter-spacing:.14em;
+      font-size:.78rem;
+      text-transform:uppercase;
+      margin-bottom:10px;
+    }
+    .gantry h1{
+      font-family:'Oswald',sans-serif;
+      color:#fff;
+      font-size:clamp(1.7rem,4vw,2.6rem);
+      font-weight:700;
+      letter-spacing:.01em;
+      line-height:1.15;
+    }
+    .gantry h1 .ta{display:block;font-size:.62em;font-weight:600;margin-top:6px;color:#eaf6ef;}
+    .gantry p.sub{
+      margin-top:14px;
+      color:#dff0e6;
+      font-size:.95rem;
+      max-width:620px;
+      margin-left:auto;
+      margin-right:auto;
+    }
+
+    .controls{
+      max-width:1100px;
+      margin:-46px auto 0;
+      padding:0 20px;
+      position:relative;
+      z-index:2;
+    }
+    .controls-card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:12px;
+      padding:18px;
+      box-shadow:0 8px 24px rgba(20,20,30,0.06);
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      align-items:center;
+    }
+    .search-box{
+      flex:1 1 220px;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      border:1.5px solid var(--line);
+      border-radius:8px;
+      padding:9px 12px;
+      background:#fbfbfc;
+    }
+    .search-box input{
+      border:none;
+      outline:none;
+      background:transparent;
+      font-family:'Inter',sans-serif;
+      font-size:.92rem;
+      width:100%;
+      color:var(--ink);
+    }
+    .search-box svg{flex-shrink:0;opacity:.55;}
+
+    .tabs{display:flex;flex-wrap:wrap;gap:8px;}
+    .tab-btn{
+      font-family:'Oswald',sans-serif;
+      font-weight:600;
+      letter-spacing:.02em;
+      font-size:.82rem;
+      text-transform:uppercase;
+      padding:9px 16px;
+      border-radius:8px;
+      border:1.5px solid var(--line);
+      background:#fff;
+      color:var(--muted);
+      cursor:pointer;
+      transition:.15s ease;
+    }
+    .tab-btn:hover{border-color:var(--ink);color:var(--ink);}
+    .tab-btn:focus-visible{outline:3px solid var(--blue);outline-offset:2px;}
+    .tab-btn.active[data-cat="all"]{background:var(--ink);border-color:var(--ink);color:#fff;}
+    .tab-btn.active[data-cat="mandatory"]{background:var(--red);border-color:var(--red);color:#fff;}
+    .tab-btn.active[data-cat="cautionary"]{background:var(--amber);border-color:var(--amber);color:#4a3400;}
+    .tab-btn.active[data-cat="informational"]{background:var(--blue);border-color:var(--blue);color:#fff;}
+
+    .count-line{
+      max-width:1100px;
+      margin:14px auto 0;
+      padding:0 24px;
+      color:var(--muted);
+      font-size:.85rem;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
+      gap:18px;
+      max-width:1100px;
+      margin:18px auto 0;
+      padding:0 20px;
+    }
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:12px;
+      padding:18px;
+      display:flex;
+      flex-direction:column;
+      box-shadow:0 2px 6px rgba(20,20,30,0.05);
+      transition:transform .15s ease, box-shadow .15s ease;
+    }
+    .card:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(20,20,30,0.09);}
+    .card-top{display:flex;align-items:center;gap:14px;margin-bottom:12px;}
+    .card-top svg{width:66px;height:66px;flex-shrink:0;}
+    .card-code{
+      font-family:'Oswald',sans-serif;
+      font-size:.7rem;
+      font-weight:600;
+      letter-spacing:.06em;
+      color:var(--muted);
+      background:#f0f1f3;
+      border:1px solid var(--line);
+      padding:2px 7px;
+      border-radius:5px;
+      display:inline-block;
+      margin-bottom:4px;
+    }
+    .card h3{font-size:1.02rem;color:var(--ink);font-weight:700;line-height:1.25;}
+    .card h3 .ta{display:block;font-size:.92em;font-weight:600;color:#33404a;margin-top:2px;}
+
+    .badge{
+      font-family:'Oswald',sans-serif;
+      font-size:.68rem;
+      font-weight:600;
+      letter-spacing:.06em;
+      padding:3px 9px;
+      border-radius:20px;
+      text-transform:uppercase;
+      display:inline-block;
+      margin-bottom:10px;
+      width:fit-content;
+    }
+    .badge.mandatory{background:var(--red-tint);color:var(--red);}
+    .badge.cautionary{background:var(--amber-tint);color:var(--amber-ink);}
+    .badge.informational{background:var(--blue-tint);color:var(--blue);}
+
+    .desc{font-size:.86rem;color:#3a4149;line-height:1.5;margin-bottom:6px;}
+    .desc.ta{font-size:.87rem;color:#3a4149;line-height:1.6;}
+    .divider{height:1px;background:var(--line);margin:10px 0;}
+
+    .no-results{
+      max-width:1100px;
+      margin:40px auto;
+      padding:0 20px;
+      text-align:center;
+      color:var(--muted);
+    }
+
+    .page-disclaimer{
+      max-width:1100px;
+      margin:50px auto 0;
+      padding:20px 24px 0;
+      border-top:1px solid var(--line);
+      color:var(--muted);
+      font-size:.82rem;
+      line-height:1.6;
+    }
+    .page-disclaimer .ta{display:block;margin-top:4px;}
+
+    @media (max-width:520px){
+      .gantry{padding:24px 22px;}
+      .controls{margin-top:-34px;}
+    }
+
+    :focus-visible{outline:3px solid var(--blue);outline-offset:2px;}
+  </style>
+</head>
+<body>
+  {% include 'partials/site_header.html' %}
+
+  <div class="gantry-wrap">
+    <div class="gantry">
+      <div class="eyebrow">Namma Nagar · Road Safety Reference</div>
+      <h1>Indian Road &amp; Traffic Signs
+        <span class="ta">இந்திய சாலை போக்குவரத்து அறிகுறிகள்</span>
+      </h1>
+      <p class="sub">A quick bilingual guide to the signs you will see on Indian roads, based on the Motor Vehicles Act and IRC:67 signage conventions.</p>
+    </div>
+  </div>
+
+  <div class="controls">
+    <div class="controls-card">
+      <div class="search-box">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5b6470" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="searchInput" placeholder="Search a sign / அறிகுறியைத் தேடுங்கள்..." aria-label="Search signs">
+      </div>
+      <div class="tabs" id="tabs">
+        <button class="tab-btn active" data-cat="all">All Signs</button>
+        <button class="tab-btn" data-cat="mandatory">Mandatory</button>
+        <button class="tab-btn" data-cat="cautionary">Cautionary</button>
+        <button class="tab-btn" data-cat="informational">Informational</button>
+      </div>
+    </div>
+  </div>
+
+  <p class="count-line" id="countLine"></p>
+  <div class="grid" id="grid"></div>
+  <p class="no-results" id="noResults" style="display:none;">No matching sign found. / பொருந்தும் அறிகுறி இல்லை.</p>
+
+  <section class="page-disclaimer">
+    General road-safety awareness content based on the Motor Vehicles Act and IRC:67 signage conventions. Always follow official on-ground signage and local traffic police instructions, which take precedence.
+    <span class="ta">பொது சாலை பாதுகாப்பு விழிப்புணர்வுக்காக மட்டுமே. இடத்திலுள்ள அதிகாரப்பூர்வ அறிகுறிகள் மற்றும் போக்குவரத்து காவல் துறையின் வழிமுறைகளையே பின்பற்றவும்.</span>
+  </section>
+
+  {% include 'partials/site_footer.html' %}
+
+  <script>
+    function redCircle(inner){
+      return `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="#fff" stroke="#c8102e" stroke-width="9"/>${inner}</svg>`;
+    }
+    function blueCircle(inner){
+      return `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="#0056a3"/>${inner}</svg>`;
+    }
+    function triangle(inner){
+      return `<svg viewBox="0 0 100 100"><polygon points="50,8 8,88 92,88" fill="#fff" stroke="#c8102e" stroke-width="7"/>${inner}</svg>`;
+    }
+    function infoSquare(inner){
+      return `<svg viewBox="0 0 100 100"><rect x="8" y="8" width="84" height="84" rx="10" fill="#0056a3"/>${inner}</svg>`;
+    }
+    const ARROW_W = `<polygon points="50,20 68,45 56,45 56,80 44,80 44,45 32,45" fill="#fff"/>`;
+
+    const signs = [
+      {code:"M-01",cat:"mandatory",en:"Stop",ta:"நிறுத்து",descEn:"Come to a complete halt at the marked line and proceed only when the way is clear.",descTa:"குறிக்கப்பட்ட கோட்டில் முழுமையாக வாகனத்தை நிறுத்தி, வழி தெளிவாக இருந்தால் மட்டுமே தொடரவும்.",svg:`<svg viewBox="0 0 100 100"><polygon points="30,5 70,5 95,30 95,70 70,95 30,95 5,70 5,30" fill="#c8102e"/><text x="50" y="60" fill="white" font-size="20" font-weight="bold" text-anchor="middle" font-family="Arial">STOP</text></svg>`},
+      {code:"M-02",cat:"mandatory",en:"Give Way",ta:"வழிவிடு",descEn:"Slow down and let traffic on the main road pass before you proceed.",descTa:"முதன்மை சாலையில் செல்லும் வாகனங்களுக்கு வழிவிட்டு, பின்னரே தொடரவும்.",svg:`<svg viewBox="0 0 100 100"><polygon points="50,90 10,15 90,15" fill="white" stroke="#c8102e" stroke-width="10"/></svg>`},
+      {code:"M-03",cat:"mandatory",en:"No Entry",ta:"நுழைவு தடை",descEn:"Vehicles are not allowed to enter this road from this direction.",descTa:"இந்த திசையிலிருந்து இந்த சாலைக்குள் வாகனங்கள் நுழைய அனுமதி இல்லை.",svg:redCircle(`<rect x="18" y="44" width="64" height="12" fill="#c8102e"/>`)},
+      {code:"M-04",cat:"mandatory",en:"Speed Limit (50)",ta:"வேக வரம்பு (50)",descEn:"Maximum permitted speed on this stretch is 50 km/h.",descTa:"இந்த சாலைப் பகுதியில் அனுமதிக்கப்பட்ட அதிகபட்ச வேகம் 50 கி.மீ/மணி.",svg:redCircle(`<text x="50" y="63" fill="black" font-size="32" font-weight="bold" text-anchor="middle" font-family="Arial">50</text>`)},
+      {code:"M-05",cat:"mandatory",en:"No Parking",ta:"வாகனம் நிறுத்த தடை",descEn:"Standing or parking a vehicle here is prohibited at all times.",descTa:"இங்கு எந்த நேரத்திலும் வாகனத்தை நிறுத்துவது தடை செய்யப்பட்டுள்ளது.",svg:redCircle(`<text x="50" y="65" fill="#c8102e" font-size="46" font-weight="bold" text-anchor="middle" font-family="Arial">P</text><line x1="20" y1="80" x2="80" y2="20" stroke="#c8102e" stroke-width="7"/>`)},
+      {code:"M-06",cat:"mandatory",en:"Horn Prohibited",ta:"ஹார்ன் ஒலிக்க தடை",descEn:"Sounding the horn is not allowed in this zone, usually near hospitals or schools.",descTa:"இந்த பகுதியில் ஹார்ன் ஒலிப்பது தடை செய்யப்பட்டுள்ளது; பொதுவாக மருத்துவமனை / பள்ளி அருகில் இடப்படும்.",svg:redCircle(`<path d="M30 55 Q30 35 50 35 Q70 35 70 55" fill="none" stroke="#333" stroke-width="6"/><circle cx="50" cy="60" r="8" fill="#333"/><line x1="22" y1="78" x2="78" y2="22" stroke="#c8102e" stroke-width="7"/>`)},
+      {code:"M-07",cat:"mandatory",en:"No Overtaking",ta:"முந்திச் செல்ல தடை",descEn:"Overtaking other vehicles is not permitted along this stretch of road.",descTa:"இந்த சாலைப் பகுதியில் மற்ற வாகனங்களை முந்திச் செல்வது தடை செய்யப்பட்டுள்ளது.",svg:redCircle(`<circle cx="38" cy="60" r="9" fill="#1a1a2e"/><circle cx="65" cy="42" r="9" fill="#333"/><line x1="18" y1="78" x2="82" y2="18" stroke="#c8102e" stroke-width="7"/>`)},
+      {code:"M-08",cat:"mandatory",en:"No U-Turn",ta:"யூ-டர்ன் தடை",descEn:"Turning the vehicle back in the opposite direction is not allowed here.",descTa:"இங்கு வாகனத்தை எதிர் திசையில் திருப்புவது தடை செய்யப்பட்டுள்ளது.",svg:redCircle(`<path d="M35 65 L35 42 Q35 28 50 28 Q65 28 65 42 L65 50" fill="none" stroke="#333" stroke-width="7"/><polygon points="58,50 72,50 65,62" fill="#333"/><line x1="18" y1="78" x2="82" y2="18" stroke="#c8102e" stroke-width="7"/>`)},
+      {code:"M-09",cat:"mandatory",en:"No Entry for Goods Vehicles",ta:"சரக்கு வாகனங்கள் நுழைவு தடை",descEn:"Trucks and other goods carriers may not enter this road.",descTa:"லாரிகள் மற்றும் பிற சரக்கு வாகனங்கள் இந்த சாலைக்குள் நுழைய தடை.",svg:redCircle(`<rect x="24" y="40" width="34" height="20" fill="#333"/><rect x="58" y="46" width="16" height="14" fill="#333"/><circle cx="34" cy="62" r="5" fill="#333"/><circle cx="64" cy="62" r="5" fill="#333"/>`)},
+      {code:"M-10",cat:"mandatory",en:"No Stopping / Standing",ta:"நிறுத்தவும் நிறுத்தி வைக்கவும் தடை",descEn:"Even brief stopping or standing of vehicles is not allowed on this stretch.",descTa:"சிறிது நேரம் கூட வாகனத்தை நிறுத்துவது இந்த பகுதியில் அனுமதிக்கப்படாது.",svg:redCircle(`<line x1="20" y1="35" x2="80" y2="35" stroke="#c8102e" stroke-width="8"/><line x1="18" y1="78" x2="82" y2="18" stroke="#c8102e" stroke-width="7"/>`)},
+      {code:"M-11",cat:"mandatory",en:"Pedestrians Prohibited",ta:"பாதசாரிகள் தடை",descEn:"Walking is not permitted on this stretch of road; use an alternate footpath.",descTa:"இந்த சாலையில் நடந்து செல்வது தடை செய்யப்பட்டுள்ளது; மாற்று நடைபாதையைப் பயன்படுத்தவும்.",svg:redCircle(`<circle cx="50" cy="32" r="7" fill="#333"/><path d="M50 40 L50 62 M50 46 L36 56 M50 46 L64 56 M50 62 L40 82 M50 62 L60 82" stroke="#333" stroke-width="5" fill="none" stroke-linecap="round"/><line x1="18" y1="78" x2="82" y2="18" stroke="#c8102e" stroke-width="7"/>`)},
+      {code:"M-12",cat:"mandatory",en:"One Way",ta:"ஒரே திசை போக்குவரத்து",descEn:"Traffic on this road may travel only in the direction of the arrow.",descTa:"இந்த சாலையில் அம்பு காட்டும் திசையில் மட்டுமே வாகனங்கள் செல்ல வேண்டும்.",svg:blueCircle(`<rect x="20" y="45" width="42" height="10" fill="#fff"/><polygon points="62,32 62,68 90,50" fill="#fff"/>`)},
+      {code:"M-13",cat:"mandatory",en:"Compulsory Ahead",ta:"நேராக செல்ல வேண்டும்",descEn:"Vehicles must proceed straight ahead only at this point.",descTa:"இந்த இடத்தில் வாகனங்கள் நேராக மட்டுமே செல்ல வேண்டும்.",svg:blueCircle(ARROW_W)},
+      {code:"M-14",cat:"mandatory",en:"Compulsory Left Turn",ta:"இடதுபுறம் திரும்ப வேண்டும்",descEn:"Vehicles reaching this point must turn left; going straight or right is not allowed.",descTa:"இந்த இடத்தை அடையும் வாகனங்கள் இடதுபுறம் மட்டுமே திரும்ப வேண்டும்.",svg:blueCircle(`<path d="M70 30 L40 30 L40 20 L20 40 L40 60 L40 50 L70 50 Z" fill="#fff"/>`)},
+      {code:"M-15",cat:"mandatory",en:"Compulsory Keep Left",ta:"இடதுபுறமாக செல்ல வேண்டும்",descEn:"Keep to the left of the median, island or obstruction ahead.",descTa:"முன்னால் உள்ள நடுப்பகுதி அல்லது தடையின் இடதுபுறமாக செல்ல வேண்டும்.",svg:blueCircle(`<path d="M45 22 L45 78 M45 22 L30 38 M45 22 L60 38" stroke="#fff" stroke-width="8" fill="none" stroke-linecap="round"/>`)},
+      {code:"M-16",cat:"mandatory",en:"Compulsory Cycle Track",ta:"சைக்கிள் பாதை கட்டாயம்",descEn:"This lane is reserved for cyclists only.",descTa:"இந்த பாதை சைக்கிள் ஓட்டுநர்களுக்கு மட்டுமே ஒதுக்கப்பட்டது.",svg:blueCircle(`<circle cx="34" cy="66" r="9" fill="none" stroke="#fff" stroke-width="4"/><circle cx="66" cy="66" r="9" fill="none" stroke="#fff" stroke-width="4"/><path d="M34 66 L48 40 L60 66 M48 40 L40 52 L60 52 M60 66 L66 66" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round"/>`)},
+      {code:"C-01",cat:"cautionary",en:"Right Hairpin Bend",ta:"வலது ஹேர்பின் வளைவு",descEn:"A sharp bend to the right lies ahead; slow down well in advance.",descTa:"முன்னால் கூர்மையான வலது வளைவு உள்ளது; முன்கூட்டியே வேகத்தைக் குறைக்கவும்.",svg:triangle(`<path d="M40 70 L40 45 Q40 30 60 30 L60 25 L70 35 L60 45 L60 40 Q50 40 50 48 L50 70 Z" fill="#222"/>`)},
+      {code:"C-02",cat:"cautionary",en:"Left Hairpin Bend",ta:"இடது ஹேர்பின் வளைவு",descEn:"A sharp bend to the left lies ahead; slow down well in advance.",descTa:"முன்னால் கூர்மையான இடது வளைவு உள்ளது; முன்கூட்டியே வேகத்தைக் குறைக்கவும்.",svg:triangle(`<path d="M60 70 L60 45 Q60 30 40 30 L40 25 L30 35 L40 45 L40 40 Q50 40 50 48 L50 70 Z" fill="#222"/>`)},
+      {code:"C-03",cat:"cautionary",en:"Speed Breaker / Hump",ta:"வேக தடுப்பு (ஸ்பீட் பிரேக்கர்)",descEn:"A raised hump is ahead; slow down to avoid jolting the vehicle.",descTa:"முன்னால் மேடான வேக தடுப்பு உள்ளது; வாகனம் அதிர்வதைத் தவிர்க்க வேகத்தைக் குறைக்கவும்.",svg:triangle(`<rect x="25" y="65" width="50" height="6" fill="#222"/><rect x="30" y="55" width="40" height="6" fill="#222"/><rect x="35" y="45" width="30" height="6" fill="#222"/>`)},
+      {code:"C-04",cat:"cautionary",en:"Narrow Bridge",ta:"குறுகிய பாலம்",descEn:"The bridge ahead is narrower than the road; proceed with caution and give way if needed.",descTa:"முன்னால் உள்ள பாலம் சாலையை விட குறுகியது; கவனமாக செல்லவும்.",svg:triangle(`<rect x="30" y="42" width="40" height="30" fill="none" stroke="#222" stroke-width="5"/><line x1="30" y1="52" x2="70" y2="52" stroke="#222" stroke-width="4"/>`)},
+      {code:"C-05",cat:"cautionary",en:"Narrow Road Ahead",ta:"முன்னால் சாலை குறுகும்",descEn:"The road width reduces ahead; be ready to slow down and adjust position.",descTa:"முன்னால் சாலையின் அகலம் குறையும்; வேகத்தைக் குறைக்கத் தயாராக இருங்கள்.",svg:triangle(`<path d="M20 42 L45 55 L20 68 M80 42 L55 55 L80 68" stroke="#222" stroke-width="6" fill="none" stroke-linecap="round"/>`)},
+      {code:"C-06",cat:"cautionary",en:"Men At Work",ta:"பணி நடைபெறுகிறது",descEn:"Road work is in progress ahead; expect diversions and drive slowly.",descTa:"முன்னால் சாலைப் பணிகள் நடைபெறுகின்றன; வேறு வழி இருக்கலாம், மெதுவாக ஓட்டவும்.",svg:triangle(`<circle cx="46" cy="35" r="6" fill="#222"/><path d="M46 42 L46 60 M46 48 L34 58 M46 48 L60 44 M46 60 L38 78 M46 60 L56 78" stroke="#222" stroke-width="5" fill="none" stroke-linecap="round"/><rect x="58" y="50" width="16" height="4" fill="#222" transform="rotate(-30 58 50)"/>`)},
+      {code:"C-07",cat:"cautionary",en:"School Ahead",ta:"பள்ளி அருகில்",descEn:"A school is nearby; watch for children and drive slowly.",descTa:"அருகில் பள்ளி உள்ளது; குழந்தைகளை கவனித்து மெதுவாக ஓட்டவும்.",svg:triangle(`<circle cx="42" cy="38" r="6" fill="#222"/><circle cx="60" cy="42" r="5" fill="#222"/><path d="M42 45 L42 65 M42 50 L32 62 M42 50 L52 62" stroke="#222" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M60 48 L60 65 M60 52 L52 62 M60 52 L68 62" stroke="#222" stroke-width="4" fill="none" stroke-linecap="round"/>`)},
+      {code:"C-08",cat:"cautionary",en:"Pedestrian Crossing",ta:"பாதசாரி கடக்குமிடம்",descEn:"People cross the road here; be ready to stop and let them pass.",descTa:"இங்கு மக்கள் சாலையைக் கடக்கிறார்கள்; நிறுத்தி வழிவிட தயாராக இருங்கள்.",svg:triangle(`<circle cx="50" cy="35" r="6" fill="#222"/><path d="M50 42 L50 60 M50 46 L36 54 M50 46 L64 54 M50 60 L42 78 M50 60 L58 78" stroke="#222" stroke-width="5" fill="none" stroke-linecap="round"/>`)},
+      {code:"C-09",cat:"cautionary",en:"Cattle Crossing",ta:"கால்நடைகள் கடக்கும் இடம்",descEn:"Livestock may cross or wander onto the road here; slow down.",descTa:"இங்கு கால்நடைகள் சாலையைக் கடக்கலாம்; வேகத்தைக் குறைக்கவும்.",svg:triangle(`<ellipse cx="50" cy="60" rx="20" ry="10" fill="#222"/><circle cx="30" cy="48" r="8" fill="#222"/><rect x="34" y="65" width="4" height="12" fill="#222"/><rect x="46" y="65" width="4" height="12" fill="#222"/><rect x="58" y="65" width="4" height="12" fill="#222"/><rect x="66" y="65" width="4" height="12" fill="#222"/>`)},
+      {code:"C-10",cat:"cautionary",en:"Cross Road",ta:"குறுக்கு சாலை",descEn:"An intersecting road joins from both sides ahead; watch for crossing traffic.",descTa:"முன்னால் இருபுறமும் குறுக்கு சாலை சந்திக்கிறது; குறுக்கே வரும் வாகனங்களை கவனிக்கவும்.",svg:triangle(`<line x1="50" y1="35" x2="50" y2="80" stroke="#222" stroke-width="6"/><line x1="25" y1="57" x2="75" y2="57" stroke="#222" stroke-width="6"/>`)},
+      {code:"C-11",cat:"cautionary",en:"Roundabout Ahead",ta:"வட்டச் சந்திப்பு அருகில்",descEn:"A traffic circle / roundabout is ahead; give way to traffic already on it.",descTa:"முன்னால் வட்டச் சந்திப்பு உள்ளது; ஏற்கனவே அதில் உள்ள வாகனங்களுக்கு வழிவிடவும்.",svg:triangle(`<path d="M50 40 a15 15 0 1 1 -0.1 0" fill="none" stroke="#222" stroke-width="6"/><polygon points="50,25 44,35 56,35" fill="#222"/>`)},
+      {code:"C-12",cat:"cautionary",en:"Manned Railway Crossing",ta:"காவலருடன் கூடிய புகைவண்டி கடவு",descEn:"A guarded level crossing is ahead; stop when the gate is closed or signal is on.",descTa:"முன்னால் காவலருடன் கூடிய புகைவண்டி கடவு உள்ளது; வாயில் மூடியிருந்தால் நிறுத்தவும்.",svg:triangle(`<rect x="30" y="42" width="40" height="28" fill="none" stroke="#222" stroke-width="4"/><line x1="30" y1="42" x2="70" y2="70" stroke="#222" stroke-width="4"/><line x1="70" y1="42" x2="30" y2="70" stroke="#222" stroke-width="4"/>`)},
+      {code:"C-13",cat:"cautionary",en:"Steep Descent",ta:"செங்குத்தான இறக்கம்",descEn:"A steep downward slope is ahead; use lower gear and control speed.",descTa:"முன்னால் செங்குத்தான இறக்கம் உள்ளது; குறைந்த கியரில் வேகத்தைக் கட்டுப்படுத்தவும்.",svg:triangle(`<path d="M25 45 L75 65" stroke="#222" stroke-width="6" fill="none"/><text x="40" y="42" font-size="12" fill="#222" font-family="Arial" font-weight="bold">10%</text>`)},
+      {code:"C-14",cat:"cautionary",en:"Slippery Road",ta:"சறுக்கும் சாலை",descEn:"The road surface may be slippery, especially when wet; reduce speed and avoid sudden braking.",descTa:"சாலை மேற்பரப்பு சறுக்கக்கூடியது, குறிப்பாக ஈரமாக இருக்கும்போது; வேகத்தைக் குறைத்து திடீர் பிரேக் தவிர்க்கவும்.",svg:triangle(`<path d="M30 55 Q50 40 70 55 Q50 70 30 55 Z" fill="none" stroke="#222" stroke-width="5"/><line x1="60" y1="42" x2="70" y2="32" stroke="#222" stroke-width="4"/>`)},
+      {code:"C-15",cat:"cautionary",en:"Traffic Signal Ahead",ta:"முன்னால் சிக்னல் உள்ளது",descEn:"A signal-controlled junction is coming up; be ready to stop.",descTa:"முன்னால் சிக்னல் கட்டுப்பாட்டு சந்திப்பு உள்ளது; நிறுத்த தயாராக இருங்கள்.",svg:triangle(`<rect x="40" y="30" width="20" height="45" rx="4" fill="#222"/><circle cx="50" cy="40" r="4" fill="#fff"/><circle cx="50" cy="52" r="4" fill="#fff"/><circle cx="50" cy="64" r="4" fill="#fff"/>`)},
+      {code:"I-01",cat:"informational",en:"Parking",ta:"வாகன நிறுத்தம்",descEn:"Vehicles may be parked in the area marked with this sign.",descTa:"இந்த அறிகுறி காட்டும் பகுதியில் வாகனங்களை நிறுத்தலாம்.",svg:infoSquare(`<text x="50" y="68" fill="white" font-size="50" font-weight="bold" text-anchor="middle" font-family="Arial">P</text>`)},
+      {code:"I-02",cat:"informational",en:"Hospital Ahead",ta:"மருத்துவமனை அருகில்",descEn:"A hospital or medical facility is nearby.",descTa:"அருகில் மருத்துவமனை உள்ளது.",svg:infoSquare(`<rect x="42" y="25" width="16" height="50" fill="white"/><rect x="25" y="42" width="50" height="16" fill="white"/>`)},
+      {code:"I-03",cat:"informational",en:"Petrol Pump",ta:"பெட்ரோல் நிலையம்",descEn:"A fuel filling station is located ahead.",descTa:"முன்னால் எரிபொருள் நிரப்பும் நிலையம் உள்ளது.",svg:infoSquare(`<rect x="30" y="30" width="24" height="42" fill="#fff"/><path d="M54 45 L64 45 Q70 45 70 51 L70 65" stroke="#fff" stroke-width="5" fill="none"/><circle cx="70" cy="68" r="4" fill="#fff"/>`)},
+      {code:"I-04",cat:"informational",en:"First Aid Post",ta:"முதலுதவி நிலையம்",descEn:"Emergency first-aid assistance is available here.",descTa:"இங்கு அவசர முதலுதவி உதவி கிடைக்கும்.",svg:infoSquare(`<rect x="38" y="24" width="24" height="52" fill="white"/><rect x="24" y="38" width="52" height="24" fill="white"/>`)},
+      {code:"I-05",cat:"informational",en:"Restaurant / Eating Place",ta:"உணவகம்",descEn:"Food and refreshments are available nearby.",descTa:"அருகில் உணவு மற்றும் பானங்கள் கிடைக்கும்.",svg:infoSquare(`<rect x="30" y="24" width="6" height="30" fill="#fff"/><rect x="40" y="24" width="6" height="30" fill="#fff"/><rect x="30" y="24" width="16" height="6" fill="#fff"/><path d="M62 24 Q52 40 62 50 L62 76" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round"/>`)},
+      {code:"I-06",cat:"informational",en:"Pedestrian Crossing (Informatory)",ta:"பாதசாரி கடக்குமிடம் (தகவல்)",descEn:"A marked crossing point for pedestrians is located here.",descTa:"இங்கு பாதசாரிகள் கடக்கும் இடம் குறிக்கப்பட்டுள்ளது.",svg:infoSquare(`<rect x="20" y="60" width="60" height="6" fill="#fff"/><rect x="20" y="70" width="60" height="6" fill="#fff"/><circle cx="50" cy="30" r="6" fill="#fff"/><path d="M50 37 L50 52 M50 41 L38 48 M50 41 L62 48" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round"/>`)},
+      {code:"I-07",cat:"informational",en:"Public Telephone",ta:"பொது தொலைபேசி",descEn:"A public telephone facility is available at this location.",descTa:"இந்த இடத்தில் பொது தொலைபேசி வசதி உள்ளது.",svg:infoSquare(`<path d="M32 32 Q28 55 68 68 L74 58 L62 50 L58 56 Q42 48 40 38 L46 34 L38 24 Z" fill="#fff"/>`)},
+      {code:"I-08",cat:"informational",en:"U-Turn Permitted",ta:"யூ-டர்ன் அனுமதி",descEn:"Vehicles may take a U-turn at this point.",descTa:"இந்த இடத்தில் வாகனங்கள் யூ-டர்ன் எடுக்கலாம்.",svg:infoSquare(`<path d="M35 65 L35 40 Q35 24 52 24 Q69 24 69 40 L69 48" fill="none" stroke="#fff" stroke-width="6"/><polygon points="60,48 78,48 69,64" fill="#fff"/>`)},
+    ];
+
+    const grid = document.getElementById('grid');
+    const countLine = document.getElementById('countLine');
+    const noResults = document.getElementById('noResults');
+    let activeCat = 'all';
+    let query = '';
+
+    function renderCard(s){
+      return `
+        <div class="card" data-cat="${s.cat}">
+          <div class="card-top">
+            ${s.svg}
+            <div>
+              <span class="card-code">${s.code}</span>
+              <h3>${s.en}<span class="ta">${s.ta}</span></h3>
+            </div>
+          </div>
+          <span class="badge ${s.cat}">${s.cat}</span>
+          <p class="desc">${s.descEn}</p>
+          <div class="divider"></div>
+          <p class="desc ta">${s.descTa}</p>
+        </div>`;
+    }
+
+    function draw(){
+      const q = query.trim().toLowerCase();
+      const filtered = signs.filter((s) => {
+        const catOk = activeCat === 'all' || s.cat === activeCat;
+        if (!catOk) {
+          return false;
+        }
+        if (!q) {
+          return true;
+        }
+        return (s.en + ' ' + s.ta + ' ' + s.descEn + ' ' + s.descTa + ' ' + s.code).toLowerCase().includes(q);
+      });
+      grid.innerHTML = filtered.map(renderCard).join('');
+      noResults.style.display = filtered.length ? 'none' : 'block';
+      countLine.textContent = `Showing ${filtered.length} of ${signs.length} signs`;
+    }
+
+    document.getElementById('tabs').addEventListener('click', (e) => {
+      const btn = e.target.closest('.tab-btn');
+      if (!btn) {
+        return;
+      }
+      document.querySelectorAll('.tab-btn').forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeCat = btn.dataset.cat;
+      draw();
+    });
+
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      query = e.target.value;
+      draw();
+    });
+
+    draw();
+  </script>
+</body>
+</html>

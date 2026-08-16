@@ -186,18 +186,19 @@
       margin-top: 0;
       width: 100%;
       height: 100%;
+      max-width: 100%;
       border-radius: 18px;
       border: 1px solid rgba(255, 255, 255, 0.2);
       background: rgba(255, 255, 255, 0.08);
       backdrop-filter: blur(2px);
       overflow: hidden;
+      transition: max-width 0.35s ease, margin 0.35s ease;
     }
 
     .hero-copy-carousel figure {
       margin: 0;
       position: relative;
-      min-height: 520px;
-      height: 100%;
+      aspect-ratio: 16 / 9;
       background: rgba(11, 32, 27, 0.55);
     }
 
@@ -221,6 +222,12 @@
       background: linear-gradient(180deg, transparent, rgba(10, 28, 23, 0.8));
     }
 
+    .carousel-nav-group {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
     .hero-copy-carousel button {
       border: 0;
       width: 32px;
@@ -241,6 +248,12 @@
       background: #fff;
     }
 
+    .hero-copy-carousel button.active,
+    .hero-carousel-modal button.active {
+      background: var(--sun);
+      color: var(--deep);
+    }
+
     .hero-copy-carousel .carousel-count {
       color: #f6f1e8;
       font-size: 0.78rem;
@@ -248,6 +261,20 @@
       letter-spacing: 0.03em;
       min-width: 108px;
       text-align: center;
+    }
+
+    .hero-copy-carousel.is-vertical figure {
+      aspect-ratio: 3 / 4;
+    }
+
+    .hero-copy-carousel.is-vertical img {
+      object-fit: contain;
+      background: #091712;
+    }
+
+    .hero-copy-carousel.is-vertical {
+      max-width: min(56vw, 720px);
+      margin-inline: auto;
     }
 
     .hero-carousel-modal {
@@ -275,6 +302,24 @@
       border: 1px solid rgba(255, 255, 255, 0.28);
       background: #0f2a23;
       box-shadow: 0 16px 46px rgba(0, 0, 0, 0.48);
+    }
+
+    .hero-carousel-modal-content.is-horizontal {
+      width: min(96vw, 1280px);
+    }
+
+    .hero-carousel-modal-content.is-vertical {
+      width: min(74vw, 760px);
+    }
+
+    .hero-carousel-modal-content.is-horizontal img {
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+    }
+
+    .hero-carousel-modal-content.is-vertical img {
+      aspect-ratio: 3 / 4;
+      object-fit: contain;
     }
 
     .hero-carousel-modal-content img {
@@ -310,6 +355,12 @@
       display: inline-flex;
       align-items: center;
       gap: 0.45rem;
+    }
+
+    .hero-carousel-modal-view {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
     }
 
     .hero-carousel-modal button {
@@ -614,7 +665,15 @@
       }
 
       .hero-copy-carousel figure {
-        min-height: 400px;
+        aspect-ratio: 16 / 9;
+      }
+
+      .hero-copy-carousel.is-vertical figure {
+        aspect-ratio: 3 / 4;
+      }
+
+      .hero-copy-carousel.is-vertical {
+        max-width: min(86vw, 540px);
       }
 
       .stories {
@@ -652,7 +711,19 @@
       }
 
       .hero-copy-carousel figure {
-        min-height: 300px;
+        aspect-ratio: 16 / 9;
+      }
+
+      .hero-copy-carousel.is-vertical figure {
+        aspect-ratio: 3 / 4;
+      }
+
+      .hero-copy-carousel.is-vertical {
+        max-width: 100%;
+      }
+
+      .hero-carousel-modal-content.is-vertical {
+        width: min(94vw, 760px);
       }
 
       .note {
@@ -694,9 +765,15 @@
           <figure>
             <img id="heroCopyCarouselImage" src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2026/iphoto-16082026-1.jpg" alt="சுதந்திர தினம் 2026 விழா புகைப்படம்">
             <div class="carousel-nav">
-              <button type="button" id="heroCopyCarouselPrev" aria-label="முந்தைய படம்">‹</button>
+              <div class="carousel-nav-group">
+                <button type="button" id="heroCopyCarouselPrev" aria-label="முந்தைய படம்">‹</button>
+              </div>
               <span id="heroCopyCarouselCount" class="carousel-count">1 / 248</span>
-              <button type="button" id="heroCopyCarouselNext" aria-label="அடுத்த படம்">›</button>
+              <div class="carousel-nav-group">
+                <button type="button" id="heroCopyCarouselHorizontal" aria-label="கிடைமட்ட காட்சி">H</button>
+                <button type="button" id="heroCopyCarouselVertical" aria-label="செங்குத்து காட்சி">V</button>
+                <button type="button" id="heroCopyCarouselNext" aria-label="அடுத்த படம்">›</button>
+              </div>
             </div>
           </figure>
           </div>
@@ -838,6 +915,10 @@
         </div>
         <span id="heroCarouselModalCount" class="hero-carousel-modal-count">1 / 248</span>
         <div class="hero-carousel-modal-controls">
+          <div class="hero-carousel-modal-view">
+            <button type="button" id="heroCarouselModalHorizontal" aria-label="கிடைமட்ட காட்சி">H</button>
+            <button type="button" id="heroCarouselModalVertical" aria-label="செங்குத்து காட்சி">V</button>
+          </div>
           <button type="button" id="heroCarouselModalNext" aria-label="அடுத்த படம்">›</button>
           <button type="button" id="heroCarouselModalClose" aria-label="மூடவும்">×</button>
         </div>
@@ -858,14 +939,21 @@
       var previousButton = document.getElementById("heroCopyCarouselPrev");
       var nextButton = document.getElementById("heroCopyCarouselNext");
       var counter = document.getElementById("heroCopyCarouselCount");
+      var horizontalButton = document.getElementById("heroCopyCarouselHorizontal");
+      var verticalButton = document.getElementById("heroCopyCarouselVertical");
       var modal = document.getElementById("heroCarouselModal");
+      var carousel = image ? image.closest(".hero-copy-carousel") : null;
+      var modalContent = modal ? modal.querySelector(".hero-carousel-modal-content") : null;
       var modalImage = document.getElementById("heroCarouselModalImage");
       var modalCounter = document.getElementById("heroCarouselModalCount");
       var modalPreviousButton = document.getElementById("heroCarouselModalPrev");
       var modalNextButton = document.getElementById("heroCarouselModalNext");
+      var modalHorizontalButton = document.getElementById("heroCarouselModalHorizontal");
+      var modalVerticalButton = document.getElementById("heroCarouselModalVertical");
       var modalCloseButton = document.getElementById("heroCarouselModalClose");
+      var viewMode = "horizontal";
 
-      if (!image || !previousButton || !nextButton || !counter || !modal || !modalImage || !modalCounter || !modalPreviousButton || !modalNextButton || !modalCloseButton) {
+      if (!image || !previousButton || !nextButton || !counter || !horizontalButton || !verticalButton || !modal || !carousel || !modalContent || !modalImage || !modalCounter || !modalPreviousButton || !modalNextButton || !modalHorizontalButton || !modalVerticalButton || !modalCloseButton) {
         return;
       }
 
@@ -973,6 +1061,24 @@
         });
       }
 
+      function syncViewButtons() {
+        var horizontalActive = viewMode === "horizontal";
+        horizontalButton.classList.toggle("active", horizontalActive);
+        verticalButton.classList.toggle("active", !horizontalActive);
+        modalHorizontalButton.classList.toggle("active", horizontalActive);
+        modalVerticalButton.classList.toggle("active", !horizontalActive);
+      }
+
+      function applyViewMode(mode) {
+        viewMode = mode === "vertical" ? "vertical" : "horizontal";
+        carousel.classList.toggle("is-vertical", viewMode === "vertical");
+        modalImage.classList.toggle("is-vertical", viewMode === "vertical");
+        modalImage.classList.toggle("is-horizontal", viewMode !== "vertical");
+        modalContent.classList.toggle("is-vertical", viewMode === "vertical");
+        modalContent.classList.toggle("is-horizontal", viewMode !== "vertical");
+        syncViewButtons();
+      }
+
       function clearTransitionTimers() {
         clearTimeout(swapTimer);
         clearTimeout(revealTimer);
@@ -1066,6 +1172,22 @@
         jumpToRandomPhoto();
       });
 
+      horizontalButton.addEventListener("click", function () {
+        applyViewMode("horizontal");
+      });
+
+      verticalButton.addEventListener("click", function () {
+        applyViewMode("vertical");
+      });
+
+      modalHorizontalButton.addEventListener("click", function () {
+        applyViewMode("horizontal");
+      });
+
+      modalVerticalButton.addEventListener("click", function () {
+        applyViewMode("vertical");
+      });
+
       modalCloseButton.addEventListener("click", function () {
         closeModal();
       });
@@ -1085,11 +1207,11 @@
         jumpToRandomPhoto();
       });
 
-      image.closest(".hero-copy-carousel").addEventListener("mouseenter", function () {
+      carousel.addEventListener("mouseenter", function () {
         clearInterval(timer);
       });
 
-      image.closest(".hero-copy-carousel").addEventListener("mouseleave", function () {
+      carousel.addEventListener("mouseleave", function () {
         startAutoplay();
       });
 
@@ -1121,6 +1243,7 @@
         }
       });
 
+      applyViewMode("horizontal");
       render(false);
       startAutoplay();
     })();

@@ -117,8 +117,7 @@
       min-height: 540px;
       position: relative;
       overflow: hidden;
-      display: grid;
-      grid-template-columns: 1.08fr 0.92fr;
+      display: block;
       border-radius: 26px;
       background: var(--ink);
       color: #fff;
@@ -149,8 +148,7 @@
     .hero-copy {
       z-index: 1;
       align-self: center;
-      padding: clamp(2.2rem, 6vw, 5.8rem);
-      padding-right: 1.5rem;
+      padding: clamp(1rem, 2.5vw, 1.2rem);
     }
 
     .eyebrow {
@@ -182,6 +180,152 @@
       display: flex;
       flex-wrap: wrap;
       gap: 0.75rem;
+    }
+
+    .hero-copy-carousel {
+      margin-top: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(2px);
+      overflow: hidden;
+    }
+
+    .hero-copy-carousel figure {
+      margin: 0;
+      position: relative;
+      min-height: 520px;
+      height: 100%;
+      background: rgba(11, 32, 27, 0.55);
+    }
+
+    .hero-copy-carousel img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      cursor: zoom-in;
+      will-change: opacity, transform, filter;
+    }
+
+    .hero-copy-carousel .carousel-nav {
+      position: absolute;
+      inset: auto 0 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 0.55rem 0.65rem;
+      background: linear-gradient(180deg, transparent, rgba(10, 28, 23, 0.8));
+    }
+
+    .hero-copy-carousel button {
+      border: 0;
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--deep);
+      font-size: 1rem;
+      font-weight: 800;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .hero-copy-carousel button:hover {
+      background: #fff;
+    }
+
+    .hero-copy-carousel .carousel-count {
+      color: #f6f1e8;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      min-width: 108px;
+      text-align: center;
+    }
+
+    .hero-carousel-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(0.8rem, 3vw, 2rem);
+      background: rgba(3, 10, 8, 0.86);
+      backdrop-filter: blur(4px);
+    }
+
+    .hero-carousel-modal.open {
+      display: flex;
+    }
+
+    .hero-carousel-modal-content {
+      position: relative;
+      width: min(96vw, 1280px);
+      max-height: 92vh;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      background: #0f2a23;
+      box-shadow: 0 16px 46px rgba(0, 0, 0, 0.48);
+    }
+
+    .hero-carousel-modal-content img {
+      width: 100%;
+      max-height: 92vh;
+      object-fit: contain;
+      display: block;
+      background: #091712;
+      will-change: opacity, transform, filter;
+    }
+
+    .hero-carousel-modal-bar {
+      position: absolute;
+      inset: auto 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.65rem 0.8rem;
+      background: linear-gradient(180deg, transparent, rgba(3, 10, 8, 0.88));
+      gap: 0.7rem;
+    }
+
+    .hero-carousel-modal-count {
+      color: #fff;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-align: center;
+      min-width: 108px;
+    }
+
+    .hero-carousel-modal-controls {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .hero-carousel-modal button {
+      border: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.94);
+      color: #0c2721;
+      font-size: 1.1rem;
+      font-weight: 800;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
     }
 
     .button {
@@ -457,7 +601,6 @@
     }
 
     @media (max-width: 900px) {
-      .hero,
       .community-grid {
         grid-template-columns: 1fr;
       }
@@ -468,6 +611,10 @@
 
       .hero-art img {
         height: 360px;
+      }
+
+      .hero-copy-carousel figure {
+        min-height: 400px;
       }
 
       .stories {
@@ -502,6 +649,10 @@
 
       .hero-art img {
         height: 290px;
+      }
+
+      .hero-copy-carousel figure {
+        min-height: 300px;
       }
 
       .note {
@@ -539,22 +690,16 @@
 
     <div class="content">
       <section class="hero">
-        <div class="hero-copy">
-          <span class="eyebrow">கோயம்புத்தூர் · நம் மக்கள் · நம் கதை</span>
-          <h1>சேர்ந்து வாழும்<br>நம் நகரம்.</h1>
-          <p>நம் தெருக்களின் மகிழ்ச்சி, நினைவுகள் மற்றும் உதவும் கரங்களை ஒன்றாகக் கொண்டாடும் ஒரு இடம்.</p>
-          <div class="buttons">
-            <a class="button sun" href="#stories">கதைகளைப் பாருங்கள்</a>
-            <a class="button outline" href="{% url 'collective_prayer' %}">பங்கெடுங்கள்</a>
+        <div class="hero-copy-carousel" aria-label="சுதந்திர தினம் 2026 புகைப்படங்கள்">
+          <figure>
+            <img id="heroCopyCarouselImage" src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2026/iphoto-16082026-1.jpg" alt="சுதந்திர தினம் 2026 விழா புகைப்படம்">
+            <div class="carousel-nav">
+              <button type="button" id="heroCopyCarouselPrev" aria-label="முந்தைய படம்">‹</button>
+              <span id="heroCopyCarouselCount" class="carousel-count">1 / 248</span>
+              <button type="button" id="heroCopyCarouselNext" aria-label="அடுத்த படம்">›</button>
+            </div>
+          </figure>
           </div>
-        </div>
-        <div class="hero-art">
-          <img src="https://nammanagar.s3.eu-north-1.amazonaws.com/ganesh/1.jpg" alt="விநாயகர் சதுர்த்தி கொண்டாட்டம்">
-          <div class="note">
-            <strong>நகரம் என்பது மக்கள்.</strong>
-            <span>ஒவ்வொரு நல்ல தருணமும் பகிரப்பட வேண்டும்.</span>
-          </div>
-        </div>
       </section>
 
       <section id="upcoming-events" class="section">
@@ -684,5 +829,301 @@
   </main>
 
   {% include 'partials/site_footer.html' %}
+  <div id="heroCarouselModal" class="hero-carousel-modal" role="dialog" aria-modal="true" aria-label="பெரிதாக்கிய சுதந்திர தினம் 2026 புகைப்படம்">
+    <div class="hero-carousel-modal-content">
+      <img id="heroCarouselModalImage" src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2026/iphoto-16082026-1.jpg" alt="சுதந்திர தினம் 2026 விழா புகைப்படம்">
+      <div class="hero-carousel-modal-bar">
+        <div class="hero-carousel-modal-controls">
+          <button type="button" id="heroCarouselModalPrev" aria-label="முந்தைய படம்">‹</button>
+        </div>
+        <span id="heroCarouselModalCount" class="hero-carousel-modal-count">1 / 248</span>
+        <div class="hero-carousel-modal-controls">
+          <button type="button" id="heroCarouselModalNext" aria-label="அடுத்த படம்">›</button>
+          <button type="button" id="heroCarouselModalClose" aria-label="மூடவும்">×</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      var firstPhoto = 1;
+      var lastPhoto = 248;
+      var currentPhoto = Math.floor(Math.random() * (lastPhoto - firstPhoto + 1)) + firstPhoto;
+      var timer;
+      var autoplayDelay = 6000;
+      var swapTimer;
+      var revealTimer;
+      var lastEffectName = "";
+      var image = document.getElementById("heroCopyCarouselImage");
+      var previousButton = document.getElementById("heroCopyCarouselPrev");
+      var nextButton = document.getElementById("heroCopyCarouselNext");
+      var counter = document.getElementById("heroCopyCarouselCount");
+      var modal = document.getElementById("heroCarouselModal");
+      var modalImage = document.getElementById("heroCarouselModalImage");
+      var modalCounter = document.getElementById("heroCarouselModalCount");
+      var modalPreviousButton = document.getElementById("heroCarouselModalPrev");
+      var modalNextButton = document.getElementById("heroCarouselModalNext");
+      var modalCloseButton = document.getElementById("heroCarouselModalClose");
+
+      if (!image || !previousButton || !nextButton || !counter || !modal || !modalImage || !modalCounter || !modalPreviousButton || !modalNextButton || !modalCloseButton) {
+        return;
+      }
+
+      function buildPhotoUrl(photoNumber) {
+        return "https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2026/iphoto-16082026-" + photoNumber + ".jpg";
+      }
+
+      var transitionEffects = [
+        {
+          name: "fade",
+          outDuration: 230,
+          inDuration: 280,
+          out: [{ opacity: 1 }, { opacity: 0.12 }],
+          into: [{ opacity: 0.12 }, { opacity: 1 }]
+        },
+        {
+          name: "zoom-in",
+          outDuration: 250,
+          inDuration: 320,
+          out: [{ opacity: 1, transform: "scale(1)" }, { opacity: 0.2, transform: "scale(1.12)" }],
+          into: [{ opacity: 0.2, transform: "scale(0.88)" }, { opacity: 1, transform: "scale(1)" }]
+        },
+        {
+          name: "zoom-out",
+          outDuration: 250,
+          inDuration: 320,
+          out: [{ opacity: 1, transform: "scale(1)" }, { opacity: 0.2, transform: "scale(0.86)" }],
+          into: [{ opacity: 0.2, transform: "scale(1.12)" }, { opacity: 1, transform: "scale(1)" }]
+        },
+        {
+          name: "slide-left",
+          outDuration: 280,
+          inDuration: 320,
+          out: [{ opacity: 1, transform: "translateX(0)" }, { opacity: 0.2, transform: "translateX(-10%)" }],
+          into: [{ opacity: 0.2, transform: "translateX(10%)" }, { opacity: 1, transform: "translateX(0)" }]
+        },
+        {
+          name: "slide-right",
+          outDuration: 280,
+          inDuration: 320,
+          out: [{ opacity: 1, transform: "translateX(0)" }, { opacity: 0.2, transform: "translateX(10%)" }],
+          into: [{ opacity: 0.2, transform: "translateX(-10%)" }, { opacity: 1, transform: "translateX(0)" }]
+        },
+        {
+          name: "flip",
+          outDuration: 280,
+          inDuration: 320,
+          out: [{ opacity: 1, transform: "perspective(900px) rotateY(0deg)" }, { opacity: 0.15, transform: "perspective(900px) rotateY(70deg)" }],
+          into: [{ opacity: 0.15, transform: "perspective(900px) rotateY(-70deg)" }, { opacity: 1, transform: "perspective(900px) rotateY(0deg)" }]
+        },
+        {
+          name: "blur",
+          outDuration: 250,
+          inDuration: 300,
+          out: [{ opacity: 1, filter: "blur(0px)" }, { opacity: 0.2, filter: "blur(9px)" }],
+          into: [{ opacity: 0.2, filter: "blur(9px)" }, { opacity: 1, filter: "blur(0px)" }]
+        },
+        {
+          name: "lift",
+          outDuration: 260,
+          inDuration: 320,
+          out: [{ opacity: 1, transform: "translateY(0)" }, { opacity: 0.2, transform: "translateY(-12%)" }],
+          into: [{ opacity: 0.2, transform: "translateY(12%)" }, { opacity: 1, transform: "translateY(0)" }]
+        }
+      ];
+
+      function pickTransitionEffect() {
+        var selected = transitionEffects[Math.floor(Math.random() * transitionEffects.length)];
+
+        if (transitionEffects.length > 1) {
+          while (selected.name === lastEffectName) {
+            selected = transitionEffects[Math.floor(Math.random() * transitionEffects.length)];
+          }
+        }
+
+        lastEffectName = selected.name;
+        return selected;
+      }
+
+      function animateImageSet(keyframes, duration) {
+        var targets = [image, modalImage];
+
+        targets.forEach(function (target) {
+          if (target.getAnimations) {
+            target.getAnimations().forEach(function (animation) {
+              animation.cancel();
+            });
+          }
+
+          if (target.animate) {
+            target.animate(keyframes, {
+              duration: duration,
+              easing: "cubic-bezier(0.22, 0.61, 0.36, 1)",
+              fill: "forwards"
+            });
+          }
+        });
+      }
+
+      function resetImageStyles() {
+        [image, modalImage].forEach(function (target) {
+          target.style.opacity = "";
+          target.style.transform = "";
+          target.style.filter = "";
+        });
+      }
+
+      function clearTransitionTimers() {
+        clearTimeout(swapTimer);
+        clearTimeout(revealTimer);
+        if (image.getAnimations) {
+          image.getAnimations().forEach(function (animation) {
+            animation.cancel();
+          });
+        }
+        if (modalImage.getAnimations) {
+          modalImage.getAnimations().forEach(function (animation) {
+            animation.cancel();
+          });
+        }
+        resetImageStyles();
+      }
+
+      function render(animated) {
+        var source = buildPhotoUrl(currentPhoto);
+        counter.textContent = currentPhoto + " / " + lastPhoto;
+        modalCounter.textContent = currentPhoto + " / " + lastPhoto;
+
+        if (!animated) {
+          clearTransitionTimers();
+          image.src = source;
+          modalImage.src = source;
+          return;
+        }
+
+        clearTransitionTimers();
+        var effect = pickTransitionEffect();
+        animateImageSet(effect.out, effect.outDuration);
+
+        swapTimer = setTimeout(function () {
+          image.src = source;
+          modalImage.src = source;
+          animateImageSet(effect.into, effect.inDuration);
+
+          revealTimer = setTimeout(function () {
+            resetImageStyles();
+          }, effect.inDuration);
+        }, effect.outDuration);
+      }
+
+      function jumpToRandomPhoto() {
+        var nextPhoto = currentPhoto;
+
+        if (lastPhoto <= firstPhoto) {
+          return;
+        }
+
+        while (nextPhoto === currentPhoto) {
+          nextPhoto = Math.floor(Math.random() * (lastPhoto - firstPhoto + 1)) + firstPhoto;
+        }
+
+        currentPhoto = nextPhoto;
+        render(true);
+      }
+
+      function startAutoplay() {
+        clearInterval(timer);
+        timer = setInterval(function () {
+          jumpToRandomPhoto();
+        }, autoplayDelay);
+      }
+
+      function openModal() {
+        modal.classList.add("open");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeModal() {
+        modal.classList.remove("open");
+        document.body.style.overflow = "";
+      }
+
+      previousButton.addEventListener("click", function () {
+        jumpToRandomPhoto();
+        startAutoplay();
+      });
+
+      nextButton.addEventListener("click", function () {
+        jumpToRandomPhoto();
+        startAutoplay();
+      });
+
+      modalPreviousButton.addEventListener("click", function () {
+        jumpToRandomPhoto();
+      });
+
+      modalNextButton.addEventListener("click", function () {
+        jumpToRandomPhoto();
+      });
+
+      modalCloseButton.addEventListener("click", function () {
+        closeModal();
+      });
+
+      image.addEventListener("click", function () {
+        openModal();
+      });
+
+      modal.addEventListener("click", function (event) {
+        if (event.target === modal) {
+          closeModal();
+        }
+      });
+
+      image.addEventListener("error", function () {
+        // Skip missing objects in S3 and keep the carousel running.
+        jumpToRandomPhoto();
+      });
+
+      image.closest(".hero-copy-carousel").addEventListener("mouseenter", function () {
+        clearInterval(timer);
+      });
+
+      image.closest(".hero-copy-carousel").addEventListener("mouseleave", function () {
+        startAutoplay();
+      });
+
+      document.addEventListener("visibilitychange", function () {
+        if (document.hidden) {
+          clearInterval(timer);
+        } else {
+          startAutoplay();
+        }
+      });
+
+      document.addEventListener("keydown", function (event) {
+        if (!modal.classList.contains("open")) {
+          return;
+        }
+
+        if (event.key === "Escape") {
+          closeModal();
+          return;
+        }
+
+        if (event.key === "ArrowLeft") {
+          jumpToRandomPhoto();
+          return;
+        }
+
+        if (event.key === "ArrowRight") {
+          jumpToRandomPhoto();
+        }
+      });
+
+      render(false);
+      startAutoplay();
+    })();
+  </script>
 </body>
 </html>

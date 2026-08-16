@@ -695,7 +695,13 @@
       }
 
       .hero {
+        min-height: auto;
         border-radius: 18px;
+      }
+
+      .hero::before,
+      .hero::after {
+        display: none;
       }
 
       .hero-copy {
@@ -929,12 +935,9 @@
     (function () {
       var firstPhoto = 1;
       var lastPhoto = 248;
-      var currentPhoto = Math.floor(Math.random() * (lastPhoto - firstPhoto + 1)) + firstPhoto;
-      var timer;
-      var autoplayDelay = 6000;
-      var swapTimer;
-      var revealTimer;
-      var lastEffectName = "";
+      var currentPhoto = firstPhoto;
+      var autoplayDelay = 4000;
+      var autoplayTimer = null;
       var image = document.getElementById("heroCopyCarouselImage");
       var previousButton = document.getElementById("heroCopyCarouselPrev");
       var nextButton = document.getElementById("heroCopyCarouselNext");
@@ -961,106 +964,6 @@
         return "https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2026/iphoto-16082026-" + photoNumber + ".jpg";
       }
 
-      var transitionEffects = [
-        {
-          name: "fade",
-          outDuration: 230,
-          inDuration: 280,
-          out: [{ opacity: 1 }, { opacity: 0.12 }],
-          into: [{ opacity: 0.12 }, { opacity: 1 }]
-        },
-        {
-          name: "zoom-in",
-          outDuration: 250,
-          inDuration: 320,
-          out: [{ opacity: 1, transform: "scale(1)" }, { opacity: 0.2, transform: "scale(1.12)" }],
-          into: [{ opacity: 0.2, transform: "scale(0.88)" }, { opacity: 1, transform: "scale(1)" }]
-        },
-        {
-          name: "zoom-out",
-          outDuration: 250,
-          inDuration: 320,
-          out: [{ opacity: 1, transform: "scale(1)" }, { opacity: 0.2, transform: "scale(0.86)" }],
-          into: [{ opacity: 0.2, transform: "scale(1.12)" }, { opacity: 1, transform: "scale(1)" }]
-        },
-        {
-          name: "slide-left",
-          outDuration: 280,
-          inDuration: 320,
-          out: [{ opacity: 1, transform: "translateX(0)" }, { opacity: 0.2, transform: "translateX(-10%)" }],
-          into: [{ opacity: 0.2, transform: "translateX(10%)" }, { opacity: 1, transform: "translateX(0)" }]
-        },
-        {
-          name: "slide-right",
-          outDuration: 280,
-          inDuration: 320,
-          out: [{ opacity: 1, transform: "translateX(0)" }, { opacity: 0.2, transform: "translateX(10%)" }],
-          into: [{ opacity: 0.2, transform: "translateX(-10%)" }, { opacity: 1, transform: "translateX(0)" }]
-        },
-        {
-          name: "flip",
-          outDuration: 280,
-          inDuration: 320,
-          out: [{ opacity: 1, transform: "perspective(900px) rotateY(0deg)" }, { opacity: 0.15, transform: "perspective(900px) rotateY(70deg)" }],
-          into: [{ opacity: 0.15, transform: "perspective(900px) rotateY(-70deg)" }, { opacity: 1, transform: "perspective(900px) rotateY(0deg)" }]
-        },
-        {
-          name: "blur",
-          outDuration: 250,
-          inDuration: 300,
-          out: [{ opacity: 1, filter: "blur(0px)" }, { opacity: 0.2, filter: "blur(9px)" }],
-          into: [{ opacity: 0.2, filter: "blur(9px)" }, { opacity: 1, filter: "blur(0px)" }]
-        },
-        {
-          name: "lift",
-          outDuration: 260,
-          inDuration: 320,
-          out: [{ opacity: 1, transform: "translateY(0)" }, { opacity: 0.2, transform: "translateY(-12%)" }],
-          into: [{ opacity: 0.2, transform: "translateY(12%)" }, { opacity: 1, transform: "translateY(0)" }]
-        }
-      ];
-
-      function pickTransitionEffect() {
-        var selected = transitionEffects[Math.floor(Math.random() * transitionEffects.length)];
-
-        if (transitionEffects.length > 1) {
-          while (selected.name === lastEffectName) {
-            selected = transitionEffects[Math.floor(Math.random() * transitionEffects.length)];
-          }
-        }
-
-        lastEffectName = selected.name;
-        return selected;
-      }
-
-      function animateImageSet(keyframes, duration) {
-        var targets = [image, modalImage];
-
-        targets.forEach(function (target) {
-          if (target.getAnimations) {
-            target.getAnimations().forEach(function (animation) {
-              animation.cancel();
-            });
-          }
-
-          if (target.animate) {
-            target.animate(keyframes, {
-              duration: duration,
-              easing: "cubic-bezier(0.22, 0.61, 0.36, 1)",
-              fill: "forwards"
-            });
-          }
-        });
-      }
-
-      function resetImageStyles() {
-        [image, modalImage].forEach(function (target) {
-          target.style.opacity = "";
-          target.style.transform = "";
-          target.style.filter = "";
-        });
-      }
-
       function syncViewButtons() {
         var horizontalActive = viewMode === "horizontal";
         horizontalButton.classList.toggle("active", horizontalActive);
@@ -1079,69 +982,40 @@
         syncViewButtons();
       }
 
-      function clearTransitionTimers() {
-        clearTimeout(swapTimer);
-        clearTimeout(revealTimer);
-        if (image.getAnimations) {
-          image.getAnimations().forEach(function (animation) {
-            animation.cancel();
-          });
-        }
-        if (modalImage.getAnimations) {
-          modalImage.getAnimations().forEach(function (animation) {
-            animation.cancel();
-          });
-        }
-        resetImageStyles();
-      }
-
-      function render(animated) {
+      function render() {
         var source = buildPhotoUrl(currentPhoto);
         counter.textContent = currentPhoto + " / " + lastPhoto;
         modalCounter.textContent = currentPhoto + " / " + lastPhoto;
-
-        if (!animated) {
-          clearTransitionTimers();
-          image.src = source;
-          modalImage.src = source;
-          return;
-        }
-
-        clearTransitionTimers();
-        var effect = pickTransitionEffect();
-        animateImageSet(effect.out, effect.outDuration);
-
-        swapTimer = setTimeout(function () {
-          image.src = source;
-          modalImage.src = source;
-          animateImageSet(effect.into, effect.inDuration);
-
-          revealTimer = setTimeout(function () {
-            resetImageStyles();
-          }, effect.inDuration);
-        }, effect.outDuration);
+        image.src = source;
+        modalImage.src = source;
       }
 
-      function jumpToRandomPhoto() {
-        var nextPhoto = currentPhoto;
+      function showNextPhoto() {
+        currentPhoto = currentPhoto >= lastPhoto ? firstPhoto : currentPhoto + 1;
+        render();
+      }
 
-        if (lastPhoto <= firstPhoto) {
-          return;
+      function showPreviousPhoto() {
+        currentPhoto = currentPhoto <= firstPhoto ? lastPhoto : currentPhoto - 1;
+        render();
+      }
+
+      function stopAutoplay() {
+        if (autoplayTimer) {
+          clearInterval(autoplayTimer);
+          autoplayTimer = null;
         }
-
-        while (nextPhoto === currentPhoto) {
-          nextPhoto = Math.floor(Math.random() * (lastPhoto - firstPhoto + 1)) + firstPhoto;
-        }
-
-        currentPhoto = nextPhoto;
-        render(true);
       }
 
       function startAutoplay() {
-        clearInterval(timer);
-        timer = setInterval(function () {
-          jumpToRandomPhoto();
+        stopAutoplay();
+        autoplayTimer = setInterval(function () {
+          showNextPhoto();
         }, autoplayDelay);
+      }
+
+      function restartAutoplay() {
+        startAutoplay();
       }
 
       function openModal() {
@@ -1155,21 +1029,23 @@
       }
 
       previousButton.addEventListener("click", function () {
-        jumpToRandomPhoto();
-        startAutoplay();
+        showPreviousPhoto();
+        restartAutoplay();
       });
 
       nextButton.addEventListener("click", function () {
-        jumpToRandomPhoto();
-        startAutoplay();
+        showNextPhoto();
+        restartAutoplay();
       });
 
       modalPreviousButton.addEventListener("click", function () {
-        jumpToRandomPhoto();
+        showPreviousPhoto();
+        restartAutoplay();
       });
 
       modalNextButton.addEventListener("click", function () {
-        jumpToRandomPhoto();
+        showNextPhoto();
+        restartAutoplay();
       });
 
       horizontalButton.addEventListener("click", function () {
@@ -1203,12 +1079,12 @@
       });
 
       image.addEventListener("error", function () {
-        // Skip missing objects in S3 and keep the carousel running.
-        jumpToRandomPhoto();
+        // Skip missing objects in S3 by advancing to the next available image.
+        showNextPhoto();
       });
 
       carousel.addEventListener("mouseenter", function () {
-        clearInterval(timer);
+        stopAutoplay();
       });
 
       carousel.addEventListener("mouseleave", function () {
@@ -1217,7 +1093,7 @@
 
       document.addEventListener("visibilitychange", function () {
         if (document.hidden) {
-          clearInterval(timer);
+          stopAutoplay();
         } else {
           startAutoplay();
         }
@@ -1234,17 +1110,17 @@
         }
 
         if (event.key === "ArrowLeft") {
-          jumpToRandomPhoto();
+          showPreviousPhoto();
           return;
         }
 
         if (event.key === "ArrowRight") {
-          jumpToRandomPhoto();
+          showNextPhoto();
         }
       });
 
       applyViewMode("horizontal");
-      render(false);
+      render();
       startAutoplay();
     })();
   </script>

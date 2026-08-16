@@ -4,487 +4,815 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="அரவிந்தா நகரின் 80வது சுதந்திர தின நிகழ்ச்சி விவரம்.">
-  <title>80வது சுதந்திர தின விழா | நம்ம நகரம்</title>
+  <title>80வது சுதந்திர தின விழா 2026 | நம்ம நகரம்</title>
+  <meta name="description" content="2026 ஆகஸ்ட் 15 அரவிந்தா நகரின் 80வது சுதந்திர தின விழா - கொடியேற்றம், விளையாட்டு, போட்டிகள், கலாச்சார நிகழ்ச்சிகள் மற்றும் பரிசளிப்பு புகைப்படத் தொகுப்பு.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anek+Tamil:wght@400;600;700;800&family=Noto+Serif+Tamil:wght@600;700&display=swap" rel="stylesheet">
   <link href="{% static 'app/css/bootstrap.min.css' %}" rel="stylesheet">
   <link href="{% static 'app/css/site_chrome.css' %}" rel="stylesheet">
   <style>
-    :root{--paper:#fff7ee;--ink:#142b29;--deep:#0d2620;--sun:#f4a93c;--coral:#de5d38;--leaf:#316c55;--mist:#e9eee9;--shadow:0 18px 45px rgba(13,38,32,.12)}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--deep);font-family:system-ui,-apple-system,"Noto Sans Tamil",sans-serif}a{color:inherit;text-decoration:none}img{max-width:100%;display:block}button,a.button{display:inline-flex;align-items:center;justify-content:center;padding:.85rem 1.4rem;border-radius:99px;font-weight:800;text-decoration:none;border:0}a.button.sun{background:var(--sun);color:var(--deep)}a.button.outline{border:1px solid var(--deep);background:transparent;color:var(--deep)}.wrap{width:min(100% - 2rem,1400px);margin:auto}.nav{height:88px;display:flex;align-items:center;justify-content:space-between;gap:1rem}.brand{display:flex;align-items:center;gap:.8rem;color:var(--deep);font-size:1.3rem;font-weight:800}.brand img{width:44px;height:44px;object-fit:cover;border-radius:50%;box-shadow:0 3px 0 rgba(0,0,0,.1)}.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:2rem;align-items:center;min-height:560px;padding:3rem 0}.hero-copy{padding:1rem 0}.eyebrow{display:inline-flex;padding:.55rem 1rem;border-radius:999px;background:var(--sun);color:var(--deep);font-size:.82rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}.hero h1{margin:1.1rem 0 .75rem;font-family:Georgia,"Noto Serif Tamil",serif;font-size:clamp(3rem,5vw,4.6rem);line-height:1}.hero p{max-width:560px;font-size:1.05rem;line-height:1.8;color:#38524a}.hero-art{position:relative;overflow:hidden;border-radius:32px;box-shadow:var(--shadow);min-height:320px;aspect-ratio:16/9;background:linear-gradient(135deg,rgba(246,169,60,.13),rgba(222,93,56,.12))}.hero-art img{height:100%;width:100%;object-fit:cover}.section{padding:4rem 0}.section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:1.5rem;margin-bottom:2rem}.section-title{margin:0;font-size:clamp(2rem,4vw,3.4rem);letter-spacing:-.05em}.intro{max-width:720px;color:#3f5a52;line-height:1.75}.event-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}.event-card{padding:1.6rem;border-radius:24px;background:white;box-shadow:var(--shadow);border:1px solid rgba(22,48,42,.08)}.event-card h3{margin:.6rem 0 .35rem;font-size:1.2rem}.event-card p{margin:0;color:#556d65;line-height:1.7}.feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-top:2rem}.feature{padding:1.4rem;border-radius:22px;background:var(--mist);color:var(--deep);box-shadow:0 12px 30px rgba(13,38,32,.08)}.feature h3{margin:.8rem 0 .35rem;font-size:1.05rem}.feature p{margin:0;color:#3f5a52;line-height:1.6}.heroes{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1rem;margin-top:2rem}.hero-card{padding:1.5rem;border-radius:24px;background:white;box-shadow:var(--shadow);border:1px solid rgba(22,48,42,.08)}.hero-card h3{margin:.8rem 0 .25rem;font-size:1.1rem}.hero-card p{margin:0;color:#53665d;line-height:1.6}.banner{margin-top:2.5rem;padding:2rem;border-radius:26px;background:linear-gradient(135deg,var(--sun),var(--coral));color:white;box-shadow:0 18px 45px rgba(222,93,56,.22)}.banner h2{margin:0;font-size:clamp(2rem,4vw,3rem);line-height:1.1}.banner p{margin:.9rem 0 0;font-size:1rem;line-height:1.7}.footer{padding:2rem 0;color:#5b6a66;font-size:.95rem}footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.75rem}.back-link{color:var(--deep);font-weight:700}
-    
-    /* UPDATED MEDIA QUERIES FOR PERFECT SCALING */
-    @media(max-width:900px){
-      .hero{grid-template-columns:1fr}
-      .section-head{flex-direction:column;align-items:flex-start}
-      
-      /* This overrides desktop aspect ratio constraints, letting the image scale safely */
-      .hero-art{
-        min-height: auto !important;
-        height: auto !important;
-        aspect-ratio: auto !important;
+    :root {
+      --paper: #f3f6fb;
+      --ink: #11263d;
+      --mid: #264463;
+      --navy: #17385a;
+      --copper: #ce6a3e;
+      --gold: #d9a23b;
+      --mint: #3f7d67;
+      --mist: #e7edf6;
+      --card: #ffffff;
+      --shadow: 0 14px 30px rgba(17, 38, 61, 0.12);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: "Anek Tamil", "Noto Sans Tamil", sans-serif;
+      background:
+        radial-gradient(1200px 500px at -8% 0%, rgba(217, 162, 59, 0.17), transparent 62%),
+        radial-gradient(950px 460px at 112% 22%, rgba(63, 125, 103, 0.16), transparent 64%),
+        linear-gradient(180deg, #f9fbff 0%, #f1f5fb 100%);
+    }
+
+    h1, h2, h3 {
+      font-family: "Noto Serif Tamil", serif;
+      letter-spacing: -0.03em;
+    }
+
+    .wrap {
+      width: min(100% - 2rem, 1360px);
+      margin: auto;
+    }
+
+    .hero {
+      margin-top: 0.4rem;
+      border-radius: 28px;
+      padding: clamp(1.8rem, 3.6vw, 3.1rem);
+      background:
+        linear-gradient(122deg, rgba(18, 53, 88, 0.97), rgba(22, 70, 92, 0.95)),
+        linear-gradient(180deg, rgba(206, 106, 62, 0.16), rgba(63, 125, 103, 0.16));
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow: 0 22px 55px rgba(20, 40, 72, 0.25);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      padding: 0.36rem 0.78rem;
+      border-radius: 999px;
+      background: rgba(248, 209, 121, 0.2);
+      color: #ffd283;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      margin: 0.72rem 0 0.6rem;
+      font-size: clamp(2.25rem, 4.8vw, 4rem);
+      line-height: 1.05;
+    }
+
+    .hero p {
+      margin: 0;
+      color: #dce8f4;
+      line-height: 1.72;
+      max-width: 950px;
+      font-size: 1.08rem;
+    }
+
+    .hero-meta {
+      margin-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.58rem;
+    }
+
+    .hero-meta span {
+      padding: 0.42rem 0.8rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      color: #eaf2fc;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    .section {
+      padding: clamp(2.6rem, 5.8vw, 4.8rem) 0;
+    }
+
+    .section-head {
+      margin-bottom: 1.15rem;
+      display: flex;
+      gap: 1.2rem;
+      align-items: end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .section-title {
+      margin: 0;
+      font-size: clamp(1.9rem, 3.8vw, 3rem);
+      color: #16314c;
+    }
+
+    .intro {
+      margin: 0;
+      max-width: 760px;
+      color: #33546e;
+      line-height: 1.7;
+      font-size: 1.03rem;
+    }
+
+    .quick-stats {
+      margin-top: 1.1rem;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.75rem;
+    }
+
+    .stat {
+      border-radius: 14px;
+      padding: 0.9rem;
+      border: 1px solid rgba(23, 56, 90, 0.15);
+      background: rgba(255, 255, 255, 0.82);
+      box-shadow: 0 8px 18px rgba(17, 38, 61, 0.08);
+    }
+
+    .stat .num {
+      color: var(--mid);
+      font: 800 1.5rem "Anek Tamil", sans-serif;
+      line-height: 1;
+    }
+
+    .stat .txt {
+      margin-top: 0.2rem;
+      color: #47637a;
+      font-size: 0.88rem;
+      font-weight: 650;
+    }
+
+    .event-block {
+      margin-top: 1.2rem;
+      padding: 1.1rem;
+      border-radius: 18px;
+      border: 1px solid rgba(23, 56, 90, 0.12);
+      background: rgba(255, 255, 255, 0.78);
+      box-shadow: var(--shadow);
+    }
+
+    .event-block:first-child {
+      margin-top: 0;
+    }
+
+    .event-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.7rem;
+    }
+
+    .event-title {
+      margin: 0;
+      color: #17385a;
+      font-size: 1.35rem;
+    }
+
+    .event-badge {
+      margin: 0;
+      color: #5b748d;
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    .event-desc {
+      margin: 0 0 0.95rem;
+      color: #314f66;
+      line-height: 1.7;
+      font-size: 1.02rem;
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 0.68rem;
+    }
+
+    .photo-grid .tile {
+      border-radius: 13px;
+      overflow: hidden;
+      border: 1px solid rgba(23, 56, 90, 0.18);
+      box-shadow: 0 7px 15px rgba(17, 38, 61, 0.09);
+      background: #dbe6f2;
+      cursor: zoom-in;
+    }
+
+    .photo-grid .tile img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 180ms ease;
+      background: #dbe6f2;
+    }
+
+    .photo-grid .tile:hover img {
+      transform: scale(1.02);
+    }
+
+    .photo-grid .tile-lg {
+      grid-column: span 4;
+      min-height: 300px;
+    }
+
+    .photo-grid .tile-md {
+      grid-column: span 3;
+      min-height: 210px;
+    }
+
+    .photo-grid .tile-sm {
+      grid-column: span 2;
+      min-height: 155px;
+    }
+
+    .event-actions {
+      margin-top: 0.85rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+
+    .event-status {
+      margin: 0;
+      color: #39607a;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .event-load {
+      border: none;
+      border-radius: 10px;
+      padding: 0.5rem 0.9rem;
+      background: #1a4e7a;
+      color: #fff;
+      font-weight: 760;
+      cursor: pointer;
+    }
+
+    .event-load:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    .full-gallery {
+      margin-top: 1.35rem;
+      border-radius: 18px;
+      padding: 1rem;
+      border: 1px solid rgba(23, 56, 90, 0.15);
+      background: rgba(255, 255, 255, 0.82);
+      box-shadow: 0 10px 22px rgba(17, 38, 61, 0.1);
+    }
+
+    .masonry-grid {
+      column-count: 4;
+      column-gap: 0.72rem;
+    }
+
+    .masonry-item {
+      break-inside: avoid;
+      margin: 0 0 0.72rem;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(23, 56, 90, 0.18);
+      background: #dae5f2;
+      box-shadow: 0 5px 12px rgba(17, 38, 61, 0.09);
+      cursor: zoom-in;
+    }
+
+    .masonry-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 160ms ease;
+    }
+
+    .masonry-item:hover img {
+      transform: scale(1.02);
+    }
+
+    .gallery-actions {
+      margin-top: 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.7rem;
+      flex-wrap: wrap;
+    }
+
+    .gallery-status {
+      margin: 0;
+      color: #2f5671;
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    .gallery-load {
+      border: none;
+      border-radius: 10px;
+      padding: 0.5rem 0.9rem;
+      background: #17385a;
+      color: #fff;
+      font-weight: 760;
+      cursor: pointer;
+    }
+
+    .notice {
+      margin-top: 1rem;
+      border-radius: 14px;
+      padding: 0.9rem 1rem;
+      background: #f7fbff;
+      border: 1px solid rgba(23, 56, 90, 0.14);
+      color: #355571;
+      font-size: 0.93rem;
+      line-height: 1.65;
+    }
+
+    .final-message {
+      margin-top: 2.1rem;
+      border-radius: 20px;
+      padding: clamp(1.3rem, 2.9vw, 2.2rem);
+      text-align: center;
+      background:
+        linear-gradient(120deg, rgba(217, 162, 59, 0.15), rgba(63, 125, 103, 0.16)),
+        linear-gradient(180deg, #ffffff, #f5f9ff);
+      border: 1px solid rgba(23, 56, 90, 0.14);
+      box-shadow: 0 12px 26px rgba(17, 38, 61, 0.1);
+    }
+
+    .final-message h3 {
+      margin: 0;
+      font-size: clamp(1.55rem, 3.2vw, 2.2rem);
+      color: #17385a;
+      line-height: 1.3;
+    }
+
+    .final-message p {
+      margin: 0.7rem auto 0;
+      max-width: 920px;
+      color: #3f617a;
+      font-size: 1.04rem;
+      line-height: 1.8;
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 1.2rem;
+      background: rgba(7, 20, 33, 0.82);
+    }
+
+    .lightbox.is-open {
+      display: flex;
+    }
+
+    .lightbox-figure {
+      margin: 0;
+      max-width: min(1120px, 96vw);
+      max-height: 88vh;
+      width: auto;
+    }
+
+    .lightbox-figure img {
+      width: 100%;
+      max-height: 80vh;
+      object-fit: contain;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      background: #091a2d;
+      display: block;
+    }
+
+    .lightbox-caption {
+      margin-top: 0.58rem;
+      color: #e8f1fb;
+      font-size: 0.93rem;
+      text-align: center;
+      font-weight: 650;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 0.9rem;
+      right: 0.9rem;
+      width: 40px;
+      height: 40px;
+      border: none;
+      border-radius: 999px;
+      font-size: 1.45rem;
+      line-height: 1;
+      color: #fff;
+      background: rgba(17, 38, 61, 0.72);
+      cursor: pointer;
+    }
+
+    @media (max-width: 920px) {
+      .quick-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
-      .hero-art img {
-        width: 100% !important;
-        height: auto !important;
-        object-fit: contain !important;
+
+      .photo-grid {
+        grid-template-columns: repeat(6, 1fr);
+      }
+
+      .photo-grid .tile-lg,
+      .photo-grid .tile-md {
+        grid-column: span 3;
+        min-height: 255px;
+      }
+
+      .photo-grid .tile-sm {
+        grid-column: span 2;
+        min-height: 185px;
+      }
+
+      .masonry-grid {
+        column-count: 3;
       }
     }
-    
-    @media(max-width:620px){
-      .wrap{width:min(100% - 1rem,1400px)}
-      .hero p{font-size:1rem}
-      .event-grid,.feature-grid,.heroes{grid-template-columns:1fr}
+
+    @media (max-width: 620px) {
+      .wrap {
+        width: min(100% - 1.2rem, 1280px);
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      .section-head {
+        align-items: flex-start;
+      }
+
+      .photo-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .photo-grid .tile-lg,
+      .photo-grid .tile-md,
+      .photo-grid .tile-sm {
+        grid-column: span 2;
+        min-height: 240px;
+      }
+
+      .masonry-grid {
+        column-count: 2;
+      }
+
+      .lightbox-caption {
+        font-size: 0.88rem;
+      }
     }
-    /* Custom Table Layout Styles */
-.event-table {
-  background: white;
-  border: 1px solid #316c55;
-  border-radius: 24px;
-  overflow: hidden;
-  box-shadow: var(--shadow);
-  margin-top: 2rem;
-  font-family: system-ui, -apple-system, sans-serif;
-}
-
-/* Header Row styling */
-.table-header {
-  display: grid;
-  grid-template-columns: 1fr 1.5fr 1.25fr;
-  background: #fbf6f0;
-  padding: 1.25rem 1rem;
-  border-bottom: 1px solid rgba(49, 108, 85, 0.2);
-  text-align: center;
-}
-
-.header-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.4rem 1.5rem;
-  border-radius: 8px;
-  font-weight: 800;
-  font-size: 0.95rem;
-  color: white;
-  width: fit-content;
-  margin: 0 auto;
-}
-
-/* Badge specific colors matching your reference */
-.badge-orange { background-color: #de5d38; } /* நாள் */
-.badge-blue { background-color: #0c356a; }   /* நேரம் & நிகழ்ச்சி */
-.badge-green { background-color: #0d2620; }  /* இடம் */
-
-/* Table Data Rows styling */
-.table-row {
-  display: grid;
-  grid-template-columns: 1fr 1.5fr 1.25fr;
-  border-bottom: 1px solid rgba(49, 108, 85, 0.2);
-  background: white;
-}
-
-.table-row:last-child {
-  border-bottom: none;
-}
-
-.table-cell {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1.5rem;
-  position: relative;
-}
-
-/* Dotted vertical column separator */
-.table-cell:not(:last-child)::after {
-  content: "";
-  position: absolute;
-  right: 0;
-  top: 15%;
-  height: 70%;
-  border-right: 1.5px dotted #316c55;
-  opacity: 0.6;
-}
-
-/* Text and Emoji Icon elements inside cells */
-.cell-icon {
-  font-size: 1.8rem;
-  flex-shrink: 0;
-}
-
-.cell-content h4 {
-  margin: 0 0 0.25rem;
-  font-size: 1.15rem;
-  color: #0d2620;
-  font-weight: 800;
-}
-
-.cell-content p {
-  margin: 0;
-  font-size: 0.95rem;
-  color: #53665d;
-  line-height: 1.4;
-}
-
-/* --- MOBILE RESPONSIVENESS --- */
-@media (max-width: 768px) {
-  /* Hide the desktop header row on small screens */
-  .table-header {
-    display: none;
-  }
-  
-  /* Stack columns vertically like individual event blocks */
-  .table-row {
-    grid-template-columns: 1fr;
-    padding: 1rem;
-    border-bottom: 3px double rgba(49, 108, 85, 0.3);
-  }
-  
-  .table-cell {
-    padding: 0.75rem 0.5rem;
-  }
-  
-  /* Remove vertical divider on mobile */
-  .table-cell:not(:last-child)::after {
-    display: none;
-  }
-  
-  /* Add tiny dynamic labels above stacked fields on mobile for context */
-  .table-cell::before {
-    content: attr(data-label);
-    display: block;
-    font-size: 0.75rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    color: #de5d38;
-    margin-bottom: 0.25rem;
-    width: 100%;
-  }
-  
-  .table-cell {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.25rem;
-  }
-}
-
-/* Upgraded Colorful Feature Grid */
-.feature-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-  gap: 1.25rem;
-  margin-top: 2.5rem;
-}
-
-.feature {
-  padding: 1.6rem;
-  border-radius: 24px;
-  box-shadow: 0 10px 25px rgba(13,38,32,0.05);
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-}
-
-.feature:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 15px 35px rgba(13,38,32,0.1);
-}
-
-/* Custom icon circle helper */
-.feature-icon-wrapper {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  font-size: 1.6rem;
-  margin-bottom: 0.4rem;
-}
-
-.feature h3 {
-  margin: 0;
-  font-size: 1.2rem;
-  font-weight: 800;
-  line-height: 1.3;
-}
-
-.feature p {
-  margin: 0;
-  font-size: 0.92rem;
-  line-height: 1.6;
-}
-
-/* Individual Color Palettes for each Card */
-/* Card 1: Indian Saffron */
-.feat-saffron {
-  background-color: #fff6ed;
-  border-left: 5px solid #de5d38;
-}
-.feat-saffron .feature-icon-wrapper { background-color: #ffdacf; }
-.feat-saffron h3 { color: #b03a1a; }
-.feat-saffron p { color: #5c413b; }
-
-/* Card 2: Deep Blue */
-.feat-blue {
-  background-color: #f0f5ff;
-  border-left: 5px solid #0c356a;
-}
-.feat-blue .feature-icon-wrapper { background-color: #d6e4ff; }
-.feat-blue h3 { color: #072247; }
-.feat-blue p { color: #3b4657; }
-
-/* Card 3: Marigold Yellow */
-.feat-yellow {
-  background-color: #fffcf0;
-  border-left: 5px solid #f4a93c;
-}
-.feat-yellow .feature-icon-wrapper { background-color: #fff1c5; }
-.feat-yellow h3 { color: #9c620c; }
-.feat-yellow p { color: #5c523d; }
-
-/* Card 4: Ashoka Green */
-.feat-green {
-  background-color: #f1fbf6;
-  border-left: 5px solid #316c55;
-}
-.feat-green .feature-icon-wrapper { background-color: #d1f4e5; }
-.feat-green h3 { color: #164230; }
-.feat-green p { color: #384d43; }
-
-/* Card 5: Festive Purple/Pink */
-.feat-purple {
-  background-color: #fdf5fc;
-  border-left: 5px solid #9c27b0;
-}
-.feat-purple .feature-icon-wrapper { background-color: #f8dbf8; }
-.feat-purple h3 { color: #6a0b7b; }
-.feat-purple p { color: #534054; }
-
-/* Upgraded Colorful Freedom Heroes Section */
-.heroes {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1.25rem;
-  margin-top: 2.5rem;
-}
-
-.hero-card {
-  padding: 1.75rem;
-  border-radius: 24px;
-  box-shadow: 0 12px 30px rgba(13,38,32,0.06);
-  border: 1px solid rgba(0, 0, 0, 0.04);
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.hero-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 18px 35px rgba(13,38,32,0.12);
-}
-
-/* Vibrant typography for the Leader Names */
-.hero-card h3 {
-  margin: 0;
-  font-size: 1.35rem;
-  font-weight: 800;
-  line-height: 1.3;
-  letter-spacing: -0.02em;
-}
-
-.hero-card p {
-  margin: 0;
-  font-size: 0.98rem;
-  line-height: 1.6;
-  font-weight: 500;
-}
-
-/* Individual Palettes for the 4 Leaders */
-/* Card 1: V.O.C - Saffron Theme */
-.leader-voc {
-  background-color: #fff5ed;
-  border-left: 6px solid #de5d38;
-}
-.leader-voc h3 { color: #c43d14; }
-.leader-voc p { color: #6e4e46; }
-
-/* Card 2: Bharathiyar - Deep Royal Blue Theme */
-.leader-bharathi {
-  background-color: #f0f4ff;
-  border-left: 6px solid #0c356a;
-}
-.leader-bharathi h3 { color: #092c5c; }
-.leader-bharathi p { color: #434d5c; }
-
-/* Card 3: Subramaniya Siva - Marigold Gold Theme */
-.leader-siva {
-  background-color: #fffdf0;
-  border-left: 6px solid #f4a93c;
-}
-.leader-siva h3 { color: #a1670b; }
-.leader-siva p { color: #615644; }
-
-/* Card 4: Tiruppur Kumaran - Ashoka Green Theme */
-.leader-kumaran {
-  background-color: #f2fbf7;
-  border-left: 6px solid #316c55;
-}
-.leader-kumaran h3 { color: #1a4d3a; }
-.leader-kumaran p { color: #43544e; }
-
-/* Mobile Stack Adjustment */
-@media(max-width:620px){
-  .heroes {
-    grid-template-columns: 1fr;
-  }
-}
   </style>
 </head>
 <body>
   {% include 'partials/site_header.html' %}
+
   <main>
     <section class="wrap hero">
-      <div class="hero-copy">
-        <span class="eyebrow">அரவிந்தா நகர் மற்றும் சுற்றுவட்டாரக் குடியிருப்போர் நலச்சங்கம்</span>
-        <h1>இந்தியாவின் 80வது சுதந்திர தின விழா</h1>
-        <p>15 ஆகஸ்ட் 2026 அன்று அரவிந்தா நகரில் தேசிய உற்சாகத்துடன் கொண்டாடப்படும் இந்த நிகழ்ச்சி, ஒற்றுமை, முன்னேற்றம் மற்றும் பாரம்பரியம் கொண்ட நம்முடைய பெருமைக்கு அர்ப்பணிப்பு.</p>
-        <div style="display:flex;flex-wrap:wrap;gap:.9rem;margin-top:1.7rem"><a class="button sun" href="#details">நிகழ்ச்சி விவரம்</a><a class="button outline" href="#programme">நிகழ்ச்சிகள்</a></div>
-      </div>
-      <div class="hero-art">
-        <img src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2026/80th_IDay_2026.png" alt="இந்தியாவின் 80வது சுதந்திர தின விழா">
+      <span class="eyebrow">2026 · சுதந்திர தின சிறப்பு தொகுப்பு</span>
+      <h1>இந்தியாவின் 80வது சுதந்திர தின விழா</h1>
+      <p>அரவிந்தா நகரின் ஒரே நாளில் நடந்த முக்கிய தருணங்களை தனித்தனி பிரிவுகளாக, அழகான படவெளிப்பாடாக வழங்கியுள்ளோம். கொடியேற்றத்திலிருந்து கலாச்சார நிகழ்ச்சிகள் வரை முழு நினைவுகளும் இந்தப் பக்கத்தில்.</p>
+      <div class="hero-meta">
+        <span>Flag Hoisting</span>
+        <span>Football Match</span>
+        <span>Cricket Matches</span>
+        <span>Competitions & Prize Distribution</span>
+        <span>Cultural Programs</span>
       </div>
     </section>
-    <section id="details" class="wrap section">
-      <div class="section-head"><h2 class="section-title">நிகழ்ச்சி விவரம்</h2><p class="intro">இந்த நாளில் நாம் கூடிக்கொண்டு தேசியத்தின் பெருமையை மனதில் அமர்த்தி, புதிய தலைமுறை நமது பாரம்பரியத்தையும் இலக்காகக் கொண்டு முன்வைவோம்.</p></div>
-      <div class="event-table">
-        <!-- Table Header Row -->
-        <div class="table-header">
-          <div><span class="header-badge badge-orange">நாள்</span></div>
-          <div><span class="header-badge badge-blue">நேரம் & நிகழ்ச்சி</span></div>
-          <div><span class="header-badge badge-green">இடம்</span></div>
-        </div>
 
-        <!-- Table Row 1 (Flag Hoisting) -->
-        <div class="table-row">
-          <div class="table-cell" data-label="நாள்">
-            <span class="cell-icon">📅</span>
-            <div class="cell-content">
-              <h4>15.08.2026</h4>
-              <p>(சனிக்கிழமை)</p>
-            </div>
-          </div>
-          <div class="table-cell" data-label="நேரம் & நிகழ்ச்சி">
-            <span class="cell-icon">🕒</span>
-            <div class="cell-content">
-              <h4>காலை 9 மணிக்குக்</h4>
-              <p>கொடியேற்றம்</p>
-            </div>
-          </div>
-          <div class="table-cell" data-label="இடம்">
-            <span class="cell-icon">📍</span>
-            <div class="cell-content">
-              <h4>அரவிந்தா நகர்</h4>
-              <p>பூங்கா திடல்</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Table Row 2 (Sports & Cultural events) -->
-        <div class="table-row">
-          <div class="table-cell" data-label="நாள்">
-            <span class="cell-icon">📅</span>
-            <div class="cell-content">
-              <h4>15.08.2026</h4>
-              <p>(சனிக்கிழமை)</p>
-            </div>
-          </div>
-          <div class="table-cell" data-label="நேரம் & நிகழ்ச்சி">
-            <span class="cell-icon">🕒</span>
-            <div class="cell-content">
-              <h4>காலை 10 மணி முதல்</h4>
-              <p>விளையாட்டு நிகழ்ச்சிகள், அதனைத் தொடர்ந்து கலை நிகழ்ச்சிகள்</p>
-            </div>
-          </div>
-          <div class="table-cell" data-label="இடம்">
-            <span class="cell-icon">📍</span>
-            <div class="cell-content">
-              <h4>சாரா ஸ்போர்ட்ஸ்</h4>
-              <p>அகாடமி</p>
-            </div>
-          </div>
-        </div>
-
+    <section class="wrap section">
+      <div class="section-head">
+        <h2 class="section-title">நிகழ்ச்சி பிரிவுகள்</h2>
+        <p class="intro">படங்கள் S3-இல் உள்ள 1 முதல் 248 வரை எண்களைக் கொண்டு தானாக பிரிக்கப்பட்டு காட்டப்படுகின்றன. ஒவ்வொரு load-லும் உள்ளக வரிசை மாறும், அதனால் பக்கம் அடிக்கடி புதிதாக தெரியும்.</p>
       </div>
-      <div class="feature-grid">
-          <!-- Card 1 (Saffron) -->
-          <div class="feature feat-saffron">
-            <div class="feature-icon-wrapper">🇮🇳</div>
-            <h3>கொடி ஏற்றுதல்</h3>
-            <p>தேசிய இசையுடன் நாடு சார்ந்த அணிகலன்கள்.</p>
-          </div>
 
-          <!-- Card 2 (Blue) -->
-          <div class="feature feat-blue">
-            <div class="feature-icon-wrapper">🎶</div>
-            <h3>தேசபாட்டுப் பாடல்கள்</h3>
-            <p>பாட்டு, இசை மற்றும் உயிர்நிறைந்த patriotic பாடல்கள்.</p>
-          </div>
-
-          <!-- Card 3 (Yellow) -->
-          <div class="feature feat-yellow">
-            <div class="feature-icon-wrapper">🏃</div>
-            <h3>குழந்தை ஓட்டப்பந்தயம்</h3>
-            <p>மாணவர் மற்றும் குழந்தைகளுக்கான வேடிக்கை ஓட்டப்பந்தயம்.</p>
-          </div>
-
-          <!-- Card 4 (Green) -->
-          <div class="feature feat-green">
-            <div class="feature-icon-wrapper">💃</div>
-            <h3>கலை நிகழ்ச்சிகள்</h3>
-            <p>நாட்டுப்புற நடனங்கள் மற்றும் இசை திருவிழா.</p>
-          </div>
-
-          <!-- Card 5 (Purple) -->
-          <div class="feature feat-purple">
-            <div class="feature-icon-wrapper">🏆</div>
-            <h3>பரிசளிப்பு</h3>
-            <p>வினாடி வெற்றி, சிறந்த நிகழ்ச்சியாளர்கள் மற்றும் பங்கெடுத்தோருக்கு பரிசு.</p>
-          </div>
-        </div>
-    </section>
-    <section id="programme" class="wrap section">
-      <div class="section-head"><h2 class="section-title">நம் பெருமை, நம் பொறுப்பு</h2><p class="intro">நம் நாட்டின் சுதந்திரத்தை நினைவுகூரும் இந்த விழாவில் ஒவ்வொரு நபரும் கலந்துகொண்டு சமூகத்தின் உறவை மேலும் வளர்ப்போம்.</p></div>
-      <div style="margin-bottom:1.75rem; border-radius:28px;overflow:hidden;box-shadow:0 20px 40px rgba(0,0,0,.12);"><img src="https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2026/iday_2026.jpg" alt="Independence Day 2026" style="width:100%;height:auto;display:block;"></div>
-      <div class="heroes">
-        <!-- Leader 1: V.O.C -->
-        <article class="hero-card leader-voc">
-          <h3>வி.உ. சிதம்பரனார்</h3>
-          <p>கப்பலோட்டிய தமிழன்</p>
-        </article>
-
-        <!-- Leader 2: Bharathiyar -->
-        <article class="hero-card leader-bharathi">
-          <h3>மகாகவி பாரதியார்</h3>
-          <p>தேசியக் கவிஞர்</p>
-        </article>
-
-        <!-- Leader 3: Subramaniya Siva -->
-        <article class="hero-card leader-siva">
-          <h3>சுப்ரமணிய சிவா</h3>
-          <p>சுதந்திரப் போராட்ட வீரர், தியாகச் செல்வம்</p>
-        </article>
-
-        <!-- Leader 4: Tiruppur Kumaran -->
-        <article class="hero-card leader-kumaran">
-          <h3>திருப்பூர் குமரன்</h3>
-          <p>கொடிகாத்த குமரன்</p>
-        </article>
+      <div class="quick-stats">
+        <div class="stat"><div class="num">248</div><div class="txt">மொத்த புகைப்படங்கள்</div></div>
+        <div class="stat"><div class="num">5</div><div class="txt">முக்கிய பிரிவுகள்</div></div>
+        <div class="stat"><div class="num">80th</div><div class="txt">சுதந்திர தினக் கொண்டாட்டம்</div></div>
+        <div class="stat"><div class="num">2026</div><div class="txt">அரவிந்தா நகர் சிறப்பு</div></div>
       </div>
-      <div class="banner"><h2>நம் பெருமை! நம் பொறுப்பு! நம் பாரம்பரியம்!</h2><p>அனைவரும் வருக! இந்த 80வது சுதந்திர தினத்தை நம்மால் சிறப்பிக்க வாருங்கள்.</p></div>
+
+      <article class="event-block" id="flag-hoisting">
+        <div class="event-head">
+          <h3 class="event-title">கொடியேற்றம்</h3>
+          <p class="event-badge">படங்கள் 1-50</p>
+        </div>
+        <p class="event-desc">காலை மரியாதை, தேசியக் கொடி, சமூக பங்கேற்பு ஆகிய தருணங்களை தொகுத்த தொகுப்பு.</p>
+        <div class="photo-grid" data-section-grid data-start="1" data-end="50" data-key="flag"></div>
+        <div class="event-actions">
+          <p class="event-status" data-section-status="flag">0 / 50 படங்கள் காட்டப்பட்டுள்ளன</p>
+          <button class="event-load" type="button" data-section-load="flag">மேலும் 8 படங்கள்</button>
+        </div>
+      </article>
+
+      <article class="event-block" id="football-match">
+        <div class="event-head">
+          <h3 class="event-title">Football Match</h3>
+          <p class="event-badge">படங்கள் 51-95</p>
+        </div>
+        <p class="event-desc">களமிறங்கிய அணிகள், கோல் தருணங்கள், கூட்ட நெரிசல் மற்றும் விளையாட்டு உற்சாகம்.</p>
+        <div class="photo-grid" data-section-grid data-start="51" data-end="95" data-key="football"></div>
+        <div class="event-actions">
+          <p class="event-status" data-section-status="football">0 / 45 படங்கள் காட்டப்பட்டுள்ளன</p>
+          <button class="event-load" type="button" data-section-load="football">மேலும் 8 படங்கள்</button>
+        </div>
+      </article>
+
+      <article class="event-block" id="cricket-matches">
+        <div class="event-head">
+          <h3 class="event-title">Cricket Matches</h3>
+          <p class="event-badge">படங்கள் 96-145</p>
+        </div>
+        <p class="event-desc">போட்டியின் முக்கிய பந்துகள், அணி கொண்டாட்டம் மற்றும் மைதானத் தருணங்கள்.</p>
+        <div class="photo-grid" data-section-grid data-start="96" data-end="145" data-key="cricket"></div>
+        <div class="event-actions">
+          <p class="event-status" data-section-status="cricket">0 / 50 படங்கள் காட்டப்பட்டுள்ளன</p>
+          <button class="event-load" type="button" data-section-load="cricket">மேலும் 8 படங்கள்</button>
+        </div>
+      </article>
+
+      <article class="event-block" id="competition-prize">
+        <div class="event-head">
+          <h3 class="event-title">போட்டிகள் & பரிசளிப்பு</h3>
+          <p class="event-badge">படங்கள் 146-198</p>
+        </div>
+        <p class="event-desc">பரிசு வெற்றியாளர்கள், மேடை அழைப்புகள், பாராட்டுச் சான்றுகள் மற்றும் குழு புகைப்படங்கள்.</p>
+        <div class="photo-grid" data-section-grid data-start="146" data-end="198" data-key="prize"></div>
+        <div class="event-actions">
+          <p class="event-status" data-section-status="prize">0 / 53 படங்கள் காட்டப்பட்டுள்ளன</p>
+          <button class="event-load" type="button" data-section-load="prize">மேலும் 8 படங்கள்</button>
+        </div>
+      </article>
+
+      <article class="event-block" id="cultural-programs">
+        <div class="event-head">
+          <h3 class="event-title">கலாச்சார நிகழ்ச்சிகள்</h3>
+          <p class="event-badge">படங்கள் 199-248</p>
+        </div>
+        <p class="event-desc">நடனம், இசை, குழு நிகழ்ச்சிகள் மற்றும் மேடை கொண்டாட்டங்களின் நிறமிகு தருணங்கள்.</p>
+        <div class="photo-grid" data-section-grid data-start="199" data-end="248" data-key="culture"></div>
+        <div class="event-actions">
+          <p class="event-status" data-section-status="culture">0 / 50 படங்கள் காட்டப்பட்டுள்ளன</p>
+          <button class="event-load" type="button" data-section-load="culture">மேலும் 8 படங்கள்</button>
+        </div>
+      </article>
+
+      <article class="full-gallery" id="all-photos">
+        <div class="event-head">
+          <h3 class="event-title">முழு புகைப்படத் தொகுப்பு</h3>
+          <p class="event-badge">1-248 அனைத்து படங்களும்</p>
+        </div>
+        <p class="event-desc">முழு தொகுப்பு masonry வடிவில் - பட வரிசை ஒவ்வொரு முறையும் random ஆக மாறும்.</p>
+        <div id="iday2026-masonry-grid" class="masonry-grid"></div>
+        <div class="gallery-actions">
+          <p class="gallery-status" id="iday2026-gallery-status">0 / 248 படங்கள் காட்டப்பட்டுள்ளன</p>
+          <button class="gallery-load" type="button" id="iday2026-gallery-load">மேலும் 24 படங்கள்</button>
+        </div>
+      </article>
+
+      <div class="notice">
+        குறிப்பு: படங்களின் file name-ல் section metadata இல்லாததால், இந்தப் பதிப்பில் section-கள் தொடர்ச்சியான எண் வரம்பை அடிப்படையாகக் கொண்டு auto-group செய்யப்பட்டுள்ளன. நீங்கள் விரும்பினால், அடுத்த மேம்பாட்டில் குறிப்பிட்ட photo numbers-ஐ ஒவ்வொரு பிரிவுக்கும் கைமுறையாக map செய்து 100% துல்லியமாக அமைக்கலாம்.
+      </div>
+
+      <div class="final-message">
+        <h3>நம் நகரத்தின் நினைவுகள், ஆண்டுதோறும் இன்னும் அழகாக.</h3>
+        <p>தன்னார்வம், ஒற்றுமை, தேசப்பற்று ஆகியவை ஒன்றாக வந்த தருணங்களை இந்தப் பக்கம் மீண்டும் மீண்டும் பார்ப்பதற்கு ஏற்றவாறு வடிவமைத்துள்ளோம்.</p>
+      </div>
     </section>
   </main>
+
   {% include 'partials/site_footer.html' %}
+
+  <div class="lightbox" id="iday2026-lightbox" aria-hidden="true" role="dialog" aria-label="பெரிய புகைப்படம்">
+    <button class="lightbox-close" type="button" id="iday2026-lightbox-close" aria-label="மூடு">&times;</button>
+    <figure class="lightbox-figure">
+      <img id="iday2026-lightbox-image" src="" alt="">
+      <figcaption class="lightbox-caption" id="iday2026-lightbox-caption"></figcaption>
+    </figure>
+  </div>
+
+  <script>
+    (function () {
+      var baseUrl = "https://nammanagar.s3.eu-north-1.amazonaws.com/iday/2026/iphoto-16082026-";
+      var ext = ".jpg";
+
+      function imageUrl(index) {
+        return baseUrl + index + ext;
+      }
+
+      function imageAlt(index, sectionLabel) {
+        return sectionLabel + " படம் " + index;
+      }
+
+      function shuffle(items) {
+        for (var i = items.length - 1; i > 0; i -= 1) {
+          var j = Math.floor(Math.random() * (i + 1));
+          var temp = items[i];
+          items[i] = items[j];
+          items[j] = temp;
+        }
+      }
+
+      var lightbox = document.getElementById("iday2026-lightbox");
+      var lightboxImage = document.getElementById("iday2026-lightbox-image");
+      var lightboxCaption = document.getElementById("iday2026-lightbox-caption");
+      var lightboxClose = document.getElementById("iday2026-lightbox-close");
+
+      function openLightbox(item) {
+        lightboxImage.src = item.url;
+        lightboxImage.alt = item.alt;
+        lightboxCaption.textContent = item.alt;
+        lightbox.classList.add("is-open");
+        lightbox.setAttribute("aria-hidden", "false");
+      }
+
+      function closeLightbox() {
+        lightbox.classList.remove("is-open");
+        lightbox.setAttribute("aria-hidden", "true");
+      }
+
+      if (lightboxClose) {
+        lightboxClose.addEventListener("click", closeLightbox);
+      }
+
+      if (lightbox) {
+        lightbox.addEventListener("click", function (event) {
+          if (event.target === lightbox) {
+            closeLightbox();
+          }
+        });
+      }
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && lightbox.classList.contains("is-open")) {
+          closeLightbox();
+        }
+      });
+
+      var sectionLabelMap = {
+        flag: "கொடியேற்றம்",
+        football: "Football",
+        cricket: "Cricket",
+        prize: "போட்டிகள் & பரிசளிப்பு",
+        culture: "கலாச்சாரம்"
+      };
+
+      var sectionGrids = document.querySelectorAll("[data-section-grid]");
+
+      sectionGrids.forEach(function (grid) {
+        var start = Number(grid.getAttribute("data-start"));
+        var end = Number(grid.getAttribute("data-end"));
+        var key = grid.getAttribute("data-key");
+        var label = sectionLabelMap[key] || "நிகழ்வு";
+        var status = document.querySelector('[data-section-status="' + key + '"]');
+        var loadButton = document.querySelector('[data-section-load="' + key + '"]');
+
+        var photos = [];
+        for (var idx = start; idx <= end; idx += 1) {
+          photos.push({
+            index: idx,
+            url: imageUrl(idx),
+            alt: imageAlt(idx, label)
+          });
+        }
+
+        shuffle(photos);
+
+        var shown = 0;
+        var step = 8;
+        var pattern = ["tile-lg", "tile-md", "tile-md", "tile-sm", "tile-sm", "tile-sm", "tile-md", "tile-sm"];
+
+        function updateStatus() {
+          if (!status || !loadButton) {
+            return;
+          }
+
+          status.textContent = shown + " / " + photos.length + " படங்கள் காட்டப்பட்டுள்ளன";
+          loadButton.disabled = shown >= photos.length;
+          loadButton.textContent = shown >= photos.length ? "அனைத்தும் காட்டப்பட்டது" : "மேலும் 8 படங்கள்";
+        }
+
+        function appendBatch() {
+          var nextCount = Math.min(shown + step, photos.length);
+
+          for (var i = shown; i < nextCount; i += 1) {
+            var item = photos[i];
+            var tile = document.createElement("button");
+            tile.type = "button";
+            tile.className = "tile " + pattern[i % pattern.length];
+            tile.setAttribute("aria-label", item.alt);
+
+            var pic = document.createElement("img");
+            pic.src = item.url;
+            pic.alt = item.alt;
+            pic.loading = "lazy";
+            pic.decoding = "async";
+
+            tile.appendChild(pic);
+            tile.addEventListener("click", (function (current) {
+              return function () {
+                openLightbox(current);
+              };
+            })(item));
+
+            grid.appendChild(tile);
+          }
+
+          shown = nextCount;
+          updateStatus();
+        }
+
+        if (loadButton) {
+          loadButton.addEventListener("click", appendBatch);
+        }
+
+        appendBatch();
+      });
+
+      var allGrid = document.getElementById("iday2026-masonry-grid");
+      var allStatus = document.getElementById("iday2026-gallery-status");
+      var allLoad = document.getElementById("iday2026-gallery-load");
+
+      if (allGrid && allStatus && allLoad) {
+        var allPhotos = [];
+        for (var p = 1; p <= 248; p += 1) {
+          allPhotos.push({
+            index: p,
+            url: imageUrl(p),
+            alt: "80வது சுதந்திர தினம் படம் " + p
+          });
+        }
+
+        shuffle(allPhotos);
+
+        var allShown = 0;
+        var allStep = 24;
+
+        function updateAllStatus() {
+          allStatus.textContent = allShown + " / " + allPhotos.length + " படங்கள் காட்டப்பட்டுள்ளன";
+          allLoad.disabled = allShown >= allPhotos.length;
+          allLoad.textContent = allShown >= allPhotos.length ? "அனைத்தும் காட்டப்பட்டது" : "மேலும் 24 படங்கள்";
+        }
+
+        function appendAllBatch() {
+          var next = Math.min(allShown + allStep, allPhotos.length);
+
+          for (var j = allShown; j < next; j += 1) {
+            var item = allPhotos[j];
+            var tile = document.createElement("button");
+            tile.type = "button";
+            tile.className = "masonry-item";
+            tile.setAttribute("aria-label", item.alt);
+
+            var pic = document.createElement("img");
+            pic.src = item.url;
+            pic.alt = item.alt;
+            pic.loading = "lazy";
+            pic.decoding = "async";
+
+            tile.appendChild(pic);
+            tile.addEventListener("click", (function (current) {
+              return function () {
+                openLightbox(current);
+              };
+            })(item));
+
+            allGrid.appendChild(tile);
+          }
+
+          allShown = next;
+          updateAllStatus();
+        }
+
+        allLoad.addEventListener("click", appendAllBatch);
+        appendAllBatch();
+      }
+    })();
+  </script>
 </body>
 </html>

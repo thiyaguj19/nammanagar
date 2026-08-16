@@ -13,16 +13,16 @@
   <link href="{% static 'app/css/site_chrome.css' %}" rel="stylesheet">
   <style>
     :root {
-      --paper: #f3f6fb;
-      --ink: #11263d;
-      --mid: #264463;
-      --navy: #17385a;
-      --copper: #ce6a3e;
-      --gold: #d9a23b;
-      --mint: #3f7d67;
-      --mist: #e7edf6;
+      --paper: #fffdf8;
+      --ink: #1a2e22;
+      --mid: #0f4c81;
+      --navy: #0a3b74;
+      --copper: #ff9933;
+      --gold: #ffd27a;
+      --mint: #138808;
+      --mist: #eef7ee;
       --card: #ffffff;
-      --shadow: 0 14px 30px rgba(17, 38, 61, 0.12);
+      --shadow: 0 14px 30px rgba(26, 46, 34, 0.12);
     }
 
     * { box-sizing: border-box; }
@@ -33,9 +33,9 @@
       color: var(--ink);
       font-family: "Anek Tamil", "Noto Sans Tamil", sans-serif;
       background:
-        radial-gradient(1200px 500px at -8% 0%, rgba(217, 162, 59, 0.17), transparent 62%),
-        radial-gradient(950px 460px at 112% 22%, rgba(63, 125, 103, 0.16), transparent 64%),
-        linear-gradient(180deg, #f9fbff 0%, #f1f5fb 100%);
+        radial-gradient(1200px 500px at -8% 0%, rgba(255, 153, 51, 0.2), transparent 62%),
+        radial-gradient(950px 460px at 112% 22%, rgba(19, 136, 8, 0.16), transparent 64%),
+        linear-gradient(180deg, #fffdf9 0%, #f5fbf4 100%);
     }
 
     h1, h2, h3 {
@@ -53,19 +53,19 @@
       border-radius: 28px;
       padding: clamp(1.8rem, 3.6vw, 3.1rem);
       background:
-        linear-gradient(122deg, rgba(18, 53, 88, 0.97), rgba(22, 70, 92, 0.95)),
-        linear-gradient(180deg, rgba(206, 106, 62, 0.16), rgba(63, 125, 103, 0.16));
+        linear-gradient(122deg, rgba(10, 59, 116, 0.97), rgba(19, 136, 8, 0.92)),
+        linear-gradient(180deg, rgba(255, 153, 51, 0.2), rgba(255, 255, 255, 0.08));
       color: #fff;
       border: 1px solid rgba(255, 255, 255, 0.14);
-      box-shadow: 0 22px 55px rgba(20, 40, 72, 0.25);
+      box-shadow: 0 22px 55px rgba(26, 46, 34, 0.25);
     }
 
     .eyebrow {
       display: inline-flex;
       padding: 0.36rem 0.78rem;
       border-radius: 999px;
-      background: rgba(248, 209, 121, 0.2);
-      color: #ffd283;
+      background: rgba(255, 153, 51, 0.22);
+      color: #ffe0b0;
       font-size: 0.78rem;
       font-weight: 800;
       letter-spacing: 0.12em;
@@ -118,13 +118,13 @@
     .section-title {
       margin: 0;
       font-size: clamp(1.9rem, 3.8vw, 3rem);
-      color: #16314c;
+      color: var(--navy);
     }
 
     .intro {
       margin: 0;
       max-width: 760px;
-      color: #33546e;
+      color: #355744;
       line-height: 1.7;
       font-size: 1.03rem;
     }
@@ -262,7 +262,7 @@
       border: none;
       border-radius: 10px;
       padding: 0.5rem 0.9rem;
-      background: #1a4e7a;
+      background: var(--navy);
       color: #fff;
       font-weight: 760;
       cursor: pointer;
@@ -329,7 +329,7 @@
       border: none;
       border-radius: 10px;
       padding: 0.5rem 0.9rem;
-      background: #17385a;
+      background: var(--mint);
       color: #fff;
       font-weight: 760;
       cursor: pointer;
@@ -339,9 +339,9 @@
       margin-top: 1rem;
       border-radius: 14px;
       padding: 0.9rem 1rem;
-      background: #f7fbff;
-      border: 1px solid rgba(23, 56, 90, 0.14);
-      color: #355571;
+      background: #fffdf8;
+      border: 1px solid rgba(255, 153, 51, 0.28);
+      color: #3a553f;
       font-size: 0.93rem;
       line-height: 1.65;
     }
@@ -352,23 +352,23 @@
       padding: clamp(1.3rem, 2.9vw, 2.2rem);
       text-align: center;
       background:
-        linear-gradient(120deg, rgba(217, 162, 59, 0.15), rgba(63, 125, 103, 0.16)),
-        linear-gradient(180deg, #ffffff, #f5f9ff);
+        linear-gradient(120deg, rgba(255, 153, 51, 0.18), rgba(19, 136, 8, 0.14)),
+        linear-gradient(180deg, #ffffff, #f7fdf4);
       border: 1px solid rgba(23, 56, 90, 0.14);
-      box-shadow: 0 12px 26px rgba(17, 38, 61, 0.1);
+      box-shadow: 0 12px 26px rgba(26, 46, 34, 0.1);
     }
 
     .final-message h3 {
       margin: 0;
       font-size: clamp(1.55rem, 3.2vw, 2.2rem);
-      color: #17385a;
+      color: var(--navy);
       line-height: 1.3;
     }
 
     .final-message p {
       margin: 0.7rem auto 0;
       max-width: 920px;
-      color: #3f617a;
+      color: #365a42;
       font-size: 1.04rem;
       line-height: 1.8;
     }

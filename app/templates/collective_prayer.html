@@ -854,6 +854,11 @@
                 <span class="japam-count">108</span>
                 <strong>108 முறை ஜபம்</strong>
                 <span class="japam-sub">முழு மாலை ஜபம்</span>
+				<div class="speed-selector" id="speedSelector108">
+					<span class="speed-pill active" onclick="changeSpeed(event, '1.0x')">1.0x</span>
+					<span class="speed-pill" onclick="changeSpeed(event, '1.25x')">1.25x</span>
+					<span class="speed-pill" onclick="changeSpeed(event, '1.5x')">1.5x</span>
+				</div>
             </div>
         </div>
 
@@ -1037,16 +1042,23 @@ const PLAYLISTS = {
 const GAYATHRI_JAPAM = {
     21: {
         label: "21 முறை காயத்ரி ஜபம்",
-        video: "https://nammanagar.s3.eu-north-1.amazonaws.com/japam/gayathri_21_video.mp4",
-        audio: "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/05_Gayatri_Mantra_Chanting.mp3"
+        video: "https://nammanagar.s3.eu-north-1.amazonaws.com/japam/gayathri_21_video.mp4", //
+        audio: {
+            "1.0x": "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/05_Gayatri_Mantra_Chanting.mp3" //
+        }
     },
     108: {
         label: "108 முறை காயத்ரி ஜபம்",
-        video: "https://nammanagar.s3.eu-north-1.amazonaws.com/japam/gayathri_108_video.mp4",
-        audio: "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/108-gayatri-chanted-by-sathya-sai-baba.mp3"
+        video: "https://nammanagar.s3.eu-north-1.amazonaws.com/japam/gayathri_108_video.mp4", //[cite: 2]
+        audio: {
+            "1.0x": "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/108-gayatri-chanted-by-sathya-sai-baba.mp3", //[cite: 2]
+            "1.25x": "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/gayatri_chanting_1.25x.mp3",
+            "1.5x": "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/gayatri_chanting_1.5x.mp3"
+        }
     }
 };
 
+let activeSpeed = "1.0x";
 let japamPlayerEl = null;
 let japamActiveCount = null;
 

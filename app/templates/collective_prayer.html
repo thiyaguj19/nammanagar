@@ -40,14 +40,15 @@
             width: min(100% - 2rem, 1700px);
             margin: 1.5rem auto 0;
             display: grid;
-            grid-template-columns: minmax(320px, 0.9fr) minmax(520px, 1.08fr) minmax(280px, 0.62fr);
+            grid-template-columns: minmax(320px, 0.9fr) minmax(520px, 1.08fr) minmax(280px, 0.62fr) minmax(260px, 0.6fr);
             gap: 1.2rem;
             align-items: start;
         }
 
         .intro-panel,
         .player-panel,
-        .queue-panel {
+        .queue-panel,
+        .japam-panel {
             background: rgba(255, 255, 255, 0.72);
             border: 1px solid rgba(16, 44, 38, 0.08);
             border-radius: 28px;
@@ -463,6 +464,127 @@
             background: rgba(255, 255, 255, 0.68);
         }
 
+        .japam-panel {
+            padding: 1.2rem;
+            position: sticky;
+            top: 1rem;
+        }
+
+        .japam-panel .panel-head {
+            display: block;
+            margin-bottom: 0.4rem;
+        }
+
+        .japam-panel .panel-head p {
+            max-width: none;
+        }
+
+        .japam-cards {
+            margin-top: 1.1rem;
+            display: grid;
+            gap: 0.85rem;
+        }
+
+        .japam-card {
+            cursor: pointer;
+            padding: 1.1rem 1rem;
+            border-radius: 20px;
+            border: 1px solid rgba(47, 101, 83, 0.16);
+            background: rgba(255, 255, 255, 0.82);
+            text-align: center;
+            transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .japam-card:hover {
+            border-color: rgba(201, 117, 84, 0.4);
+            background: rgba(201, 117, 84, 0.07);
+        }
+
+        .japam-card.active {
+            border-color: rgba(201, 117, 84, 0.5);
+            background: rgba(201, 117, 84, 0.12);
+            box-shadow: inset 0 0 0 1px rgba(201, 117, 84, 0.18);
+        }
+
+        .japam-count {
+            display: block;
+            font-family: "Noto Serif Tamil", serif;
+            font-size: 2.1rem;
+            font-weight: 800;
+            color: var(--coral);
+            line-height: 1;
+        }
+
+        .japam-card strong {
+            display: block;
+            margin-top: 0.45rem;
+            color: var(--deep);
+            font-size: 1rem;
+        }
+
+        .japam-card .japam-sub {
+            display: block;
+            margin-top: 0.25rem;
+            color: #6a7c75;
+            font-size: 0.85rem;
+        }
+
+        .japam-player-wrap {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            margin-top: 1.1rem;
+            background: #1a1a1a;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+        }
+
+        .japam-player-wrap.is-hidden {
+            display: none;
+        }
+
+        .japam-player-wrap video,
+        .japam-player-wrap audio {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            border: none;
+        }
+
+        .japam-player-wrap audio {
+            top: auto;
+            bottom: 0.8rem;
+            left: 0.8rem;
+            width: calc(100% - 1.6rem);
+            height: 54px;
+            border-radius: 12px;
+        }
+
+        .japam-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-top: 0.9rem;
+        }
+
+        .japam-controls button {
+            padding: 0.6rem 0.95rem;
+            font-size: 0.88rem;
+        }
+
+        #japamStatus {
+            margin-top: 0.9rem;
+            font-weight: 700;
+            color: var(--leaf);
+            padding: 0.75rem 0.9rem;
+            border-radius: 14px;
+            background: rgba(47, 101, 83, 0.08);
+            font-size: 0.92rem;
+        }
+
         .video-wrapper {
             position: relative;
             width: 100%;
@@ -526,7 +648,8 @@
                 grid-template-columns: minmax(320px, 0.92fr) minmax(520px, 1.08fr);
             }
 
-            .queue-panel {
+            .queue-panel,
+            .japam-panel {
                 grid-column: 2;
                 position: static;
             }
@@ -542,9 +665,20 @@
                 align-items: flex-start;
             }
 
-            .queue-panel {
+            .queue-panel,
+            .japam-panel {
                 position: static;
                 grid-column: auto;
+            }
+
+            .japam-cards {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 620px) {
+            .japam-cards {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -700,6 +834,39 @@
 
         <div id="hostedTrackList" class="hosted-tracklist"></div>
     </aside>
+
+    <section class="japam-panel">
+        <div class="panel-head">
+            <div>
+                <span class="eyebrow">Mantra Japam</span>
+                <h3 style="margin-top: 0.45rem; font-size: 1.35rem;">காயத்ரி மந்திர ஜபம்</h3>
+            </div>
+            <p>கீழே உள்ள எண்ணை தேர்வு செய்யவும். Video கிடைக்காவிட்டால் தானாக audio-க்கு மாறும்.</p>
+        </div>
+
+        <div class="japam-cards">
+            <div class="japam-card" data-count="21" onclick="startJapam(21)">
+                <span class="japam-count">21</span>
+                <strong>21 முறை ஜபம்</strong>
+                <span class="japam-sub">குறுகிய ஜபம்</span>
+            </div>
+            <div class="japam-card" data-count="108" onclick="startJapam(108)">
+                <span class="japam-count">108</span>
+                <strong>108 முறை ஜபம்</strong>
+                <span class="japam-sub">முழு மாலை ஜபம்</span>
+            </div>
+        </div>
+
+        <div id="japamPlayerWrap" class="japam-player-wrap is-hidden"></div>
+
+        <div class="japam-controls">
+            <button class="control-button" onclick="pauseJapam()" type="button">Pause</button>
+            <button class="control-button" onclick="resumeJapam()" type="button">Resume</button>
+            <button class="control-button" onclick="restartJapam()" type="button">Restart</button>
+        </div>
+
+        <div id="japamStatus">ஜபம் எண்ணை தேர்வு செய்து தொடங்குங்கள்.</div>
+    </section>
 </main>
 
 {% include 'partials/site_footer.html' %}
@@ -864,6 +1031,150 @@ const PLAYLISTS = {
         tamil: "ஞாயிறு"
     }
 };
+
+// TODO: replace these with your actual S3 paths once the 21x / 108x
+// video and audio files are uploaded. Keep one video + one audio per count.
+const GAYATHRI_JAPAM = {
+    21: {
+        label: "21 முறை காயத்ரி ஜபம்",
+        video: "https://nammanagar.s3.eu-north-1.amazonaws.com/japam/gayathri_21_video.mp4",
+        audio: "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/05_Gayatri_Mantra_Chanting.m4a"
+    },
+    108: {
+        label: "108 முறை காயத்ரி ஜபம்",
+        video: "https://nammanagar.s3.eu-north-1.amazonaws.com/japam/gayathri_108_video.mp4",
+        audio: "https://nammanagar.s3.eu-north-1.amazonaws.com/japam/gayathri_108_audio.m4a"
+    }
+};
+
+let japamPlayerEl = null;
+let japamActiveCount = null;
+
+function highlightJapamCard(count) {
+    document.querySelectorAll(".japam-card").forEach(function(card) {
+        card.classList.toggle("active", Number(card.dataset.count) === count);
+    });
+}
+
+function startJapam(count) {
+    const config = GAYATHRI_JAPAM[count];
+    const wrap = document.getElementById("japamPlayerWrap");
+    const status = document.getElementById("japamStatus");
+    if (!config || !wrap || !status) return;
+
+    japamActiveCount = count;
+    highlightJapamCard(count);
+    wrap.classList.remove("is-hidden");
+    wrap.innerHTML = "";
+    status.innerText = config.label + " (video) தொடங்குகிறது...";
+    status.className = "";
+
+    const video = document.createElement("video");
+    video.id = "japamPlayer";
+    video.controls = true;
+    video.autoplay = true;
+    video.playsInline = true;
+    video.preload = "auto";
+    video.src = config.video;
+
+    video.addEventListener("error", function onVideoError() {
+        video.removeEventListener("error", onVideoError);
+        startJapamAudioFallback(config, wrap, status);
+    }, { once: true });
+
+    video.addEventListener("playing", function() {
+        status.innerText = config.label + " video இயங்குகிறது.";
+        status.className = "success-status";
+    });
+
+    wrap.appendChild(video);
+    japamPlayerEl = video;
+
+    const playPromise = video.play();
+    if (playPromise && typeof playPromise.then === "function") {
+        playPromise.catch(function() {
+            // Distinguish "file missing/unsupported" from "autoplay blocked".
+            if (video.error || video.networkState === HTMLMediaElement.NETWORK_NO_SOURCE) {
+                startJapamAudioFallback(config, wrap, status);
+            } else {
+                status.innerText = "Browser autoplay-ஐ தடுத்தது. Video-வின் Play பொத்தானை அழுத்துங்கள்.";
+                status.className = "error-status";
+            }
+        });
+    }
+}
+
+function startJapamAudioFallback(config, wrap, status) {
+    status.innerText = "Video கிடைக்கவில்லை. " + config.label + " audio-வுக்கு மாறுகிறது...";
+    status.className = "error-status";
+
+    wrap.innerHTML = "";
+    const audio = document.createElement("audio");
+    audio.id = "japamPlayer";
+    audio.controls = true;
+    audio.autoplay = true;
+    audio.preload = "auto";
+    audio.src = config.audio;
+
+    audio.addEventListener("error", function() {
+        status.innerText = config.label + "-க்கான video மற்றும் audio இரண்டும் கிடைக்கவில்லை.";
+        status.className = "error-status";
+    }, { once: true });
+
+    const playPromise = audio.play();
+    if (playPromise && typeof playPromise.then === "function") {
+        playPromise.then(function() {
+            status.innerText = config.label + " audio இயங்குகிறது.";
+            status.className = "success-status";
+        }).catch(function() {
+            status.innerText = "Browser autoplay-ஐ தடுத்தது. Audio-வின் Play பொத்தானை அழுத்துங்கள்.";
+            status.className = "error-status";
+        });
+    }
+
+    wrap.appendChild(audio);
+    japamPlayerEl = audio;
+}
+
+function pauseJapam() {
+    const status = document.getElementById("japamStatus");
+    if (!japamPlayerEl) return;
+    japamPlayerEl.pause();
+    if (status) {
+        status.innerText = "ஜபம் pause செய்யப்பட்டது.";
+        status.className = "";
+    }
+}
+
+function resumeJapam() {
+    const status = document.getElementById("japamStatus");
+    if (!japamPlayerEl) return;
+    const playPromise = japamPlayerEl.play();
+    if (playPromise && typeof playPromise.then === "function") {
+        playPromise.then(function() {
+            if (status) {
+                status.innerText = "ஜபம் மீண்டும் தொடர்கிறது.";
+                status.className = "success-status";
+            }
+        }).catch(function() {
+            if (status) {
+                status.innerText = "Resume செய்ய Play பொத்தானை அழுத்துங்கள்.";
+                status.className = "error-status";
+            }
+        });
+    }
+}
+
+function restartJapam() {
+    const status = document.getElementById("japamStatus");
+    if (!japamPlayerEl) return;
+    japamPlayerEl.currentTime = 0;
+    japamPlayerEl.play();
+    if (status) {
+        status.innerText = "ஜபம் முதலிலிருந்து மீண்டும் தொடங்குகிறது.";
+        status.className = "success-status";
+    }
+}
 
 const AUTOPLAY_HOUR_IST = 21;
 const AUTOPLAY_MINUTE_IST = 30;

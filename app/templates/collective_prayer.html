@@ -705,6 +705,36 @@
                 width: 100%;
             }
         }
+		.speed-selector {
+			display: flex;
+			justify-content: center;
+			gap: 0.4rem;
+			margin-top: 0.6rem;
+		}
+
+		.speed-pill {
+			padding: 0.25rem 0.55rem;
+			font-size: 0.78rem;
+			font-weight: 700;
+			border-radius: 999px;
+			background: rgba(47, 101, 83, 0.1);
+			color: var(--leaf);
+			border: 1px solid rgba(47, 101, 83, 0.2);
+			cursor: pointer;
+			transition: all 0.2s ease;
+		}
+
+		.speed-pill:hover {
+			background: rgba(201, 117, 84, 0.2);
+			color: var(--coral);
+		}
+
+		.speed-pill.active {
+			background: var(--coral);
+			color: #ffffff;
+			border-color: var(--coral);
+			box-shadow: 0 2px 6px rgba(201, 117, 84, 0.35);
+		}
     </style>
 </head>
 
@@ -1068,6 +1098,27 @@ function highlightJapamCard(count) {
     });
 }
 
+function selectJapamCount(count) {
+    if (japamActiveCount !== count) {
+        activeSpeed = "1.0x"; // Reset speed when switching count
+        updateSpeedPillUI();
+    }
+    startJapam(count);
+}
+
+function changeSpeed(event, speed) {
+    event.stopPropagation(); // Prevents re-triggering parent card click
+    activeSpeed = speed;
+    updateSpeedPillUI();
+    startJapam(108); // Restart or reload audio with the new speed stream
+}
+
+function updateSpeedPillUI() {
+    document.querySelectorAll(".speed-pill").forEach(pill => {
+        pill.classList.toggle("active", pill.innerText.trim() === activeSpeed);
+    });
+}
+
 function startJapam(count) {
     const config = GAYATHRI_JAPAM[count];
     const wrap = document.getElementById("japamPlayerWrap");
@@ -1117,7 +1168,12 @@ function startJapam(count) {
 }
 
 function startJapamAudioFallback(config, wrap, status) {
-    status.innerText = "Video கிடைக்கவில்லை. " + config.label + " audio-வுக்கு மாறுகிறது...";
+    // Select the audio stream based on the selected speed or default to 1.0x
+    const audioUrl = typeof config.audio === "object" 
+        ? (config.audio[activeSpeed] || config.audio["1.0x"])
+        : config.audio;
+
+    status.innerText = `Video கிடைக்கவில்லை. ${config.label} (${activeSpeed}) audio-வுக்கு மாறுகிறது...`;
     status.className = "error-status";
 
     wrap.innerHTML = "";
@@ -1126,7 +1182,11 @@ function startJapamAudioFallback(config, wrap, status) {
     audio.controls = true;
     audio.autoplay = true;
     audio.preload = "auto";
-    audio.src = config.audio;
+    audio.src = audioUrl;
+
+    // Preserve playback rate on the media element as fallback
+    if (activeSpeed === "1.25x") audio.playbackRate = 1.25;
+    else if (activeSpeed === "1.5x") audio.playbackRate = 1.5;
 
     audio.addEventListener("error", function() {
         status.innerText = config.label + "-க்கான video மற்றும் audio இரண்டும் கிடைக்கவில்லை.";
@@ -1136,7 +1196,7 @@ function startJapamAudioFallback(config, wrap, status) {
     const playPromise = audio.play();
     if (playPromise && typeof playPromise.then === "function") {
         playPromise.then(function() {
-            status.innerText = config.label + " audio இயங்குகிறது.";
+            status.innerText = `${config.label} (${activeSpeed}) audio இயங்குகிறது.`;
             status.className = "success-status";
         }).catch(function() {
             status.innerText = "Browser autoplay-ஐ தடுத்தது. Audio-வின் Play பொத்தானை அழுத்துங்கள்.";

@@ -197,6 +197,68 @@
             margin-top: 0.38rem;
         }
 
+        .benefit-block {
+            margin-top: 0.85rem;
+            border-radius: 16px;
+            border: 1px solid rgba(16, 44, 38, 0.08);
+            background: rgba(255, 255, 255, 0.6);
+            overflow: hidden;
+        }
+
+        .benefit-block summary {
+            cursor: pointer;
+            list-style: none;
+            padding: 0.85rem 1rem;
+            font-weight: 700;
+            color: var(--deep);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.6rem;
+        }
+
+        .benefit-block summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .benefit-block summary::after {
+            content: "+";
+            font-size: 1.2rem;
+            color: var(--coral);
+            flex-shrink: 0;
+        }
+
+        .benefit-block[open] summary::after {
+            content: "\2212";
+        }
+
+        .benefit-block summary:hover {
+            background: rgba(201, 117, 84, 0.06);
+        }
+
+        .benefit-body {
+            padding: 0 1.1rem 1.1rem;
+            color: #4b625a;
+            line-height: 1.85;
+        }
+
+        .benefit-body p {
+            margin: 0 0 0.9rem;
+        }
+
+        .benefit-body p:last-child {
+            margin-bottom: 0;
+        }
+
+        .benefit-body ul {
+            margin: 0 0 0.9rem;
+            padding-left: 1.15rem;
+        }
+
+        .benefit-body ul li + li {
+            margin-top: 0.35rem;
+        }
+
         .panel-head {
             display: flex;
             flex-wrap: wrap;
@@ -774,6 +836,31 @@
                 <span class="japam-sub">21 முறை ஓம் மந்திரம்</span>
             </div>
         </div>
+
+        <details class="benefit-block">
+            <summary>காயத்ரி மந்திர ஜபத்தின் பலன்கள் — Benefits of chanting Gayathri Mantra</summary>
+            <div class="benefit-body">
+                <p><em>[Gayathri மந்திரத்தின் பலன்கள் குறித்த விவரம் இங்கே சேர்க்கப்படும்.]</em></p>
+            </div>
+        </details>
+
+        <details class="benefit-block">
+            <summary>ஓம் ஜபத்தின் பலன்கள் — Benefits of chanting Om</summary>
+            <div class="benefit-body">
+                <p>Om is the verbal symbol of God, says Swami; it announces the Lord's presence. It is the primeval sound. In fact, Swami has said that Om is the only sound — every other sound arises from it. Swami has called Om the real life-principle of every person. So, when chanting Om, we are calling God and also affirming that we are God.</p>
+                <p>The number 21 is not arbitrary, and each of the 21 Oms is chanted for a purpose.</p>
+                <ul>
+                    <li>Five Oms are chanted for the organs of action: vocal chords, hands, feet, elimination organs (represented by the anus), and generative organs.</li>
+                    <li>Five Oms are for the organs of perception: eye, ear, nose, tongue, and skin, which correspond to sight, hearing, smell, taste, and touch.</li>
+                    <li>Five Oms are for the five vital airs of the body. English doesn't seem to have names for these vital airs, so we list them with their Sanskrit names. They are: prana (located in lungs), apana (flatus, which moves downward through the rectum), vyana (diffused throughout the whole body), samana (navel; essential to digestion), and udana (rises through throat to head).</li>
+                    <li>Five Oms are for the five sheaths or encasings of the body: the material sheath, the sheath of vital air, the mental-emotional sheath, the sheath of intellect, and the sheath of bliss.</li>
+                    <li>The last Om is for the person itself — and the person's self-realisation.</li>
+                </ul>
+                <p>Chanting twenty Oms purifies and clarifies the five organs of action, the five organs of perception, the five vital airs, and the five sheaths. This prepares the human being for merger with the Supreme. Swami advises us to think of the life-principle in a person as a rider on a twenty-headed horse; we chant Om for each of the 21 components.</p>
+                <p>Omkar ends with three Shantis: peace is chanted for purity of the body, purity of the mind, and purity of the spirit. In other words, Peace is prayed for in the physical, mental, and spiritual planes.</p>
+                <p>Swami has said that "This recital of Om will tone you up, calm all agitations of the mind, and quicken the downpour of grace." He has said that "spiritual discipline of this sort is a must for all Sai workers, for it alone can give them peace and the other most valuable gift, love." We hope this explanation will make Omkar more precious to you.</p>
+            </div>
+        </details>
 
         <div id="japamPlayerWrap" class="japam-player-wrap is-hidden"></div>
 

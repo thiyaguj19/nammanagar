@@ -619,6 +619,8 @@ function escapeHtml(str) {
 nameInput.addEventListener("input", function() {
     walkerIdInput.value = "";
     currentWalkerId = null;
+    ageInput.type = "number";
+    ageInput.inputMode = "numeric";
 
     const query = nameInput.value.trim();
     clearTimeout(typeaheadTimer);
@@ -657,6 +659,8 @@ function selectWalker(walker) {
     walkerIdInput.value = walker.id;
     currentWalkerId = walker.id;
     ageInput.value = walker.age;
+    ageInput.type = "password";
+    ageInput.inputMode = "numeric";
     weightInput.value = walker.weight;
     closeTypeahead();
     loadWalkerDashboard(currentWalkerId);

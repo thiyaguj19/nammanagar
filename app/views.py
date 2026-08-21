@@ -1,14 +1,63 @@
-from django.shortcuts import render
+import json
 from random import randint
+
 from django.db.models import F
-from .models import SponsoredBy, Events, Sponsors
+from django.http import JsonResponse, HttpResponseBadRequest
+from django.shortcuts import render
+from django.utils import timezone
+from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.http import require_POST
+
+from .models import SponsoredBy, Events, Sponsors, JapamCompletion
+
+VALID_JAPAM_CHANT_TYPES = {"21", "108", "om"}
+
 
 def home(request):
     context = {}
     return render(request, 'index.html', context)
 
+
+def _japam_counts():
+    """Shared, site-wide (today, total) counts of completed japam sessions."""
+    now_local = timezone.localtime()
+    start_of_day = now_local.replace(hour=0, minute=0, second=0, microsecond=0)
+
+    total = JapamCompletion.objects.count()
+    today = JapamCompletion.objects.filter(created_at__gte=start_of_day).count()
+    return today, total
+
+
 def collective_prayer(request):
-    return render(request, 'collective_prayer.html')
+    japam_today_count, japam_total_count = _japam_counts()
+    context = {
+        "japam_today_count": japam_today_count,
+        "japam_total_count": japam_total_count,
+    }
+    return render(request, 'collective_prayer.html', context)
+
+
+@require_POST
+@csrf_protect
+def record_japam_completion(request):
+    """
+    POST body: {"chant_type": "21" | "108" | "om"}
+    Returns: {"today": <int>, "total": <int>}
+    """
+    try:
+        payload = json.loads(request.body or "{}")
+    except json.JSONDecodeError:
+        return HttpResponseBadRequest("Invalid JSON")
+
+    chant_type = str(payload.get("chant_type", ""))
+    if chant_type not in VALID_JAPAM_CHANT_TYPES:
+        chant_type = "21"
+
+    JapamCompletion.objects.create(chant_type=chant_type)
+
+    japam_today_count, japam_total_count = _japam_counts()
+    return JsonResponse({"today": japam_today_count, "total": japam_total_count})
+
 
 def sponsor(request):
     events = Events.objects.all()

@@ -247,6 +247,54 @@
             padding: 0.5rem 0;
         }
 
+        .leaderboard {
+            margin: 1.1rem 0 1.5rem;
+            padding: 1rem 1.1rem;
+            background: rgba(47, 101, 83, 0.08);
+            border: 1px solid rgba(47, 101, 83, 0.18);
+            border-radius: 18px;
+        }
+
+        .leaderboard-title {
+            color: var(--ink);
+            font-size: 1.05rem;
+        }
+
+        .leaderboard-list {
+            list-style: none;
+            margin: 0.7rem 0 0;
+            padding: 0;
+        }
+
+        .leaderboard-item {
+            display: grid;
+            grid-template-columns: 1.7rem 1fr auto;
+            align-items: center;
+            gap: 0.55rem;
+            padding: 0.55rem 0;
+            border-bottom: 1px solid rgba(47, 101, 83, 0.14);
+        }
+
+        .leaderboard-item:last-child {
+            border-bottom: none;
+        }
+
+        .leaderboard-rank {
+            color: #7b6342;
+            font-weight: 800;
+        }
+
+        .leaderboard-name {
+            color: var(--deep);
+            font-weight: 700;
+        }
+
+        .leaderboard-distance {
+            color: var(--coral);
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
         .range-toggle {
             margin-top: 1.4rem;
             display: inline-flex;
@@ -362,6 +410,23 @@
     <section class="dashboard-panel">
         <span class="eyebrow">Progress Dashboard</span>
         <h2 class="page-title" style="font-size: clamp(1.6rem, 2.6vw, 2.1rem);" id="dashboardName">பெயரைத் தட்டச்சு செய்யவும்</h2>
+
+        <section class="leaderboard" aria-labelledby="leaderboardTitle">
+            <h3 class="leaderboard-title" id="leaderboardTitle">முதல் 3 தூர சாதனையாளர்கள் — Top 3 by distance</h3>
+            {% if distance_leaders %}
+            <ol class="leaderboard-list">
+                {% for leader in distance_leaders %}
+                <li class="leaderboard-item">
+                    <span class="leaderboard-rank">{{ forloop.counter }}</span>
+                    <span class="leaderboard-name">{{ leader.name }}</span>
+                    <span class="leaderboard-distance">{{ leader.total_distance_km|floatformat:1 }} km</span>
+                </li>
+                {% endfor %}
+            </ol>
+            {% else %}
+            <p class="profile-empty">தூரப் பதிவுகள் சேர்க்கப்பட்டதும் முன்னணி பட்டியல் இங்கே தோன்றும்.</p>
+            {% endif %}
+        </section>
 
         <div class="profile-card" id="profileCard">
             <p class="profile-empty">மேலே பெயரைத் தட்டச்சு செய்து புதிதாகப் பதிவு செய்யவும், அல்லது தோன்றும் பட்டியலிலிருந்து ஏற்கனவே உள்ள ஒருவரைத் தேர்ந்தெடுக்கவும்.</p>

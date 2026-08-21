@@ -149,8 +149,13 @@ def record_japam_completion(request):
 
 
 def walking_log(request):
-    """Renders the walking-tracker page shell; all data loads via AJAX."""
-    context = {}
+    """Renders the walking-tracker page with the lifetime distance leaders."""
+    leaders = (
+        Walker.objects.annotate(total_distance_km=Sum("walk_logs__distance_km"))
+        .filter(total_distance_km__isnull=False)
+        .order_by("-total_distance_km", "name")[:3]
+    )
+    context = {"distance_leaders": leaders}
     return render(request, 'walking_log.html', context)
 
 

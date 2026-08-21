@@ -1,3 +1,33 @@
-from django.test import TestCase
+from decimal import Decimal
 
-# Create your tests here.
+from django.test import TestCase
+from django.urls import reverse
+
+from .models import WalkLog, Walker
+
+
+class WalkingLogLeaderboardTests(TestCase):
+	def test_walking_log_shows_top_three_walkers_by_total_distance(self):
+		walkers = []
+		for name, distance in [
+			("Anu", "8.00"),
+			("Bala", "15.00"),
+			("Chitra", "12.00"),
+			("Deepa", "3.00"),
+		]:
+			walker = Walker.objects.create(name=name, age=30, weight_kg=Decimal("60.00"))
+			WalkLog.objects.create(
+				walker=walker,
+				weight_kg=Decimal("60.00"),
+				distance_km=Decimal(distance),
+				calories_burnt=Decimal("100.00"),
+			)
+			walkers.append(walker)
+
+		response = self.client.get(reverse("walking_log"))
+
+		self.assertEqual(response.status_code, 200)
+		self.assertEqual(
+			[leader.name for leader in response.context["distance_leaders"]],
+			["Bala", "Chitra", "Anu"],
+		)

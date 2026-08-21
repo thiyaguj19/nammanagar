@@ -533,7 +533,7 @@
             <ol class="leaderboard-list">
                 {% for leader in distance_leaders %}
                 <li class="leaderboard-item">
-                    <button type="button" class="leaderboard-select" data-walker-id="{{ leader.id }}" data-name="{{ leader.name }}" data-age="{{ leader.age }}" data-weight="{{ leader.weight_kg }}">
+                    <button type="button" class="leaderboard-select" data-id="{{ leader.id }}" data-name="{{ leader.name }}" data-age="{{ leader.age }}" data-weight="{{ leader.weight_kg }}">
                         <span class="leaderboard-rank">{{ forloop.counter }}</span>
                         <span class="leaderboard-name">{{ leader.name }}</span>
                         <span class="leaderboard-distance">{{ leader.total_distance_km|floatformat:1 }} km</span>
@@ -642,7 +642,7 @@ function renderTypeahead(results) {
     typeaheadList.innerHTML = results.map(function(r) {
         return '<div class="typeahead-item" data-id="' + r.id + '" data-name="' + escapeHtml(r.name) +
             '" data-age="' + r.age + '" data-weight="' + r.weight_kg + '">' + escapeHtml(r.name) +
-            "<small>வயது " + r.age + " • " + r.weight_kg + " kg</small></div>";
+            "<small>வயது •• • " + r.weight_kg + " kg</small></div>";
     }).join("");
     typeaheadList.classList.add("is-open");
 }
@@ -748,7 +748,7 @@ function renderDashboard(data) {
     const s = data.summary;
     dashboardName.innerText = s.name;
     profileCard.innerHTML =
-        '<div class="profile-stat"><div class="label">வயது</div><div class="value">' + s.age + "</div></div>" +
+        '<div class="profile-stat"><div class="label">வயது</div><div class="value">••</div></div>' +
         '<div class="profile-stat"><div class="label">தற்போதைய எடை</div><div class="value">' + s.latest_weight_kg + " kg</div></div>" +
         '<div class="profile-stat"><div class="label">மொத்த நடைகள்</div><div class="value">' + s.walk_count + "</div></div>" +
         '<div class="profile-stat"><div class="label">மொத்த தூரம்</div><div class="value">' + s.total_distance_km.toFixed(1) + " km</div></div>" +

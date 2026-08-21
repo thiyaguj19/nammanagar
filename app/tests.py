@@ -31,7 +31,7 @@ class WalkingLogLeaderboardTests(TestCase):
 			[leader.name for leader in response.context["distance_leaders"]],
 			["Bala", "Chitra", "Anu"],
 		)
-		self.assertContains(response, 'class="leaderboard-select" data-walker-id="%s"' % walkers[1].id)
+		self.assertContains(response, 'class="leaderboard-select" data-id="%s"' % walkers[1].id)
 
 	def test_walking_log_data_returns_only_five_recent_walks(self):
 		walker = Walker.objects.create(name="Meera", age=32, weight_kg=Decimal("58.00"))

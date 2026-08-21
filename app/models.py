@@ -58,29 +58,3 @@ class JapamCompletion(models.Model):
 
     def __str__(self):
         return f'{self.get_chant_type_display()} | {self.created_at:%Y-%m-%d %H:%M}'
-
-
-class PlaylistPlay(models.Model):
-    """
-    One row per time an mp3/hosted/YouTube prayer playlist actually
-    starts playing. Covers the weekday collective-prayer playlists
-    today, and is meant to cover any future mp3 japam playlists too —
-    playlist_id is a free-form slug (e.g. "Monday", "japam-21") rather
-    than a fixed choices list, so a brand-new playlist can start
-    recording plays just by giving it an id in the template, with no
-    model change or migration needed.
-
-    "Today" and "overall" counts shown per playlist on the page are
-    simple aggregates over this table, so there's a single shared,
-    site-wide counter across all devices — same approach as
-    JapamCompletion above.
-    """
-    playlist_id = models.CharField(max_length=64, db_index=True)
-    playlist_label = models.CharField(max_length=100, blank=True, default="")
-    created_at = models.DateTimeField(default=timezone.now, db_index=True)
-
-    class Meta:
-        ordering = ["-created_at"]
-
-    def __str__(self):
-        return f'{self.playlist_id} | {self.created_at:%Y-%m-%d %H:%M}'

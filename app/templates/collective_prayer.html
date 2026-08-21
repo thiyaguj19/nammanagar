@@ -334,32 +334,6 @@
             box-shadow: inset 0 0 0 1px rgba(201, 117, 84, 0.12);
         }
 
-        .playlist-day.played-today {
-            border-color: rgba(47, 101, 83, 0.5);
-        }
-
-        .playlist-day.played-today::after {
-            content: "\2713";
-            float: right;
-            width: 1.1rem;
-            height: 1.1rem;
-            border-radius: 50%;
-            background: var(--leaf);
-            color: #fff;
-            font-size: 0.68rem;
-            line-height: 1.1rem;
-            text-align: center;
-        }
-
-        .play-stats {
-            display: block;
-            margin-top: 0.4rem;
-            color: #7f6635;
-            font-size: 0.78rem;
-            font-weight: 700;
-            letter-spacing: 0.01em;
-        }
-
         .player-main {
             min-width: 0;
         }
@@ -629,6 +603,7 @@
             border: 1px solid rgba(47, 101, 83, 0.16);
             background: rgba(255, 255, 255, 0.82);
             text-align: center;
+            position: relative;
             transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
         }
 
@@ -664,6 +639,34 @@
             margin-top: 0.25rem;
             color: #6a7c75;
             font-size: 0.85rem;
+        }
+
+        .japam-card.played-today {
+            border-color: rgba(47, 101, 83, 0.5);
+        }
+
+        .japam-card.played-today::after {
+            content: "\2713";
+            position: absolute;
+            top: 0.7rem;
+            right: 0.7rem;
+            width: 1.1rem;
+            height: 1.1rem;
+            border-radius: 50%;
+            background: var(--leaf);
+            color: #fff;
+            font-size: 0.68rem;
+            line-height: 1.1rem;
+            text-align: center;
+        }
+
+        .japam-type-stats {
+            display: block;
+            margin-top: 0.5rem;
+            color: #7f6635;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.01em;
         }
 
         .japam-player-wrap {
@@ -888,6 +891,7 @@
                 <span class="japam-count">21</span>
                 <strong>21 முறை ஜபம்</strong>
                 <span class="japam-sub">குறுகிய ஜபம்</span>
+                <span class="japam-type-stats"></span>
                 <div class="speed-selector" id="loopSelector21">
                     <span class="speed-pill active" onclick="changeLoopCount(event, 1)">×1</span>
                     <span class="speed-pill" onclick="changeLoopCount(event, 3)">×3</span>
@@ -900,6 +904,7 @@
                 <span class="japam-count">108</span>
                 <strong>108 முறை ஜபம்</strong>
                 <span class="japam-sub">முழு மாலை ஜபம்</span>
+                <span class="japam-type-stats"></span>
                 <div class="speed-selector" id="speedSelector108">
                     <span class="speed-pill active" onclick="changeSpeed(event, '1.0x')">1.0x</span>
                     <span class="speed-pill" onclick="changeSpeed(event, '1.25x')">1.25x</span>
@@ -910,6 +915,7 @@
                 <span class="japam-count">ॐ</span>
                 <strong>ஓம் ஜபம்</strong>
                 <span class="japam-sub">21 முறை ஓம் மந்திரம்</span>
+                <span class="japam-type-stats"></span>
             </div>
         </div>
 
@@ -1009,13 +1015,13 @@
         <p id="todayPlaylistMeta" class="playlist-meta">இன்றைய playlist ஏற்றப்படுகிறது...</p>
 
         <div id="playlistGrid" class="playlist-grid">
-            <div class="playlist-day" data-day="Monday"><strong>திங்கள்</strong><span>Monday playlist</span><span class="play-stats" data-stats-id="Monday"></span></div>
-            <div class="playlist-day" data-day="Tuesday"><strong>செவ்வாய்</strong><span>Tuesday playlist</span><span class="play-stats" data-stats-id="Tuesday"></span></div>
-            <div class="playlist-day" data-day="Wednesday"><strong>புதன்</strong><span>Wednesday playlist</span><span class="play-stats" data-stats-id="Wednesday"></span></div>
-            <div class="playlist-day" data-day="Thursday"><strong>வியாழன்</strong><span>Thursday playlist</span><span class="play-stats" data-stats-id="Thursday"></span></div>
-            <div class="playlist-day" data-day="Friday"><strong>வெள்ளி</strong><span>Friday playlist</span><span class="play-stats" data-stats-id="Friday"></span></div>
-            <div class="playlist-day" data-day="Saturday"><strong>சனி</strong><span>Saturday playlist</span><span class="play-stats" data-stats-id="Saturday"></span></div>
-            <div class="playlist-day" data-day="Sunday"><strong>ஞாயிறு</strong><span>Sunday playlist</span><span class="play-stats" data-stats-id="Sunday"></span></div>
+            <div class="playlist-day" data-day="Monday"><strong>திங்கள்</strong><span>Monday playlist</span></div>
+            <div class="playlist-day" data-day="Tuesday"><strong>செவ்வாய்</strong><span>Tuesday playlist</span></div>
+            <div class="playlist-day" data-day="Wednesday"><strong>புதன்</strong><span>Wednesday playlist</span></div>
+            <div class="playlist-day" data-day="Thursday"><strong>வியாழன்</strong><span>Thursday playlist</span></div>
+            <div class="playlist-day" data-day="Friday"><strong>வெள்ளி</strong><span>Friday playlist</span></div>
+            <div class="playlist-day" data-day="Saturday"><strong>சனி</strong><span>Saturday playlist</span></div>
+            <div class="playlist-day" data-day="Sunday"><strong>ஞாயிறு</strong><span>Sunday playlist</span></div>
         </div>
 
         <div class="player-main">
@@ -1096,20 +1102,17 @@ const PLAYLISTS = {
     Monday: {
         source: "youtube",
         id: "PLEBSW6sKqSCw",
-        statsId: "Monday",
         url: "https://www.youtube.com/playlist?list=PLEBSW6sKqSCw",
         tamil: "திங்கள்"
     },
     Tuesday: {
         source: "youtube",
         id: "PLWK1-1a48feY",
-        statsId: "Tuesday",
         url: "https://www.youtube.com/playlist?list=PLWK1-1a48feY",
         tamil: "செவ்வாய்"
     },
     Wednesday: {
         source: "hosted",
-        statsId: "Wednesday",
         url: "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/01_Collective+Prayer.webm",
         tamil: "புதன்",
         media: [
@@ -1153,13 +1156,11 @@ const PLAYLISTS = {
     Thursday: {
         source: "youtube",
         id: "PLfNcyq292CVQ",
-        statsId: "Thursday",
         url: "https://www.youtube.com/playlist?list=PLfNcyq292CVQ",
         tamil: "வியாழன்"
     },
     Friday: {
         source: "hosted",
-        statsId: "Friday",
         url: "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/01_Collective+Prayer.webm",
         tamil: "வெள்ளி",
         media: [
@@ -1207,7 +1208,6 @@ const PLAYLISTS = {
     },
     Saturday: {
         source: "hosted",
-        statsId: "Saturday",
         url: "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/01_Collective+Prayer.webm",
         tamil: "சனி",
         media: [
@@ -1251,7 +1251,6 @@ const PLAYLISTS = {
     Sunday: {
         source: "youtube",
         id: "PLEADJIa32huQ",
-        statsId: "Sunday",
         url: "https://www.youtube.com/playlist?list=PLEADJIa32huQ",
         tamil: "ஞாயிறு"
     }
@@ -1316,6 +1315,10 @@ function recordJapamCompletion(chantType) {
         .then(function(data) {
             if (data) {
                 renderJapamStats(data.today, data.total);
+                if (data.chant_type) {
+                    JAPAM_COUNTS_BY_TYPE[data.chant_type] = { today: data.chant_today, total: data.chant_total };
+                    renderJapamTypeStats(data.chant_type, data.chant_today, data.chant_total);
+                }
             }
         })
         .catch(function() {
@@ -1546,66 +1549,32 @@ function restartJapam() {
 }
 
 /* ---------------------------------------------------------------
-   Playlist play tracking — shared, site-wide "played today" /
-   "played overall" counts per mp3 playlist, backed by the
-   PlaylistPlay model (same approach as JapamCompletion above).
-
-   Works for the weekday playlists today AND is meant to keep working
-   for any future mp3 japam playlist with no code change here: just
-   give the new playlist config a `statsId`, add one
-   <span class="play-stats" data-stats-id="that-id"></span> wherever
-   you want its badge to show, and call
-   recordPlaylistPlay(statsId, label) once playback of it actually
-   starts. The backend accepts any playlist_id string.
+   Japam per-type play tracking — shared, site-wide "played today" /
+   "played overall" counts for EACH chant type (21 / 108 / Om)
+   separately, backed by JapamCompletion.chant_type (no new model).
    ------------------------------------------------------------- */
-const PLAYLIST_RECORD_URL = "{% url 'record_playlist_play' %}";
-const PLAYLIST_CSRF_TOKEN = "{{ csrf_token }}";
-let INITIAL_PLAYLIST_COUNTS = {};
+let JAPAM_COUNTS_BY_TYPE = {};
 try {
-    INITIAL_PLAYLIST_COUNTS = JSON.parse("{{ playlist_play_counts_json|escapejs }}" || "{}");
+    JAPAM_COUNTS_BY_TYPE = JSON.parse("{{ japam_counts_by_type_json|escapejs }}" || "{}");
 } catch (err) {
-    INITIAL_PLAYLIST_COUNTS = {};
+    JAPAM_COUNTS_BY_TYPE = {};
 }
 
-function renderPlaylistPlayStats(id, today, total) {
-    document.querySelectorAll('[data-stats-id="' + id + '"]').forEach(function(el) {
-        el.innerText = "இன்று " + (today || 0) + " முறை • மொத்தம் " + (total || 0) + " முறை";
-        const card = el.closest(".playlist-day, .japam-card");
-        if (card) {
-            card.classList.toggle("played-today", Boolean(today));
-        }
+function renderJapamTypeStats(chantType, today, total) {
+    const card = document.querySelector('.japam-card[data-count="' + chantType + '"]');
+    if (!card) return;
+    const badge = card.querySelector(".japam-type-stats");
+    if (badge) {
+        badge.innerText = "இன்று " + (today || 0) + " முறை • மொத்தம் " + (total || 0) + " முறை";
+    }
+    card.classList.toggle("played-today", Boolean(today));
+}
+
+function renderAllJapamTypeStats() {
+    Object.keys(JAPAM_COUNTS_BY_TYPE).forEach(function(chantType) {
+        const counts = JAPAM_COUNTS_BY_TYPE[chantType] || {};
+        renderJapamTypeStats(chantType, counts.today, counts.total);
     });
-}
-
-function renderAllPlaylistPlayStats() {
-    Object.keys(INITIAL_PLAYLIST_COUNTS).forEach(function(id) {
-        const counts = INITIAL_PLAYLIST_COUNTS[id] || {};
-        renderPlaylistPlayStats(id, counts.today, counts.total);
-    });
-}
-
-function recordPlaylistPlay(id, label) {
-    if (!id) return;
-    fetch(PLAYLIST_RECORD_URL, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "X-CSRFToken": PLAYLIST_CSRF_TOKEN
-        },
-        credentials: "same-origin",
-        body: JSON.stringify({ playlist_id: String(id), playlist_label: String(label || "") })
-    })
-        .then(function(res) { return res.ok ? res.json() : null; })
-        .then(function(data) {
-            if (data) {
-                INITIAL_PLAYLIST_COUNTS[data.playlist_id] = { today: data.today, total: data.total };
-                renderPlaylistPlayStats(data.playlist_id, data.today, data.total);
-            }
-        })
-        .catch(function() {
-            // Network hiccup — the badge just won't update until the
-            // next successful play recording re-syncs it.
-        });
 }
 
 const AUTOPLAY_HOUR_IST = 21;
@@ -1750,7 +1719,7 @@ function loadTodayPlaylist(isAutoTriggered) {
         return;
     }
 
-    loadYouTubeFromUrl(info.playlist.url, isAutoTriggered, info.playlist.statsId, info.playlist.tamil);
+    loadYouTubeFromUrl(info.playlist.url, isAutoTriggered);
 }
 
 function renderHostedTrackList(tracks) {
@@ -1855,9 +1824,6 @@ function startHostedPlaylist(playlistConfig, isAutoTriggered) {
 
     renderHostedTrackList(hostedPlaylist);
     updateNowPlaying("Hosted prayer தொடங்குகிறது", "முதல் track ஏற்றப்படுகிறது.");
-    if (playlistConfig.statsId) {
-        recordPlaylistPlay(playlistConfig.statsId, playlistConfig.tamil);
-    }
     playHostedTrack(0, isAutoTriggered);
 }
 
@@ -1965,7 +1931,7 @@ function restartPlayback() {
     }
 }
 
-function loadYouTubeFromUrl(urlInput, isAutoTriggered, playlistStatsId, playlistLabel) {
+function loadYouTubeFromUrl(urlInput, isAutoTriggered) {
     const input = document.getElementById("youtubeUrl");
     const status = document.getElementById("status");
     const youtubeLink = document.getElementById("youtubeLink");
@@ -2055,9 +2021,6 @@ function loadYouTubeFromUrl(urlInput, isAutoTriggered, playlistStatsId, playlist
                     event.target.unMute();
                     event.target.setVolume(100);
                     event.target.playVideo();
-                    if (playlistStatsId) {
-                        recordPlaylistPlay(playlistStatsId, playlistLabel);
-                    }
                 },
                 'onError': function() {
                     status.innerText = "இந்த video embed செய்ய அனுமதிக்கப்படவில்லை. YouTube audio mode-க்கு மாற்றப்படுகிறது.";
@@ -2121,7 +2084,7 @@ function maybeStartScheduledPrayer() {
     }
 }
 
-renderAllPlaylistPlayStats();
+renderAllJapamTypeStats();
 syncTodayPlaylist();
 setInterval(function () {
     syncTodayPlaylist();

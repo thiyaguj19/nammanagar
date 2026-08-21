@@ -883,7 +883,9 @@
 
         <div class="japam-stats-bar">
             <span>இன்று <strong id="japamTodayCount">{{ japam_today_count|default:0 }}</strong> முறை ஜபம் நிறைவு</span>
+            <span>இன்று இயக்க நேரம் <strong id="japamTodayDuration">{{ japam_today_duration_label|default:"0 நிமிடம்" }}</strong></span>
             <span>மொத்தம் <strong id="japamTotalCount">{{ japam_total_count|default:0 }}</strong> முறை</span>
+            <span>மொத்த இயக்க நேரம் <strong id="japamTotalDuration">{{ japam_total_duration_label|default:"0 நிமிடம்" }}</strong></span>
         </div>
 
         <div class="japam-cards">
@@ -1294,14 +1296,21 @@ let japamLoopRemaining = 1;
 const JAPAM_RECORD_URL = "{% url 'record_japam_completion' %}";
 const JAPAM_CSRF_TOKEN = "{{ csrf_token }}";
 
-function renderJapamStats(today, total) {
+function renderJapamStats(today, total, todaySeconds, totalSeconds) {
     const todayEl = document.getElementById("japamTodayCount");
     const totalEl = document.getElementById("japamTotalCount");
+    const todayDurationEl = document.getElementById("japamTodayDuration");
+    const totalDurationEl = document.getElementById("japamTotalDuration");
     if (todayEl && typeof today === "number") todayEl.innerText = today;
     if (totalEl && typeof total === "number") totalEl.innerText = total;
+    if (todayDurationEl && typeof todaySeconds === "number") todayDurationEl.innerText = formatJapamDuration(todaySeconds);
+    if (totalDurationEl && typeof totalSeconds === "number") totalDurationEl.innerText = formatJapamDuration(totalSeconds);
 }
 
-function recordJapamCompletion(chantType) {
+function recordJapamCompletion(chantType, durationSeconds) {
+    let safeDuration = Number(durationSeconds);
+    if (!Number.isFinite(safeDuration) || safeDuration < 0) safeDuration = 0;
+
     fetch(JAPAM_RECORD_URL, {
         method: "POST",
         headers: {
@@ -1309,15 +1318,20 @@ function recordJapamCompletion(chantType) {
             "X-CSRFToken": JAPAM_CSRF_TOKEN
         },
         credentials: "same-origin",
-        body: JSON.stringify({ chant_type: String(chantType) })
+        body: JSON.stringify({ chant_type: String(chantType), duration_seconds: safeDuration })
     })
         .then(function(res) { return res.ok ? res.json() : null; })
         .then(function(data) {
             if (data) {
-                renderJapamStats(data.today, data.total);
+                renderJapamStats(data.today, data.total, data.today_seconds, data.total_seconds);
                 if (data.chant_type) {
-                    JAPAM_COUNTS_BY_TYPE[data.chant_type] = { today: data.chant_today, total: data.chant_total };
-                    renderJapamTypeStats(data.chant_type, data.chant_today, data.chant_total);
+                    JAPAM_COUNTS_BY_TYPE[data.chant_type] = {
+                        today: data.chant_today,
+                        total: data.chant_total,
+                        today_seconds: data.chant_today_seconds,
+                        total_seconds: data.chant_total_seconds
+                    };
+                    renderJapamTypeStats(data.chant_type, data.chant_today, data.chant_total, data.chant_today_seconds, data.chant_total_seconds);
                 }
             }
         })
@@ -1327,8 +1341,8 @@ function recordJapamCompletion(chantType) {
         });
 }
 
-function handleJapamEnded(count) {
-    recordJapamCompletion(count);
+function handleJapamEnded(count, durationSeconds) {
+    recordJapamCompletion(count, durationSeconds);
     const status = document.getElementById("japamStatus");
     const config = GAYATHRI_JAPAM[count];
     if (!config) return;
@@ -1441,7 +1455,7 @@ function startJapam(count) {
     });
 
     video.addEventListener("ended", function() {
-        handleJapamEnded(count);
+        handleJapamEnded(count, video.duration);
     });
 
     wrap.appendChild(video);
@@ -1489,7 +1503,8 @@ function startJapamAudioFallback(config, wrap, status, count) {
     }, { once: true });
 
     audio.addEventListener("ended", function() {
-        handleJapamEnded(count);
+        const rate = audio.playbackRate || 1;
+        handleJapamEnded(count, audio.duration / rate);
     });
 
     const playPromise = audio.play();
@@ -1560,12 +1575,26 @@ try {
     JAPAM_COUNTS_BY_TYPE = {};
 }
 
-function renderJapamTypeStats(chantType, today, total) {
+// Mirrors the Tamil labels produced by _format_duration_label() in views.py,
+// so the initial server-rendered label and any later AJAX-driven update read
+// the same way. e.g. 45 -> "45 நிமிடம்", 90 -> "1 மணி 30 நிமிடம்".
+function formatJapamDuration(totalSeconds) {
+    const minutes = Math.round((Number(totalSeconds) || 0) / 60);
+    if (minutes < 60) {
+        return minutes + " நிமிடம்";
+    }
+    const hours = Math.floor(minutes / 60);
+    const rem = minutes % 60;
+    return rem > 0 ? (hours + " மணி " + rem + " நிமிடம்") : (hours + " மணி நேரம்");
+}
+
+function renderJapamTypeStats(chantType, today, total, todaySeconds, totalSeconds) {
     const card = document.querySelector('.japam-card[data-count="' + chantType + '"]');
     if (!card) return;
     const badge = card.querySelector(".japam-type-stats");
     if (badge) {
-        badge.innerText = "இன்று " + (today || 0) + " முறை • மொத்தம் " + (total || 0) + " முறை";
+        badge.innerText = "இன்று " + (today || 0) + " முறை (" + formatJapamDuration(todaySeconds)
+            + ") • மொத்தம் " + (total || 0) + " முறை (" + formatJapamDuration(totalSeconds) + ")";
     }
     card.classList.toggle("played-today", Boolean(today));
 }
@@ -1573,7 +1602,7 @@ function renderJapamTypeStats(chantType, today, total) {
 function renderAllJapamTypeStats() {
     Object.keys(JAPAM_COUNTS_BY_TYPE).forEach(function(chantType) {
         const counts = JAPAM_COUNTS_BY_TYPE[chantType] || {};
-        renderJapamTypeStats(chantType, counts.today, counts.total);
+        renderJapamTypeStats(chantType, counts.today, counts.total, counts.today_seconds, counts.total_seconds);
     });
 }
 

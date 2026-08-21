@@ -2,14 +2,19 @@
   "version": 2,
   "builds": [
     {
+      "src": "build.sh",
+      "use": "@vercel/static-build",
+      "config": { "distDir": "staticfiles_build" }
+    },
+    {
       "src": "nammanagar/wsgi.py",
       "use": "@vercel/python"
     }
   ],
-  "routes": [
+    "routes": [
     {
       "src": "/static/(.*)",
-      "dest": "static/$1"
+      "dest": "staticfiles_build/$1"
     },
     {
       "src": "/(.*)",

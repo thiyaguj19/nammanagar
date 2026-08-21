@@ -1,23 +1,19 @@
 {
-    "builds": [{
-        "src": "nammanagar/wsgi.py",
-        "use": "@vercel/python",
-        "config": { "maxLambdaSize": "15mb", "runtime": "python3.9" }
-    }, {
-        "src": "build.sh",
-        "use":"@vercel/static-build",
-        "config":{
-            "distDir": "staticfiles_build"
-        }
-    }],
-    "routes": [
-        {
-            "src": "/static/(.*)",
-            "dest": "/static/$1"
-        },
-        {
-            "src": "/(.*)",
-            "dest": "nammanagar/wsgi.py"
-        }
-    ]
+  "version": 2,
+  "builds": [
+    {
+      "src": "nammanagar/wsgi.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/static/(.*)",
+      "dest": "static/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "nammanagar/wsgi.py"
+    }
+  ]
 }

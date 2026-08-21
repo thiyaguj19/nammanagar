@@ -1,5 +1,9 @@
+#!/bin/bash
 echo "BUILD START"
-python3.9 -m pip install -r requirements.txt
-python3.9 manage.py migrate
-python3.9 manage.py collectstatic --no-input
+
+# Use python3 to match Vercel's active runtime environment
+python3 -m pip install -r requirements.txt
+python3 manage.py migrate --noinput
+python3 manage.py collectstatic --noinput
+
 echo "BUILD END"

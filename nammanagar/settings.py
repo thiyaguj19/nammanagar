@@ -78,9 +78,9 @@ WSGI_APPLICATION = 'nammanagar.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-dburl = config("CloudCluster_DB", False)
+dburl = config("POSTGRES_DATABASE", False)
 if dburl == False:
-    dburl = config("DO_POSTGRES_URL")
+    dburl = config("POSTGRES_URL")
 
 DATABASES = {
     'default': dj_database_url.config(

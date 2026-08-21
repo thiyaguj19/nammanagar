@@ -141,14 +141,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-# 1. Where Django looks for your source asset files (keep this as is)
+#STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles_build", "static") 
+STATIC_URL = "/staticfiles/" 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
-
-# 2. Where collectstatic will output files for Vercel to serve
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles_build")
-
-# 3. The URL prefix used in your HTML templates (Must match your vercel.json route)
-STATIC_URL = "/static/"
+#STATICFILES_DIRS += [
+#    os.path.join(BASE_DIR, 'fonts'),
+#]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

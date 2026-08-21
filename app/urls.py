@@ -14,5 +14,6 @@ urlpatterns = [
     path(r'sponsor/', views.sponsor, name='sponsor'),
     path(r'collective-prayer/', views.collective_prayer, name='collective_prayer'),
     path(r'collective-prayer/japam/record/', views.record_japam_completion, name='record_japam_completion'),
+    path(r'collective-prayer/playlist/record/', views.record_playlist_play, name='record_playlist_play'),
     path(r'traffic-signals/', views.traffic_signals, name='traffic_signals'),
 ]

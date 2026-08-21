@@ -31,3 +31,4 @@ class WalkingLogLeaderboardTests(TestCase):
 			[leader.name for leader in response.context["distance_leaders"]],
 			["Bala", "Chitra", "Anu"],
 		)
+		self.assertContains(response, 'class="leaderboard-select" data-walker-id="%s"' % walkers[1].id)

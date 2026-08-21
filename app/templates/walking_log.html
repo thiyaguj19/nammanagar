@@ -267,16 +267,31 @@
         }
 
         .leaderboard-item {
-            display: grid;
-            grid-template-columns: 1.7rem 1fr auto;
-            align-items: center;
-            gap: 0.55rem;
-            padding: 0.55rem 0;
             border-bottom: 1px solid rgba(47, 101, 83, 0.14);
         }
 
         .leaderboard-item:last-child {
             border-bottom: none;
+        }
+
+        .leaderboard-select {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1.7rem 1fr auto;
+            align-items: center;
+            gap: 0.55rem;
+            padding: 0.55rem 0;
+            border: none;
+            background: transparent;
+            font: inherit;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .leaderboard-select:hover,
+        .leaderboard-select:focus-visible {
+            background: rgba(47, 101, 83, 0.1);
+            outline: none;
         }
 
         .leaderboard-rank {
@@ -417,9 +432,11 @@
             <ol class="leaderboard-list">
                 {% for leader in distance_leaders %}
                 <li class="leaderboard-item">
-                    <span class="leaderboard-rank">{{ forloop.counter }}</span>
-                    <span class="leaderboard-name">{{ leader.name }}</span>
-                    <span class="leaderboard-distance">{{ leader.total_distance_km|floatformat:1 }} km</span>
+                    <button type="button" class="leaderboard-select" data-walker-id="{{ leader.id }}" data-name="{{ leader.name }}" data-age="{{ leader.age }}" data-weight="{{ leader.weight_kg }}">
+                        <span class="leaderboard-rank">{{ forloop.counter }}</span>
+                        <span class="leaderboard-name">{{ leader.name }}</span>
+                        <span class="leaderboard-distance">{{ leader.total_distance_km|floatformat:1 }} km</span>
+                    </button>
                 </li>
                 {% endfor %}
             </ol>
@@ -538,16 +555,26 @@ function closeTypeahead() {
     typeaheadList.innerHTML = "";
 }
 
+function selectWalker(walker) {
+    nameInput.value = walker.name;
+    walkerIdInput.value = walker.id;
+    currentWalkerId = walker.id;
+    ageInput.value = walker.age;
+    weightInput.value = walker.weight;
+    closeTypeahead();
+    loadWalkerDashboard(currentWalkerId);
+}
+
 typeaheadList.addEventListener("click", function(e) {
     const item = e.target.closest(".typeahead-item");
     if (!item) return;
-    nameInput.value = item.dataset.name;
-    walkerIdInput.value = item.dataset.id;
-    currentWalkerId = item.dataset.id;
-    ageInput.value = item.dataset.age;
-    weightInput.value = item.dataset.weight;
-    closeTypeahead();
-    loadWalkerDashboard(currentWalkerId);
+    selectWalker(item.dataset);
+});
+
+document.querySelectorAll(".leaderboard-select").forEach(function(button) {
+    button.addEventListener("click", function() {
+        selectWalker(button.dataset);
+    });
 });
 
 document.addEventListener("click", function(e) {

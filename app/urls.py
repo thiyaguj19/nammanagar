@@ -14,5 +14,9 @@ urlpatterns = [
     path(r'sponsor/', views.sponsor, name='sponsor'),
     path(r'collective-prayer/', views.collective_prayer, name='collective_prayer'),
     path(r'collective-prayer/japam/record/', views.record_japam_completion, name='record_japam_completion'),
+    path(r'walking-log/', views.walking_log, name='walking_log'),
+    path(r'walking-log/typeahead/', views.walking_log_typeahead, name='walking_log_typeahead'),
+    path(r'walking-log/record/', views.record_walk_log, name='record_walk_log'),
+    path(r'walking-log/data/', views.walking_log_data, name='walking_log_data'),
     path(r'traffic-signals/', views.traffic_signals, name='traffic_signals'),
 ]

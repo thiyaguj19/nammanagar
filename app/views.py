@@ -1,16 +1,19 @@
 import json
+from decimal import Decimal, InvalidOperation
+from datetime import timedelta
 from random import randint
 
 from django.db.models import Count, F, Sum
+from django.db.models.functions import TruncDate, TruncWeek
 from django.http import JsonResponse, HttpResponseBadRequest
 from django.shortcuts import render
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.http import require_POST
 
-from .models import SponsoredBy, Events, Sponsors, JapamCompletion
+from .models import SponsoredBy, Events, Sponsors, JapamCompletion, Walker, WalkLog
 
-VALID_JAPAM_CHANT_TYPES = {"21", "108", "om"}
+VALID_JAPAM_CHANT_TYPES = {"21", "108", "om", "shivaya"}
 
 # A single play-through longer than this is treated as bad client data
 # (e.g. a media element reporting Infinity/NaN duration) and clamped down,
@@ -142,6 +145,189 @@ def record_japam_completion(request):
         "chant_total": by_type["total"],
         "chant_today_seconds": by_type["today_seconds"],
         "chant_total_seconds": by_type["total_seconds"],
+    })
+
+
+def walking_log(request):
+    """Renders the walking-tracker page shell; all data loads via AJAX."""
+    context = {}
+    return render(request, 'walking_log.html', context)
+
+
+def _find_or_create_walker(name, age, weight_kg):
+    """
+    Case-insensitive lookup by name so a returning walker's new entry
+    lands on their existing row instead of creating a duplicate person.
+    Age/weight are refreshed to whatever was just submitted, since
+    those are expected to change over time.
+    """
+    name = (name or "").strip()
+    walker = Walker.objects.filter(name__iexact=name).first()
+    if walker:
+        walker.age = age
+        walker.weight_kg = weight_kg
+        walker.save(update_fields=["age", "weight_kg"])
+        return walker
+    return Walker.objects.create(name=name, age=age, weight_kg=weight_kg)
+
+
+def walking_log_typeahead(request):
+    """GET ?q=<partial name> -> up to 8 matching existing walkers, for the name type-ahead."""
+    query = (request.GET.get("q") or "").strip()
+    if not query:
+        return JsonResponse({"results": []})
+
+    matches = Walker.objects.filter(name__icontains=query).order_by("name")[:8]
+    results = [
+        {"id": w.id, "name": w.name, "age": w.age, "weight_kg": str(w.weight_kg)}
+        for w in matches
+    ]
+    return JsonResponse({"results": results})
+
+
+@require_POST
+@csrf_protect
+def record_walk_log(request):
+    """
+    POST body: {"walker_id": <int, optional>, "name": <str>, "age": <int>,
+                "weight_kg": <number>, "distance_km": <number>, "calories_burnt": <number>}
+
+    If walker_id is present (the person was picked from the type-ahead
+    list) it's used directly. Otherwise the name is matched
+    case-insensitively against existing walkers, creating a new one only
+    if nobody by that name has logged a walk before — this is what makes
+    a returning walker's entry land in their existing log.
+
+    Returns: {"walker": {...}, "log": {...}}
+    """
+    try:
+        payload = json.loads(request.body or "{}")
+    except json.JSONDecodeError:
+        return HttpResponseBadRequest("Invalid JSON")
+
+    name = str(payload.get("name") or "").strip()
+    walker_id = payload.get("walker_id")
+
+    try:
+        age = int(payload.get("age"))
+        weight_kg = Decimal(str(payload.get("weight_kg")))
+        distance_km = Decimal(str(payload.get("distance_km")))
+        calories_burnt = Decimal(str(payload.get("calories_burnt")))
+    except (TypeError, ValueError, InvalidOperation):
+        return HttpResponseBadRequest("Invalid number in age/weight_kg/distance_km/calories_burnt")
+
+    if not (0 < age <= 130):
+        return HttpResponseBadRequest("Age out of range")
+    if weight_kg <= 0 or distance_km < 0 or calories_burnt < 0:
+        return HttpResponseBadRequest("Value out of range")
+
+    walker = Walker.objects.filter(id=walker_id).first() if walker_id else None
+    if walker:
+        walker.age = age
+        walker.weight_kg = weight_kg
+        walker.save(update_fields=["age", "weight_kg"])
+    else:
+        if not name:
+            return HttpResponseBadRequest("Name is required")
+        walker = _find_or_create_walker(name, age, weight_kg)
+
+    walk = WalkLog.objects.create(
+        walker=walker,
+        weight_kg=weight_kg,
+        distance_km=distance_km,
+        calories_burnt=calories_burnt,
+    )
+
+    return JsonResponse({
+        "walker": {"id": walker.id, "name": walker.name, "age": walker.age, "weight_kg": str(walker.weight_kg)},
+        "log": {
+            "id": walk.id,
+            "logged_at": walk.logged_at.isoformat(),
+            "distance_km": str(walk.distance_km),
+            "calories_burnt": str(walk.calories_burnt),
+            "weight_kg": str(walk.weight_kg),
+        },
+    })
+
+
+def walking_log_data(request):
+    """
+    GET ?walker_id=<int>&range=daily|weekly
+
+    Returns chart-ready data for one walker: the last 14 days (daily) or
+    last 8 ISO weeks (weekly) of total distance/calories, their full
+    weight history for the weight-trend chart, lifetime totals, and
+    their 10 most recent walks.
+    """
+    walker_id = request.GET.get("walker_id")
+    range_type = request.GET.get("range", "daily")
+    walker = Walker.objects.filter(id=walker_id).first()
+    if not walker:
+        return HttpResponseBadRequest("Unknown walker_id")
+
+    today = timezone.localtime().date()
+    logs = WalkLog.objects.filter(walker=walker)
+
+    if range_type == "weekly":
+        num_buckets = 8
+        this_week_start = today - timedelta(days=today.weekday())
+        bucket_starts = [this_week_start - timedelta(weeks=i) for i in range(num_buckets - 1, -1, -1)]
+        bucket_field = TruncWeek("logged_at")
+    else:
+        num_buckets = 14
+        bucket_starts = [today - timedelta(days=i) for i in range(num_buckets - 1, -1, -1)]
+        bucket_field = TruncDate("logged_at")
+
+    rows = (
+        logs.filter(logged_at__date__gte=bucket_starts[0])
+        .annotate(bucket=bucket_field)
+        .values("bucket")
+        .annotate(distance=Sum("distance_km"), calories=Sum("calories_burnt"))
+    )
+    by_bucket = {}
+    for row in rows:
+        b = row["bucket"]
+        b_date = b.date() if hasattr(b, "date") else b
+        by_bucket[b_date] = row
+
+    labels, distances, calories_list = [], [], []
+    for bucket_date in bucket_starts:
+        row = by_bucket.get(bucket_date)
+        labels.append(bucket_date.strftime("%d %b"))
+        distances.append(float(row["distance"]) if row and row["distance"] else 0)
+        calories_list.append(float(row["calories"]) if row and row["calories"] else 0)
+
+    weight_history = list(logs.order_by("logged_at").values_list("logged_at", "weight_kg")[:200])
+    weight_labels = [dt.strftime("%d %b") for dt, _ in weight_history]
+    weight_values = [float(w) for _, w in weight_history]
+
+    totals = logs.aggregate(total_distance=Sum("distance_km"), total_calories=Sum("calories_burnt"))
+
+    recent = [
+        {
+            "logged_at": r.logged_at.strftime("%d %b %Y, %I:%M %p"),
+            "distance_km": str(r.distance_km),
+            "calories_burnt": str(r.calories_burnt),
+            "weight_kg": str(r.weight_kg),
+        }
+        for r in logs.order_by("-logged_at")[:10]
+    ]
+
+    return JsonResponse({
+        "labels": labels,
+        "distance_km": distances,
+        "calories_burnt": calories_list,
+        "weight_labels": weight_labels,
+        "weight_kg": weight_values,
+        "recent": recent,
+        "summary": {
+            "name": walker.name,
+            "age": walker.age,
+            "latest_weight_kg": float(walker.weight_kg),
+            "walk_count": logs.count(),
+            "total_distance_km": float(totals["total_distance"] or 0),
+            "total_calories_burnt": float(totals["total_calories"] or 0),
+        },
     })
 
 

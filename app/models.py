@@ -45,13 +45,15 @@ class JapamCompletion(models.Model):
     CHANT_21 = "21"
     CHANT_108 = "108"
     CHANT_OM = "om"
+    CHANT_SHIVAYA = "shivaya"
     CHANT_CHOICES = [
         (CHANT_21, "21 Gayathri Japam"),
         (CHANT_108, "108 Gayathri Japam"),
         (CHANT_OM, "Om Japam"),
+        (CHANT_SHIVAYA, "Om Namah Shivaya Japam"),
     ]
 
-    chant_type = models.CharField(max_length=10, choices=CHANT_CHOICES, default=CHANT_21)
+    chant_type = models.CharField(max_length=20, choices=CHANT_CHOICES, default=CHANT_21)
     created_at = models.DateTimeField(default=timezone.now, db_index=True)
     # Actual length of that single play-through, in seconds, as reported by
     # the browser's media element when it fired "ended". 0 for legacy rows
@@ -65,3 +67,44 @@ class JapamCompletion(models.Model):
 
     def __str__(self):
         return f'{self.get_chant_type_display()} | {self.created_at:%Y-%m-%d %H:%M} | {self.duration_seconds}s'
+
+
+class Walker(models.Model):
+    """
+    One row per person who has ever logged a walk. Looked up by name
+    (case-insensitively, see views._find_or_create_walker) so a
+    returning walker's later entries get attached to this same row
+    instead of creating a duplicate person. age/weight_kg hold the
+    walker's most recently reported values for quick display; the full
+    weight-over-time history lives on each WalkLog row below.
+    """
+    name = models.CharField(max_length=100, unique=True)
+    age = models.PositiveSmallIntegerField()
+    weight_kg = models.DecimalField(max_digits=5, decimal_places=2, help_text="Most recently logged weight, kg")
+    created_at = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        ordering = ["name"]
+
+    def __str__(self):
+        return f'{self.name} | age {self.age} | {self.weight_kg} kg'
+
+
+class WalkLog(models.Model):
+    """
+    One row per walk a person logs: that day's weight, distance walked,
+    and calories burnt. The daily/weekly graphs on the walking-log page
+    are simple aggregates over this table grouped by logged_at, so
+    nothing needs to be precomputed or cached.
+    """
+    walker = models.ForeignKey(Walker, on_delete=models.CASCADE, related_name="walk_logs")
+    logged_at = models.DateTimeField(default=timezone.now, db_index=True)
+    weight_kg = models.DecimalField(max_digits=5, decimal_places=2)
+    distance_km = models.DecimalField(max_digits=6, decimal_places=2)
+    calories_burnt = models.DecimalField(max_digits=7, decimal_places=2)
+
+    class Meta:
+        ordering = ["-logged_at"]
+
+    def __str__(self):
+        return f'{self.walker.name} | {self.logged_at:%Y-%m-%d} | {self.distance_km} km | {self.calories_burnt} kcal'

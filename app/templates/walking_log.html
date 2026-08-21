@@ -1,0 +1,646 @@
+{% load static %}
+<!doctype html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <title>நடைப் பயிற்சி பதிவு | நம்ம நகரம்</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anek+Tamil:wght@400;500;700;800&family=Noto+Serif+Tamil:wght@600;700&display=swap" rel="stylesheet">
+    <link href="{% static 'app/css/site_chrome.css' %}" rel="stylesheet">
+
+    <style>
+        :root {
+            --paper: #f5efe2;
+            --ink: #193a34;
+            --deep: #102c26;
+            --leaf: #2f6553;
+            --sun: #cda15a;
+            --coral: #c97554;
+            --mist: #e5ddd0;
+            --line: #dbcdb7;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Anek Tamil", "Noto Sans Tamil", sans-serif;
+            background:
+                radial-gradient(760px 320px at 0% 0%, rgba(205, 161, 90, 0.14), transparent 70%),
+                radial-gradient(900px 340px at 100% 100%, rgba(47, 101, 83, 0.12), transparent 70%),
+                var(--paper);
+            color: var(--deep);
+        }
+
+        .page-shell {
+            width: min(100% - 2rem, 1400px);
+            margin: 1.5rem auto 3rem;
+            display: grid;
+            grid-template-columns: minmax(300px, 0.85fr) minmax(420px, 1.4fr);
+            gap: 1.2rem;
+            align-items: start;
+        }
+
+        .form-panel,
+        .dashboard-panel {
+            min-width: 0;
+            background: rgba(255, 255, 255, 0.72);
+            border: 1px solid rgba(16, 44, 38, 0.08);
+            border-radius: 28px;
+            box-shadow: 0 18px 38px rgba(16, 44, 38, 0.08);
+            backdrop-filter: blur(8px);
+            padding: clamp(1.4rem, 3vw, 2rem);
+        }
+
+        h1, h2, h3 {
+            font-family: "Noto Serif Tamil", serif;
+            letter-spacing: -0.03em;
+            margin: 0;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: #7f6635;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            font-weight: 800;
+            font-size: 0.76rem;
+        }
+
+        .page-title {
+            margin-top: 0.6rem;
+            font-size: clamp(1.9rem, 3.4vw, 2.6rem);
+            line-height: 1.08;
+        }
+
+        .lead {
+            margin: 0.7rem 0 0;
+            color: #536b63;
+            font-size: 0.98rem;
+            line-height: 1.75;
+        }
+
+        .field-group {
+            margin-top: 1.3rem;
+        }
+
+        .field-group label {
+            display: block;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: #425e55;
+            margin-bottom: 0.35rem;
+        }
+
+        .field-group input {
+            width: 100%;
+            padding: 0.7rem 0.85rem;
+            border-radius: 12px;
+            border: 1px solid var(--line);
+            background: rgba(255, 255, 255, 0.85);
+            font-family: inherit;
+            font-size: 0.95rem;
+            color: var(--deep);
+        }
+
+        .field-group input:focus {
+            outline: none;
+            border-color: var(--coral);
+            box-shadow: 0 0 0 3px rgba(201, 117, 84, 0.15);
+        }
+
+        .name-field-wrap {
+            position: relative;
+        }
+
+        .typeahead-list {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: calc(100% + 4px);
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            box-shadow: 0 14px 30px rgba(16, 44, 38, 0.14);
+            max-height: 220px;
+            overflow-y: auto;
+            z-index: 20;
+            display: none;
+        }
+
+        .typeahead-list.is-open {
+            display: block;
+        }
+
+        .typeahead-item {
+            padding: 0.6rem 0.85rem;
+            cursor: pointer;
+            font-size: 0.92rem;
+            color: var(--deep);
+            border-bottom: 1px solid var(--mist);
+        }
+
+        .typeahead-item:last-child {
+            border-bottom: none;
+        }
+
+        .typeahead-item:hover,
+        .typeahead-item.active {
+            background: rgba(201, 117, 84, 0.08);
+        }
+
+        .typeahead-item small {
+            display: block;
+            color: #6a7c75;
+            font-size: 0.78rem;
+            margin-top: 0.1rem;
+        }
+
+        .submit-button {
+            margin-top: 1.6rem;
+            width: 100%;
+            padding: 0.85rem 1rem;
+            border: none;
+            border-radius: 14px;
+            background: var(--leaf);
+            color: #fff;
+            font-weight: 800;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.15s ease;
+        }
+
+        .submit-button:hover {
+            background: var(--deep);
+        }
+
+        .submit-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        #logStatus {
+            margin-top: 1rem;
+            padding: 0.75rem 0.9rem;
+            border-radius: 14px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            display: none;
+        }
+
+        #logStatus.success-status {
+            display: block;
+            background: rgba(47, 101, 83, 0.1);
+            color: var(--leaf);
+        }
+
+        #logStatus.error-status {
+            display: block;
+            background: rgba(201, 117, 84, 0.12);
+            color: var(--coral);
+        }
+
+        .profile-card {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.9rem 1.6rem;
+            padding: 1rem 1.1rem;
+            border-radius: 18px;
+            background: linear-gradient(135deg, rgba(205, 161, 90, 0.16), rgba(255, 255, 255, 0.72));
+            border: 1px solid rgba(205, 161, 90, 0.24);
+        }
+
+        .profile-stat {
+            min-width: 108px;
+        }
+
+        .profile-stat .label {
+            color: #7b6342;
+            font-size: 0.75rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+
+        .profile-stat .value {
+            margin-top: 0.25rem;
+            color: var(--coral);
+            font-size: 1.35rem;
+            font-weight: 800;
+        }
+
+        .profile-empty {
+            margin: 0;
+            color: #586e66;
+            font-size: 0.95rem;
+            padding: 0.5rem 0;
+        }
+
+        .range-toggle {
+            margin-top: 1.4rem;
+            display: inline-flex;
+            border-radius: 14px;
+            border: 1px solid var(--line);
+            overflow: hidden;
+        }
+
+        .range-toggle button {
+            padding: 0.55rem 1.1rem;
+            border: none;
+            background: #fff;
+            color: #536b63;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+
+        .range-toggle button.active {
+            background: var(--leaf);
+            color: #fff;
+        }
+
+        .chart-wrap {
+            margin-top: 1rem;
+            position: relative;
+            height: 280px;
+        }
+
+        .chart-wrap.small {
+            height: 190px;
+        }
+
+        .section-heading {
+            margin-top: 1.7rem;
+            font-size: 1rem;
+        }
+
+        .recent-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 0.9rem;
+            font-size: 0.85rem;
+        }
+
+        .recent-table th,
+        .recent-table td {
+            text-align: left;
+            padding: 0.5rem 0.6rem;
+            border-bottom: 1px solid var(--mist);
+            color: #425e55;
+        }
+
+        .recent-table th {
+            color: #7b6342;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        @media (max-width: 980px) {
+            .page-shell {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+{% include 'partials/site_header.html' %}
+
+<main class="page-shell">
+    <!-- 1. Log-entry form -->
+    <section class="form-panel">
+        <span class="eyebrow">Walking Tracker</span>
+        <h1 class="page-title">நடைப் பயிற்சி பதிவு</h1>
+        <p class="lead">பெயர், வயது, தற்போதைய எடை, நடந்த தூரம் மற்றும் எரிந்த கலோரிகளை பதிவு செய்யவும். ஏற்கனவே பதிவு செய்த பெயரைத் தட்டச்சு செய்தால், அவர்களின் பழைய பதிவுகளுடனேயே புதிய பதிவும் சேர்க்கப்படும்.</p>
+
+        <form id="walkLogForm" autocomplete="off">
+            <div class="field-group name-field-wrap">
+                <label for="walkerName">பெயர் — Name</label>
+                <input type="text" id="walkerName" name="name" placeholder="எ.கா. Meera Krishnan" required>
+                <div id="typeaheadList" class="typeahead-list"></div>
+            </div>
+            <input type="hidden" id="walkerId" value="">
+
+            <div class="field-group">
+                <label for="walkerAge">வயது — Age</label>
+                <input type="number" id="walkerAge" name="age" min="1" max="130" required>
+            </div>
+
+            <div class="field-group">
+                <label for="walkerWeight">தற்போதைய எடை — Current weight (kg)</label>
+                <input type="number" id="walkerWeight" name="weight_kg" min="1" step="0.1" required>
+            </div>
+
+            <div class="field-group">
+                <label for="walkDistance">நடந்த தூரம் — Distance walked (km)</label>
+                <input type="number" id="walkDistance" name="distance_km" min="0" step="0.01" required>
+            </div>
+
+            <div class="field-group">
+                <label for="walkCalories">எரிந்த கலோரிகள் — Calories burnt</label>
+                <input type="number" id="walkCalories" name="calories_burnt" min="0" step="1" required>
+            </div>
+
+            <button type="submit" class="submit-button" id="submitLogBtn">பதிவு சேமிக்க — Save walk log</button>
+            <div id="logStatus"></div>
+        </form>
+    </section>
+
+    <!-- 2. Dashboard: profile summary + daily/weekly graphs -->
+    <section class="dashboard-panel">
+        <span class="eyebrow">Progress Dashboard</span>
+        <h2 class="page-title" style="font-size: clamp(1.6rem, 2.6vw, 2.1rem);" id="dashboardName">பெயரைத் தட்டச்சு செய்யவும்</h2>
+
+        <div class="profile-card" id="profileCard">
+            <p class="profile-empty">மேலே பெயரைத் தட்டச்சு செய்து புதிதாகப் பதிவு செய்யவும், அல்லது தோன்றும் பட்டியலிலிருந்து ஏற்கனவே உள்ள ஒருவரைத் தேர்ந்தெடுக்கவும்.</p>
+        </div>
+
+        <div class="range-toggle" id="rangeToggle">
+            <button type="button" class="active" data-range="daily">தினசரி — Daily</button>
+            <button type="button" data-range="weekly">வாராந்திர — Weekly</button>
+        </div>
+
+        <div class="chart-wrap">
+            <canvas id="walkChart"></canvas>
+        </div>
+
+        <h3 class="section-heading">எடை மாற்றம் — Weight trend</h3>
+        <div class="chart-wrap small">
+            <canvas id="weightChart"></canvas>
+        </div>
+
+        <h3 class="section-heading">சமீபத்திய பதிவுகள் — Recent walks</h3>
+        <table class="recent-table" id="recentTable">
+            <thead>
+                <tr>
+                    <th>தேதி</th>
+                    <th>தூரம் (km)</th>
+                    <th>கலோரி</th>
+                    <th>எடை (kg)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td colspan="4" style="color:#8a978f;">பதிவுகள் இல்லை</td></tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+<script>
+const TYPEAHEAD_URL = "{% url 'walking_log_typeahead' %}";
+const RECORD_URL = "{% url 'record_walk_log' %}";
+const DATA_URL = "{% url 'walking_log_data' %}";
+const CSRF_TOKEN = "{{ csrf_token }}";
+
+const nameInput = document.getElementById("walkerName");
+const walkerIdInput = document.getElementById("walkerId");
+const ageInput = document.getElementById("walkerAge");
+const weightInput = document.getElementById("walkerWeight");
+const distanceInput = document.getElementById("walkDistance");
+const caloriesInput = document.getElementById("walkCalories");
+const typeaheadList = document.getElementById("typeaheadList");
+const form = document.getElementById("walkLogForm");
+const statusEl = document.getElementById("logStatus");
+const submitBtn = document.getElementById("submitLogBtn");
+const dashboardName = document.getElementById("dashboardName");
+const profileCard = document.getElementById("profileCard");
+const rangeToggle = document.getElementById("rangeToggle");
+const recentTableBody = document.querySelector("#recentTable tbody");
+
+let currentRange = "daily";
+let currentWalkerId = null;
+let typeaheadTimer = null;
+let walkChart = null;
+let weightChart = null;
+
+function escapeHtml(str) {
+    return String(str).replace(/[&<>"']/g, function(ch) {
+        return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch];
+    });
+}
+
+/* ---------------------------------------------------------------
+   Name type-ahead: as the person types, look up existing walkers so a
+   returning person can be picked instead of retyping their details,
+   and so their new entry lands on their existing log.
+   ------------------------------------------------------------- */
+nameInput.addEventListener("input", function() {
+    walkerIdInput.value = "";
+    currentWalkerId = null;
+
+    const query = nameInput.value.trim();
+    clearTimeout(typeaheadTimer);
+    if (query.length < 2) {
+        closeTypeahead();
+        return;
+    }
+    typeaheadTimer = setTimeout(function() {
+        fetch(TYPEAHEAD_URL + "?q=" + encodeURIComponent(query))
+            .then(function(res) { return res.ok ? res.json() : { results: [] }; })
+            .then(function(data) { renderTypeahead(data.results || []); })
+            .catch(function() { closeTypeahead(); });
+    }, 250);
+});
+
+function renderTypeahead(results) {
+    if (!results.length) {
+        closeTypeahead();
+        return;
+    }
+    typeaheadList.innerHTML = results.map(function(r) {
+        return '<div class="typeahead-item" data-id="' + r.id + '" data-name="' + escapeHtml(r.name) +
+            '" data-age="' + r.age + '" data-weight="' + r.weight_kg + '">' + escapeHtml(r.name) +
+            "<small>வயது " + r.age + " • " + r.weight_kg + " kg</small></div>";
+    }).join("");
+    typeaheadList.classList.add("is-open");
+}
+
+function closeTypeahead() {
+    typeaheadList.classList.remove("is-open");
+    typeaheadList.innerHTML = "";
+}
+
+typeaheadList.addEventListener("click", function(e) {
+    const item = e.target.closest(".typeahead-item");
+    if (!item) return;
+    nameInput.value = item.dataset.name;
+    walkerIdInput.value = item.dataset.id;
+    currentWalkerId = item.dataset.id;
+    ageInput.value = item.dataset.age;
+    weightInput.value = item.dataset.weight;
+    closeTypeahead();
+    loadWalkerDashboard(currentWalkerId);
+});
+
+document.addEventListener("click", function(e) {
+    if (e.target !== nameInput && !typeaheadList.contains(e.target)) {
+        closeTypeahead();
+    }
+});
+
+/* ---------------------------------------------------------------
+   Save a walk log entry (creates the person on first use, or reuses
+   an existing one so their history keeps building in one place).
+   ------------------------------------------------------------- */
+form.addEventListener("submit", function(e) {
+    e.preventDefault();
+    submitBtn.disabled = true;
+    statusEl.className = "";
+
+    const payload = {
+        walker_id: walkerIdInput.value || null,
+        name: nameInput.value.trim(),
+        age: Number(ageInput.value),
+        weight_kg: Number(weightInput.value),
+        distance_km: Number(distanceInput.value),
+        calories_burnt: Number(caloriesInput.value)
+    };
+
+    fetch(RECORD_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "X-CSRFToken": CSRF_TOKEN },
+        credentials: "same-origin",
+        body: JSON.stringify(payload)
+    })
+        .then(function(res) { return res.ok ? res.json() : Promise.reject(res); })
+        .then(function(data) {
+            statusEl.innerText = data.walker.name + " — நடைப் பயிற்சி பதிவு சேமிக்கப்பட்டது. 🙏";
+            statusEl.className = "success-status";
+            walkerIdInput.value = data.walker.id;
+            currentWalkerId = data.walker.id;
+            distanceInput.value = "";
+            caloriesInput.value = "";
+            loadWalkerDashboard(currentWalkerId);
+        })
+        .catch(function() {
+            statusEl.innerText = "பதிவு செய்வதில் பிழை. மீண்டும் முயற்சிக்கவும்.";
+            statusEl.className = "error-status";
+        })
+        .finally(function() {
+            submitBtn.disabled = false;
+        });
+});
+
+/* ---------------------------------------------------------------
+   Daily / Weekly toggle + dashboard rendering.
+   ------------------------------------------------------------- */
+rangeToggle.addEventListener("click", function(e) {
+    const btn = e.target.closest("button[data-range]");
+    if (!btn) return;
+    currentRange = btn.dataset.range;
+    Array.from(rangeToggle.querySelectorAll("button")).forEach(function(b) {
+        b.classList.toggle("active", b === btn);
+    });
+    if (currentWalkerId) loadWalkerDashboard(currentWalkerId);
+});
+
+function loadWalkerDashboard(walkerId) {
+    if (!walkerId) return;
+    fetch(DATA_URL + "?walker_id=" + encodeURIComponent(walkerId) + "&range=" + currentRange)
+        .then(function(res) { return res.ok ? res.json() : null; })
+        .then(function(data) { if (data) renderDashboard(data); })
+        .catch(function() {});
+}
+
+function renderDashboard(data) {
+    const s = data.summary;
+    dashboardName.innerText = s.name;
+    profileCard.innerHTML =
+        '<div class="profile-stat"><div class="label">வயது</div><div class="value">' + s.age + "</div></div>" +
+        '<div class="profile-stat"><div class="label">தற்போதைய எடை</div><div class="value">' + s.latest_weight_kg + " kg</div></div>" +
+        '<div class="profile-stat"><div class="label">மொத்த நடைகள்</div><div class="value">' + s.walk_count + "</div></div>" +
+        '<div class="profile-stat"><div class="label">மொத்த தூரம்</div><div class="value">' + s.total_distance_km.toFixed(1) + " km</div></div>" +
+        '<div class="profile-stat"><div class="label">மொத்த கலோரி</div><div class="value">' + Math.round(s.total_calories_burnt) + "</div></div>";
+
+    renderWalkChart(data.labels, data.distance_km, data.calories_burnt);
+    renderWeightChart(data.weight_labels, data.weight_kg);
+    renderRecentTable(data.recent || []);
+}
+
+function renderWalkChart(labels, distanceKm, caloriesBurnt) {
+    const ctx = document.getElementById("walkChart").getContext("2d");
+    if (walkChart) walkChart.destroy();
+    walkChart = new Chart(ctx, {
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    type: "bar",
+                    label: "தூரம் (km)",
+                    data: distanceKm,
+                    backgroundColor: "rgba(47, 101, 83, 0.65)",
+                    yAxisID: "y"
+                },
+                {
+                    type: "line",
+                    label: "கலோரி",
+                    data: caloriesBurnt,
+                    borderColor: "#c97554",
+                    backgroundColor: "#c97554",
+                    tension: 0.3,
+                    yAxisID: "y1"
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: { position: "left", beginAtZero: true, title: { display: true, text: "km" } },
+                y1: { position: "right", beginAtZero: true, title: { display: true, text: "kcal" }, grid: { drawOnChartArea: false } }
+            }
+        }
+    });
+}
+
+function renderWeightChart(labels, weightKg) {
+    const ctx = document.getElementById("weightChart").getContext("2d");
+    if (weightChart) weightChart.destroy();
+    weightChart = new Chart(ctx, {
+        type: "line",
+        data: {
+            labels: labels,
+            datasets: [{
+                label: "எடை (kg)",
+                data: weightKg,
+                borderColor: "#cda15a",
+                backgroundColor: "rgba(205, 161, 90, 0.25)",
+                fill: true,
+                tension: 0.3
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: { y: { beginAtZero: false } }
+        }
+    });
+}
+
+function renderRecentTable(rows) {
+    if (!rows.length) {
+        recentTableBody.innerHTML = '<tr><td colspan="4" style="color:#8a978f;">பதிவுகள் இல்லை</td></tr>';
+        return;
+    }
+    recentTableBody.innerHTML = rows.map(function(r) {
+        return "<tr><td>" + escapeHtml(r.logged_at) + "</td><td>" + escapeHtml(r.distance_km) +
+            "</td><td>" + escapeHtml(r.calories_burnt) + "</td><td>" + escapeHtml(r.weight_kg) + "</td></tr>";
+    }).join("");
+}
+</script>
+
+</body>
+</html>

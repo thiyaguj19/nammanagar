@@ -86,9 +86,11 @@ DATABASES = {
     }
 }
 
-if os.environ.get('DATABASE_URL'):
+prod_db = os.environ.get('DATABASE_URL') or os.environ.get('POSTGRES_URL')
+
+if prod_db:
     DATABASES['default'] = dj_database_url.config(
-        default=os.environ.get('DATABASE_URL'),
+        default=prod_db,
         conn_max_age=600,
         ssl_require=True
     )

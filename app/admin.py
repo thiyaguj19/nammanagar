@@ -5,4 +5,5 @@ from .models import *
 admin.site.register(Events)
 admin.site.register(Sponsors)
 admin.site.register(SponsoredBy)
+admin.site.register(Walker)
 admin.site.register(JapamCompletion)

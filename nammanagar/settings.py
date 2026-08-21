@@ -14,6 +14,7 @@ from pathlib import Path
 from decouple import config
 import dj_database_url
 import os
+from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -78,13 +79,14 @@ WSGI_APPLICATION = 'nammanagar.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-dburl = config("POSTGRES_DATABASE", False)
-if dburl == False:
-    dburl = config("POSTGRES_URL")
+db_url = config("DATABASE_URL", default=None) or config("POSTGRES_URL", default=None)
+
+if not db_url:
+    raise ImproperlyConfigured("Set DATABASE_URL or POSTGRES_URL in your environment")
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default=dburl,
+    'default': dj_database_url.parse(
+        db_url,
         conn_max_age=600,
         conn_health_checks=True,
     )

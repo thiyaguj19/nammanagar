@@ -343,6 +343,107 @@
             height: 190px;
         }
 
+        .native-chart {
+            width: 100%;
+            height: 100%;
+        }
+
+        .distance-chart {
+            height: 100%;
+            display: grid;
+            grid-template-columns: repeat(var(--chart-items), minmax(24px, 1fr));
+            align-items: end;
+            gap: 0.45rem;
+            padding: 1rem 0.35rem 1.4rem;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .distance-bar-group {
+            height: 100%;
+            display: grid;
+            grid-template-rows: 1fr auto;
+            gap: 0.35rem;
+            min-width: 0;
+        }
+
+        .distance-bars {
+            min-height: 0;
+            display: flex;
+            align-items: end;
+            justify-content: center;
+            gap: 0.16rem;
+        }
+
+        .distance-bar,
+        .calorie-bar {
+            width: min(0.8rem, 38%);
+            min-height: 3px;
+            border-radius: 4px 4px 0 0;
+        }
+
+        .distance-bar {
+            background: var(--leaf);
+        }
+
+        .calorie-bar {
+            background: var(--coral);
+        }
+
+        .chart-label {
+            overflow: hidden;
+            color: #6a7c75;
+            font-size: 0.68rem;
+            text-align: center;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .weight-chart {
+            display: grid;
+            grid-template-rows: 1fr auto;
+            gap: 0.4rem;
+            padding: 0.6rem 0.35rem 0;
+        }
+
+        .weight-chart svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+
+        .weight-area {
+            fill: rgba(205, 161, 90, 0.25);
+        }
+
+        .weight-line {
+            fill: none;
+            stroke: var(--sun);
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-width: 3;
+        }
+
+        .weight-point {
+            fill: var(--coral);
+            stroke: #fff;
+            stroke-width: 2;
+        }
+
+        .weight-labels {
+            display: flex;
+            justify-content: space-between;
+            color: #6a7c75;
+            font-size: 0.72rem;
+        }
+
+        .chart-empty {
+            display: grid;
+            height: 100%;
+            place-items: center;
+            color: #7b6342;
+            font-size: 0.9rem;
+        }
+
         .section-heading {
             margin-top: 1.7rem;
             font-size: 1rem;
@@ -455,12 +556,12 @@
         </div>
 
         <div class="chart-wrap">
-            <canvas id="walkChart"></canvas>
+            <div class="native-chart" id="walkChart" aria-label="Walking distance and calories chart"></div>
         </div>
 
         <h3 class="section-heading">எடை மாற்றம் — Weight trend</h3>
         <div class="chart-wrap small">
-            <canvas id="weightChart"></canvas>
+            <div class="native-chart" id="weightChart" aria-label="Weight trend chart"></div>
         </div>
 
         <h3 class="section-heading">சமீபத்திய பதிவுகள் — Recent walks</h3>
@@ -480,7 +581,6 @@
     </section>
 </main>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
 <script>
 const TYPEAHEAD_URL = "{% url 'walking_log_typeahead' %}";
 const RECORD_URL = "{% url 'record_walk_log' %}";
@@ -505,9 +605,6 @@ const recentTableBody = document.querySelector("#recentTable tbody");
 let currentRange = "daily";
 let currentWalkerId = null;
 let typeaheadTimer = null;
-let walkChart = null;
-let weightChart = null;
-
 function escapeHtml(str) {
     return String(str).replace(/[&<>"']/g, function(ch) {
         return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch];
@@ -663,63 +760,45 @@ function renderDashboard(data) {
 }
 
 function renderWalkChart(labels, distanceKm, caloriesBurnt) {
-    const ctx = document.getElementById("walkChart").getContext("2d");
-    if (walkChart) walkChart.destroy();
-    walkChart = new Chart(ctx, {
-        data: {
-            labels: labels,
-            datasets: [
-                {
-                    type: "bar",
-                    label: "தூரம் (km)",
-                    data: distanceKm,
-                    backgroundColor: "rgba(47, 101, 83, 0.65)",
-                    yAxisID: "y"
-                },
-                {
-                    type: "line",
-                    label: "கலோரி",
-                    data: caloriesBurnt,
-                    borderColor: "#c97554",
-                    backgroundColor: "#c97554",
-                    tension: 0.3,
-                    yAxisID: "y1"
-                }
-            ]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                y: { position: "left", beginAtZero: true, title: { display: true, text: "km" } },
-                y1: { position: "right", beginAtZero: true, title: { display: true, text: "kcal" }, grid: { drawOnChartArea: false } }
-            }
-        }
-    });
+    const chart = document.getElementById("walkChart");
+    const maxDistance = Math.max.apply(null, distanceKm.concat([1]));
+    const maxCalories = Math.max.apply(null, caloriesBurnt.concat([1]));
+
+    if (!distanceKm.some(function(value) { return value > 0; })) {
+        chart.innerHTML = '<div class="chart-empty">இந்த காலப்பகுதியில் நடைப் பதிவுகள் இல்லை.</div>';
+        return;
+    }
+    chart.style.setProperty("--chart-items", labels.length);
+    chart.innerHTML = '<div class="distance-chart" style="--chart-items:' + labels.length + '">' + labels.map(function(label, index) {
+        const distanceHeight = Math.max(3, (distanceKm[index] / maxDistance) * 100);
+        const calorieHeight = Math.max(3, (caloriesBurnt[index] / maxCalories) * 100);
+        return '<div class="distance-bar-group" title="' + escapeHtml(label) + ': ' + distanceKm[index] + ' km, ' + caloriesBurnt[index] + ' kcal">' +
+            '<div class="distance-bars"><span class="distance-bar" style="height:' + distanceHeight + '%"></span>' +
+            '<span class="calorie-bar" style="height:' + calorieHeight + '%"></span></div>' +
+            '<span class="chart-label">' + escapeHtml(label) + '</span></div>';
+    }).join("") + '</div>';
 }
 
 function renderWeightChart(labels, weightKg) {
-    const ctx = document.getElementById("weightChart").getContext("2d");
-    if (weightChart) weightChart.destroy();
-    weightChart = new Chart(ctx, {
-        type: "line",
-        data: {
-            labels: labels,
-            datasets: [{
-                label: "எடை (kg)",
-                data: weightKg,
-                borderColor: "#cda15a",
-                backgroundColor: "rgba(205, 161, 90, 0.25)",
-                fill: true,
-                tension: 0.3
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: { y: { beginAtZero: false } }
-        }
+    const chart = document.getElementById("weightChart");
+    if (!weightKg.length) {
+        chart.innerHTML = '<div class="chart-empty">எடைப் பதிவுகள் இல்லை.</div>';
+        return;
+    }
+    const minWeight = Math.min.apply(null, weightKg);
+    const maxWeight = Math.max.apply(null, weightKg);
+    const valueRange = maxWeight - minWeight || 1;
+    const points = weightKg.map(function(weight, index) {
+        const x = weightKg.length === 1 ? 50 : (index / (weightKg.length - 1)) * 100;
+        const y = 90 - ((weight - minWeight) / valueRange) * 70;
+        return { x: x, y: y };
     });
+    const line = points.map(function(point) { return point.x + ',' + point.y; }).join(' ');
+    const area = '0,100 ' + line + ' 100,100';
+    chart.innerHTML = '<div class="weight-chart"><svg viewBox="0 0 100 100" preserveAspectRatio="none" role="img" aria-label="Weight from ' + minWeight + ' to ' + maxWeight + ' kg">' +
+        '<polygon class="weight-area" points="' + area + '"></polygon><polyline class="weight-line" points="' + line + '"></polyline>' +
+        points.map(function(point) { return '<circle class="weight-point" cx="' + point.x + '" cy="' + point.y + '" r="2.4"></circle>'; }).join('') +
+        '</svg><div class="weight-labels"><span>' + escapeHtml(labels[0]) + '</span><span>' + minWeight.toFixed(1) + '-' + maxWeight.toFixed(1) + ' kg</span><span>' + escapeHtml(labels[labels.length - 1]) + '</span></div></div>';
 }
 
 function renderRecentTable(rows) {

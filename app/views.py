@@ -262,7 +262,7 @@ def walking_log_data(request):
     Returns chart-ready data for one walker: the last 14 days (daily) or
     last 8 ISO weeks (weekly) of total distance/calories, their full
     weight history for the weight-trend chart, lifetime totals, and
-    their 10 most recent walks.
+    their 5 most recent walks.
     """
     walker_id = request.GET.get("walker_id")
     range_type = request.GET.get("range", "daily")
@@ -315,7 +315,7 @@ def walking_log_data(request):
             "calories_burnt": str(r.calories_burnt),
             "weight_kg": str(r.weight_kg),
         }
-        for r in logs.order_by("-logged_at")[:10]
+        for r in logs.order_by("-logged_at")[:5]
     ]
 
     return JsonResponse({

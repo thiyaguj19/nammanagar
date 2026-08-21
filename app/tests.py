@@ -32,3 +32,18 @@ class WalkingLogLeaderboardTests(TestCase):
 			["Bala", "Chitra", "Anu"],
 		)
 		self.assertContains(response, 'class="leaderboard-select" data-walker-id="%s"' % walkers[1].id)
+
+	def test_walking_log_data_returns_only_five_recent_walks(self):
+		walker = Walker.objects.create(name="Meera", age=32, weight_kg=Decimal("58.00"))
+		for distance in range(1, 7):
+			WalkLog.objects.create(
+				walker=walker,
+				weight_kg=Decimal("58.00"),
+				distance_km=Decimal(str(distance)),
+				calories_burnt=Decimal("100.00"),
+			)
+
+		response = self.client.get(reverse("walking_log_data"), {"walker_id": walker.id})
+
+		self.assertEqual(response.status_code, 200)
+		self.assertEqual(len(response.json()["recent"]), 5)

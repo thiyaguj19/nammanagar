@@ -273,14 +273,23 @@ def walking_log_data(request):
     today = timezone.localtime().date()
     logs = WalkLog.objects.filter(walker=walker)
 
+    # Don't show empty buckets from before this walker's first-ever log —
+    # e.g. if they only started logging a few days ago, the chart should
+    # start there instead of padding out to a fixed 14-day/8-week window.
+    earliest_log = logs.order_by("logged_at").values_list("logged_at", flat=True).first()
+    earliest_date = earliest_log.date() if earliest_log else today
+
     if range_type == "weekly":
         num_buckets = 8
         this_week_start = today - timedelta(days=today.weekday())
-        bucket_starts = [this_week_start - timedelta(weeks=i) for i in range(num_buckets - 1, -1, -1)]
+        earliest_week_start = earliest_date - timedelta(days=earliest_date.weekday())
+        all_week_starts = [this_week_start - timedelta(weeks=i) for i in range(num_buckets - 1, -1, -1)]
+        bucket_starts = [w for w in all_week_starts if w >= earliest_week_start]
         bucket_field = TruncWeek("logged_at")
     else:
         num_buckets = 14
-        bucket_starts = [today - timedelta(days=i) for i in range(num_buckets - 1, -1, -1)]
+        all_day_starts = [today - timedelta(days=i) for i in range(num_buckets - 1, -1, -1)]
+        bucket_starts = [d for d in all_day_starts if d >= earliest_date]
         bucket_field = TruncDate("logged_at")
 
     rows = (

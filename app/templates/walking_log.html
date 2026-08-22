@@ -441,6 +441,24 @@
             stroke-width: 2;
         }
 
+        .chart-legend {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .legend-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-left: 0.35rem;
+        }
+
+        .legend-dot:first-child {
+            margin-left: 0;
+        }
+
         .weight-labels {
             display: flex;
             justify-content: space-between;
@@ -454,6 +472,262 @@
             place-items: center;
             color: #7b6342;
             font-size: 0.9rem;
+        }
+
+        .section-heading-row {
+            margin-top: 1.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .section-heading-row .section-heading {
+            margin-top: 0;
+        }
+
+        .chart-type-label {
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: #7f6635;
+        }
+
+        .chart-type-toggle {
+            display: inline-flex;
+            gap: 0.35rem;
+            flex-wrap: wrap;
+        }
+
+        .chart-type-toggle button {
+            padding: 0.38rem 0.7rem;
+            border-radius: 999px;
+            border: 1px solid var(--line);
+            background: #fff;
+            color: #536b63;
+            font-weight: 700;
+            font-size: 0.72rem;
+            cursor: pointer;
+            transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+        }
+
+        .chart-type-toggle button:hover:not(.active) {
+            border-color: var(--sun);
+            transform: translateY(-1px);
+        }
+
+        .chart-type-toggle button.active {
+            background: var(--deep);
+            border-color: var(--deep);
+            color: #fff;
+        }
+
+        #weightChartWrap {
+            position: relative;
+        }
+
+        .weight-chart-stage {
+            height: 100%;
+            opacity: 0;
+            transform: translateY(5px);
+            animation: weightFadeIn 0.4s ease forwards;
+        }
+
+        @keyframes weightFadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .weight-line-animated {
+            stroke-dasharray: 300;
+            stroke-dashoffset: 300;
+            animation: weightDraw 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes weightDraw {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        .weight-area {
+            fill: url(#weightAreaGradient);
+            opacity: 0;
+            animation: weightAreaIn 0.9s ease 0.2s forwards;
+        }
+
+        @keyframes weightAreaIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .weight-point-hit {
+            fill: transparent;
+            cursor: pointer;
+        }
+
+        .weight-point {
+            fill: var(--coral);
+            stroke: #fff;
+            stroke-width: 2;
+            transition: r 0.15s ease;
+        }
+
+        .weight-point.is-active {
+            r: 4.4;
+        }
+
+        .chart-tooltip {
+            position: absolute;
+            transform: translate(-50%, -100%);
+            top: 0;
+            left: 0;
+            background: var(--deep);
+            color: #fff;
+            padding: 0.32rem 0.6rem;
+            border-radius: 8px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            white-space: nowrap;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.12s ease;
+            z-index: 5;
+        }
+
+        .chart-tooltip.is-visible {
+            opacity: 1;
+        }
+
+        .chart-tooltip::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 5px solid transparent;
+            border-top-color: var(--deep);
+        }
+
+        .weight-bars {
+            height: 100%;
+            display: grid;
+            grid-auto-flow: column;
+            grid-auto-columns: minmax(20px, 1fr);
+            align-items: end;
+            gap: 0.4rem;
+            padding: 0.4rem 0.2rem 0;
+        }
+
+        .weight-bar-col {
+            height: 100%;
+            display: flex;
+            align-items: end;
+            justify-content: center;
+        }
+
+        .weight-bar {
+            width: min(0.9rem, 60%);
+            border-radius: 5px 5px 0 0;
+            background: linear-gradient(180deg, var(--sun), var(--coral));
+            min-height: 4px;
+            cursor: pointer;
+            transform-origin: bottom;
+            animation: weightBarGrow 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        @keyframes weightBarGrow {
+            from {
+                transform: scaleY(0);
+            }
+            to {
+                transform: scaleY(1);
+            }
+        }
+
+        .weight-ring-wrap {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.6rem;
+            flex-wrap: wrap;
+        }
+
+        .weight-ring-visual {
+            position: relative;
+            width: 132px;
+            height: 132px;
+            flex: none;
+        }
+
+        .weight-ring-svg circle.ring-track {
+            fill: none;
+            stroke: var(--mist);
+            stroke-width: 10;
+        }
+
+        .weight-ring-svg circle.ring-progress {
+            fill: none;
+            stroke: url(#ringGradient);
+            stroke-width: 10;
+            stroke-linecap: round;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+            transition: stroke-dashoffset 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .weight-ring-center {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            text-align: center;
+        }
+
+        .weight-ring-center .value {
+            font-family: "Noto Serif Tamil", serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--deep);
+            line-height: 1.1;
+        }
+
+        .weight-ring-center .unit {
+            font-size: 0.65rem;
+            color: #6a7c75;
+        }
+
+        .weight-ring-stats {
+            display: grid;
+            gap: 0.55rem;
+            min-width: 140px;
+        }
+
+        .weight-ring-stat {
+            font-size: 0.78rem;
+            color: #536b63;
+        }
+
+        .weight-ring-stat b {
+            color: var(--deep);
+        }
+
+        .weight-ring-delta {
+            font-weight: 800;
+        }
+
+        .weight-ring-delta.is-down {
+            color: var(--leaf);
+        }
+
+        .weight-ring-delta.is-up {
+            color: var(--coral);
         }
 
         .section-heading {
@@ -567,8 +841,18 @@
             <button type="button" data-range="weekly">வாராந்திர — Weekly</button>
         </div>
 
-        <div class="chart-wrap">
+        <div class="section-heading-row">
+            <span class="chart-type-label">பட வகை — Chart type</span>
+            <div class="chart-type-toggle" id="walkChartToggle">
+                <button type="button" class="active" data-chart="bars">பட்டை — Bars</button>
+                <button type="button" data-chart="smooth">மென்மை — Smooth</button>
+                <button type="button" data-chart="ring">வளையம் — Ring</button>
+            </div>
+        </div>
+
+        <div class="chart-wrap" id="walkChartWrap">
             <div class="native-chart" id="walkChart" aria-label="Walking distance and calories chart"></div>
+            <div class="chart-tooltip" id="walkTooltip"></div>
         </div>
 
         <h3 class="section-heading">சமீபத்திய பதிவுகள் — Recent walks</h3>
@@ -586,9 +870,17 @@
             </tbody>
         </table>
 
-        <h3 class="section-heading">எடை மாற்றம் — Weight trend</h3>
-        <div class="chart-wrap small">
+        <div class="section-heading-row">
+            <h3 class="section-heading">எடை மாற்றம் — Weight trend</h3>
+            <div class="chart-type-toggle" id="weightChartToggle">
+                <button type="button" class="active" data-chart="smooth">மென்மை — Smooth</button>
+                <button type="button" data-chart="bars">பட்டை — Bars</button>
+                <button type="button" data-chart="ring">வளையம் — Ring</button>
+            </div>
+        </div>
+        <div class="chart-wrap small" id="weightChartWrap">
             <div class="native-chart" id="weightChart" aria-label="Weight trend chart"></div>
+            <div class="chart-tooltip" id="weightTooltip"></div>
         </div>
     </section>
 </main>
@@ -613,6 +905,19 @@ const dashboardName = document.getElementById("dashboardName");
 const profileCard = document.getElementById("profileCard");
 const rangeToggle = document.getElementById("rangeToggle");
 const recentTableBody = document.querySelector("#recentTable tbody");
+const weightChartToggle = document.getElementById("weightChartToggle");
+const weightTooltip = document.getElementById("weightTooltip");
+const walkChartToggle = document.getElementById("walkChartToggle");
+const walkTooltip = document.getElementById("walkTooltip");
+
+let currentWeightChartType = "smooth";
+let lastWeightLabels = [];
+let lastWeightValues = [];
+
+let currentWalkChartType = "bars";
+let lastWalkLabels = [];
+let lastWalkDistance = [];
+let lastWalkCalories = [];
 
 let currentRange = "daily";
 let currentWalkerId = null;
@@ -752,6 +1057,26 @@ rangeToggle.addEventListener("click", function(e) {
     if (currentWalkerId) loadWalkerDashboard(currentWalkerId);
 });
 
+weightChartToggle.addEventListener("click", function(e) {
+    const btn = e.target.closest("button[data-chart]");
+    if (!btn) return;
+    currentWeightChartType = btn.dataset.chart;
+    Array.from(weightChartToggle.querySelectorAll("button")).forEach(function(b) {
+        b.classList.toggle("active", b === btn);
+    });
+    drawWeightChart();
+});
+
+walkChartToggle.addEventListener("click", function(e) {
+    const btn = e.target.closest("button[data-chart]");
+    if (!btn) return;
+    currentWalkChartType = btn.dataset.chart;
+    Array.from(walkChartToggle.querySelectorAll("button")).forEach(function(b) {
+        b.classList.toggle("active", b === btn);
+    });
+    drawWalkChart();
+});
+
 function loadWalkerDashboard(walkerId) {
     if (!walkerId) return;
     fetch(DATA_URL + "?walker_id=" + encodeURIComponent(walkerId) + "&range=" + currentRange)
@@ -776,31 +1101,181 @@ function renderDashboard(data) {
 }
 
 function renderWalkChart(labels, distanceKm, caloriesBurnt) {
-    const chart = document.getElementById("walkChart");
-    const maxDistance = Math.max.apply(null, distanceKm.concat([1]));
-    const maxCalories = Math.max.apply(null, caloriesBurnt.concat([1]));
+    lastWalkLabels = labels;
+    lastWalkDistance = distanceKm;
+    lastWalkCalories = caloriesBurnt;
+    drawWalkChart();
+}
 
-    if (!distanceKm.some(function(value) { return value > 0; })) {
+function drawWalkChart() {
+    const chart = document.getElementById("walkChart");
+    const labels = lastWalkLabels;
+    const distanceKm = lastWalkDistance;
+    const caloriesBurnt = lastWalkCalories;
+    hideTooltip(walkTooltip);
+
+    if (!labels.length || !distanceKm.some(function(value) { return value > 0; })) {
         chart.innerHTML = '<div class="chart-empty">இந்த காலப்பகுதியில் நடைப் பதிவுகள் இல்லை.</div>';
         return;
     }
+    if (currentWalkChartType === "smooth") {
+        renderWalkSmooth(chart, labels, distanceKm, caloriesBurnt);
+    } else if (currentWalkChartType === "ring") {
+        renderWalkRing(chart, labels, distanceKm, caloriesBurnt);
+    } else {
+        renderWalkBars(chart, labels, distanceKm, caloriesBurnt);
+    }
+}
+
+function renderWalkBars(chart, labels, distanceKm, caloriesBurnt) {
+    const maxDistance = Math.max.apply(null, distanceKm.concat([1]));
+    const maxCalories = Math.max.apply(null, caloriesBurnt.concat([1]));
+
     chart.style.setProperty("--chart-items", labels.length);
-    chart.innerHTML = '<div class="distance-chart" style="--chart-items:' + labels.length + '">' + labels.map(function(label, index) {
+    chart.innerHTML = '<div class="weight-chart-stage"><div class="distance-chart" style="--chart-items:' + labels.length + '">' + labels.map(function(label, index) {
         const distanceHeight = Math.max(3, (distanceKm[index] / maxDistance) * 100);
         const calorieHeight = Math.max(3, (caloriesBurnt[index] / maxCalories) * 100);
-        return '<div class="distance-bar-group" title="' + escapeHtml(label) + ': ' + distanceKm[index] + ' km, ' + caloriesBurnt[index] + ' kcal">' +
+        return '<div class="distance-bar-group" data-index="' + index + '" style="animation-delay:' + (index * 0.03) + 's">' +
             '<div class="distance-bars"><span class="distance-bar" style="height:' + distanceHeight + '%"></span>' +
             '<span class="calorie-bar" style="height:' + calorieHeight + '%"></span></div>' +
             '<span class="chart-label">' + escapeHtml(label) + '</span></div>';
-    }).join("") + '</div>';
+    }).join("") + '</div></div>';
+
+    chart.querySelectorAll(".distance-bar-group").forEach(function(group) {
+        group.addEventListener("click", function() {
+            const index = Number(group.dataset.index);
+            const rect = group.getBoundingClientRect();
+            const wrapRect = document.getElementById("walkChartWrap").getBoundingClientRect();
+            showTooltipAtClientPoint(walkTooltip, rect.left + rect.width / 2 - wrapRect.left, rect.top - wrapRect.top,
+                escapeHtml(labels[index]) + " • " + distanceKm[index] + " km, " + caloriesBurnt[index] + " kcal");
+        });
+    });
+}
+
+function renderWalkSmooth(chart, labels, distanceKm, caloriesBurnt) {
+    const maxDistance = Math.max.apply(null, distanceKm.concat([1]));
+    const maxCalories = Math.max.apply(null, caloriesBurnt.concat([1]));
+    const n = labels.length;
+
+    const distancePoints = distanceKm.map(function(value, index) {
+        const x = n === 1 ? 50 : (index / (n - 1)) * 100;
+        return { x: x, y: 90 - (value / maxDistance) * 70 };
+    });
+    const caloriePoints = caloriesBurnt.map(function(value, index) {
+        const x = n === 1 ? 50 : (index / (n - 1)) * 100;
+        return { x: x, y: 90 - (value / maxCalories) * 70 };
+    });
+    const distancePath = catmullRomToBezierPath(distancePoints);
+    const caloriePath = catmullRomToBezierPath(caloriePoints);
+    const distanceArea = distancePath + " L" + distancePoints[n - 1].x + ",100 L" + distancePoints[0].x + ",100 Z";
+
+    chart.innerHTML =
+        '<div class="weight-chart-stage"><div class="weight-chart"><svg viewBox="0 0 100 100" preserveAspectRatio="none" role="img" aria-label="Distance and calories trend">' +
+        '<defs><linearGradient id="walkAreaGradient" x1="0" y1="0" x2="0" y2="1">' +
+        '<stop offset="0%" stop-color="var(--leaf)" stop-opacity="0.28"></stop>' +
+        '<stop offset="100%" stop-color="var(--leaf)" stop-opacity="0"></stop></linearGradient></defs>' +
+        '<path d="' + distanceArea + '" fill="url(#walkAreaGradient)" opacity="0" style="animation: weightAreaIn 0.9s ease 0.2s forwards;"></path>' +
+        '<path class="weight-line-animated" pathLength="300" d="' + distancePath + '" fill="none" stroke="var(--leaf)" stroke-width="2.4" stroke-linecap="round"></path>' +
+        '<path class="weight-line-animated" pathLength="300" d="' + caloriePath + '" fill="none" stroke="var(--coral)" stroke-width="2" stroke-linecap="round" stroke-dasharray="4 2" style="animation-delay:0.1s"></path>' +
+        labels.map(function(label, index) {
+            const slotWidth = 100 / n;
+            const slotX = n === 1 ? 0 : index * slotWidth;
+            return '<rect class="weight-point-hit" data-index="' + index + '" x="' + slotX + '" y="0" width="' + slotWidth + '" height="100"></rect>';
+        }).join('') +
+        '</svg><div class="weight-labels"><span>' + escapeHtml(labels[0]) + '</span><span class="chart-legend"><span class="legend-dot" style="background:var(--leaf)"></span>தூரம்<span class="legend-dot" style="background:var(--coral)"></span>கலோரி</span><span>' + escapeHtml(labels[labels.length - 1]) + '</span></div></div></div>';
+
+    chart.querySelectorAll(".weight-point-hit").forEach(function(rect) {
+        rect.addEventListener("click", function() {
+            const index = Number(rect.dataset.index);
+            const svg = rect.ownerSVGElement;
+            showTooltipAtSvgPoint(svg, walkTooltip, distancePoints[index].x, Math.min(distancePoints[index].y, caloriePoints[index].y),
+                escapeHtml(labels[index]) + " • " + distanceKm[index] + " km, " + caloriesBurnt[index] + " kcal");
+        });
+    });
+}
+
+function renderWalkRing(chart, labels, distanceKm, caloriesBurnt) {
+    const n = labels.length;
+    const maxDistance = Math.max.apply(null, distanceKm);
+    const latestDistance = distanceKm[n - 1];
+    const latestCalories = caloriesBurnt[n - 1];
+    const totalDistance = distanceKm.reduce(function(sum, v) { return sum + v; }, 0);
+    const bestIndex = distanceKm.indexOf(maxDistance);
+    const radius = 52;
+    const circumference = 2 * Math.PI * radius;
+    const fraction = maxDistance > 0 ? latestDistance / maxDistance : 0;
+    const offset = circumference * (1 - fraction);
+
+    chart.innerHTML =
+        '<div class="weight-chart-stage weight-ring-wrap">' +
+        '<div class="weight-ring-visual">' +
+        '<svg class="weight-ring-svg" viewBox="0 0 120 120" width="132" height="132">' +
+        '<defs><linearGradient id="walkRingGradient" x1="0" y1="0" x2="1" y2="1">' +
+        '<stop offset="0%" stop-color="var(--leaf)"></stop><stop offset="100%" stop-color="var(--sun)"></stop></linearGradient></defs>' +
+        '<circle class="ring-track" cx="60" cy="60" r="' + radius + '"></circle>' +
+        '<circle class="ring-progress" cx="60" cy="60" r="' + radius + '" stroke="url(#walkRingGradient)" stroke-dasharray="' + circumference + '" stroke-dashoffset="' + circumference + '"></circle>' +
+        '</svg>' +
+        '<div class="weight-ring-center"><div class="value">' + latestDistance.toFixed(1) + '</div><div class="unit">km</div></div>' +
+        '</div>' +
+        '<div class="weight-ring-stats">' +
+        '<div class="weight-ring-stat">சமீபத்தியது — Latest: <b>' + escapeHtml(labels[n - 1]) + '</b></div>' +
+        '<div class="weight-ring-stat">சிறந்த நாள் — Best: <b>' + maxDistance.toFixed(1) + ' km (' + escapeHtml(labels[bestIndex]) + ')</b></div>' +
+        '<div class="weight-ring-stat">இந்த காலப்பகுதி மொத்தம் — Total: <b>' + totalDistance.toFixed(1) + ' km</b></div>' +
+        '<div class="weight-ring-stat">சமீபத்திய கலோரி — Latest calories: <b>' + Math.round(latestCalories) + '</b></div>' +
+        '</div></div>';
+
+    requestAnimationFrame(function() {
+        const progressCircle = chart.querySelector(".ring-progress");
+        if (progressCircle) progressCircle.style.strokeDashoffset = offset;
+    });
 }
 
 function renderWeightChart(labels, weightKg) {
+    lastWeightLabels = labels;
+    lastWeightValues = weightKg;
+    drawWeightChart();
+}
+
+function drawWeightChart() {
     const chart = document.getElementById("weightChart");
+    const labels = lastWeightLabels;
+    const weightKg = lastWeightValues;
+    hideTooltip(weightTooltip);
+
     if (!weightKg.length) {
         chart.innerHTML = '<div class="chart-empty">எடைப் பதிவுகள் இல்லை.</div>';
         return;
     }
+    if (currentWeightChartType === "bars") {
+        renderWeightBars(chart, labels, weightKg);
+    } else if (currentWeightChartType === "ring") {
+        renderWeightRing(chart, labels, weightKg);
+    } else {
+        renderWeightSmooth(chart, labels, weightKg);
+    }
+}
+
+/* Converts a set of (x,y) points into a smooth SVG path using
+   Catmull-Rom -> cubic Bezier conversion, so the weight trend reads as
+   a soft, continuous curve instead of sharp straight-line segments. */
+function catmullRomToBezierPath(points) {
+    if (points.length < 2) return "";
+    let d = "M" + points[0].x + "," + points[0].y;
+    for (let i = 0; i < points.length - 1; i++) {
+        const p0 = points[i - 1] || points[i];
+        const p1 = points[i];
+        const p2 = points[i + 1];
+        const p3 = points[i + 2] || p2;
+        const c1x = p1.x + (p2.x - p0.x) / 6;
+        const c1y = p1.y + (p2.y - p0.y) / 6;
+        const c2x = p2.x - (p3.x - p1.x) / 6;
+        const c2y = p2.y - (p3.y - p1.y) / 6;
+        d += " C" + c1x + "," + c1y + " " + c2x + "," + c2y + " " + p2.x + "," + p2.y;
+    }
+    return d;
+}
+
+function renderWeightSmooth(chart, labels, weightKg) {
     const minWeight = Math.min.apply(null, weightKg);
     const maxWeight = Math.max.apply(null, weightKg);
     const valueRange = maxWeight - minWeight || 1;
@@ -809,13 +1284,125 @@ function renderWeightChart(labels, weightKg) {
         const y = 90 - ((weight - minWeight) / valueRange) * 70;
         return { x: x, y: y };
     });
-    const line = points.map(function(point) { return point.x + ',' + point.y; }).join(' ');
-    const area = '0,100 ' + line + ' 100,100';
-    chart.innerHTML = '<div class="weight-chart"><svg viewBox="0 0 100 100" preserveAspectRatio="none" role="img" aria-label="Weight from ' + minWeight + ' to ' + maxWeight + ' kg">' +
-        '<polygon class="weight-area" points="' + area + '"></polygon><polyline class="weight-line" points="' + line + '"></polyline>' +
-        points.map(function(point) { return '<circle class="weight-point" cx="' + point.x + '" cy="' + point.y + '" r="2.4"></circle>'; }).join('') +
-        '</svg><div class="weight-labels"><span>' + escapeHtml(labels[0]) + '</span><span>' + minWeight.toFixed(1) + '-' + maxWeight.toFixed(1) + ' kg</span><span>' + escapeHtml(labels[labels.length - 1]) + '</span></div></div>';
+    const linePath = catmullRomToBezierPath(points);
+    const areaPath = linePath + " L" + points[points.length - 1].x + ",100 L" + points[0].x + ",100 Z";
+
+    chart.innerHTML =
+        '<div class="weight-chart-stage"><div class="weight-chart"><svg viewBox="0 0 100 100" preserveAspectRatio="none" role="img" aria-label="Weight from ' + minWeight + ' to ' + maxWeight + ' kg">' +
+        '<defs><linearGradient id="weightAreaGradient" x1="0" y1="0" x2="0" y2="1">' +
+        '<stop offset="0%" stop-color="var(--sun)" stop-opacity="0.35"></stop>' +
+        '<stop offset="100%" stop-color="var(--sun)" stop-opacity="0"></stop></linearGradient></defs>' +
+        '<path class="weight-area" d="' + areaPath + '"></path>' +
+        '<path class="weight-line weight-line-animated" pathLength="300" d="' + linePath + '"></path>' +
+        points.map(function(point, index) {
+            return '<g class="weight-point-group" data-index="' + index + '">' +
+                '<circle class="weight-point-hit" cx="' + point.x + '" cy="' + point.y + '" r="6"></circle>' +
+                '<circle class="weight-point" cx="' + point.x + '" cy="' + point.y + '" r="2.4"></circle></g>';
+        }).join('') +
+        '</svg><div class="weight-labels"><span>' + escapeHtml(labels[0]) + '</span><span>' + minWeight.toFixed(1) + '-' + maxWeight.toFixed(1) + ' kg</span><span>' + escapeHtml(labels[labels.length - 1]) + '</span></div></div></div>';
+
+    chart.querySelectorAll(".weight-point-group").forEach(function(group) {
+        group.addEventListener("click", function(e) {
+            const index = Number(group.dataset.index);
+            const dot = group.querySelector(".weight-point");
+            const rectPoint = points[index];
+            const svg = dot.ownerSVGElement;
+            showTooltipAtSvgPoint(svg, weightTooltip, rectPoint.x, rectPoint.y, escapeHtml(labels[index]) + " • " + weightKg[index] + " kg");
+            document.querySelectorAll(".weight-point.is-active").forEach(function(p) { p.classList.remove("is-active"); });
+            dot.classList.add("is-active");
+        });
+    });
 }
+
+function renderWeightBars(chart, labels, weightKg) {
+    const minWeight = Math.min.apply(null, weightKg);
+    const maxWeight = Math.max.apply(null, weightKg);
+    const valueRange = maxWeight - minWeight || 1;
+
+    chart.innerHTML = '<div class="weight-chart-stage"><div class="weight-bars">' + weightKg.map(function(weight, index) {
+        const height = Math.max(6, ((weight - minWeight) / valueRange) * 100);
+        return '<div class="weight-bar-col"><div class="weight-bar" style="height:' + height + '%;animation-delay:' + (index * 0.03) + 's" data-index="' + index + '"></div></div>';
+    }).join('') + '</div></div>';
+
+    chart.querySelectorAll(".weight-bar").forEach(function(bar) {
+        bar.addEventListener("click", function(e) {
+            const index = Number(bar.dataset.index);
+            const rect = bar.getBoundingClientRect();
+            const wrapRect = document.getElementById("weightChartWrap").getBoundingClientRect();
+            showTooltipAtClientPoint(
+                weightTooltip,
+                rect.left + rect.width / 2 - wrapRect.left,
+                rect.top - wrapRect.top,
+                escapeHtml(labels[index]) + " • " + weightKg[index] + " kg"
+            );
+        });
+    });
+}
+
+function renderWeightRing(chart, labels, weightKg) {
+    const minWeight = Math.min.apply(null, weightKg);
+    const maxWeight = Math.max.apply(null, weightKg);
+    const valueRange = maxWeight - minWeight || 1;
+    const latest = weightKg[weightKg.length - 1];
+    const first = weightKg[0];
+    const delta = latest - first;
+    const radius = 52;
+    const circumference = 2 * Math.PI * radius;
+    const fraction = (latest - minWeight) / valueRange;
+    const offset = circumference * (1 - fraction);
+    const deltaClass = delta < 0 ? "is-down" : (delta > 0 ? "is-up" : "");
+    const deltaLabel = (delta > 0 ? "+" : "") + delta.toFixed(1) + " kg";
+
+    chart.innerHTML =
+        '<div class="weight-chart-stage weight-ring-wrap">' +
+        '<div class="weight-ring-visual">' +
+        '<svg class="weight-ring-svg" viewBox="0 0 120 120" width="132" height="132">' +
+        '<defs><linearGradient id="ringGradient" x1="0" y1="0" x2="1" y2="1">' +
+        '<stop offset="0%" stop-color="var(--sun)"></stop><stop offset="100%" stop-color="var(--coral)"></stop></linearGradient></defs>' +
+        '<circle class="ring-track" cx="60" cy="60" r="' + radius + '"></circle>' +
+        '<circle class="ring-progress" cx="60" cy="60" r="' + radius + '" stroke-dasharray="' + circumference + '" stroke-dashoffset="' + circumference + '"></circle>' +
+        '</svg>' +
+        '<div class="weight-ring-center"><div class="value">' + latest.toFixed(1) + '</div><div class="unit">kg</div></div>' +
+        '</div>' +
+        '<div class="weight-ring-stats">' +
+        '<div class="weight-ring-stat">முதல் பதிவு — First: <b>' + first.toFixed(1) + ' kg</b></div>' +
+        '<div class="weight-ring-stat">வரம்பு — Range: <b>' + minWeight.toFixed(1) + '–' + maxWeight.toFixed(1) + ' kg</b></div>' +
+        '<div class="weight-ring-stat">மாற்றம் — Change: <span class="weight-ring-delta ' + deltaClass + '">' + deltaLabel + '</span></div>' +
+        '</div></div>';
+
+    // Animate the ring in on next frame so the CSS transition actually plays.
+    requestAnimationFrame(function() {
+        const progressCircle = chart.querySelector(".ring-progress");
+        if (progressCircle) progressCircle.style.strokeDashoffset = offset;
+    });
+}
+
+function showTooltipAtSvgPoint(svg, tooltipEl, svgX, svgY, text) {
+    const wrap = tooltipEl.parentElement;
+    const wrapRect = wrap.getBoundingClientRect();
+    const point = svg.createSVGPoint();
+    point.x = svgX;
+    point.y = svgY;
+    const screenPoint = point.matrixTransform(svg.getScreenCTM());
+    showTooltipAtClientPoint(tooltipEl, screenPoint.x - wrapRect.left, screenPoint.y - wrapRect.top, text);
+}
+
+function showTooltipAtClientPoint(tooltipEl, x, y, text) {
+    tooltipEl.style.left = x + "px";
+    tooltipEl.style.top = (y - 8) + "px";
+    tooltipEl.innerText = text;
+    tooltipEl.classList.add("is-visible");
+}
+
+function hideTooltip(tooltipEl) {
+    tooltipEl.classList.remove("is-visible");
+    tooltipEl.innerText = "";
+}
+
+document.addEventListener("click", function(e) {
+    if (!e.target.closest("#weightChartWrap")) hideTooltip(weightTooltip);
+    if (!e.target.closest("#walkChartWrap")) hideTooltip(walkTooltip);
+});
 
 function renderRecentTable(rows) {
     if (!rows.length) {

@@ -410,62 +410,6 @@
             white-space: nowrap;
         }
 
-        .weight-chart {
-            display: grid;
-            grid-template-rows: 1fr auto;
-            gap: 0.4rem;
-            padding: 0.6rem 0.35rem 0;
-        }
-
-        .weight-chart svg {
-            width: 100%;
-            height: 100%;
-            overflow: visible;
-        }
-
-        .weight-area {
-            fill: rgba(205, 161, 90, 0.25);
-        }
-
-        .weight-line {
-            fill: none;
-            stroke: var(--sun);
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            stroke-width: 3;
-        }
-
-        .weight-point {
-            fill: var(--coral);
-            stroke: #fff;
-            stroke-width: 2;
-        }
-
-        .chart-legend {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.25rem;
-        }
-
-        .legend-dot {
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            display: inline-block;
-            margin-left: 0.35rem;
-        }
-
-        .legend-dot:first-child {
-            margin-left: 0;
-        }
-
-        .weight-labels {
-            display: flex;
-            justify-content: space-between;
-            color: #6a7c75;
-            font-size: 0.72rem;
-        }
-
         .chart-empty {
             display: grid;
             height: 100%;
@@ -540,46 +484,6 @@
                 opacity: 1;
                 transform: translateY(0);
             }
-        }
-
-        .weight-line-animated {
-            stroke-dasharray: 300;
-            stroke-dashoffset: 300;
-            animation: weightDraw 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        @keyframes weightDraw {
-            to {
-                stroke-dashoffset: 0;
-            }
-        }
-
-        .weight-area {
-            fill: url(#weightAreaGradient);
-            opacity: 0;
-            animation: weightAreaIn 0.9s ease 0.2s forwards;
-        }
-
-        @keyframes weightAreaIn {
-            to {
-                opacity: 1;
-            }
-        }
-
-        .weight-point-hit {
-            fill: transparent;
-            cursor: pointer;
-        }
-
-        .weight-point {
-            fill: var(--coral);
-            stroke: #fff;
-            stroke-width: 2;
-            transition: r 0.15s ease;
-        }
-
-        .weight-point.is-active {
-            r: 4.4;
         }
 
         .chart-tooltip {
@@ -845,7 +749,6 @@
             <span class="chart-type-label">பட வகை — Chart type</span>
             <div class="chart-type-toggle" id="walkChartToggle">
                 <button type="button" class="active" data-chart="bars">பட்டை — Bars</button>
-                <button type="button" data-chart="smooth">மென்மை — Smooth</button>
                 <button type="button" data-chart="ring">வளையம் — Ring</button>
             </div>
         </div>
@@ -873,8 +776,7 @@
         <div class="section-heading-row">
             <h3 class="section-heading">எடை மாற்றம் — Weight trend</h3>
             <div class="chart-type-toggle" id="weightChartToggle">
-                <button type="button" class="active" data-chart="smooth">மென்மை — Smooth</button>
-                <button type="button" data-chart="bars">பட்டை — Bars</button>
+                <button type="button" class="active" data-chart="bars">பட்டை — Bars</button>
                 <button type="button" data-chart="ring">வளையம் — Ring</button>
             </div>
         </div>
@@ -910,7 +812,7 @@ const weightTooltip = document.getElementById("weightTooltip");
 const walkChartToggle = document.getElementById("walkChartToggle");
 const walkTooltip = document.getElementById("walkTooltip");
 
-let currentWeightChartType = "smooth";
+let currentWeightChartType = "bars";
 let lastWeightLabels = [];
 let lastWeightValues = [];
 
@@ -1118,9 +1020,7 @@ function drawWalkChart() {
         chart.innerHTML = '<div class="chart-empty">இந்த காலப்பகுதியில் நடைப் பதிவுகள் இல்லை.</div>';
         return;
     }
-    if (currentWalkChartType === "smooth") {
-        renderWalkSmooth(chart, labels, distanceKm, caloriesBurnt);
-    } else if (currentWalkChartType === "ring") {
+    if (currentWalkChartType === "ring") {
         renderWalkRing(chart, labels, distanceKm, caloriesBurnt);
     } else {
         renderWalkBars(chart, labels, distanceKm, caloriesBurnt);
@@ -1147,48 +1047,6 @@ function renderWalkBars(chart, labels, distanceKm, caloriesBurnt) {
             const rect = group.getBoundingClientRect();
             const wrapRect = document.getElementById("walkChartWrap").getBoundingClientRect();
             showTooltipAtClientPoint(walkTooltip, rect.left + rect.width / 2 - wrapRect.left, rect.top - wrapRect.top,
-                escapeHtml(labels[index]) + " • " + distanceKm[index] + " km, " + caloriesBurnt[index] + " kcal");
-        });
-    });
-}
-
-function renderWalkSmooth(chart, labels, distanceKm, caloriesBurnt) {
-    const maxDistance = Math.max.apply(null, distanceKm.concat([1]));
-    const maxCalories = Math.max.apply(null, caloriesBurnt.concat([1]));
-    const n = labels.length;
-
-    const distancePoints = distanceKm.map(function(value, index) {
-        const x = n === 1 ? 50 : (index / (n - 1)) * 100;
-        return { x: x, y: 90 - (value / maxDistance) * 70 };
-    });
-    const caloriePoints = caloriesBurnt.map(function(value, index) {
-        const x = n === 1 ? 50 : (index / (n - 1)) * 100;
-        return { x: x, y: 90 - (value / maxCalories) * 70 };
-    });
-    const distancePath = catmullRomToBezierPath(distancePoints);
-    const caloriePath = catmullRomToBezierPath(caloriePoints);
-    const distanceArea = distancePath + " L" + distancePoints[n - 1].x + ",100 L" + distancePoints[0].x + ",100 Z";
-
-    chart.innerHTML =
-        '<div class="weight-chart-stage"><div class="weight-chart"><svg viewBox="0 0 100 100" preserveAspectRatio="none" role="img" aria-label="Distance and calories trend">' +
-        '<defs><linearGradient id="walkAreaGradient" x1="0" y1="0" x2="0" y2="1">' +
-        '<stop offset="0%" stop-color="var(--leaf)" stop-opacity="0.28"></stop>' +
-        '<stop offset="100%" stop-color="var(--leaf)" stop-opacity="0"></stop></linearGradient></defs>' +
-        '<path d="' + distanceArea + '" fill="url(#walkAreaGradient)" opacity="0" style="animation: weightAreaIn 0.9s ease 0.2s forwards;"></path>' +
-        '<path class="weight-line-animated" pathLength="300" d="' + distancePath + '" fill="none" stroke="var(--leaf)" stroke-width="2.4" stroke-linecap="round"></path>' +
-        '<path class="weight-line-animated" pathLength="300" d="' + caloriePath + '" fill="none" stroke="var(--coral)" stroke-width="2" stroke-linecap="round" stroke-dasharray="4 2" style="animation-delay:0.1s"></path>' +
-        labels.map(function(label, index) {
-            const slotWidth = 100 / n;
-            const slotX = n === 1 ? 0 : index * slotWidth;
-            return '<rect class="weight-point-hit" data-index="' + index + '" x="' + slotX + '" y="0" width="' + slotWidth + '" height="100"></rect>';
-        }).join('') +
-        '</svg><div class="weight-labels"><span>' + escapeHtml(labels[0]) + '</span><span class="chart-legend"><span class="legend-dot" style="background:var(--leaf)"></span>தூரம்<span class="legend-dot" style="background:var(--coral)"></span>கலோரி</span><span>' + escapeHtml(labels[labels.length - 1]) + '</span></div></div></div>';
-
-    chart.querySelectorAll(".weight-point-hit").forEach(function(rect) {
-        rect.addEventListener("click", function() {
-            const index = Number(rect.dataset.index);
-            const svg = rect.ownerSVGElement;
-            showTooltipAtSvgPoint(svg, walkTooltip, distancePoints[index].x, Math.min(distancePoints[index].y, caloriePoints[index].y),
                 escapeHtml(labels[index]) + " • " + distanceKm[index] + " km, " + caloriesBurnt[index] + " kcal");
         });
     });
@@ -1246,72 +1104,11 @@ function drawWeightChart() {
         chart.innerHTML = '<div class="chart-empty">எடைப் பதிவுகள் இல்லை.</div>';
         return;
     }
-    if (currentWeightChartType === "bars") {
-        renderWeightBars(chart, labels, weightKg);
-    } else if (currentWeightChartType === "ring") {
+    if (currentWeightChartType === "ring") {
         renderWeightRing(chart, labels, weightKg);
     } else {
-        renderWeightSmooth(chart, labels, weightKg);
+        renderWeightBars(chart, labels, weightKg);
     }
-}
-
-/* Converts a set of (x,y) points into a smooth SVG path using
-   Catmull-Rom -> cubic Bezier conversion, so the weight trend reads as
-   a soft, continuous curve instead of sharp straight-line segments. */
-function catmullRomToBezierPath(points) {
-    if (points.length < 2) return "";
-    let d = "M" + points[0].x + "," + points[0].y;
-    for (let i = 0; i < points.length - 1; i++) {
-        const p0 = points[i - 1] || points[i];
-        const p1 = points[i];
-        const p2 = points[i + 1];
-        const p3 = points[i + 2] || p2;
-        const c1x = p1.x + (p2.x - p0.x) / 6;
-        const c1y = p1.y + (p2.y - p0.y) / 6;
-        const c2x = p2.x - (p3.x - p1.x) / 6;
-        const c2y = p2.y - (p3.y - p1.y) / 6;
-        d += " C" + c1x + "," + c1y + " " + c2x + "," + c2y + " " + p2.x + "," + p2.y;
-    }
-    return d;
-}
-
-function renderWeightSmooth(chart, labels, weightKg) {
-    const minWeight = Math.min.apply(null, weightKg);
-    const maxWeight = Math.max.apply(null, weightKg);
-    const valueRange = maxWeight - minWeight || 1;
-    const points = weightKg.map(function(weight, index) {
-        const x = weightKg.length === 1 ? 50 : (index / (weightKg.length - 1)) * 100;
-        const y = 90 - ((weight - minWeight) / valueRange) * 70;
-        return { x: x, y: y };
-    });
-    const linePath = catmullRomToBezierPath(points);
-    const areaPath = linePath + " L" + points[points.length - 1].x + ",100 L" + points[0].x + ",100 Z";
-
-    chart.innerHTML =
-        '<div class="weight-chart-stage"><div class="weight-chart"><svg viewBox="0 0 100 100" preserveAspectRatio="none" role="img" aria-label="Weight from ' + minWeight + ' to ' + maxWeight + ' kg">' +
-        '<defs><linearGradient id="weightAreaGradient" x1="0" y1="0" x2="0" y2="1">' +
-        '<stop offset="0%" stop-color="var(--sun)" stop-opacity="0.35"></stop>' +
-        '<stop offset="100%" stop-color="var(--sun)" stop-opacity="0"></stop></linearGradient></defs>' +
-        '<path class="weight-area" d="' + areaPath + '"></path>' +
-        '<path class="weight-line weight-line-animated" pathLength="300" d="' + linePath + '"></path>' +
-        points.map(function(point, index) {
-            return '<g class="weight-point-group" data-index="' + index + '">' +
-                '<circle class="weight-point-hit" cx="' + point.x + '" cy="' + point.y + '" r="6"></circle>' +
-                '<circle class="weight-point" cx="' + point.x + '" cy="' + point.y + '" r="2.4"></circle></g>';
-        }).join('') +
-        '</svg><div class="weight-labels"><span>' + escapeHtml(labels[0]) + '</span><span>' + minWeight.toFixed(1) + '-' + maxWeight.toFixed(1) + ' kg</span><span>' + escapeHtml(labels[labels.length - 1]) + '</span></div></div></div>';
-
-    chart.querySelectorAll(".weight-point-group").forEach(function(group) {
-        group.addEventListener("click", function(e) {
-            const index = Number(group.dataset.index);
-            const dot = group.querySelector(".weight-point");
-            const rectPoint = points[index];
-            const svg = dot.ownerSVGElement;
-            showTooltipAtSvgPoint(svg, weightTooltip, rectPoint.x, rectPoint.y, escapeHtml(labels[index]) + " • " + weightKg[index] + " kg");
-            document.querySelectorAll(".weight-point.is-active").forEach(function(p) { p.classList.remove("is-active"); });
-            dot.classList.add("is-active");
-        });
-    });
 }
 
 function renderWeightBars(chart, labels, weightKg) {

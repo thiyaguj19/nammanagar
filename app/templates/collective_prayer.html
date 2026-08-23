@@ -636,48 +636,57 @@
             border-bottom: none;
         }
 
-        .japam-countdown-overlay {
-            margin-top: 1.1rem;
-            padding: 1.6rem 1rem;
+        .japam-card-countdown {
+            position: absolute;
+            inset: 0;
             border-radius: 20px;
-            background: linear-gradient(135deg, rgba(16, 44, 38, 0.92), rgba(47, 101, 83, 0.92));
+            background: linear-gradient(135deg, rgba(16, 44, 38, 0.94), rgba(47, 101, 83, 0.94));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.35rem;
+            padding: 0.8rem;
             text-align: center;
             color: #fff;
+            z-index: 5;
         }
 
-        .japam-countdown-overlay.is-hidden {
+        .japam-card-countdown.is-hidden {
             display: none;
         }
 
         .japam-countdown-number {
             font-family: "Noto Serif Tamil", serif;
-            font-size: 3.4rem;
+            font-size: 2.3rem;
             font-weight: 800;
             line-height: 1;
             color: var(--sun);
         }
 
         .japam-countdown-label {
-            margin-top: 0.5rem;
-            font-size: 1rem;
+            font-size: 0.78rem;
             font-weight: 700;
+            line-height: 1.35;
         }
 
         .japam-countdown-actions {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 0.6rem;
-            margin-top: 1rem;
+            gap: 0.4rem;
+            margin-top: 0.3rem;
         }
 
         .japam-countdown-actions button {
-            background: rgba(255, 255, 255, 0.14);
-            border: 1px solid rgba(255, 255, 255, 0.28);
+            background: rgba(255, 255, 255, 0.16);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 0.42rem 0.7rem;
+            font-size: 0.76rem;
         }
 
         .japam-countdown-actions button:hover {
-            background: rgba(255, 255, 255, 0.26);
+            background: rgba(255, 255, 255, 0.28);
         }
 
         .japam-cards {
@@ -1069,12 +1078,12 @@
             </div>
         </details>
 
-        <div id="japamCountdownOverlay" class="japam-countdown-overlay is-hidden">
+        <div id="japamCountdownOverlay" class="japam-card-countdown is-hidden" onclick="event.stopPropagation()">
             <div class="japam-countdown-number" id="japamCountdownNumber">30</div>
             <div class="japam-countdown-label" id="japamCountdownLabel">தயாராகுங்கள்...</div>
             <div class="japam-countdown-actions">
-                <button type="button" onclick="skipJapamCountdown()">இப்போதே தொடங்கு</button>
-                <button type="button" onclick="cancelJapamCountdown()">ரத்து செய்</button>
+                <button type="button" onclick="event.stopPropagation(); skipJapamCountdown()">இப்போதே தொடங்கு</button>
+                <button type="button" onclick="event.stopPropagation(); cancelJapamCountdown()">ரத்து செய்</button>
             </div>
         </div>
 
@@ -1504,10 +1513,8 @@ function changeLoopCount(event, n) {
     event.stopPropagation();
     japamLoopTarget = n;
     updateLoopPillUI();
-    if (japamActiveCount === 21) {
-        japamLoopRemaining = n;
-        startJapam(21);
-    }
+    japamLoopRemaining = n;
+    beginJapamCountdown(21);
 }
 
 function updateLoopPillUI() {
@@ -1546,11 +1553,11 @@ function beginJapamCountdown(count) {
     const overlay = document.getElementById("japamCountdownOverlay");
     const numberEl = document.getElementById("japamCountdownNumber");
     const labelEl = document.getElementById("japamCountdownLabel");
-    const wrap = document.getElementById("japamPlayerWrap");
     const status = document.getElementById("japamStatus");
+    const targetCard = document.querySelector('.japam-card[data-count="' + count + '"]');
     const config = GAYATHRI_JAPAM[count];
 
-    if (!overlay || !numberEl || !labelEl) {
+    if (!overlay || !numberEl || !labelEl || !targetCard) {
         startJapam(count);
         return;
     }
@@ -1558,15 +1565,16 @@ function beginJapamCountdown(count) {
     japamPendingCount = count;
     highlightJapamCard(count);
 
-    if (wrap) wrap.classList.add("is-hidden");
+    // Move the single shared overlay onto whichever card is starting now.
+    targetCard.appendChild(overlay);
     overlay.classList.remove("is-hidden");
 
     japamCountdownRemaining = JAPAM_START_DELAY_SECONDS;
     numberEl.innerText = japamCountdownRemaining;
-    labelEl.innerText = (config ? config.label : "ஜபம்") + " விரைவில் தொடங்கும் — அனைவரும் தயாராகுங்கள்.";
+    labelEl.innerText = "தயாராகுங்கள்...";
 
     if (status) {
-        status.innerText = "அனைவரும் நிலைப்படுத்திக் கொள்ளுங்கள். " + japamCountdownRemaining + " வினாடிகளில் ஜபம் தொடங்கும்.";
+        status.innerText = (config ? config.label : "ஜபம்") + " — அனைவரும் நிலைப்படுத்திக் கொள்ளுங்கள். " + japamCountdownRemaining + " வினாடிகளில் தொடங்கும்.";
         status.className = "";
     }
 
@@ -1577,7 +1585,6 @@ function beginJapamCountdown(count) {
             clearInterval(japamCountdownInterval);
             japamCountdownInterval = null;
             overlay.classList.add("is-hidden");
-            if (wrap) wrap.classList.remove("is-hidden");
             const startCount = japamPendingCount;
             japamPendingCount = null;
             if (startCount !== null) startJapam(startCount);
@@ -1586,7 +1593,7 @@ function beginJapamCountdown(count) {
 
         numberEl.innerText = japamCountdownRemaining;
         if (status) {
-            status.innerText = "அனைவரும் நிலைப்படுத்திக் கொள்ளுங்கள். " + japamCountdownRemaining + " வினாடிகளில் ஜபம் தொடங்கும்.";
+            status.innerText = (config ? config.label : "ஜபம்") + " — அனைவரும் நிலைப்படுத்திக் கொள்ளுங்கள். " + japamCountdownRemaining + " வினாடிகளில் தொடங்கும்.";
         }
     }, 1000);
 }
@@ -1597,9 +1604,7 @@ function skipJapamCountdown() {
         japamCountdownInterval = null;
     }
     const overlay = document.getElementById("japamCountdownOverlay");
-    const wrap = document.getElementById("japamPlayerWrap");
     if (overlay) overlay.classList.add("is-hidden");
-    if (wrap) wrap.classList.remove("is-hidden");
     const startCount = japamPendingCount;
     japamPendingCount = null;
     if (startCount !== null) startJapam(startCount);
@@ -1624,7 +1629,7 @@ function changeSpeed(event, speed) {
     event.stopPropagation();
     activeSpeed = speed;
     updateSpeedPillUI();
-    startJapam(108);
+    beginJapamCountdown(108);
 }
 
 function updateSpeedPillUI() {

@@ -42,17 +42,12 @@
         }
 
         .page-shell {
-            width: min(100% - 2rem, 1700px);
+            width: min(100% - 2rem, 980px);
             margin: 1.5rem auto 0;
             display: grid;
-            grid-template-columns: minmax(320px, 0.9fr) minmax(520px, 1.08fr) minmax(280px, 0.62fr);
             gap: 1.2rem;
-            align-items: start;
         }
 
-        .intro-panel,
-        .player-panel,
-        .queue-panel,
         .japam-panel {
             min-width: 0;
             background: rgba(255, 255, 255, 0.72);
@@ -60,24 +55,8 @@
             border-radius: 28px;
             box-shadow: 0 18px 38px rgba(16, 44, 38, 0.08);
             backdrop-filter: blur(8px);
-        }
-
-        .japam-panel {
-            grid-column: 1 / -1;
             padding: 1.2rem;
-            position: static;
             margin-bottom: 0.5rem;
-        }
-
-        .intro-panel {
-            padding: clamp(1.8rem, 4vw, 3rem);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .player-panel {
-            padding: clamp(1.4rem, 3vw, 2rem);
         }
 
         .eyebrow {
@@ -92,109 +71,24 @@
         }
 
         h1,
-        h2 {
+        h2,
+        h3 {
             font-family: "Noto Serif Tamil", serif;
             letter-spacing: -0.03em;
             margin: 0;
         }
 
-        .page-title {
-            margin-top: 0.9rem;
-            font-size: clamp(2.4rem, 4vw, 4rem);
-            line-height: 1;
-        }
-
-        .lead {
-            margin: 1rem 0 0;
-            color: #536b63;
-            font-size: 1.03rem;
-            line-height: 1.8;
-            max-width: 34rem;
-        }
-
-        .time-block {
-            margin-top: 1.6rem;
-            padding: 1rem 1.05rem;
-            border-radius: 18px;
-            background: linear-gradient(135deg, rgba(205, 161, 90, 0.16), rgba(255, 255, 255, 0.72));
-            border: 1px solid rgba(205, 161, 90, 0.24);
-        }
-
-        .time-label {
-            color: #7b6342;
-            font-size: 0.8rem;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            font-weight: 800;
-        }
-
-        .time-value {
-            margin-top: 0.32rem;
-            color: var(--coral);
-            font-size: 1.55rem;
-            font-weight: 800;
-        }
-
-        .info-list {
-            margin: 1.6rem 0 0;
-            padding: 0;
-            list-style: none;
-            display: grid;
-            gap: 0.75rem;
-        }
-
-        .info-list li {
-            padding-bottom: 0.75rem;
-            border-bottom: 1px solid var(--line);
-            color: #586e66;
-            line-height: 1.7;
-        }
-
-        .info-list strong {
+        .panel-head {
             display: block;
-            color: var(--deep);
-            margin-bottom: 0.18rem;
+            margin-bottom: 0.4rem;
         }
 
-        .quote {
-            margin-top: 1.8rem;
-            padding-left: 1rem;
-            border-left: 4px solid var(--coral);
-            color: var(--coral);
-            font-family: "Noto Serif Tamil", serif;
-            line-height: 1.6;
-        }
-
-        .detail-card {
-            margin-top: 1.4rem;
-            padding: 1rem 1.05rem;
-            border-radius: 18px;
-            background: rgba(229, 221, 208, 0.48);
-            border: 1px solid rgba(16, 44, 38, 0.08);
-        }
-
-        .detail-card h3,
-        .detail-card h4 {
+        .panel-head p {
             margin: 0;
-            font-size: 1rem;
-            color: var(--deep);
-        }
-
-        .detail-card p {
-            margin: 0.55rem 0 0;
-            color: #586e66;
+            min-width: 0;
+            color: #667b74;
             line-height: 1.7;
-        }
-
-        .prayer-flow {
-            margin: 0.85rem 0 0;
-            padding-left: 1.1rem;
-            color: #425e55;
-            line-height: 1.8;
-        }
-
-        .prayer-flow li + li {
-            margin-top: 0.38rem;
+            max-width: none;
         }
 
         .benefit-block {
@@ -278,302 +172,10 @@
             font-style: normal;
         }
 
-        .panel-head {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 1rem;
-            align-items: end;
-            margin-bottom: 1rem;
-        }
-
-        .panel-head p {
-            margin: 0;
-            min-width: 0;
-            flex: 1 1 auto;
-            color: #667b74;
-            line-height: 1.7;
-            max-width: 20rem;
-        }
-
-        .playlist-meta {
-            margin: 0.8rem 0 1rem;
-            color: #586e66;
-            line-height: 1.7;
-        }
-
-        .playlist-grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 0.75rem;
-            margin-top: 1rem;
-        }
-
-        .playlist-day {
-            padding: 0.9rem 1rem;
-            border-radius: 18px;
-            border: 1px solid rgba(47, 101, 83, 0.16);
-            background: rgba(255, 255, 255, 0.82);
-        }
-
-        .playlist-day strong {
-            display: block;
-            color: var(--deep);
-        }
-
-        .playlist-day span {
-            display: block;
-            margin-top: 0.28rem;
-            color: #6a7c75;
-            font-size: 0.92rem;
-        }
-
-        .playlist-day.active {
-            border-color: rgba(201, 117, 84, 0.45);
-            background: rgba(201, 117, 84, 0.08);
-            box-shadow: inset 0 0 0 1px rgba(201, 117, 84, 0.12);
-        }
-
-        .player-main {
-            min-width: 0;
-        }
-
-        .queue-panel {
-            padding: 1.2rem;
-            position: sticky;
-            top: 1rem;
-        }
-
-        .queue-head {
-            display: flex;
-            justify-content: space-between;
-            gap: 1rem;
-            align-items: start;
-        }
-
-        .queue-head h3,
-        .now-playing-card h4 {
-            margin: 0;
-            color: var(--deep);
-        }
-
-        .queue-head p,
-        .now-playing-meta,
-        .queue-note {
-            margin: 0.45rem 0 0;
-            color: #63766f;
-            line-height: 1.7;
-        }
-
-        .queue-count {
-            padding: 0.45rem 0.7rem;
-            border-radius: 999px;
-            background: rgba(47, 101, 83, 0.08);
-            color: var(--leaf);
-            font-size: 0.82rem;
-            font-weight: 700;
-            white-space: nowrap;
-        }
-
-        .now-playing-card {
-            margin-top: 1rem;
-            padding: 1rem;
-            border-radius: 18px;
-            background: linear-gradient(135deg, rgba(201, 117, 84, 0.12), rgba(255, 255, 255, 0.7));
-            border: 1px solid rgba(201, 117, 84, 0.2);
-        }
-
-        .now-playing-label {
-            display: inline-block;
-            color: #8a5a3f;
-            font-size: 0.76rem;
-            font-weight: 800;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-        }
-
-        .now-playing-title {
-            margin-top: 0.45rem;
-            font-size: 1.05rem;
-            font-weight: 800;
-            color: var(--deep);
-            line-height: 1.5;
-        }
-
-        .input-label {
-            display: block;
-            font-weight: 700;
-            color: #425e55;
-            margin-bottom: 0.55rem;
-        }
-
-        .source-group.is-hidden {
-            display: none;
-        }
-
-        input[type=text] {
-            width: 100%;
-            padding: 0.95rem 1rem;
-            border: 1px solid rgba(47, 101, 83, 0.38);
-            border-radius: 14px;
-            font-size: 1rem;
-            background: rgba(255, 255, 255, 0.9);
-            color: var(--deep);
-        }
-
-        input[type=text]:focus {
-            outline: 2px solid rgba(205, 161, 90, 0.24);
-            border-color: var(--sun);
-        }
-
-        .button-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.7rem;
-            margin-top: 1rem;
-        }
-
-        .playback-controls {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.7rem;
-            margin-top: 0.9rem;
-            align-items: center;
-        }
-
-        button,
-        .button-link {
-            background: var(--leaf);
-            color: #fff;
-            border: none;
-            padding: 0.78rem 1.15rem;
-            border-radius: 999px;
-            font-size: 0.96rem;
-            cursor: pointer;
-            font-weight: 700;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        button:hover,
-        .button-link:hover {
-            background: var(--deep);
-        }
-
-        .button-link.secondary {
-            background: var(--coral);
-        }
-
-        .button-link.secondary:hover {
-            background: #ad6247;
-        }
-
-        .button-link.tertiary {
-            background: #b45309;
-        }
-
-        .button-link.tertiary:hover {
-            background: #92400e;
-        }
-
-        .control-button {
-            background: rgba(47, 101, 83, 0.1);
-            color: var(--leaf);
-            border: 1px solid rgba(47, 101, 83, 0.18);
-        }
-
-        .control-button:hover {
-            background: rgba(47, 101, 83, 0.16);
-            color: var(--deep);
-        }
-
-        .source-inline-link {
-            color: var(--coral);
-            font-weight: 700;
-            text-decoration: none;
-        }
-
-        .source-inline-link:hover {
-            text-decoration: underline;
-        }
-
-        .note {
-            color: #677a72;
-            margin: 0.85rem 0 0;
-            line-height: 1.7;
-        }
-
-        .fallback-box {
-            margin-top: 1rem;
-            padding: 1rem;
-            border-radius: 18px;
-            border: 1px dashed rgba(180, 83, 9, 0.38);
-            background: rgba(251, 191, 36, 0.12);
-        }
-
-        .fallback-box strong {
-            display: block;
-            color: #7c2d12;
-        }
-
-        .fallback-box p {
-            margin: 0.45rem 0 0.9rem;
-            color: #7c2d12;
-            line-height: 1.7;
-        }
-
-        .hosted-tracklist {
-            margin-top: 1rem;
-            display: grid;
-            gap: 0.55rem;
-            max-height: 34rem;
-            overflow: auto;
-            padding-right: 0.1rem;
-        }
-
-        .hosted-track {
-            display: flex;
-            justify-content: space-between;
-            gap: 1rem;
-            padding: 0.8rem 0.95rem;
-            border-radius: 16px;
-            border: 1px solid rgba(47, 101, 83, 0.12);
-            background: rgba(255, 255, 255, 0.78);
-            color: #4b625a;
-            line-height: 1.5;
-        }
-
-        .hosted-track.active {
-            border-color: rgba(201, 117, 84, 0.4);
-            background: rgba(201, 117, 84, 0.1);
-            color: var(--deep);
-        }
-
-        .hosted-track small {
-            color: #7d8e87;
-        }
-
-        .hosted-track.empty {
-            display: block;
-            color: #6a7c75;
-            background: rgba(255, 255, 255, 0.68);
-        }
-
-        .japam-panel .panel-head {
-            display: block;
-            margin-bottom: 0.4rem;
-        }
-
-        .japam-panel .panel-head p {
-            max-width: none;
-        }
-
         .japam-stats-table {
             margin-top: 0.7rem;
             width: 100%;
-            max-width: 30rem;
+            max-width: 40rem;
             border-collapse: collapse;
             border-radius: 14px;
             overflow: hidden;
@@ -584,12 +186,7 @@
         .japam-stats-table td {
             padding: 0.55rem 0.9rem;
             text-align: center;
-            border-bottom: 1px solid rgba(205, 161, 90, 0.2);
-        }
-
-        .japam-stats-table th:first-child,
-        .japam-stats-table td:first-child {
-            text-align: left;
+            border-bottom: none;
         }
 
         .japam-stats-table thead th {
@@ -601,20 +198,10 @@
             font-weight: 800;
         }
 
-        .japam-stats-table tbody th {
-            color: var(--deep);
-            font-weight: 700;
-            background: rgba(255, 255, 255, 0.5);
-        }
-
         .japam-stats-table tbody td {
             color: var(--coral);
             font-weight: 800;
-        }
-
-        .japam-stats-table tbody tr:last-child th,
-        .japam-stats-table tbody tr:last-child td {
-            border-bottom: none;
+            background: rgba(255, 255, 255, 0.5);
         }
 
         .japam-card-countdown {
@@ -796,7 +383,8 @@
             font-size: 0.88rem;
         }
 
-        #japamStatus {
+        #japamStatus,
+        #comboStatus {
             margin-top: 0.9rem;
             font-weight: 700;
             color: var(--leaf);
@@ -804,52 +392,6 @@
             border-radius: 14px;
             background: rgba(47, 101, 83, 0.08);
             font-size: 0.92rem;
-        }
-
-        .video-wrapper {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%;
-            margin-top: 1.2rem;
-            background: #1a1a1a;
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
-        }
-
-        .video-wrapper.is-hidden,
-        .fallback-box.is-hidden {
-            display: none;
-        }
-
-        .video-wrapper div,
-        .video-wrapper iframe,
-        .video-wrapper video,
-        .video-wrapper audio {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            left: 0;
-            top: 0;
-            border: none;
-        }
-
-        .video-wrapper audio {
-            top: auto;
-            bottom: 1rem;
-            left: 1rem;
-            width: calc(100% - 2rem);
-            height: 54px;
-            border-radius: 12px;
-        }
-
-        #status {
-            margin-top: 1rem;
-            font-weight: 700;
-            color: var(--leaf);
-            padding: 0.85rem 1rem;
-            border-radius: 14px;
-            background: rgba(47, 101, 83, 0.08);
         }
 
         .success-status {
@@ -896,48 +438,190 @@
             box-shadow: 0 2px 6px rgba(201, 117, 84, 0.35);
         }
 
-        @media (max-width: 1200px) {
-            .page-shell {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .queue-panel {
-                grid-column: span 2;
-                position: static;
-            }
+        .input-label {
+            display: block;
+            font-weight: 700;
+            color: #425e55;
+            margin-bottom: 0.55rem;
         }
 
-        @media (max-width: 768px) {
-            .page-shell {
-                grid-template-columns: 1fr;
-            }
+        input[type=text],
+        input[type=number] {
+            width: 100%;
+            padding: 0.95rem 1rem;
+            border: 1px solid rgba(47, 101, 83, 0.38);
+            border-radius: 14px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--deep);
+        }
 
-            .queue-panel,
-            .japam-panel {
-                grid-column: auto;
-            }
+        input[type=text]:focus,
+        input[type=number]:focus {
+            outline: 2px solid rgba(205, 161, 90, 0.24);
+            border-color: var(--sun);
+        }
 
-            .japam-cards {
-                grid-template-columns: 1fr;
-            }
+        .button-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.7rem;
+            margin-top: 1rem;
+        }
+
+        button,
+        .button-link {
+            background: var(--leaf);
+            color: #fff;
+            border: none;
+            padding: 0.78rem 1.15rem;
+            border-radius: 999px;
+            font-size: 0.96rem;
+            cursor: pointer;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        button:hover,
+        .button-link:hover {
+            background: var(--deep);
+        }
+
+        button:disabled {
+            background: rgba(47, 101, 83, 0.3);
+            cursor: not-allowed;
+        }
+
+        .button-link.secondary {
+            background: var(--coral);
+        }
+
+        .button-link.secondary:hover {
+            background: #ad6247;
+        }
+
+        .button-link.tertiary {
+            background: #b45309;
+        }
+
+        .button-link.tertiary:hover {
+            background: #92400e;
+        }
+
+        .control-button {
+            background: rgba(47, 101, 83, 0.1);
+            color: var(--leaf);
+            border: 1px solid rgba(47, 101, 83, 0.18);
+        }
+
+        .control-button:hover {
+            background: rgba(47, 101, 83, 0.16);
+            color: var(--deep);
+        }
+
+        /* --- Combined Japam (sequence builder) --- */
+        .combo-picker {
+            margin-top: 1.1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .combo-add-btn {
+            background: rgba(47, 101, 83, 0.1);
+            color: var(--leaf);
+            border: 1px solid rgba(47, 101, 83, 0.22);
+            font-size: 0.88rem;
+            padding: 0.65rem 1rem;
+        }
+
+        .combo-add-btn:hover {
+            background: rgba(201, 117, 84, 0.16);
+            color: var(--coral);
+        }
+
+        .combo-sequence-block {
+            margin-top: 1.2rem;
+            padding: 1rem 1.05rem;
+            border-radius: 18px;
+            background: rgba(229, 221, 208, 0.38);
+            border: 1px solid rgba(16, 44, 38, 0.08);
+        }
+
+        .combo-sequence-head {
+            max-width: 20rem;
+        }
+
+        .combo-sequence-list {
+            margin-top: 1rem;
+            display: grid;
+            gap: 0.55rem;
+        }
+
+        .combo-empty {
+            color: #6a7c75;
+            font-size: 0.92rem;
+            padding: 0.6rem 0.1rem;
+        }
+
+        .combo-item {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            padding: 0.7rem 0.9rem;
+            border-radius: 14px;
+            border: 1px solid rgba(47, 101, 83, 0.16);
+            background: rgba(255, 255, 255, 0.82);
+        }
+
+        .combo-item.active {
+            border-color: rgba(201, 117, 84, 0.5);
+            background: rgba(201, 117, 84, 0.1);
+        }
+
+        .combo-item-index {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.7rem;
+            height: 1.7rem;
+            border-radius: 50%;
+            background: var(--leaf);
+            color: #fff;
+            font-weight: 800;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+
+        .combo-item-label {
+            flex: 1 1 auto;
+            color: var(--deep);
+            font-weight: 700;
+        }
+
+        .combo-item-remove {
+            background: transparent;
+            color: var(--coral);
+            border: none;
+            padding: 0.2rem 0.5rem;
+            font-size: 1rem;
+            line-height: 1;
+        }
+
+        .combo-item-remove:hover {
+            background: rgba(201, 117, 84, 0.12);
         }
 
         @media (max-width: 620px) {
-            .page-shell {
-                width: min(100% - 1.2rem, 1380px);
-            }
-
-            .intro-panel,
-            .player-panel {
+            .japam-panel {
                 border-radius: 20px;
             }
 
             .button-row {
                 flex-direction: column;
-            }
-
-            .playlist-grid {
-                grid-template-columns: 1fr;
             }
 
             button,
@@ -965,19 +649,16 @@
         <table class="japam-stats-table">
             <thead>
                 <tr>
-                    <th></th>
-                    <th>இன்று</th>
-                    <th>மொத்தம்</th>
+                    <th>ஜபம் நிறைவு (இன்று)</th>
+                    <th>ஜபம் நிறைவு (மொத்தம்)</th>
+                    <th>இயக்க நேரம் (இன்று)</th>
+                    <th>இயக்க நேரம் (மொத்தம்)</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <th>ஜபம் நிறைவு (முறை)</th>
                     <td id="japamTodayCount">{{ japam_today_count|default:0 }}</td>
                     <td id="japamTotalCount">{{ japam_total_count|default:0 }}</td>
-                </tr>
-                <tr>
-                    <th>இயக்க நேரம்</th>
                     <td id="japamTodayDuration">{{ japam_today_duration_label|default:"0 நிமிடம்" }}</td>
                     <td id="japamTotalDuration">{{ japam_total_duration_label|default:"0 நிமிடம்" }}</td>
                 </tr>
@@ -1079,296 +760,56 @@
         <div id="japamStatus">ஜபம் எண்ணை தேர்வு செய்து தொடங்குங்கள்.</div>
     </section>
 
-    <!-- 2. Intro Panel (Column 1) -->
-    <section class="intro-panel">
-        <div>
-            <span class="eyebrow">Daily Prayer Room</span>
-            <h1 class="page-title">கூட்டு பிரார்த்தனை</h1>
-            <p class="lead">ஒவ்வொரு நாளுக்கும் தனியான YouTube playlist இணைக்கப்பட்ட கூட்டு பிரார்த்தனை அறை இது. இந்திய நேரப்படி தினமும் இரவு 9:30 மணிக்கு அன்றைய playlist தானாகத் தொடங்க முயலும்.</p>
-
-            <div class="time-block">
-                <div class="time-label">தினசரி பிரார்த்தனை நேரம்</div>
-                <div class="time-value">இரவு 9:30 மணி IST</div>
-            </div>
-
-            <ul class="info-list">
-                <li><strong>தானியங்கி தேர்வு</strong> இன்று என்ன நாள் என IST அடிப்படையில் பார்த்து அதற்கான playlist கீழே ஏற்றப்படும்.</li>
-                <li><strong>Autoplay குறிப்பு</strong> சில browser-கள் user interaction இல்லாமல் video அல்லது audio autoplay-ஐ தடுக்கலாம். அப்படியானால் கீழே உள்ள தொடங்கு பொத்தானை ஒருமுறை அழுத்தினால் audio கேட்கும்.</li>
-            </ul>
-
-            <div class="detail-card">
-                <h3>பிரார்த்தனை அமைப்பு</h3>
-                <p>ஒவ்வொரு நாளும் playlist இந்த ஒரே ஓட்டத்தை பின்பற்றும் வகையில் அமைக்கப்பட்டுள்ளது.</p>
-                <ol class="prayer-flow">
-                    <li>2 நிமிடங்கள் கூட்டு பிரார்த்தனை அறிமுகம் மற்றும் அதன் அவசியம்</li>
-                    <li>4 நிமிடங்கள் கணபதி மந்திரம் அல்லது கணபதி பஜன்</li>
-                    <li>4 முதல் 5 நிமிடங்கள் சாய் அல்லது பல மத பஜன்</li>
-                    <li>4 முதல் 5 நிமிடங்கள் சாய் அல்லது பல மத பஜன்</li>
-                    <li>7 முதல் 10 நிமிடங்கள் மந்திர ஜபம்: ஓம் நம சிவாய, ஓம் சர்வ பாவ நமஹ, ஓம் நமோ பகவதே வாசுதேவாய, காயத்ரி மந்திரம் போன்றவை</li>
-                    <li>5 நிமிடங்கள் சாய் அல்லது பல மத பஜன்</li>
-                    <li>1 முதல் 3 நிமிடங்கள் நிறைவு பிரார்த்தனை</li>
-                    <li>2 முதல் 4 நிமிடங்கள் சாய் காயத்ரி</li>
-                </ol>
-            </div>
-        </div>
-
-        <p class="quote">“பிரார்த்தனையில் ஒற்றுமை இருக்கும் இடத்தில், இல்லத்தில் அமைதி மலரும்.”</p>
-    </section>
-
-    <!-- 3. Player Panel (Column 2) -->
-    <section class="player-panel">
+    <!-- 2. Combined Japam (Sequence) -->
+    <section class="japam-panel combo-panel">
         <div class="panel-head">
             <div>
-                <span class="eyebrow">Prayer Player</span>
-                <h2 style="margin-top: 0.5rem; font-size: clamp(1.8rem, 3vw, 2.7rem);">பிரார்த்தனை இயக்கி</h2>
+                <span class="eyebrow">Combined Japam</span>
+                <h3 style="margin-top: 0.45rem; font-size: 1.35rem;">தொடர் ஜபம் — பல ஜபங்களை இணைத்து இயக்குங்கள்</h3>
             </div>
-            <p>இந்த player desktop மற்றும் mobile இரண்டிலும் வேலை செய்யும் வகையில் அமைக்கப்பட்டுள்ளது.</p>
+            <p>கீழே உள்ள ஜபங்களைத் தேர்ந்தெடுத்து வரிசையை உருவாக்கவும். ஒவ்வொரு ஜபத்திற்கும் இடையே இடைவெளியை (வினாடிகளில்) அமைக்கலாம். எ.கா. ஓம் ஜபம் + 21 காயத்ரி ஜபம், அல்லது ஓம் ஜபம் + 108 காயத்ரி ஜபம்.</p>
         </div>
 
-        <p id="todayPlaylistMeta" class="playlist-meta">இன்றைய playlist ஏற்றப்படுகிறது...</p>
-
-        <div id="playlistGrid" class="playlist-grid">
-            <div class="playlist-day" data-day="Monday"><strong>திங்கள்</strong><span>Monday playlist</span></div>
-            <div class="playlist-day" data-day="Tuesday"><strong>செவ்வாய்</strong><span>Tuesday playlist</span></div>
-            <div class="playlist-day" data-day="Wednesday"><strong>புதன்</strong><span>Wednesday playlist</span></div>
-            <div class="playlist-day" data-day="Thursday"><strong>வியாழன்</strong><span>Thursday playlist</span></div>
-            <div class="playlist-day" data-day="Friday"><strong>வெள்ளி</strong><span>Friday playlist</span></div>
-            <div class="playlist-day" data-day="Saturday"><strong>சனி</strong><span>Saturday playlist</span></div>
-            <div class="playlist-day" data-day="Sunday"><strong>ஞாயிறு</strong><span>Sunday playlist</span></div>
+        <div class="combo-picker">
+            <button type="button" class="combo-add-btn" onclick="addComboItem(21)">+ 21 காயத்ரி ஜபம்</button>
+            <button type="button" class="combo-add-btn" onclick="addComboItem(108)">+ 108 காயத்ரி ஜபம்</button>
+            <button type="button" class="combo-add-btn" onclick="addComboItem('om')">+ ஓம் ஜபம்</button>
+            <button type="button" class="combo-add-btn" onclick="addComboItem('shivaya')">+ ஓம் நமः சிவாய ஜபம்</button>
         </div>
 
-        <div class="player-main">
-            <div id="sourceGroup" class="source-group">
-                <label class="input-label" for="youtubeUrl">இன்றைய prayer source</label>
-                <input
-                    type="text"
-                    id="youtubeUrl"
-                    value=""
-                    placeholder="இன்றைய source தானாக நிரப்பப்படும்">
+        <div class="combo-sequence-block">
+            <div class="combo-sequence-head">
+                <label class="input-label" for="comboGapSeconds">ஜபங்களுக்கு இடையே இடைவெளி (வினாடிகள்)</label>
+                <input type="number" id="comboGapSeconds" min="0" step="1" value="30" oninput="updateComboGap(this.value)">
+            </div>
+
+            <div id="comboSequenceList" class="combo-sequence-list">
+                <div class="combo-empty">மேலே உள்ள ஜபங்களைத் தேர்ந்தெடுத்து வரிசையை உருவாக்குங்கள்.</div>
             </div>
 
             <div class="button-row">
-                <button onclick="loadTodayPlaylist(false)" type="button">இன்றைய பிரார்த்தனை தொடங்கு</button>
-                <button onclick="loadYouTube()" type="button">இந்த source-ஐ தொடங்கு</button>
+                <button id="comboStartBtn" type="button" onclick="startComboJapam()" disabled>தொடர் ஜபம் தொடங்கு</button>
+                <button type="button" class="control-button" onclick="clearComboSequence()">வரிசையை அழி</button>
             </div>
-
-            <div class="playback-controls">
-                <button class="control-button" onclick="pausePlayback()" type="button">Pause</button>
-                <button class="control-button" onclick="resumePlayback()" type="button">Resume</button>
-                <button class="control-button" onclick="restartPlayback()" type="button">Restart</button>
-                <a
-                    id="youtubeLink"
-                    class="source-inline-link"
-                    href="https://www.youtube.com/playlist?list=PLEADJIa32huQ"
-                    target="_blank"
-                    rel="noopener">Source திறக்க</a>
-                <a
-                    id="youtubeAudioLink"
-                    class="source-inline-link"
-                    href="https://www.youtube.com/playlist?list=PLEADJIa32huQ"
-                    target="_self"
-                    rel="noopener">Audio mode</a>
-            </div>
-
-            <p class="note">பக்கம் திறந்த நிலையில் இருந்தால் இரவு 9:30 IST-க்கு autoplay முயற்சி செய்யும். Browser autoplay-ஐ தடுத்தால், மேலே உள்ள தொடங்கு பொத்தானை அழுத்தினால் audio உடனே கேட்கும்.</p>
-
-            <div class="fallback-box">
-                <strong>Embed block ஆனால் என்ன ஆகும்?</strong>
-                <p>புதன், வெள்ளி மற்றும் சனிக்கிழமைகளுக்கு Nammanagar S3-ல் hosted செய்யப்பட்ட audio/video tracks பயன்படுத்தப்படும். மற்ற நாட்களில் YouTube embed block ஆனால், இந்தப் பக்கத்திலிருந்து source link திறந்து audio கேட்கலாம்.</p>
-            </div>
-
-            <div class="video-wrapper">
-                <div id="youtubePlayer"></div>
-            </div>
-
-            <div id="status">தயார். இன்றைய playlist தானாகத் தேர்வு செய்யப்பட்டுள்ளது.</div>
         </div>
+
+        <div id="comboPlayerWrap" class="japam-player-wrap is-hidden"></div>
+
+        <div class="japam-controls">
+            <button class="control-button" onclick="pauseComboJapam()" type="button">Pause</button>
+            <button class="control-button" onclick="resumeComboJapam()" type="button">Resume</button>
+            <button class="control-button" onclick="stopComboJapam()" type="button">Stop</button>
+        </div>
+
+        <div id="comboStatus">ஜபங்களைத் தேர்ந்தெடுத்து தொடர் ஜபத்தைத் தொடங்குங்கள்.</div>
     </section>
 
-    <!-- 4. Queue Panel (Column 3) -->
-    <aside class="queue-panel">
-        <div class="queue-head">
-            <div>
-                <span class="eyebrow">Track Queue</span>
-                <h3 style="margin-top: 0.45rem; font-size: 1.35rem;">இயங்கும் Track</h3>
-                <p class="queue-note" id="queueHint">Hosted track list இங்கே உடனே தெரியும்.</p>
-            </div>
-            <span id="queueCount" class="queue-count">0 tracks</span>
-        </div>
-
-        <div class="now-playing-card">
-            <span class="now-playing-label">Now Playing</span>
-            <div id="currentTrackName" class="now-playing-title">பிரார்த்தனை தொடங்கவில்லை</div>
-            <p id="currentTrackMeta" class="now-playing-meta">இன்றைய source தேர்வு செய்யப்பட்டவுடன் track விவரம் இங்கே வரும்.</p>
-        </div>
-
-        <div id="hostedTrackList" class="hosted-tracklist"></div>
-    </aside>
 </main>
 
 {% include 'partials/site_footer.html' %}
 
-<script src="https://www.youtube.com/iframe_api"></script>
 
 <script>
-const PLAYLISTS = {
-    Monday: {
-        source: "youtube",
-        id: "PLEBSW6sKqSCw",
-        url: "https://www.youtube.com/playlist?list=PLEBSW6sKqSCw",
-        tamil: "திங்கள்"
-    },
-    Tuesday: {
-        source: "youtube",
-        id: "PLWK1-1a48feY",
-        url: "https://www.youtube.com/playlist?list=PLWK1-1a48feY",
-        tamil: "செவ்வாய்"
-    },
-    Wednesday: {
-        source: "hosted",
-        url: "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/01_Collective+Prayer.webm",
-        tamil: "புதன்",
-        media: [
-            {
-                title: "Collective Prayer Introduction",
-                duration: "Opening",
-                url: "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/01_Collective+Prayer.webm"
-            },
-            {
-                title: "Shuklambaradharam Ganapathi Mantram",
-                duration: "Ganapathi",
-                url: "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/02_Shuklambaradharam_Ganapathi_Mantram.webm"
-            },
-            {
-                title: "Kasturi Tilakam Narayanam",
-                duration: "Bhajan",
-                url: "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/14_Kasturi%20Tilakam%20Narayanam.webm"
-            },
-            {
-                title: "Om Namo Bhagavate Vasudevaya",
-                duration: "Chanting",
-                url: "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/15_Om%20Namo%20Bhagavate%20Vasudevaya.webm"
-            },
-            {
-                title: "Vizhi Kidaithadhu",
-                duration: "Bhajan",
-                url: "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/16_Vizhi%20Kidaithadhu.webm"
-            },
-            {
-                title: "Samastha Lokah Sukhino Bhavanthu",
-                duration: "Closing",
-                url: "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/07_Samastha+Lokah+Sukhino+Bhavanthu!.webm"
-            },
-            {
-                title: "Thank You",
-                duration: "End",
-                url: "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/08_Thank+You.webm"
-            }
-        ]
-    },
-    Thursday: {
-        source: "youtube",
-        id: "PLfNcyq292CVQ",
-        url: "https://www.youtube.com/playlist?list=PLfNcyq292CVQ",
-        tamil: "வியாழன்"
-    },
-    Friday: {
-        source: "hosted",
-        url: "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/01_Collective+Prayer.webm",
-        tamil: "வெள்ளி",
-        media: [
-            {
-                title: "Collective Prayer Introduction",
-                duration: "2 min",
-                url: "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/01_Collective+Prayer.webm"
-            },
-            {
-                title: "Shuklambaradharam Ganapathi Mantram",
-                duration: "4 min",
-                url: "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/02_Shuklambaradharam_Ganapathi_Mantram.webm"
-            },
-            {
-                title: "Devi Neeye Thunai",
-                duration: "4-5 min",
-                url: "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/03_Devi+Neeye+Thunai.webm"
-            },
-            {
-                title: "Kandu Konden Nan Kandu Konden",
-                duration: "4-5 min",
-                url: "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/04_Kandu+Konden+Nan+Kandu+Konden.webm"
-            },
-            {
-                title: "Gayatri Mantra Chanting",
-                duration: "7-10 min",
-                url: "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/05_Gayatri_Mantra_Chanting.m4a"
-            },
-            {
-                title: "Mannanaalum Parthipuriyil Mannaven",
-                duration: "5 min",
-                url: "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/06_Mannanaalum+Parthipuriyil+Mannaven.webm"
-            },
-            {
-                title: "Samastha Lokah Sukhino Bhavanthu",
-                duration: "1-3 min",
-                url: "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/07_Samastha+Lokah+Sukhino+Bhavanthu!.webm"
-            },
-            {
-                title: "Thank You",
-                duration: "2-4 min",
-                url: "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/08_Thank+You.webm"
-            }
-        ]
-    },
-    Saturday: {
-        source: "hosted",
-        url: "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/01_Collective+Prayer.webm",
-        tamil: "சனி",
-        media: [
-            {
-                title: "Collective Prayer Introduction",
-                duration: "Opening",
-                url: "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/01_Collective+Prayer.webm"
-            },
-            {
-                title: "Hari Sri Ganapathi Om",
-                duration: "Ganapathi",
-                url: "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/09_Hari+Sri+Ganapathi+Om.webm"
-            },
-            {
-                title: "OM Chanting",
-                duration: "Chanting",
-                url: "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/10_OM+Chanting.webm"
-            },
-            {
-                title: "Hare Rama Hare Krishna",
-                duration: "Bhajan",
-                url: "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/11_Hare+Rama+Hare+Krishna.webm"
-            },
-            {
-                title: "Minute Deep Meditation Music for Positive Energy",
-                duration: "Meditation",
-                url: "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/13_Minute+Deep+Meditation+Music+for+Positive+Energy.webm"
-            },
-            {
-                title: "Om sahana vavatu",
-                duration: "Closing",
-                url: "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/12_Om+sahana+vavatu.webm"
-            },
-            {
-                title: "Thank You",
-                duration: "End",
-                url: "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/friday/08_Thank+You.webm"
-            }
-        ]
-    },
-    Sunday: {
-        source: "youtube",
-        id: "PLEADJIa32huQ",
-        url: "https://www.youtube.com/playlist?list=PLEADJIa32huQ",
-        tamil: "ஞாயிறு"
-    }
-};
-
 const GAYATHRI_JAPAM = {
     21: {
         label: "21 முறை காயத்ரி ஜபம்",
@@ -1965,519 +1406,259 @@ function renderAllJapamTypeStats() {
     });
 }
 
-const AUTOPLAY_HOUR_IST = 21;
-const AUTOPLAY_MINUTE_IST = 30;
-let player = null;
-let lastAutoStartDate = "";
-let lastRequestedUrl = "";
-let lastRequestedMode = "manual";
-let hostedPlayer = null;
-let hostedPlaylist = [];
-let hostedTrackIndex = 0;
-let activeHostedLabel = "";
+/* ---------------------------------------------------------------
+   Combined Japam — lets someone chain several japam types (e.g. Om
+   + 21 Gayathri, or Om + 108 Gayathri) into one sequence with a
+   configurable break (in seconds) between each one. Every item in
+   the sequence is recorded through the same recordJapamCompletion()
+   call the single-japam player uses, so the combined play time
+   automatically flows into the ஜபம் நிறைவு / இயக்க நேரம் counters
+   above (per-run and per chant type).
+   ------------------------------------------------------------- */
+let comboSequence = [];
+let comboGapSeconds = 30;
+let comboIndex = -1;
+let comboPlayerEl = null;
+let comboShouldBePlaying = false;
+let comboGapInterval = null;
 
-function onYouTubeIframeAPIReady() {
-    syncTodayPlaylist();
-    maybeStartScheduledPrayer();
+function addComboItem(key) {
+    comboSequence.push(key);
+    renderComboSequence();
 }
 
-function getIstNow() {
-    const now = new Date();
-    const weekday = new Intl.DateTimeFormat("en-US", {
-        timeZone: "Asia/Kolkata",
-        weekday: "long"
-    }).format(now);
-    const hour = Number(new Intl.DateTimeFormat("en-GB", {
-        timeZone: "Asia/Kolkata",
-        hour: "2-digit",
-        hour12: false
-    }).format(now));
-    const minute = Number(new Intl.DateTimeFormat("en-GB", {
-        timeZone: "Asia/Kolkata",
-        minute: "2-digit"
-    }).format(now));
-    const dateKey = new Intl.DateTimeFormat("en-CA", {
-        timeZone: "Asia/Kolkata",
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit"
-    }).format(now);
-
-    return { weekday, hour, minute, dateKey };
+function removeComboItem(index) {
+    comboSequence.splice(index, 1);
+    renderComboSequence();
 }
 
-function getTodayPlaylist() {
-    const ist = getIstNow();
-    return {
-        ...ist,
-        playlist: PLAYLISTS[ist.weekday] || PLAYLISTS.Sunday
-    };
+function clearComboSequence() {
+    stopComboJapam();
+    comboSequence = [];
+    renderComboSequence();
 }
 
-function hasHostedTrackInProgress() {
-    return Boolean(
-        hostedPlayer &&
-        hostedPlaylist.length > 0 &&
-        hostedPlaylist[hostedTrackIndex]
-    );
+function renderComboSequence() {
+    const list = document.getElementById("comboSequenceList");
+    const startBtn = document.getElementById("comboStartBtn");
+    if (!list) return;
+
+    if (comboSequence.length === 0) {
+        list.innerHTML = '<div class="combo-empty">மேலே உள்ள ஜபங்களைத் தேர்ந்தெடுத்து வரிசையை உருவாக்குங்கள்.</div>';
+    } else {
+        list.innerHTML = comboSequence.map(function(key, idx) {
+            const config = GAYATHRI_JAPAM[key];
+            const label = config ? config.label : String(key);
+            return '<div class="combo-item" data-combo-index="' + idx + '">'
+                + '<span class="combo-item-index">' + (idx + 1) + '</span>'
+                + '<span class="combo-item-label">' + label + '</span>'
+                + '<button type="button" class="combo-item-remove" onclick="removeComboItem(' + idx + ')" title="நீக்கு">\u2715</button>'
+                + '</div>';
+        }).join("");
+    }
+
+    if (startBtn) startBtn.disabled = comboSequence.length === 0;
 }
 
-function getHostedStatusLabel() {
-    return activeHostedLabel || "Hosted prayer";
+function updateComboGap(value) {
+    const n = parseInt(value, 10);
+    comboGapSeconds = (Number.isFinite(n) && n >= 0) ? n : 0;
 }
 
-function updatePlaylistMeta() {
-    const info = getTodayPlaylist();
-    const meta = document.getElementById("todayPlaylistMeta");
-    const input = document.getElementById("youtubeUrl");
-    const sourceGroup = document.getElementById("sourceGroup");
-    const youtubeLink = document.getElementById("youtubeLink");
-    const youtubeAudioLink = document.getElementById("youtubeAudioLink");
-    const fallbackBox = document.querySelector(".fallback-box");
-    const wrapper = document.querySelector(".video-wrapper");
-    const cards = document.querySelectorAll(".playlist-day");
+function highlightComboItem(index) {
+    document.querySelectorAll("#comboSequenceList .combo-item").forEach(function(item) {
+        item.classList.toggle("active", Number(item.dataset.comboIndex) === index);
+    });
+}
 
-    if (meta) {
-        meta.innerText = info.playlist.source === "hosted"
-            ? info.playlist.tamil + " கிழமையிற்கான hosted prayer tracks தயார். தினசரி autoplay நேரம்: இரவு 9:30 IST."
-            : info.playlist.tamil + " கிழமையிற்கான playlist தயார். தினசரி autoplay நேரம்: இரவு 9:30 IST.";
+function startComboJapam() {
+    if (comboSequence.length === 0) return;
+    comboShouldBePlaying = true;
+    comboIndex = 0;
+    playComboItem(0);
+}
+
+function playComboItem(index) {
+    const status = document.getElementById("comboStatus");
+    const wrap = document.getElementById("comboPlayerWrap");
+    if (!status || !wrap) return;
+
+    if (!comboShouldBePlaying) return;
+
+    if (index >= comboSequence.length) {
+        status.innerText = "தொடர் ஜபம் (" + comboSequence.length + " ஜபங்கள்) நிறைவு பெற்றது. \ud83d\ude4f";
+        status.className = "success-status";
+        comboShouldBePlaying = false;
+        comboIndex = -1;
+        highlightComboItem(-1);
+        return;
     }
 
-    if (input) {
-        input.value = info.playlist.url;
+    comboIndex = index;
+    const key = comboSequence[index];
+    const config = GAYATHRI_JAPAM[key];
+    if (!config) {
+        playComboItem(index + 1);
+        return;
     }
 
-    if (sourceGroup) {
-        sourceGroup.classList.toggle("is-hidden", info.playlist.source === "hosted");
+    highlightComboItem(index);
+    wrap.classList.remove("is-hidden");
+    wrap.innerHTML = "";
+    status.innerText = "(" + (index + 1) + "/" + comboSequence.length + ") " + config.label + " தொடங்குகிறது...";
+    status.className = "";
+
+    const useVideo = Boolean(config.video);
+    playComboMedia(config, key, index, useVideo);
+}
+
+function playComboMedia(config, key, index, useVideo) {
+    const status = document.getElementById("comboStatus");
+    const wrap = document.getElementById("comboPlayerWrap");
+    if (!status || !wrap) return;
+
+    const audioUrl = typeof config.audio === "object"
+        ? (config.audio["1.0x"] || Object.values(config.audio)[0])
+        : config.audio;
+
+    const el = document.createElement(useVideo ? "video" : "audio");
+    el.id = "comboPlayer";
+    el.controls = true;
+    el.autoplay = true;
+    el.playsInline = true;
+    el.preload = "auto";
+    el.src = useVideo ? config.video : audioUrl;
+
+    if (useVideo) {
+        el.addEventListener("error", function onErr() {
+            el.removeEventListener("error", onErr);
+            wrap.innerHTML = "";
+            playComboMedia(config, key, index, false);
+        }, { once: true });
     }
 
-    if (youtubeLink) {
-        youtubeLink.href = info.playlist.url;
-    }
-
-    if (youtubeAudioLink) {
-        youtubeAudioLink.href = info.playlist.url;
-    }
-
-    if (youtubeLink) {
-        youtubeLink.innerText = info.playlist.source === "hosted" ? "முதல் track திறக்க" : "Source திறக்க";
-    }
-
-    if (youtubeAudioLink) {
-        youtubeAudioLink.innerText = info.playlist.source === "hosted" ? "Hosted audio mode" : "Audio mode";
-    }
-
-    cards.forEach(function(card) {
-        card.classList.toggle("active", card.dataset.day === info.weekday);
+    el.addEventListener("ended", function() {
+        recordJapamCompletion(key, el.duration || 0);
+        comboAdvanceAfterItem(index);
     });
 
-    if (fallbackBox) {
-        fallbackBox.classList.toggle("is-hidden", info.playlist.source === "hosted");
-    }
-
-    if (wrapper) {
-        wrapper.classList.toggle("is-hidden", info.playlist.source === "hosted" && !hasHostedTrackInProgress());
-    }
-
-    if (!hasHostedTrackInProgress()) {
-        updateNowPlaying(
-            info.playlist.source === "hosted" ? "Hosted prayer தயார்" : info.playlist.tamil + " playlist தயார்",
-            info.playlist.source === "hosted"
-                ? "இந்த நாளுக்கான individual tracks வலப்புறத்தில் காண்பிக்கப்படும்."
-                : "இந்த நாளுக்கான YouTube source பயன்படுத்தப்படும். Hosted track queue இல்லை."
-        );
-    }
-    renderHostedTrackList(info.playlist.source === "hosted" ? info.playlist.media : []);
-}
-
-function syncTodayPlaylist() {
-    updatePlaylistMeta();
-}
-
-function loadYouTube() {
-    const input = document.getElementById("youtubeUrl");
-    if (!input) return;
-    loadYouTubeFromUrl(input.value.trim(), false);
-}
-
-function loadTodayPlaylist(isAutoTriggered) {
-    const info = getTodayPlaylist();
-    if (info.playlist.source === "hosted") {
-        startHostedPlaylist(info.playlist, isAutoTriggered);
-        return;
-    }
-
-    loadYouTubeFromUrl(info.playlist.url, isAutoTriggered);
-}
-
-function renderHostedTrackList(tracks) {
-    const trackList = document.getElementById("hostedTrackList");
-    const queueCount = document.getElementById("queueCount");
-    const queueHint = document.getElementById("queueHint");
-    if (!trackList) {
-        return;
-    }
-
-    if (!tracks || tracks.length === 0) {
-        if (queueCount) {
-            queueCount.innerText = "0 tracks";
+    el.addEventListener("pause", function() {
+        if (comboShouldBePlaying && document.visibilityState === "visible" && comboIndex === index) {
+            const p = el.play();
+            if (p && typeof p.then === "function") p.catch(function() {});
         }
-        if (queueHint) {
-            queueHint.innerText = "YouTube நாட்களில் individual hosted track queue இருக்காது.";
-        }
-        trackList.innerHTML = '<div class="hosted-track empty">இந்த நாளுக்கான hosted track list இல்லை. மேலே உள்ள player source வழியாக பிரார்த்தனை ஒலியும் / video-வும் இயங்கும்.</div>';
-        return;
-    }
-
-    if (queueCount) {
-        queueCount.innerText = tracks.length + " tracks";
-    }
-
-    if (queueHint) {
-        queueHint.innerText = "இப்போது இயங்கும் track highlight ஆகும். அடுத்த track தானாக தொடரும்.";
-    }
-
-    trackList.innerHTML = tracks.map(function(track, index) {
-        return '<div class="hosted-track' + (index === hostedTrackIndex && hostedPlaylist === tracks ? ' active' : '') + '" data-track-index="' + index + '"><span>' + (index + 1) + '. ' + track.title + '</span><small>' + track.duration + '</small></div>';
-    }).join('');
-}
-
-function updateNowPlaying(title, meta) {
-    const currentTrackName = document.getElementById("currentTrackName");
-    const currentTrackMeta = document.getElementById("currentTrackMeta");
-
-    if (currentTrackName) {
-        currentTrackName.innerText = title;
-    }
-
-    if (currentTrackMeta) {
-        currentTrackMeta.innerText = meta;
-    }
-}
-
-function highlightHostedTrack(index) {
-    const trackList = document.getElementById("hostedTrackList");
-    if (!trackList) {
-        return;
-    }
-
-    trackList.querySelectorAll(".hosted-track").forEach(function(item) {
-        item.classList.toggle("active", Number(item.dataset.trackIndex) === index);
-    });
-}
-
-function resetHostedPlayer() {
-    hostedPlayer = null;
-    hostedPlaylist = [];
-    hostedTrackIndex = 0;
-    activeHostedLabel = "";
-}
-
-function startHostedPlaylist(playlistConfig, isAutoTriggered) {
-    const status = document.getElementById("status");
-    const wrapper = document.querySelector(".video-wrapper");
-    const input = document.getElementById("youtubeUrl");
-    const youtubeLink = document.getElementById("youtubeLink");
-    const youtubeAudioLink = document.getElementById("youtubeAudioLink");
-
-    if (!status || !wrapper || !input || !youtubeLink || !youtubeAudioLink || !playlistConfig.media || playlistConfig.media.length === 0) {
-        return;
-    }
-
-    if (player) {
-        try { player.destroy(); } catch (err) {}
-        player = null;
-    }
-
-    hostedPlaylist = playlistConfig.media;
-    hostedTrackIndex = 0;
-    activeHostedLabel = playlistConfig.tamil ? playlistConfig.tamil + " hosted prayer" : "Hosted prayer";
-    input.value = playlistConfig.url;
-    youtubeLink.href = playlistConfig.media[0].url;
-    youtubeAudioLink.href = playlistConfig.media[0].url;
-    youtubeLink.innerText = "முதல் track திறக்க";
-    youtubeAudioLink.innerText = "Hosted audio mode";
-    wrapper.classList.remove("is-hidden");
-
-    wrapper.innerHTML = '<audio id="hostedPrayerPlayer" controls autoplay preload="auto" playsinline></audio>';
-    hostedPlayer = document.getElementById("hostedPrayerPlayer");
-
-    if (!hostedPlayer) {
-        return;
-    }
-
-    hostedPlayer.addEventListener("ended", function() {
-        playHostedTrack(hostedTrackIndex + 1, false);
     });
 
-    renderHostedTrackList(hostedPlaylist);
-    updateNowPlaying("Hosted prayer தொடங்குகிறது", "முதல் track ஏற்றப்படுகிறது.");
-    playHostedTrack(0, isAutoTriggered);
-}
+    wrap.appendChild(el);
+    comboPlayerEl = el;
 
-function playHostedTrack(index, isAutoTriggered) {
-    const status = document.getElementById("status");
-    if (!hostedPlayer || !hostedPlaylist[index] || !status) {
-        return;
-    }
-
-    hostedTrackIndex = index;
-    const track = hostedPlaylist[index];
-    hostedPlayer.src = track.url;
-    hostedPlayer.load();
-    highlightHostedTrack(index);
-    updateNowPlaying(track.title, "Track " + (index + 1) + " of " + hostedPlaylist.length + " • " + track.duration);
-
-    const playPromise = hostedPlayer.play();
+    const playPromise = el.play();
     if (playPromise && typeof playPromise.then === "function") {
         playPromise.then(function() {
-            status.innerText = (isAutoTriggered
-                ? getHostedStatusLabel() + " autoplay தொடங்கியது. "
-                : getHostedStatusLabel() + " தொடங்கியது. ") + track.title;
+            status.innerText = "(" + (index + 1) + "/" + comboSequence.length + ") " + config.label + " இயங்குகிறது.";
             status.className = "success-status";
         }).catch(function() {
-            status.innerText = "Browser autoplay-ஐ தடுத்தது. " + getHostedStatusLabel() + " audio-ஐ தொடங்க மீண்டும் பொத்தானை அழுத்துங்கள்.";
+            status.innerText = "Browser autoplay-ஐ தடுத்தது. Play பொத்தானை அழுத்துங்கள்.";
             status.className = "error-status";
         });
-        return;
-    }
-
-    status.innerText = getHostedStatusLabel() + " தொடங்கியது. " + track.title;
-    status.className = "success-status";
-}
-
-function pausePlayback() {
-    const status = document.getElementById("status");
-
-    if (hostedPlayer && hostedPlaylist.length > 0) {
-        hostedPlayer.pause();
-        if (status) {
-            status.innerText = getHostedStatusLabel() + " pause செய்யப்பட்டது.";
-            status.className = "";
-        }
-        return;
-    }
-
-    if (player && typeof player.pauseVideo === "function") {
-        player.pauseVideo();
-        if (status) {
-            status.innerText = "YouTube prayer pause செய்யப்பட்டது.";
-            status.className = "";
-        }
     }
 }
 
-function resumePlayback() {
-    const status = document.getElementById("status");
+function comboAdvanceAfterItem(index) {
+    if (!comboShouldBePlaying) return;
+    const next = index + 1;
 
-    if (hostedPlayer && hostedPlaylist.length > 0) {
-        const playPromise = hostedPlayer.play();
-        if (playPromise && typeof playPromise.then === "function") {
-            playPromise.then(function() {
-                if (status) {
-                    status.innerText = getHostedStatusLabel() + " மீண்டும் தொடர்கிறது.";
-                    status.className = "success-status";
-                }
-            }).catch(function() {
-                if (status) {
-                    status.innerText = "Audio resume செய்ய browser அனுமதி தேவை. மீண்டும் play button அழுத்துங்கள்.";
-                    status.className = "error-status";
-                }
-            });
-        }
+    if (next >= comboSequence.length || comboGapSeconds <= 0) {
+        playComboItem(next);
         return;
     }
 
-    if (player && typeof player.playVideo === "function") {
-        player.playVideo();
-        if (status) {
-            status.innerText = "YouTube prayer மீண்டும் தொடர்கிறது.";
-            status.className = "success-status";
-        }
-    }
-}
-
-function restartPlayback() {
-    const input = document.getElementById("youtubeUrl");
-    const status = document.getElementById("status");
-
-    if (hostedPlayer && hostedPlaylist.length > 0) {
-        playHostedTrack(0, false);
-        if (status) {
-            status.innerText = getHostedStatusLabel() + " முதல் track-இலிருந்து மீண்டும் தொடங்குகிறது.";
-            status.className = "success-status";
-        }
-        return;
+    const status = document.getElementById("comboStatus");
+    let remaining = comboGapSeconds;
+    if (status) {
+        status.innerText = "அடுத்த ஜபத்திற்கு முன் " + remaining + " வினாடி இடைவெளி...";
+        status.className = "";
     }
 
-    if (player && input) {
-        loadYouTubeFromUrl(input.value.trim(), false);
-        if (status) {
-            status.innerText = "YouTube source மீண்டும் தொடங்குகிறது.";
-            status.className = "success-status";
-        }
-    }
-}
-
-function loadYouTubeFromUrl(urlInput, isAutoTriggered) {
-    const input = document.getElementById("youtubeUrl");
-    const status = document.getElementById("status");
-    const youtubeLink = document.getElementById("youtubeLink");
-    const youtubeAudioLink = document.getElementById("youtubeAudioLink");
-    const wrapper = document.querySelector('.video-wrapper');
-
-    if (!input || !status || !youtubeLink || !youtubeAudioLink) return;
-
-    if (/\.(webm|m4a|mp3|mp4)(\?|$)/i.test(urlInput || "")) {
-        startHostedPlaylist({
-            source: "hosted",
-            url: (urlInput || "").trim(),
-            media: [{
-                title: "Hosted Prayer Track",
-                duration: "direct",
-                url: (urlInput || "").trim()
-            }]
-        }, isAutoTriggered);
-        return;
+    if (comboGapInterval) {
+        clearInterval(comboGapInterval);
+        comboGapInterval = null;
     }
 
-    status.className = "";
-    let normalizedUrl = (urlInput || "").trim();
-
-    if (!normalizedUrl) {
-        normalizedUrl = getTodayPlaylist().playlist.url;
-    }
-
-    input.value = normalizedUrl;
-    youtubeLink.href = normalizedUrl;
-    youtubeAudioLink.href = normalizedUrl;
-    lastRequestedUrl = normalizedUrl;
-    lastRequestedMode = isAutoTriggered ? "auto" : "manual";
-
-    try {
-        let targetId = "";
-        let isPlaylist = false;
-
-        if (normalizedUrl.includes("list=")) {
-            const urlParams = new URLSearchParams(normalizedUrl.split('?')[1] || normalizedUrl.split('#')[1]);
-            targetId = urlParams.get("list");
-            isPlaylist = true;
-        }
-        else if (normalizedUrl.includes("v=")) {
-            const urlParams = new URLSearchParams(normalizedUrl.split('?')[1]);
-            targetId = urlParams.get("v");
-        }
-        else if (normalizedUrl.includes("youtu.be/")) {
-            const segments = normalizedUrl.split("youtu.be/");
-            targetId = segments[1].split(/[?#]/)[0];
-        }
-        else if (normalizedUrl.length >= 11) {
-            targetId = normalizedUrl;
-            isPlaylist = normalizedUrl.length > 15;
-        }
-
-        if (!targetId) {
-            status.innerText = "தவறான YouTube இணைப்பு வடிவம்.";
-            status.className = "error-status";
+    comboGapInterval = setInterval(function() {
+        if (!comboShouldBePlaying) {
+            clearInterval(comboGapInterval);
+            comboGapInterval = null;
             return;
         }
-
-        if (player) {
-            try { player.destroy(); } catch (err) {}
-            player = null;
+        remaining -= 1;
+        if (remaining <= 0) {
+            clearInterval(comboGapInterval);
+            comboGapInterval = null;
+            playComboItem(next);
+            return;
         }
-
-        if (wrapper) {
-            wrapper.classList.remove("is-hidden");
-        }
-        wrapper.innerHTML = '<div id="youtubePlayer"></div>';
-
-        let playerConfig = {
-            height: '100%',
-            width: '100%',
-            playerVars: {
-                'autoplay': 1,
-                'playsinline': 1,
-                'rel': 0
-            },
-            events: {
-                'onReady': function(event) {
-                    status.innerText = isAutoTriggered
-                        ? "9:30 PM IST prayer autoplay முயற்சி செய்யப்பட்டது. Audio தடுக்கப்பட்டால் மேலே உள்ள தொடங்கு பொத்தானை அழுத்துங்கள்."
-                        : (isPlaylist ? "பிரார்த்தனை playlist ஏற்றப்பட்டது." : "பிரார்த்தனை video ஏற்றப்பட்டது.");
-                    status.className = "success-status";
-                    event.target.unMute();
-                    event.target.setVolume(100);
-                    event.target.playVideo();
-                },
-                'onError': function() {
-                    status.innerText = "இந்த video embed செய்ய அனுமதிக்கப்படவில்லை. YouTube audio mode-க்கு மாற்றப்படுகிறது.";
-                    status.className = "error-status";
-                    redirectToYouTubeFallback(lastRequestedUrl, lastRequestedMode === "auto");
-                }
-            }
-        };
-
-        if (isPlaylist) {
-            playerConfig.playerVars.listType = 'playlist';
-            playerConfig.playerVars.list = targetId;
-        } else {
-            playerConfig.videoId = targetId;
-        }
-
-        player = new YT.Player('youtubePlayer', playerConfig);
-
-    } catch (e) {
-        status.innerText = "இணைப்பை வாசிப்பதில் பிழை ஏற்பட்டது.";
-        status.className = "error-status";
-    }
+        if (status) status.innerText = "அடுத்த ஜபத்திற்கு முன் " + remaining + " வினாடி இடைவெளி...";
+    }, 1000);
 }
 
-function redirectToYouTubeFallback(targetUrl, isAutoTriggered) {
-    if (!targetUrl) {
-        return;
-    }
-
-    const status = document.getElementById("status");
+function pauseComboJapam() {
+    const status = document.getElementById("comboStatus");
+    if (!comboPlayerEl) return;
+    comboShouldBePlaying = false;
+    comboPlayerEl.pause();
     if (status) {
-        status.innerText = isAutoTriggered
-            ? "Embed block ஆனதால் YouTube playlist-க்கு மாற்றப்படுகிறது. அங்கு audio play செய்யலாம்."
-            : "Embed block ஆனதால் YouTube playlist-க்கு மாற்றப்படுகிறது. அங்கு audio play செய்யலாம்.";
-        status.className = "error-status";
+        status.innerText = "தொடர் ஜபம் pause செய்யப்பட்டது.";
+        status.className = "";
     }
-
-    window.setTimeout(function() {
-        window.location.href = targetUrl;
-    }, 1200);
 }
 
-function maybeStartScheduledPrayer() {
-    const info = getTodayPlaylist();
-    const shouldStartNow = (
-        (info.hour > AUTOPLAY_HOUR_IST) ||
-        (info.hour === AUTOPLAY_HOUR_IST && info.minute >= AUTOPLAY_MINUTE_IST)
-    );
-
-    if (shouldStartNow && lastAutoStartDate !== info.dateKey) {
-        lastAutoStartDate = info.dateKey;
-        loadTodayPlaylist(true);
-        return;
+function resumeComboJapam() {
+    const status = document.getElementById("comboStatus");
+    if (!comboPlayerEl) return;
+    comboShouldBePlaying = true;
+    const p = comboPlayerEl.play();
+    if (p && typeof p.then === "function") {
+        p.then(function() {
+            if (status) {
+                status.innerText = "தொடர் ஜபம் மீண்டும் தொடர்கிறது.";
+                status.className = "success-status";
+            }
+        }).catch(function() {
+            if (status) {
+                status.innerText = "Resume செய்ய Play பொத்தானை அழுத்துங்கள்.";
+                status.className = "error-status";
+            }
+        });
     }
+}
 
-    const status = document.getElementById("status");
-    if (status && !player && !hostedPlayer) {
-        status.innerText = info.playlist.source === "hosted"
-            ? info.playlist.tamil + " கிழமையிற்கான hosted prayer தயார். தினசரி autoplay இரவு 9:30 IST-க்கு நடைபெறும்."
-            : info.playlist.tamil + " கிழமையிற்கான playlist தயார். தினசரி autoplay இரவு 9:30 IST-க்கு நடைபெறும்.";
+function stopComboJapam() {
+    comboShouldBePlaying = false;
+    comboIndex = -1;
+    if (comboGapInterval) {
+        clearInterval(comboGapInterval);
+        comboGapInterval = null;
+    }
+    if (comboPlayerEl) {
+        comboPlayerEl.pause();
+        comboPlayerEl = null;
+    }
+    highlightComboItem(-1);
+    const wrap = document.getElementById("comboPlayerWrap");
+    if (wrap) {
+        wrap.classList.add("is-hidden");
+        wrap.innerHTML = "";
+    }
+    const status = document.getElementById("comboStatus");
+    if (status) {
+        status.innerText = "தொடர் ஜபம் நிறுத்தப்பட்டது.";
+        status.className = "";
     }
 }
 
 renderAllJapamTypeStats();
-syncTodayPlaylist();
-setInterval(function () {
-    syncTodayPlaylist();
-    maybeStartScheduledPrayer();
-}, 15000);
+renderComboSequence();
 </script>
 
 </body>

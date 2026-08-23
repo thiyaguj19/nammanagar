@@ -589,6 +589,97 @@
             font-size: 1.05rem;
         }
 
+        .japam-stats-table {
+            margin-top: 0.7rem;
+            width: 100%;
+            max-width: 30rem;
+            border-collapse: collapse;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid rgba(205, 161, 90, 0.28);
+        }
+
+        .japam-stats-table th,
+        .japam-stats-table td {
+            padding: 0.55rem 0.9rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(205, 161, 90, 0.2);
+        }
+
+        .japam-stats-table th:first-child,
+        .japam-stats-table td:first-child {
+            text-align: left;
+        }
+
+        .japam-stats-table thead th {
+            background: rgba(205, 161, 90, 0.18);
+            color: #7b6342;
+            font-size: 0.78rem;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+
+        .japam-stats-table tbody th {
+            color: var(--deep);
+            font-weight: 700;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .japam-stats-table tbody td {
+            color: var(--coral);
+            font-weight: 800;
+        }
+
+        .japam-stats-table tbody tr:last-child th,
+        .japam-stats-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .japam-countdown-overlay {
+            margin-top: 1.1rem;
+            padding: 1.6rem 1rem;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(16, 44, 38, 0.92), rgba(47, 101, 83, 0.92));
+            text-align: center;
+            color: #fff;
+        }
+
+        .japam-countdown-overlay.is-hidden {
+            display: none;
+        }
+
+        .japam-countdown-number {
+            font-family: "Noto Serif Tamil", serif;
+            font-size: 3.4rem;
+            font-weight: 800;
+            line-height: 1;
+            color: var(--sun);
+        }
+
+        .japam-countdown-label {
+            margin-top: 0.5rem;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .japam-countdown-actions {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-top: 1rem;
+        }
+
+        .japam-countdown-actions button {
+            background: rgba(255, 255, 255, 0.14);
+            border: 1px solid rgba(255, 255, 255, 0.28);
+        }
+
+        .japam-countdown-actions button:hover {
+            background: rgba(255, 255, 255, 0.26);
+        }
+
         .japam-cards {
             margin-top: 1.1rem;
             display: grid;
@@ -881,12 +972,27 @@
             <p>கீழே உள்ள எண்ணை தேர்வு செய்யவும். Video கிடைக்காவிட்டால் தானாக audio-க்கு மாறும்.</p>
         </div>
 
-        <div class="japam-stats-bar">
-            <span>இன்று <strong id="japamTodayCount">{{ japam_today_count|default:0 }}</strong> முறை ஜபம் நிறைவு</span>
-            <span>இன்று இயக்க நேரம் <strong id="japamTodayDuration">{{ japam_today_duration_label|default:"0 நிமிடம்" }}</strong></span>
-            <span>மொத்தம் <strong id="japamTotalCount">{{ japam_total_count|default:0 }}</strong> முறை</span>
-            <span>மொத்த இயக்க நேரம் <strong id="japamTotalDuration">{{ japam_total_duration_label|default:"0 நிமிடம்" }}</strong></span>
-        </div>
+        <table class="japam-stats-table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>இன்று</th>
+                    <th>மொத்தம்</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>ஜபம் நிறைவு (முறை)</th>
+                    <td id="japamTodayCount">{{ japam_today_count|default:0 }}</td>
+                    <td id="japamTotalCount">{{ japam_total_count|default:0 }}</td>
+                </tr>
+                <tr>
+                    <th>இயக்க நேரம்</th>
+                    <td id="japamTodayDuration">{{ japam_today_duration_label|default:"0 நிமிடம்" }}</td>
+                    <td id="japamTotalDuration">{{ japam_total_duration_label|default:"0 நிமிடம்" }}</td>
+                </tr>
+            </tbody>
+        </table>
 
         <div class="japam-cards">
             <div class="japam-card" data-count="21" onclick="selectJapamCount(21)">
@@ -962,6 +1068,15 @@
                 <p>சுவாமி அவர்கள், "இந்த ஓம் மந்திர உச்சரிப்பு உங்களைப் பலப்படுத்தும், மனதின் அனைத்துக் கலக்கங்களையும் தணிக்கும், மேலும் அருளின் பொழிவைத் துரிதப்படுத்தும்" என்று கூறியுள்ளார். அவர் மேலும், "இந்த வகையான ஆன்மீக ஒழுக்கம் அனைத்து சாய் சேவகர்களுக்கும் அவசியமானது, ஏனெனில் அது மட்டுமே அவர்களுக்கு அமைதியையும், மற்றொரு மிக மதிப்புமிக்க பரிசான அன்பையும் அளிக்க முடியும்" என்றும் கூறியுள்ளார். இந்த விளக்கம் ஓம்காரத்தை உங்களுக்கு மேலும் மதிப்புமிக்கதாக மாற்றும் என்று நம்புகிறோம்.</p>
             </div>
         </details>
+
+        <div id="japamCountdownOverlay" class="japam-countdown-overlay is-hidden">
+            <div class="japam-countdown-number" id="japamCountdownNumber">30</div>
+            <div class="japam-countdown-label" id="japamCountdownLabel">தயாராகுங்கள்...</div>
+            <div class="japam-countdown-actions">
+                <button type="button" onclick="skipJapamCountdown()">இப்போதே தொடங்கு</button>
+                <button type="button" onclick="cancelJapamCountdown()">ரத்து செய்</button>
+            </div>
+        </div>
 
         <div id="japamPlayerWrap" class="japam-player-wrap is-hidden"></div>
 
@@ -1407,13 +1522,102 @@ function highlightJapamCard(count) {
     });
 }
 
+const JAPAM_START_DELAY_SECONDS = 30;
+let japamCountdownInterval = null;
+let japamCountdownRemaining = 0;
+let japamPendingCount = null;
+
 function selectJapamCount(count) {
     if (japamActiveCount !== count) {
         activeSpeed = "1.0x";
         updateSpeedPillUI();
     }
     japamLoopRemaining = (count === 21) ? japamLoopTarget : 1;
-    startJapam(count);
+    beginJapamCountdown(count);
+}
+
+function beginJapamCountdown(count) {
+    // Cancel any countdown already in progress before starting a new one.
+    if (japamCountdownInterval) {
+        clearInterval(japamCountdownInterval);
+        japamCountdownInterval = null;
+    }
+
+    const overlay = document.getElementById("japamCountdownOverlay");
+    const numberEl = document.getElementById("japamCountdownNumber");
+    const labelEl = document.getElementById("japamCountdownLabel");
+    const wrap = document.getElementById("japamPlayerWrap");
+    const status = document.getElementById("japamStatus");
+    const config = GAYATHRI_JAPAM[count];
+
+    if (!overlay || !numberEl || !labelEl) {
+        startJapam(count);
+        return;
+    }
+
+    japamPendingCount = count;
+    highlightJapamCard(count);
+
+    if (wrap) wrap.classList.add("is-hidden");
+    overlay.classList.remove("is-hidden");
+
+    japamCountdownRemaining = JAPAM_START_DELAY_SECONDS;
+    numberEl.innerText = japamCountdownRemaining;
+    labelEl.innerText = (config ? config.label : "ஜபம்") + " விரைவில் தொடங்கும் — அனைவரும் தயாராகுங்கள்.";
+
+    if (status) {
+        status.innerText = "அனைவரும் நிலைப்படுத்திக் கொள்ளுங்கள். " + japamCountdownRemaining + " வினாடிகளில் ஜபம் தொடங்கும்.";
+        status.className = "";
+    }
+
+    japamCountdownInterval = setInterval(function() {
+        japamCountdownRemaining -= 1;
+
+        if (japamCountdownRemaining <= 0) {
+            clearInterval(japamCountdownInterval);
+            japamCountdownInterval = null;
+            overlay.classList.add("is-hidden");
+            if (wrap) wrap.classList.remove("is-hidden");
+            const startCount = japamPendingCount;
+            japamPendingCount = null;
+            if (startCount !== null) startJapam(startCount);
+            return;
+        }
+
+        numberEl.innerText = japamCountdownRemaining;
+        if (status) {
+            status.innerText = "அனைவரும் நிலைப்படுத்திக் கொள்ளுங்கள். " + japamCountdownRemaining + " வினாடிகளில் ஜபம் தொடங்கும்.";
+        }
+    }, 1000);
+}
+
+function skipJapamCountdown() {
+    if (japamCountdownInterval) {
+        clearInterval(japamCountdownInterval);
+        japamCountdownInterval = null;
+    }
+    const overlay = document.getElementById("japamCountdownOverlay");
+    const wrap = document.getElementById("japamPlayerWrap");
+    if (overlay) overlay.classList.add("is-hidden");
+    if (wrap) wrap.classList.remove("is-hidden");
+    const startCount = japamPendingCount;
+    japamPendingCount = null;
+    if (startCount !== null) startJapam(startCount);
+}
+
+function cancelJapamCountdown() {
+    if (japamCountdownInterval) {
+        clearInterval(japamCountdownInterval);
+        japamCountdownInterval = null;
+    }
+    japamPendingCount = null;
+    const overlay = document.getElementById("japamCountdownOverlay");
+    const status = document.getElementById("japamStatus");
+    if (overlay) overlay.classList.add("is-hidden");
+    if (status) {
+        status.innerText = "ஜபம் தொடங்குவது ரத்து செய்யப்பட்டது. மீண்டும் தொடங்க எண்ணை தேர்வு செய்யவும்.";
+        status.className = "";
+    }
 }
 
 function changeSpeed(event, speed) {

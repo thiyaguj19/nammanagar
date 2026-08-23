@@ -615,6 +615,24 @@
             background: rgba(201, 117, 84, 0.12);
         }
 
+        .combo-countdown {
+            margin-top: 1.1rem;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(16, 44, 38, 0.94), rgba(47, 101, 83, 0.94));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.35rem;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            color: #fff;
+        }
+
+        .combo-countdown.is-hidden {
+            display: none;
+        }
+
         @media (max-width: 620px) {
             .japam-panel {
                 border-radius: 20px;
@@ -790,6 +808,15 @@
             <div class="button-row">
                 <button id="comboStartBtn" type="button" onclick="startComboJapam()" disabled>தொடர் ஜபம் தொடங்கு</button>
                 <button type="button" class="control-button" onclick="clearComboSequence()">வரிசையை அழி</button>
+            </div>
+        </div>
+
+        <div id="comboCountdownOverlay" class="combo-countdown is-hidden">
+            <div class="japam-countdown-number" id="comboCountdownNumber">30</div>
+            <div class="japam-countdown-label" id="comboCountdownLabel">தயாராகுங்கள்...</div>
+            <div class="japam-countdown-actions">
+                <button type="button" onclick="skipComboCountdown()">இப்போதே தொடங்கு</button>
+                <button type="button" onclick="cancelComboCountdown()">ரத்து செய்</button>
             </div>
         </div>
 
@@ -1132,6 +1159,15 @@ document.addEventListener("visibilitychange", function() {
         const p = japamPlayerEl.play();
         if (p && typeof p.then === "function") p.catch(function() {});
     }
+
+    if (comboCountdownDeadline !== null) {
+        tickComboCountdown();
+    }
+
+    if (comboShouldBePlaying && comboPlayerEl && comboPlayerEl.paused) {
+        const p = comboPlayerEl.play();
+        if (p && typeof p.then === "function") p.catch(function() {});
+    }
 });
 
 function changeSpeed(event, speed) {
@@ -1471,11 +1507,194 @@ function highlightComboItem(index) {
     });
 }
 
+const COMBO_START_DELAY_SECONDS = 30;
+let comboCountdownInterval = null;
+let comboCountdownDeadline = null;
+
 function startComboJapam() {
     if (comboSequence.length === 0) return;
+    beginComboCountdown();
+}
+
+// Mirrors the single-japam countdown (beginJapamCountdown / tickJapamCountdown)
+// so everyone gets 30 seconds to settle into a comfortable posture before the
+// sequence actually starts. Also silently primes the first item's player
+// (muted play + immediate pause) inside this click handler so that the real
+// play() call 30s later — no longer inside a user gesture — isn't blocked by
+// mobile browsers.
+function beginComboCountdown() {
+    if (comboCountdownInterval) {
+        clearInterval(comboCountdownInterval);
+        comboCountdownInterval = null;
+    }
+
+    const overlay = document.getElementById("comboCountdownOverlay");
+    const numberEl = document.getElementById("comboCountdownNumber");
+    const labelEl = document.getElementById("comboCountdownLabel");
+    const status = document.getElementById("comboStatus");
+
+    if (!overlay || !numberEl || !labelEl) {
+        comboShouldBePlaying = true;
+        playComboItem(0);
+        return;
+    }
+
+    comboShouldBePlaying = false;
+    highlightComboItem(-1);
+    primeComboPlayback();
+
+    overlay.classList.remove("is-hidden");
+    comboCountdownDeadline = Date.now() + COMBO_START_DELAY_SECONDS * 1000;
+    numberEl.innerText = COMBO_START_DELAY_SECONDS;
+    labelEl.innerText = "தயாராகுங்கள்...";
+
+    if (status) {
+        status.innerText = "தொடர் ஜபம் — அனைவரும் நிலைப்படுத்திக் கொள்ளுங்கள். " + COMBO_START_DELAY_SECONDS + " வினாடிகளில் தொடங்கும்.";
+        status.className = "";
+    }
+
+    comboCountdownInterval = setInterval(tickComboCountdown, 250);
+}
+
+function tickComboCountdown() {
+    if (comboCountdownDeadline === null) return;
+
+    const numberEl = document.getElementById("comboCountdownNumber");
+    const status = document.getElementById("comboStatus");
+    const remainingMs = comboCountdownDeadline - Date.now();
+    const remainingSeconds = Math.max(0, Math.ceil(remainingMs / 1000));
+
+    if (remainingMs <= 0) {
+        if (comboCountdownInterval) {
+            clearInterval(comboCountdownInterval);
+            comboCountdownInterval = null;
+        }
+        comboCountdownDeadline = null;
+        const overlay = document.getElementById("comboCountdownOverlay");
+        if (overlay) overlay.classList.add("is-hidden");
+        finishComboCountdown();
+        return;
+    }
+
+    if (numberEl) numberEl.innerText = remainingSeconds;
+    if (status) {
+        status.innerText = "தொடர் ஜபம் — அனைவரும் நிலைப்படுத்திக் கொள்ளுங்கள். " + remainingSeconds + " வினாடிகளில் தொடங்கும்.";
+    }
+}
+
+function skipComboCountdown() {
+    if (comboCountdownInterval) {
+        clearInterval(comboCountdownInterval);
+        comboCountdownInterval = null;
+    }
+    comboCountdownDeadline = null;
+    const overlay = document.getElementById("comboCountdownOverlay");
+    if (overlay) overlay.classList.add("is-hidden");
+    finishComboCountdown();
+}
+
+function cancelComboCountdown() {
+    if (comboCountdownInterval) {
+        clearInterval(comboCountdownInterval);
+        comboCountdownInterval = null;
+    }
+    comboCountdownDeadline = null;
+    comboShouldBePlaying = false;
+
+    const overlay = document.getElementById("comboCountdownOverlay");
+    if (overlay) overlay.classList.add("is-hidden");
+
+    if (comboPlayerEl) {
+        comboPlayerEl.pause();
+        comboPlayerEl = null;
+    }
+    const wrap = document.getElementById("comboPlayerWrap");
+    if (wrap) {
+        wrap.classList.add("is-hidden");
+        wrap.innerHTML = "";
+    }
+
+    const status = document.getElementById("comboStatus");
+    if (status) {
+        status.innerText = "தொடர் ஜபம் தொடங்குவது ரத்து செய்யப்பட்டது.";
+        status.className = "";
+    }
+}
+
+// Resumes the already-primed player once the countdown ends, reusing the
+// SAME element that already played (and paused) once inside the click —
+// that's what keeps mobile browsers from blocking this second play() call.
+function finishComboCountdown() {
+    const status = document.getElementById("comboStatus");
+    const wrap = document.getElementById("comboPlayerWrap");
+    if (!status || !wrap || comboSequence.length === 0) return;
+
     comboShouldBePlaying = true;
     comboIndex = 0;
-    playComboItem(0);
+    const key = comboSequence[0];
+    const config = GAYATHRI_JAPAM[key];
+
+    if (!config || !comboPlayerEl || comboPlayerEl.parentNode !== wrap) {
+        playComboItem(0);
+        return;
+    }
+
+    highlightComboItem(0);
+    wrap.classList.remove("is-hidden");
+    attachComboMediaHandlers(comboPlayerEl, key, 0);
+    comboPlayerEl.muted = false;
+    comboPlayerEl.currentTime = 0;
+    status.innerText = "(1/" + comboSequence.length + ") " + config.label + " தொடங்குகிறது...";
+    status.className = "";
+
+    const playPromise = comboPlayerEl.play();
+    if (playPromise && typeof playPromise.then === "function") {
+        playPromise.then(function() {
+            status.innerText = "(1/" + comboSequence.length + ") " + config.label + " இயங்குகிறது.";
+            status.className = "success-status";
+        }).catch(function() {
+            status.innerText = "Browser autoplay-ஐ தடுத்தது. Play பொத்தானை அழுத்துங்கள்.";
+            status.className = "error-status";
+        });
+    }
+}
+
+function primeComboPlayback() {
+    const wrap = document.getElementById("comboPlayerWrap");
+    if (!wrap || comboSequence.length === 0) return;
+
+    const key = comboSequence[0];
+    const config = GAYATHRI_JAPAM[key];
+    if (!config) return;
+
+    wrap.classList.add("is-hidden");
+    wrap.innerHTML = "";
+
+    const useVideo = Boolean(config.video);
+    const audioUrl = typeof config.audio === "object"
+        ? (config.audio["1.0x"] || Object.values(config.audio)[0])
+        : config.audio;
+
+    const el = document.createElement(useVideo ? "video" : "audio");
+    el.id = "comboPlayer";
+    el.controls = true;
+    el.playsInline = true;
+    el.preload = "auto";
+    el.muted = true;
+    el.src = useVideo ? config.video : audioUrl;
+
+    wrap.appendChild(el);
+    comboPlayerEl = el;
+
+    const playPromise = el.play();
+    if (playPromise && typeof playPromise.then === "function") {
+        playPromise.then(function() {
+            el.pause();
+            el.currentTime = 0;
+        }).catch(function() { /* priming blocked; real start will retry */ });
+    } else {
+        el.pause();
+    }
 }
 
 function playComboItem(index) {
@@ -1512,6 +1731,20 @@ function playComboItem(index) {
     playComboMedia(config, key, index, useVideo);
 }
 
+function attachComboMediaHandlers(el, key, index) {
+    el.addEventListener("ended", function() {
+        recordJapamCompletion(key, el.duration || 0);
+        comboAdvanceAfterItem(index);
+    });
+
+    el.addEventListener("pause", function() {
+        if (comboShouldBePlaying && document.visibilityState === "visible" && comboIndex === index) {
+            const p = el.play();
+            if (p && typeof p.then === "function") p.catch(function() {});
+        }
+    });
+}
+
 function playComboMedia(config, key, index, useVideo) {
     const status = document.getElementById("comboStatus");
     const wrap = document.getElementById("comboPlayerWrap");
@@ -1537,17 +1770,7 @@ function playComboMedia(config, key, index, useVideo) {
         }, { once: true });
     }
 
-    el.addEventListener("ended", function() {
-        recordJapamCompletion(key, el.duration || 0);
-        comboAdvanceAfterItem(index);
-    });
-
-    el.addEventListener("pause", function() {
-        if (comboShouldBePlaying && document.visibilityState === "visible" && comboIndex === index) {
-            const p = el.play();
-            if (p && typeof p.then === "function") p.catch(function() {});
-        }
-    });
+    attachComboMediaHandlers(el, key, index);
 
     wrap.appendChild(el);
     comboPlayerEl = el;
@@ -1636,6 +1859,13 @@ function resumeComboJapam() {
 function stopComboJapam() {
     comboShouldBePlaying = false;
     comboIndex = -1;
+    if (comboCountdownInterval) {
+        clearInterval(comboCountdownInterval);
+        comboCountdownInterval = null;
+    }
+    comboCountdownDeadline = null;
+    const countdownOverlay = document.getElementById("comboCountdownOverlay");
+    if (countdownOverlay) countdownOverlay.classList.add("is-hidden");
     if (comboGapInterval) {
         clearInterval(comboGapInterval);
         comboGapInterval = null;

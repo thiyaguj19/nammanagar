@@ -1426,6 +1426,7 @@ let japamPlayerEl = null;
 let japamActiveCount = null;
 let japamLoopTarget = 1;
 let japamLoopRemaining = 1;
+let japamShouldBePlaying = false;
 
 // These two values are rendered by the record_japam_completion / collective_prayer
 // Django view. Update the url name below to match your urls.py if you namespace it
@@ -1506,6 +1507,7 @@ function handleJapamEnded(count, durationSeconds) {
         status.className = "success-status";
     }
 
+    japamShouldBePlaying = false;
     japamLoopRemaining = (count === 21) ? japamLoopTarget : 1;
 }
 
@@ -1531,7 +1533,7 @@ function highlightJapamCard(count) {
 
 const JAPAM_START_DELAY_SECONDS = 30;
 let japamCountdownInterval = null;
-let japamCountdownRemaining = 0;
+let japamCountdownDeadline = null; // real timestamp (Date.now() + delay), not a tick count
 let japamPendingCount = null;
 
 function selectJapamCount(count) {
@@ -1563,39 +1565,99 @@ function beginJapamCountdown(count) {
     }
 
     japamPendingCount = count;
+    japamShouldBePlaying = false;
     highlightJapamCard(count);
 
     // Move the single shared overlay onto whichever card is starting now.
     targetCard.appendChild(overlay);
     overlay.classList.remove("is-hidden");
 
-    japamCountdownRemaining = JAPAM_START_DELAY_SECONDS;
-    numberEl.innerText = japamCountdownRemaining;
+    // Mobile browsers only allow audio/video to start from a direct tap.
+    // This click IS that tap, so we quietly start-and-immediately-pause the
+    // player right now (muted). That "unlocks" this element, so the real
+    // play() call when the countdown ends — no longer inside a click, so
+    // normally blocked on phones — is allowed to go through.
+    startJapam(count, { silentPrime: true });
+
+    japamCountdownDeadline = Date.now() + JAPAM_START_DELAY_SECONDS * 1000;
+    numberEl.innerText = JAPAM_START_DELAY_SECONDS;
     labelEl.innerText = "தயாராகுங்கள்...";
 
     if (status) {
-        status.innerText = (config ? config.label : "ஜபம்") + " — அனைவரும் நிலைப்படுத்திக் கொள்ளுங்கள். " + japamCountdownRemaining + " வினாடிகளில் தொடங்கும்.";
+        status.innerText = (config ? config.label : "ஜபம்") + " — அனைவரும் நிலைப்படுத்திக் கொள்ளுங்கள். " + JAPAM_START_DELAY_SECONDS + " வினாடிகளில் தொடங்கும்.";
         status.className = "";
     }
 
-    japamCountdownInterval = setInterval(function() {
-        japamCountdownRemaining -= 1;
+    // Ticks every 250ms and compares against a real timestamp (rather than
+    // just decrementing a counter) so that if the tab is throttled while
+    // the screen is locked, it still finishes on time — or immediately
+    // catches up — once it's allowed to run again.
+    japamCountdownInterval = setInterval(tickJapamCountdown, 250);
+}
 
-        if (japamCountdownRemaining <= 0) {
+function tickJapamCountdown() {
+    if (japamCountdownDeadline === null) return;
+
+    const overlay = document.getElementById("japamCountdownOverlay");
+    const numberEl = document.getElementById("japamCountdownNumber");
+    const status = document.getElementById("japamStatus");
+    const config = GAYATHRI_JAPAM[japamPendingCount];
+    const remainingMs = japamCountdownDeadline - Date.now();
+    const remainingSeconds = Math.max(0, Math.ceil(remainingMs / 1000));
+
+    if (remainingMs <= 0) {
+        if (japamCountdownInterval) {
             clearInterval(japamCountdownInterval);
             japamCountdownInterval = null;
-            overlay.classList.add("is-hidden");
-            const startCount = japamPendingCount;
-            japamPendingCount = null;
-            if (startCount !== null) startJapam(startCount);
-            return;
         }
+        japamCountdownDeadline = null;
+        if (overlay) overlay.classList.add("is-hidden");
+        const startCount = japamPendingCount;
+        japamPendingCount = null;
+        if (startCount !== null) finishJapamCountdown(startCount);
+        return;
+    }
 
-        numberEl.innerText = japamCountdownRemaining;
-        if (status) {
-            status.innerText = (config ? config.label : "ஜபம்") + " — அனைவரும் நிலைப்படுத்திக் கொள்ளுங்கள். " + japamCountdownRemaining + " வினாடிகளில் தொடங்கும்.";
-        }
-    }, 1000);
+    if (numberEl) numberEl.innerText = remainingSeconds;
+    if (status) {
+        status.innerText = (config ? config.label : "ஜபம்") + " — அனைவரும் நிலைப்படுத்திக் கொள்ளுங்கள். " + remainingSeconds + " வினாடிகளில் தொடங்கும்.";
+    }
+}
+
+// Resumes the already-primed player once the countdown ends, instead of
+// creating a fresh element — reusing the SAME element that already played
+// (and paused) once inside the click is what keeps mobile browsers from
+// blocking this second play() call.
+function finishJapamCountdown(count) {
+    const wrap = document.getElementById("japamPlayerWrap");
+    const status = document.getElementById("japamStatus");
+    const config = GAYATHRI_JAPAM[count];
+
+    if (!japamPlayerEl || !wrap || !status || !config) {
+        startJapam(count);
+        return;
+    }
+
+    wrap.classList.remove("is-hidden");
+    japamPlayerEl.muted = false;
+    japamPlayerEl.currentTime = 0;
+    japamShouldBePlaying = true;
+
+    const loopSuffix = (count === 21 && japamLoopTarget > 1) ? ` (×${japamLoopTarget} சுற்று)` : "";
+    const isVideo = japamPlayerEl.tagName === "VIDEO";
+    status.innerText = config.label + loopSuffix + (isVideo ? " (video)" : "") + " தொடங்குகிறது...";
+    status.className = "";
+
+    const playPromise = japamPlayerEl.play();
+    if (playPromise && typeof playPromise.then === "function") {
+        playPromise.then(function() {
+            status.innerText = config.label + loopSuffix + (isVideo ? " video" : " audio") + " இயங்குகிறது.";
+            status.className = "success-status";
+        }).catch(function() {
+            status.innerText = "Browser autoplay-ஐ தடுத்தது. " + (isVideo ? "Video" : "Audio") + "-வின் Play பொத்தானை அழுத்துங்கள்.";
+            status.className = "error-status";
+        });
+    }
 }
 
 function skipJapamCountdown() {
@@ -1603,11 +1665,12 @@ function skipJapamCountdown() {
         clearInterval(japamCountdownInterval);
         japamCountdownInterval = null;
     }
+    japamCountdownDeadline = null;
     const overlay = document.getElementById("japamCountdownOverlay");
     if (overlay) overlay.classList.add("is-hidden");
     const startCount = japamPendingCount;
     japamPendingCount = null;
-    if (startCount !== null) startJapam(startCount);
+    if (startCount !== null) finishJapamCountdown(startCount);
 }
 
 function cancelJapamCountdown() {
@@ -1615,15 +1678,39 @@ function cancelJapamCountdown() {
         clearInterval(japamCountdownInterval);
         japamCountdownInterval = null;
     }
+    japamCountdownDeadline = null;
     japamPendingCount = null;
+    japamShouldBePlaying = false;
     const overlay = document.getElementById("japamCountdownOverlay");
     const status = document.getElementById("japamStatus");
+    const wrap = document.getElementById("japamPlayerWrap");
     if (overlay) overlay.classList.add("is-hidden");
+    if (wrap) {
+        wrap.classList.add("is-hidden");
+        wrap.innerHTML = "";
+    }
+    japamPlayerEl = null;
     if (status) {
         status.innerText = "ஜபம் தொடங்குவது ரத்து செய்யப்பட்டது. மீண்டும் தொடங்க எண்ணை தேர்வு செய்யவும்.";
         status.className = "";
     }
 }
+
+// Catches up a countdown that was throttled while the screen was locked or
+// the tab was backgrounded, and tries to auto-resume playback if it was
+// interrupted (e.g. an incoming call) while a chant should still be going.
+document.addEventListener("visibilitychange", function() {
+    if (document.visibilityState !== "visible") return;
+
+    if (japamCountdownDeadline !== null) {
+        tickJapamCountdown();
+    }
+
+    if (japamShouldBePlaying && japamPlayerEl && japamPlayerEl.paused) {
+        const p = japamPlayerEl.play();
+        if (p && typeof p.then === "function") p.catch(function() {});
+    }
+});
 
 function changeSpeed(event, speed) {
     event.stopPropagation();
@@ -1638,7 +1725,9 @@ function updateSpeedPillUI() {
     });
 }
 
-function startJapam(count) {
+function startJapam(count, opts) {
+    opts = opts || {};
+    const silentPrime = !!opts.silentPrime;
     const config = GAYATHRI_JAPAM[count];
     const wrap = document.getElementById("japamPlayerWrap");
     const status = document.getElementById("japamStatus");
@@ -1646,17 +1735,23 @@ function startJapam(count) {
 
     japamActiveCount = count;
     highlightJapamCard(count);
-    wrap.classList.remove("is-hidden");
     wrap.innerHTML = "";
+    if (silentPrime) {
+        wrap.classList.add("is-hidden");
+    } else {
+        wrap.classList.remove("is-hidden");
+    }
 
     if (!config.video) {
-        startJapamAudioFallback(config, wrap, status, count);
+        startJapamAudioFallback(config, wrap, status, count, silentPrime);
         return;
     }
 
     const loopSuffix = (count === 21 && japamLoopTarget > 1) ? ` (×${japamLoopTarget} சுற்று)` : "";
-    status.innerText = config.label + loopSuffix + " (video) தொடங்குகிறது...";
-    status.className = "";
+    if (!silentPrime) {
+        status.innerText = config.label + loopSuffix + " (video) தொடங்குகிறது...";
+        status.className = "";
+    }
 
     const video = document.createElement("video");
     video.id = "japamPlayer";
@@ -1664,14 +1759,16 @@ function startJapam(count) {
     video.autoplay = true;
     video.playsInline = true;
     video.preload = "auto";
+    video.muted = silentPrime;
     video.src = config.video;
 
     video.addEventListener("error", function onVideoError() {
         video.removeEventListener("error", onVideoError);
-        startJapamAudioFallback(config, wrap, status, count);
+        startJapamAudioFallback(config, wrap, status, count, silentPrime);
     }, { once: true });
 
     video.addEventListener("playing", function() {
+        if (silentPrime) return;
         status.innerText = config.label + loopSuffix + " video இயங்குகிறது.";
         status.className = "success-status";
     });
@@ -1680,14 +1777,42 @@ function startJapam(count) {
         handleJapamEnded(count, video.duration);
     });
 
+    // If playback stops on its own (screen lock, incoming call) while it
+    // should still be running, try to resume as soon as the page is
+    // visible again — no need for the person to tap Resume themselves.
+    video.addEventListener("pause", function() {
+        if (japamShouldBePlaying && document.visibilityState === "visible") {
+            const p = video.play();
+            if (p && typeof p.then === "function") p.catch(function() {});
+        }
+    });
+
     wrap.appendChild(video);
     japamPlayerEl = video;
 
     const playPromise = video.play();
+
+    if (silentPrime) {
+        // Play-then-immediately-pause on the SAME element, still inside the
+        // click that started the countdown. This "unlocks" this element for
+        // mobile browsers, so the real play() call 30s later (no longer a
+        // user gesture) is allowed to go through instead of being blocked.
+        if (playPromise && typeof playPromise.then === "function") {
+            playPromise.then(function() {
+                video.pause();
+                video.currentTime = 0;
+            }).catch(function() { /* priming blocked; real start will retry */ });
+        } else {
+            video.pause();
+        }
+        return;
+    }
+
+    japamShouldBePlaying = true;
     if (playPromise && typeof playPromise.then === "function") {
         playPromise.catch(function() {
             if (video.error || video.networkState === HTMLMediaElement.NETWORK_NO_SOURCE) {
-                startJapamAudioFallback(config, wrap, status, count);
+                startJapamAudioFallback(config, wrap, status, count, false);
             } else {
                 status.innerText = "Browser autoplay-ஐ தடுத்தது. Video-வின் Play பொத்தானை அழுத்துங்கள்.";
                 status.className = "error-status";
@@ -1696,17 +1821,20 @@ function startJapam(count) {
     }
 }
 
-function startJapamAudioFallback(config, wrap, status, count) {
+function startJapamAudioFallback(config, wrap, status, count, silentPrime) {
+    silentPrime = !!silentPrime;
     const audioUrl = typeof config.audio === "object" 
         ? (config.audio[activeSpeed] || config.audio["1.0x"])
         : config.audio;
 
     const loopSuffix = (count === 21 && japamLoopTarget > 1) ? ` (×${japamLoopTarget} சுற்று)` : "";
 
-    status.innerText = config.video
-        ? `Video கிடைக்கவில்லை. ${config.label}${loopSuffix} (${activeSpeed}) audio-வுக்கு மாறுகிறது...`
-        : `${config.label}${loopSuffix} audio தொடங்குகிறது...`;
-    status.className = config.video ? "error-status" : "";
+    if (!silentPrime) {
+        status.innerText = config.video
+            ? `Video கிடைக்கவில்லை. ${config.label}${loopSuffix} (${activeSpeed}) audio-வுக்கு மாறுகிறது...`
+            : `${config.label}${loopSuffix} audio தொடங்குகிறது...`;
+        status.className = config.video ? "error-status" : "";
+    }
 
     wrap.innerHTML = "";
     const audio = document.createElement("audio");
@@ -1714,14 +1842,17 @@ function startJapamAudioFallback(config, wrap, status, count) {
     audio.controls = true;
     audio.autoplay = true;
     audio.preload = "auto";
+    audio.muted = silentPrime;
     audio.src = audioUrl;
 
     if (activeSpeed === "1.25x") audio.playbackRate = 1.25;
     else if (activeSpeed === "1.5x") audio.playbackRate = 1.5;
 
     audio.addEventListener("error", function() {
-        status.innerText = config.label + "-க்கான video மற்றும் audio இரண்டும் கிடைக்கவில்லை.";
-        status.className = "error-status";
+        if (!silentPrime) {
+            status.innerText = config.label + "-க்கான video மற்றும் audio இரண்டும் கிடைக்கவில்லை.";
+            status.className = "error-status";
+        }
     }, { once: true });
 
     audio.addEventListener("ended", function() {
@@ -1729,7 +1860,32 @@ function startJapamAudioFallback(config, wrap, status, count) {
         handleJapamEnded(count, audio.duration / rate);
     });
 
+    // Same auto-resume-on-interruption behavior as the video path.
+    audio.addEventListener("pause", function() {
+        if (japamShouldBePlaying && document.visibilityState === "visible") {
+            const p = audio.play();
+            if (p && typeof p.then === "function") p.catch(function() {});
+        }
+    });
+
+    wrap.appendChild(audio);
+    japamPlayerEl = audio;
+
     const playPromise = audio.play();
+
+    if (silentPrime) {
+        if (playPromise && typeof playPromise.then === "function") {
+            playPromise.then(function() {
+                audio.pause();
+                audio.currentTime = 0;
+            }).catch(function() { /* priming blocked; real start will retry */ });
+        } else {
+            audio.pause();
+        }
+        return;
+    }
+
+    japamShouldBePlaying = true;
     if (playPromise && typeof playPromise.then === "function") {
         playPromise.then(function() {
             status.innerText = `${config.label}${loopSuffix} (${activeSpeed}) audio இயங்குகிறது.`;
@@ -1739,14 +1895,12 @@ function startJapamAudioFallback(config, wrap, status, count) {
             status.className = "error-status";
         });
     }
-
-    wrap.appendChild(audio);
-    japamPlayerEl = audio;
 }
 
 function pauseJapam() {
     const status = document.getElementById("japamStatus");
     if (!japamPlayerEl) return;
+    japamShouldBePlaying = false;
     japamPlayerEl.pause();
     if (status) {
         status.innerText = "ஜபம் pause செய்யப்பட்டது.";
@@ -1757,6 +1911,7 @@ function pauseJapam() {
 function resumeJapam() {
     const status = document.getElementById("japamStatus");
     if (!japamPlayerEl) return;
+    japamShouldBePlaying = true;
     const playPromise = japamPlayerEl.play();
     if (playPromise && typeof playPromise.then === "function") {
         playPromise.then(function() {
@@ -1776,6 +1931,7 @@ function resumeJapam() {
 function restartJapam() {
     const status = document.getElementById("japamStatus");
     if (!japamPlayerEl) return;
+    japamShouldBePlaying = true;
     japamLoopRemaining = (japamActiveCount === 21) ? japamLoopTarget : 1;
     japamPlayerEl.currentTime = 0;
     japamPlayerEl.play();

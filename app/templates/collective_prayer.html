@@ -204,6 +204,41 @@
             background: rgba(255, 255, 255, 0.5);
         }
 
+        /* On narrow screens, four columns of long Tamil header text get
+           squeezed unreadably. Reflow the table into a 2-column grid of
+           "label / value" pairs stacked vertically instead. */
+        @media (max-width: 620px) {
+            .japam-stats-table,
+            .japam-stats-table thead,
+            .japam-stats-table tbody,
+            .japam-stats-table tr {
+                display: contents;
+            }
+
+            .japam-stats-table {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .japam-stats-table th,
+            .japam-stats-table td {
+                text-align: left;
+                padding: 0.6rem 0.9rem;
+                border: 1px solid rgba(205, 161, 90, 0.28);
+                border-right: none;
+                border-bottom: none;
+            }
+
+            .japam-stats-table th:nth-of-type(1) { order: 1; }
+            .japam-stats-table td:nth-of-type(1) { order: 2; text-align: right; border-right: 1px solid rgba(205, 161, 90, 0.28); }
+            .japam-stats-table th:nth-of-type(2) { order: 3; }
+            .japam-stats-table td:nth-of-type(2) { order: 4; text-align: right; border-right: 1px solid rgba(205, 161, 90, 0.28); }
+            .japam-stats-table th:nth-of-type(3) { order: 5; }
+            .japam-stats-table td:nth-of-type(3) { order: 6; text-align: right; border-right: 1px solid rgba(205, 161, 90, 0.28); }
+            .japam-stats-table th:nth-of-type(4) { order: 7; border-bottom: 1px solid rgba(205, 161, 90, 0.28); }
+            .japam-stats-table td:nth-of-type(4) { order: 8; text-align: right; border-right: 1px solid rgba(205, 161, 90, 0.28); border-bottom: 1px solid rgba(205, 161, 90, 0.28); }
+        }
+
         .japam-card-countdown {
             position: absolute;
             inset: 0;
@@ -785,7 +820,7 @@
                 <span class="eyebrow">Combined Japam</span>
                 <h3 style="margin-top: 0.45rem; font-size: 1.35rem;">தொடர் ஜபம் — பல ஜபங்களை இணைத்து இயக்குங்கள்</h3>
             </div>
-            <p>கீழே உள்ள ஜபங்களைத் தேர்ந்தெடுத்து வரிசையை உருவாக்கவும். ஒவ்வொரு ஜபத்திற்கும் இடையே இடைவெளியை (வினாடிகளில்) அமைக்கலாம். எ.கா. ஓம் ஜபம் + 21 காயத்ரி ஜபம், அல்லது ஓம் ஜபம் + 108 காயத்ரி ஜபம்.</p>
+            <p>கீழே உள்ள ஜபங்களைத் தேர்ந்தெடுத்து வரிசையை உருவாக்கவும். ஒவ்வொரு ஜபமும் முடிந்தவுடன் அடுத்தது தானாகத் தொடங்கும். எ.கா. ஓம் ஜபம் + 21 காயத்ரி ஜபம், அல்லது ஓம் ஜபம் + 108 காயத்ரி ஜபம்.</p>
         </div>
 
         <div class="combo-picker">
@@ -796,11 +831,6 @@
         </div>
 
         <div class="combo-sequence-block">
-            <div class="combo-sequence-head">
-                <label class="input-label" for="comboGapSeconds">ஜபங்களுக்கு இடையே இடைவெளி (வினாடிகள்)</label>
-                <input type="number" id="comboGapSeconds" min="0" step="1" value="30" oninput="updateComboGap(this.value)">
-            </div>
-
             <div id="comboSequenceList" class="combo-sequence-list">
                 <div class="combo-empty">மேலே உள்ள ஜபங்களைத் தேர்ந்தெடுத்து வரிசையை உருவாக்குங்கள்.</div>
             </div>
@@ -1452,11 +1482,9 @@ function renderAllJapamTypeStats() {
    above (per-run and per chant type).
    ------------------------------------------------------------- */
 let comboSequence = [];
-let comboGapSeconds = 30;
 let comboIndex = -1;
 let comboPlayerEl = null;
 let comboShouldBePlaying = false;
-let comboGapInterval = null;
 
 function addComboItem(key) {
     comboSequence.push(key);
@@ -1494,11 +1522,6 @@ function renderComboSequence() {
     }
 
     if (startBtn) startBtn.disabled = comboSequence.length === 0;
-}
-
-function updateComboGap(value) {
-    const n = parseInt(value, 10);
-    comboGapSeconds = (Number.isFinite(n) && n >= 0) ? n : 0;
 }
 
 function highlightComboItem(index) {
@@ -1789,40 +1812,12 @@ function playComboMedia(config, key, index, useVideo) {
 
 function comboAdvanceAfterItem(index) {
     if (!comboShouldBePlaying) return;
-    const next = index + 1;
-
-    if (next >= comboSequence.length || comboGapSeconds <= 0) {
-        playComboItem(next);
-        return;
-    }
-
-    const status = document.getElementById("comboStatus");
-    let remaining = comboGapSeconds;
-    if (status) {
-        status.innerText = "அடுத்த ஜபத்திற்கு முன் " + remaining + " வினாடி இடைவெளி...";
-        status.className = "";
-    }
-
-    if (comboGapInterval) {
-        clearInterval(comboGapInterval);
-        comboGapInterval = null;
-    }
-
-    comboGapInterval = setInterval(function() {
-        if (!comboShouldBePlaying) {
-            clearInterval(comboGapInterval);
-            comboGapInterval = null;
-            return;
-        }
-        remaining -= 1;
-        if (remaining <= 0) {
-            clearInterval(comboGapInterval);
-            comboGapInterval = null;
-            playComboItem(next);
-            return;
-        }
-        if (status) status.innerText = "அடுத்த ஜபத்திற்கு முன் " + remaining + " வினாடி இடைவெளி...";
-    }, 1000);
+    // Start the next item immediately, right from the "ended" handler of the
+    // previous one. Calling play() synchronously here (instead of after a
+    // setInterval/setTimeout delay) keeps it inside the same user-activation
+    // chain the browser granted for the sequence, which is what lets mobile
+    // browsers autoplay it without being blocked.
+    playComboItem(index + 1);
 }
 
 function pauseComboJapam() {
@@ -1866,10 +1861,6 @@ function stopComboJapam() {
     comboCountdownDeadline = null;
     const countdownOverlay = document.getElementById("comboCountdownOverlay");
     if (countdownOverlay) countdownOverlay.classList.add("is-hidden");
-    if (comboGapInterval) {
-        clearInterval(comboGapInterval);
-        comboGapInterval = null;
-    }
     if (comboPlayerEl) {
         comboPlayerEl.pause();
         comboPlayerEl = null;

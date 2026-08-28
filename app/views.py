@@ -14,7 +14,7 @@ from django.utils import timezone
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.http import require_POST
 
-from .models import SponsoredBy, Events, Sponsors, JapamCompletion, Walker, WalkLog
+from .models import Events, JapamCompletion, Walker, WalkLog
 
 # app/views.py
 from django.conf import settings

@@ -13,7 +13,6 @@ urlpatterns = [
     path(r'chaturthi/', views.chaturthi, name='chaturthi'),
     path(r'iday/', views.idayhome, name='idayhome'),
     path(r'wayand/', views.reliefhome, name='reliefhome'),
-    path(r'sponsor/', views.sponsor, name='sponsor'),
     path(r'collective-prayer/', views.collective_prayer, name='collective_prayer'),
     path(r'collective-prayer/japam/record/', views.record_japam_completion, name='record_japam_completion'),
     path(r'walking-log/', views.walking_log, name='walking_log'),

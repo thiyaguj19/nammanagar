@@ -1126,5 +1126,58 @@
       startAutoplay();
     })();
   </script>
+  
+  <!-- Global Floating Live Indicator -->
+<div id="globalJapamBadge" style="display: none; position: fixed; bottom: 24px; right: 24px; z-index: 9999; background: #0c2721; color: #ffffff; border: 2px solid #f6b941; border-radius: 50px; padding: 0.75rem 1.3rem; box-shadow: 0 10px 30px rgba(0,0,0,0.35); font-weight: 700; font-size: 0.92rem; align-items: center; gap: 0.65rem; transition: all 0.3s ease;">
+  <span style="width: 11px; height: 11px; background-color: #f6b941; border-radius: 50%; display: inline-block; animation: pulseGlow 1.5s infinite;"></span>
+  <span id="globalJapamText">ஜபம் இயங்குகிறது...</span>
+  <a href="{% url 'collective_prayer' %}" style="color: #f6b941; margin-left: 0.5rem; text-decoration: underline; font-weight: 800;">இணைய →</a>
+</div>
+
+<style>
+@keyframes pulseGlow {
+  0% { transform: scale(0.9); opacity: 0.6; box-shadow: 0 0 0 0 rgba(246, 185, 65, 0.7); }
+  70% { transform: scale(1.25); opacity: 1; box-shadow: 0 0 0 8px rgba(246, 185, 65, 0); }
+  100% { transform: scale(0.9); opacity: 0.6; box-shadow: 0 0 0 0 rgba(246, 185, 65, 0); }
+}
+</style>
+
+<script>
+(function pollGlobalJapamState() {
+  const JAPAM_STATE_API = "/api/japam-state/";
+  
+  function checkState() {
+    fetch(JAPAM_STATE_API)
+      .then(res => res.json())
+      .then(data => {
+        const badge = document.getElementById("globalJapamBadge");
+        const text = document.getElementById("globalJapamText");
+        if (!badge || !text) return;
+
+        // Automatically hide if completed or if state hasn't updated in 1 hour
+        const isStale = data.timestamp && (Date.now() - data.timestamp > 3600000);
+        if (!data || data.status === "completed" || isStale) {
+          badge.style.display = "none";
+          return;
+        }
+
+        if (data.status === "playing") {
+          text.innerText = "இப்போது நேரலையில்: " + (data.label || "பிரார்த்தனை ஜபம்");
+          badge.style.display = "flex";
+        } else if (data.status === "paused") {
+          text.innerText = "நிறுத்தப்பட்டுள்ளது: " + (data.label || "பிரார்த்தனை ஜபம்");
+          badge.style.display = "flex";
+        } else {
+          badge.style.display = "none";
+        }
+      })
+      .catch(() => {});
+  }
+
+  // Poll server every 6 seconds
+  setInterval(checkState, 6000);
+  checkState();
+})();
+</script>
 </body>
 </html>

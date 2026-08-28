@@ -33,6 +33,13 @@ class SponsoredBy(models.Model):
     def __str__(self):
         return f'{self.events.event_name} | {self.sponsor.name} | {self.amount}'
 
+class ActiveJapamState(models.Model):
+    status = models.CharField(max_length=20, default="completed")  # "playing", "paused", "completed"
+    label = models.CharField(max_length=100, blank=True, default="")
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.label} - {self.status} (Updated: {self.updated_at:%H:%M:%S})"
 
 class JapamCompletion(models.Model):
     """

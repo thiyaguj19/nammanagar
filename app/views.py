@@ -3,6 +3,9 @@ from decimal import Decimal, InvalidOperation
 from datetime import timedelta
 from random import randint
 
+from django.views.decorators.csrf import csrf_exempt
+from .models import ActiveJapamState
+
 from django.db.models import Count, F, Sum
 from django.db.models.functions import TruncDate, TruncWeek
 from django.http import JsonResponse, HttpResponseBadRequest
@@ -403,3 +406,24 @@ def reliefhome(request):
 
 def sides_sample(request):
     return render(request, 'sides_sample.html')
+
+@csrf_exempt
+def update_japam_state(request):
+    state, _ = ActiveJapamState.objects.get_or_create(id=1)
+    
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            state.status = data.get("status", "completed")
+            state.label = data.get("label", "")
+            state.save()
+            return JsonResponse({"status": "success"})
+        except Exception as e:
+            return JsonResponse({"status": "error", "message": str(e)}, status=400)
+
+    # GET response
+    return JsonResponse({
+        "status": state.status,
+        "label": state.label,
+        "timestamp": int(state.updated_at.timestamp() * 1000)
+    })

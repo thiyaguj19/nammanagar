@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.urls import path
 
 from . import views
+from .views import update_japam_state
 
 urlpatterns = [
     path(r'', views.home, name='nagarhome'),
@@ -19,4 +20,5 @@ urlpatterns = [
     path(r'walking-log/record/', views.record_walk_log, name='record_walk_log'),
     path(r'walking-log/data/', views.walking_log_data, name='walking_log_data'),
     path(r'traffic-signals/', views.traffic_signals, name='traffic_signals'),
+    path("api/japam-state/", update_japam_state, name="japam_state_api"),
 ]

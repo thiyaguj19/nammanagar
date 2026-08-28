@@ -40,6 +40,17 @@ class ActiveJapamState(models.Model):
 
     def __str__(self):
         return f"{self.label} - {self.status} (Updated: {self.updated_at:%H:%M:%S})"
+        
+class DailyJapamSummary(models.Model):
+    date = models.DateField(unique=True, db_index=True)
+    total_count = models.PositiveIntegerField(default=0)
+    total_duration_seconds = models.BigIntegerField(default=0)
+    
+    # Store JSON breakdown by chant type if needed: {"21": 15, "108": 5}
+    chant_breakdown = models.JSONField(default=dict)
+
+    class Meta:
+        ordering = ["-date"]
 
 class JapamCompletion(models.Model):
     """
@@ -69,8 +80,23 @@ class JapamCompletion(models.Model):
     # and overall, without needing to hardcode a duration per track.
     duration_seconds = models.PositiveIntegerField(default=0)
 
+    def save(self, *args, **kwargs):
+        is_new = self.pk is None
+        super().save(*args, **kwargs)
+        
+        if is_new:
+            today = timezone.now().date()
+            summary, _ = DailyJapamSummary.objects.get_or_create(date=today)
+            DailyJapamSummary.objects.filter(date=today).update(
+                total_count=F("total_count") + 1,
+                total_duration_seconds=F("total_duration_seconds") + self.duration_seconds
+            )
+
     class Meta:
         ordering = ["-created_at"]
+        indexes = [
+            models.Index(fields=["chant_type", "created_at"]),
+        ]
 
     def __str__(self):
         return f'{self.get_chant_type_display()} | {self.created_at:%Y-%m-%d %H:%M} | {self.duration_seconds}s'

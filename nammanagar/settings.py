@@ -75,6 +75,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'nammanagar.wsgi.application'
 
+CRON_SECRET = os.environ.get("CRON_SECRET", "HelpEverHurtNeverLoveAllServeAll")
+
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases

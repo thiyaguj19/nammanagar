@@ -21,4 +21,5 @@ urlpatterns = [
     path(r'walking-log/data/', views.walking_log_data, name='walking_log_data'),
     path(r'traffic-signals/', views.traffic_signals, name='traffic_signals'),
     path("api/japam-state/", update_japam_state, name="japam_state_api"),
+    path("api/cron/archive-japams/", run_archive_cron, name="run_archive_cron"),
 ]

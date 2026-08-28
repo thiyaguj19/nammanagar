@@ -20,5 +20,11 @@
       "src": "/(.*)",
       "dest": "nammanagar/wsgi.py"
     }
+  ],
+  "crons": [
+    {
+      "path": "/api/cron/archive-japams/",
+      "schedule": "0 2 * * *"
+    }
   ]
 }

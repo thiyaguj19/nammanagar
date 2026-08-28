@@ -13,3 +13,4 @@ class JapamCompletionAdmin(admin.ModelAdmin):
     list_display = ('chant_type', 'created_at', 'duration_seconds')
     list_filter = ('chant_type', 'created_at')
     date_hierarchy = 'created_at'
+    list_per_page = 11

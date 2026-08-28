@@ -8,13 +8,17 @@ from .models import ActiveJapamState
 
 from django.db.models import Count, F, Sum
 from django.db.models.functions import TruncDate, TruncWeek
-from django.http import JsonResponse, HttpResponseBadRequest
+from django.http import JsonResponse, HttpResponseBadRequest, HttpResponseForbidden
 from django.shortcuts import render
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.http import require_POST
 
 from .models import SponsoredBy, Events, Sponsors, JapamCompletion, Walker, WalkLog
+
+# app/views.py
+from django.conf import settings
+from django.core.management import call_command
 
 VALID_JAPAM_CHANT_TYPES = {"21", "108", "om", "shivaya"}
 
@@ -427,3 +431,16 @@ def update_japam_state(request):
         "label": state.label,
         "timestamp": int(state.updated_at.timestamp() * 1000)
     })
+
+def run_archive_cron(request):
+    # Verify authorization header sent by Vercel
+    auth_header = request.headers.get("Authorization")
+    expected_header = f"Bearer {settings.CRON_SECRET}"
+    
+    if auth_header != expected_header:
+        return HttpResponseForbidden("Unauthorized")
+
+    # Programmatically execute your existing management command
+    call_command("archive_old_japams")
+    
+    return JsonResponse({"status": "success", "message": "Archive job executed successfully."})

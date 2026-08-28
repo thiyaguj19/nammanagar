@@ -6,7 +6,7 @@ admin.site.register(Events)
 admin.site.register(Sponsors)
 admin.site.register(SponsoredBy)
 admin.site.register(WalkLog)
-#admin.site.register(JapamCompletion)
+admin.site.register(ActiveJapamState)
 
 @admin.register(JapamCompletion)
 class JapamCompletionAdmin(admin.ModelAdmin):

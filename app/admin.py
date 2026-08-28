@@ -3,8 +3,6 @@ from .models import *
 
 # Register your models here.
 admin.site.register(Events)
-admin.site.register(Sponsors)
-admin.site.register(SponsoredBy)
 admin.site.register(WalkLog)
 admin.site.register(ActiveJapamState)
 admin.site.register(DailyJapamSummary)

@@ -3,6 +3,7 @@ from django.urls import path
 
 from . import views
 from .views import update_japam_state
+from app.views import run_archive_cron
 
 urlpatterns = [
     path(r'', views.home, name='nagarhome'),

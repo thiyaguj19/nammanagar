@@ -76,7 +76,7 @@
         .darshan-frame {
             position: relative;
             width: 100%;
-            padding-bottom: 125%;
+            padding-bottom: 240%;
             margin-top: 0.9rem;
             border-radius: 20px;
             overflow: hidden;
@@ -925,7 +925,6 @@
                     <span class="eyebrow">Darshan</span>
                     <h3 style="margin-top: 0.45rem; font-size: 1.15rem;">சுவாமி தரிசனம்</h3>
                 </div>
-                <p>ஜபம் இயங்கும்போது படங்கள் தானாக மாறும்.</p>
             </div>
 
             <div class="darshan-frame" id="darshanFrame" onclick="openDarshanLightbox()">
@@ -1826,9 +1825,9 @@ function clearJapamState() {
    Builds the 1..54 image list, crossfades between two stacked <img> layers,
    and is driven entirely by broadcastJapamState() above, so it starts/pauses/
    stops in sync with BOTH the single-mantra panel and the combo panel. */
-const DARSHAN_IMAGE_COUNT = 54;
+const DARSHAN_IMAGE_COUNT = 53;
 const DARSHAN_BASE_URL = "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/our_swami/sri-sathya-sai-baba-hd-wallpaper-";
-const DARSHAN_INTERVAL_MS = 6000;
+const DARSHAN_INTERVAL_MS = 18000;
 
 let DARSHAN_IMAGES = [];
 for (let i = 1; i <= DARSHAN_IMAGE_COUNT; i++) {

@@ -42,10 +42,149 @@
         }
 
         .page-shell {
-            width: min(100% - 2rem, 980px);
+            width: min(100% - 2rem, 1280px);
             margin: 1.5rem auto 0;
             display: grid;
+            grid-template-columns: minmax(0, 1fr);
             gap: 1.2rem;
+            align-items: start;
+        }
+
+        @media (min-width: 960px) {
+            .page-shell {
+                grid-template-columns: minmax(0, 1fr) 320px;
+            }
+        }
+
+        .content-col {
+            min-width: 0;
+            display: grid;
+            gap: 1.2rem;
+        }
+
+        /* --- Darshan carousel (right column) --- */
+        .darshan-col {
+            min-width: 0;
+        }
+
+        .darshan-panel {
+            position: sticky;
+            top: 1rem;
+            padding: 1.1rem;
+        }
+
+        .darshan-frame {
+            position: relative;
+            width: 100%;
+            padding-bottom: 125%;
+            margin-top: 0.9rem;
+            border-radius: 20px;
+            overflow: hidden;
+            background: #12241f;
+            cursor: zoom-in;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+        }
+
+        .darshan-img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1.1s ease;
+        }
+
+        .darshan-img.is-active {
+            opacity: 1;
+        }
+
+        .darshan-idle-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding: 1rem;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(16, 44, 38, 0.05) 0%, rgba(16, 44, 38, 0.78) 100%);
+            color: #fff;
+            font-size: 0.82rem;
+            font-weight: 700;
+            z-index: 2;
+            transition: opacity 0.3s ease;
+        }
+
+        .darshan-idle-overlay.is-hidden {
+            display: none;
+        }
+
+        .darshan-expand-hint {
+            position: absolute;
+            top: 0.6rem;
+            right: 0.6rem;
+            width: 1.8rem;
+            height: 1.8rem;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.35);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.95rem;
+            z-index: 3;
+        }
+
+        .darshan-dots {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+            margin-top: 0.75rem;
+        }
+
+        .darshan-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(47, 101, 83, 0.25);
+        }
+
+        .darshan-dot.active {
+            background: var(--coral);
+        }
+
+        .darshan-lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 20, 18, 0.92);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            z-index: 1000;
+            cursor: zoom-out;
+        }
+
+        .darshan-lightbox.is-hidden {
+            display: none;
+        }
+
+        .darshan-lightbox img {
+            max-width: min(92vw, 640px);
+            max-height: 88vh;
+            border-radius: 16px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        @media (max-width: 959px) {
+            .darshan-panel {
+                position: static;
+            }
+
+            .darshan-frame {
+                padding-bottom: 60%;
+            }
         }
 
         .japam-panel {
@@ -597,6 +736,7 @@
 {% include 'partials/site_header.html' %}
 
 <main id="top" class="page-shell">
+<div class="content-col">
     <!-- 1. Mantra Japam (Horizontal Top Banner) -->
     <section class="japam-panel">
         <div class="panel-head">
@@ -775,8 +915,36 @@
 
         <div id="comboStatus">மேலே உள்ள தேர்வுகளில் ஒன்றைத் தேர்ந்தெடுத்துத் தொடங்குங்கள்.</div>
     </section>
+</div>
 
+    <!-- 3. Darshan (Right column, auto-syncs with japam playback) -->
+    <aside class="darshan-col">
+        <div class="japam-panel darshan-panel">
+            <div class="panel-head">
+                <div>
+                    <span class="eyebrow">Darshan</span>
+                    <h3 style="margin-top: 0.45rem; font-size: 1.15rem;">சுவாமி தரிசனம்</h3>
+                </div>
+                <p>ஜபம் இயங்கும்போது படங்கள் தானாக மாறும்.</p>
+            </div>
+
+            <div class="darshan-frame" id="darshanFrame" onclick="openDarshanLightbox()">
+                <img class="darshan-img" id="darshanImgA" src="" alt="ஸ்ரீ சத்ய சாய் பாபா">
+                <img class="darshan-img" id="darshanImgB" src="" alt="ஸ்ரீ சத்ய சாய் பாபா">
+                <div class="darshan-idle-overlay" id="darshanIdleOverlay">
+                    <span>ஜபம் தொடங்கும்போது தானாக மாறும்</span>
+                </div>
+                <span class="darshan-expand-hint" title="பெரிதாக்க தட்டவும்">⤢</span>
+            </div>
+
+            <div class="darshan-dots" id="darshanDots"></div>
+        </div>
+    </aside>
 </main>
+
+<div id="darshanLightbox" class="darshan-lightbox is-hidden" onclick="closeDarshanLightbox()">
+    <img id="darshanLightboxImg" src="" alt="ஸ்ரீ சத்ய சாய் பாபா">
+</div>
 
 {% include 'partials/site_footer.html' %}
 
@@ -1634,7 +1802,13 @@ function broadcastJapamState(status, label) {
         status: status, // "playing", "paused", or "completed"
         label: label || "காயத்ரி ஜபம்"
     };
-    
+
+    if (status === "playing") {
+        startDarshanCarousel();
+    } else {
+        stopDarshanCarousel(status);
+    }
+
     fetch(JAPAM_STATE_API, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -1648,8 +1822,129 @@ function clearJapamState() {
     broadcastJapamState("completed", "");
 }
 
+/* --- Darshan carousel (right column) ---
+   Builds the 1..54 image list, crossfades between two stacked <img> layers,
+   and is driven entirely by broadcastJapamState() above, so it starts/pauses/
+   stops in sync with BOTH the single-mantra panel and the combo panel. */
+const DARSHAN_IMAGE_COUNT = 54;
+const DARSHAN_BASE_URL = "https://nammanagar.s3.eu-north-1.amazonaws.com/prayer/our_swami/sri-sathya-sai-baba-hd-wallpaper-";
+const DARSHAN_INTERVAL_MS = 6000;
+
+let DARSHAN_IMAGES = [];
+for (let i = 1; i <= DARSHAN_IMAGE_COUNT; i++) {
+    DARSHAN_IMAGES.push(DARSHAN_BASE_URL + i + ".png");
+}
+// Shuffle once per page load so the sequence feels fresh each visit.
+for (let i = DARSHAN_IMAGES.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const tmp = DARSHAN_IMAGES[i];
+    DARSHAN_IMAGES[i] = DARSHAN_IMAGES[j];
+    DARSHAN_IMAGES[j] = tmp;
+}
+
+let darshanIndex = -1;
+let darshanTimer = null;
+let darshanShowingA = true;
+
+function preloadDarshanImage(src) {
+    const img = new Image();
+    img.src = src;
+}
+
+function nextDarshanImage() {
+    if (!DARSHAN_IMAGES.length) return;
+    darshanIndex = (darshanIndex + 1) % DARSHAN_IMAGES.length;
+    const src = DARSHAN_IMAGES[darshanIndex];
+
+    const imgA = document.getElementById("darshanImgA");
+    const imgB = document.getElementById("darshanImgB");
+    if (!imgA || !imgB) return;
+
+    const showEl = darshanShowingA ? imgB : imgA;
+    const hideEl = darshanShowingA ? imgA : imgB;
+    showEl.src = src;
+    showEl.classList.add("is-active");
+    hideEl.classList.remove("is-active");
+    darshanShowingA = !darshanShowingA;
+
+    preloadDarshanImage(DARSHAN_IMAGES[(darshanIndex + 1) % DARSHAN_IMAGES.length]);
+    updateDarshanDots();
+
+    const lightboxImg = document.getElementById("darshanLightboxImg");
+    if (lightboxImg && !document.getElementById("darshanLightbox").classList.contains("is-hidden")) {
+        lightboxImg.src = src;
+    }
+}
+
+function updateDarshanDots() {
+    const dotsWrap = document.getElementById("darshanDots");
+    if (!dotsWrap || !DARSHAN_IMAGES.length) return;
+    const dotCount = Math.min(7, DARSHAN_IMAGES.length);
+    const activeDot = darshanIndex % dotCount;
+    if (dotsWrap.childElementCount !== dotCount) {
+        dotsWrap.innerHTML = "";
+        for (let i = 0; i < dotCount; i++) {
+            const dot = document.createElement("span");
+            dot.className = "darshan-dot";
+            dotsWrap.appendChild(dot);
+        }
+    }
+    Array.from(dotsWrap.children).forEach(function(dot, i) {
+        dot.classList.toggle("active", i === activeDot);
+    });
+}
+
+function initDarshanCarousel() {
+    if (!DARSHAN_IMAGES.length) return;
+    const imgA = document.getElementById("darshanImgA");
+    if (!imgA) return;
+    darshanIndex = 0;
+    imgA.src = DARSHAN_IMAGES[0];
+    imgA.classList.add("is-active");
+    preloadDarshanImage(DARSHAN_IMAGES[1] || DARSHAN_IMAGES[0]);
+    updateDarshanDots();
+}
+
+function startDarshanCarousel() {
+    const overlay = document.getElementById("darshanIdleOverlay");
+    if (overlay) overlay.classList.add("is-hidden");
+    if (darshanTimer) return; // already running
+    darshanTimer = setInterval(nextDarshanImage, DARSHAN_INTERVAL_MS);
+}
+
+function stopDarshanCarousel(status) {
+    if (darshanTimer) {
+        clearInterval(darshanTimer);
+        darshanTimer = null;
+    }
+    const overlay = document.getElementById("darshanIdleOverlay");
+    if (!overlay) return;
+    const label = overlay.querySelector("span");
+    if (status === "paused") {
+        if (label) label.innerText = "இடைநிறுத்தப்பட்டுள்ளது";
+        overlay.classList.remove("is-hidden");
+    } else {
+        if (label) label.innerText = "ஜபம் தொடங்கும்போது தானாக மாறும்";
+        overlay.classList.remove("is-hidden");
+    }
+}
+
+function openDarshanLightbox() {
+    const lightbox = document.getElementById("darshanLightbox");
+    const lightboxImg = document.getElementById("darshanLightboxImg");
+    if (!lightbox || !lightboxImg || !DARSHAN_IMAGES.length) return;
+    lightboxImg.src = DARSHAN_IMAGES[Math.max(darshanIndex, 0)];
+    lightbox.classList.remove("is-hidden");
+}
+
+function closeDarshanLightbox() {
+    const lightbox = document.getElementById("darshanLightbox");
+    if (lightbox) lightbox.classList.add("is-hidden");
+}
+
 document.addEventListener("DOMContentLoaded", function() {
     renderAllJapamTypeStats();
+    initDarshanCarousel();
 });
 </script>
 

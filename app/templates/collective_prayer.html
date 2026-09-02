@@ -511,20 +511,19 @@
             letter-spacing: 0.01em;
         }
 
-        .japam-player-wrap {
-            position: relative;
-            width: 100%;
-            padding-bottom: 40%;
-            margin-top: 1.1rem;
-            background: #1a1a1a;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
-        }
+		.japam-player-wrap {
+			position: relative;
+			width: 100%;
+			/* Removed padding-bottom: 40% to collapse height for audio */
+			margin-top: 1.1rem;
+			background: transparent;
+			border-radius: 20px;
+			overflow: hidden;
+		}
 
-        .japam-player-wrap.is-hidden {
-            display: none;
-        }
+		.japam-player-wrap.is-hidden {
+			display: none;
+		}
 
         .japam-player-wrap video,
         .japam-player-wrap audio {

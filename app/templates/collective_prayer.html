@@ -1019,9 +1019,47 @@ function renderJapamStats(today, total, todaySeconds, totalSeconds) {
     if (totalDurationEl && typeof totalSeconds === "number") totalDurationEl.innerText = formatJapamDuration(totalSeconds);
 }
 
+function optimisticallyBumpJapamCounts(chantType, durationSeconds) {
+    // Bump the overall summary counters immediately, without waiting on the network.
+    const todayEl = document.getElementById("japamTodayCount");
+    const totalEl = document.getElementById("japamTotalCount");
+    const todayDurationEl = document.getElementById("japamTodayDuration");
+    const totalDurationEl = document.getElementById("japamTotalDuration");
+
+    let todaySeconds = 0, totalSeconds = 0;
+    if (todayEl) {
+        const bumped = (parseInt(todayEl.innerText, 10) || 0) + 1;
+        todayEl.innerText = bumped;
+    }
+    if (totalEl) {
+        const bumped = (parseInt(totalEl.innerText, 10) || 0) + 1;
+        totalEl.innerText = bumped;
+    }
+    // We don't know the prior seconds total client-side, so we leave the duration
+    // labels alone here — they get corrected by the server reconcile a moment later.
+
+    // Bump this specific chant type's card badge.
+    const prior = JAPAM_COUNTS_BY_TYPE[chantType] || { today: 0, total: 0, today_seconds: 0, total_seconds: 0 };
+    const updated = {
+        today: (prior.today || 0) + 1,
+        total: (prior.total || 0) + 1,
+        today_seconds: (prior.today_seconds || 0) + durationSeconds,
+        total_seconds: (prior.total_seconds || 0) + durationSeconds
+    };
+    JAPAM_COUNTS_BY_TYPE[chantType] = updated;
+    renderJapamTypeStats(chantType, updated.today, updated.total, updated.today_seconds, updated.total_seconds);
+}
+
 function recordJapamCompletion(chantType, durationSeconds) {
     let safeDuration = Number(durationSeconds);
     if (!Number.isFinite(safeDuration) || safeDuration < 0) safeDuration = 0;
+
+    const chantTypeStr = String(chantType);
+
+    // Update the UI right now so the person sees their count move instantly,
+    // regardless of network latency or any server-side hiccup. The fetch below
+    // then reconciles these numbers to the exact authoritative server totals.
+    optimisticallyBumpJapamCounts(chantTypeStr, safeDuration);
 
     fetch(JAPAM_RECORD_URL, {
         method: "POST",
@@ -1030,11 +1068,18 @@ function recordJapamCompletion(chantType, durationSeconds) {
             "X-CSRFToken": JAPAM_CSRF_TOKEN
         },
         credentials: "same-origin",
-        body: JSON.stringify({ chant_type: String(chantType), duration_seconds: safeDuration })
+        body: JSON.stringify({ chant_type: chantTypeStr, duration_seconds: safeDuration })
     })
-        .then(function(res) { return res.ok ? res.json() : null; })
+        .then(function(res) {
+            if (!res.ok) {
+                console.error("record_japam_completion failed with status", res.status);
+                return null;
+            }
+            return res.json();
+        })
         .then(function(data) {
             if (data) {
+                // Reconcile with the real server numbers (overwrites the optimistic guess).
                 renderJapamStats(data.today, data.total, data.today_seconds, data.total_seconds);
                 if (data.chant_type) {
                     JAPAM_COUNTS_BY_TYPE[data.chant_type] = {
@@ -1047,7 +1092,11 @@ function recordJapamCompletion(chantType, durationSeconds) {
                 }
             }
         })
-        .catch(function() {});
+        .catch(function(err) {
+            console.error("record_japam_completion request failed:", err);
+            // Optimistic bump above already stands — the count still moved for
+            // this visitor; it'll be corrected on their next page load either way.
+        });
 }
 
 function handleJapamEnded(count, durationSeconds) {

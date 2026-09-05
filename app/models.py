@@ -13,6 +13,13 @@ class Events(models.Model):
 class ActiveJapamState(models.Model):
     status = models.CharField(max_length=20, default="completed")  # "playing", "paused", "completed"
     label = models.CharField(max_length=100, blank=True, default="")
+
+    # NEW: the exact track currently playing, so a joining browser can play the same sound.
+    audio_url = models.URLField(max_length=500, blank=True, default="")
+    # NEW: when this playback truly started — lets a joiner compute how many
+    # seconds to seek into audio_url so they land on the same moment as everyone else.
+    started_at = models.DateTimeField(null=True, blank=True)
+
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):

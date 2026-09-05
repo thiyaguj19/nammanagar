@@ -1131,8 +1131,9 @@
 <div id="globalJapamBadge" style="display: none; position: fixed; bottom: 24px; right: 24px; z-index: 9999; background: #0c2721; color: #ffffff; border: 2px solid #f6b941; border-radius: 50px; padding: 0.75rem 1.3rem; box-shadow: 0 10px 30px rgba(0,0,0,0.35); font-weight: 700; font-size: 0.92rem; align-items: center; gap: 0.65rem; transition: all 0.3s ease;">
   <span style="width: 11px; height: 11px; background-color: #f6b941; border-radius: 50%; display: inline-block; animation: pulseGlow 1.5s infinite;"></span>
   <span id="globalJapamText">ஜபம் இயங்குகிறது...</span>
-  <a href="{% url 'collective_prayer' %}" style="color: #f6b941; margin-left: 0.5rem; text-decoration: underline; font-weight: 800;">இணைய →</a>
+  <button type="button" id="globalJapamJoinBtn" onclick="joinGlobalJapam()" style="background:none; border:none; padding:0; margin-left:0.5rem; color:#f6b941; text-decoration:underline; font-weight:800; font-size:inherit; font-family:inherit; cursor:pointer;">இணைய → 🔊</button>
 </div>
+<audio id="globalJapamAudio" style="display:none;"></audio>
 
 <style>
 @keyframes pulseGlow {
@@ -1145,14 +1146,17 @@
 <script>
 (function pollGlobalJapamState() {
   const JAPAM_STATE_API = "/api/japam-state/";
-  
+  let latestState = null;
+
   function checkState() {
     fetch(JAPAM_STATE_API)
       .then(res => res.json())
       .then(data => {
+        latestState = data;
         const badge = document.getElementById("globalJapamBadge");
         const text = document.getElementById("globalJapamText");
-        if (!badge || !text) return;
+        const joinBtn = document.getElementById("globalJapamJoinBtn");
+        if (!badge || !text || !joinBtn) return;
 
         // Automatically hide if completed or if state hasn't updated in 1 hour
         const isStale = data.timestamp && (Date.now() - data.timestamp > 3600000);
@@ -1163,9 +1167,12 @@
 
         if (data.status === "playing") {
           text.innerText = "இப்போது நேரலையில்: " + (data.label || "பிரார்த்தனை ஜபம்");
+          joinBtn.style.display = "inline";
+          joinBtn.innerText = "இணைய → 🔊";
           badge.style.display = "flex";
         } else if (data.status === "paused") {
           text.innerText = "நிறுத்தப்பட்டுள்ளது: " + (data.label || "பிரார்த்தனை ஜபம்");
+          joinBtn.style.display = "none"; // paused sessions have no reliable position to sync to
           badge.style.display = "flex";
         } else {
           badge.style.display = "none";
@@ -1173,6 +1180,35 @@
       })
       .catch(() => {});
   }
+
+  // Clicking "இணைய →" plays the SAME track, seeked to the same second everyone
+  // else is at — computed from (now - started_at), the moment the server recorded
+  // real playback beginning.
+  window.joinGlobalJapam = function() {
+    const joinBtn = document.getElementById("globalJapamJoinBtn");
+    if (!latestState || latestState.status !== "playing" || !latestState.audio_url || !latestState.started_at) {
+      // Nothing syncable right now — fall back to the collective-prayer page itself.
+      window.location.href = "{% url 'collective_prayer' %}";
+      return;
+    }
+
+    const audio = document.getElementById("globalJapamAudio");
+    if (!audio) return;
+
+    const offsetSeconds = Math.max(0, (Date.now() - latestState.started_at) / 1000);
+    audio.src = latestState.audio_url;
+    audio.controls = true;
+    audio.style.display = "block";
+
+    audio.onloadedmetadata = function() {
+      const dur = audio.duration && isFinite(audio.duration) ? audio.duration : null;
+      audio.currentTime = dur ? (offsetSeconds % dur) : offsetSeconds;
+      audio.play().catch(function(err) { console.error("Join playback failed:", err); });
+    };
+    audio.load();
+
+    if (joinBtn) joinBtn.innerText = "🔊 இயங்குகிறது...";
+  };
 
   // Poll server every 6 seconds
   setInterval(checkState, 6000);

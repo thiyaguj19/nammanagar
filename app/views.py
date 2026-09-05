@@ -418,8 +418,20 @@ def update_japam_state(request):
     if request.method == "POST":
         try:
             data = json.loads(request.body)
-            state.status = data.get("status", "completed")
+            new_status = data.get("status", "completed")
+            new_audio_url = data.get("audio_url") or ""
+
+            if new_status == "playing" and state.status != "playing":
+                # Real start of a fresh playback — this is the moment every
+                # joining browser will sync its seek position against.
+                state.started_at = timezone.now()
+            elif new_status == "completed":
+                state.started_at = None
+
+            state.status = new_status
             state.label = data.get("label", "")
+            if new_audio_url:
+                state.audio_url = new_audio_url
             state.save()
             return JsonResponse({"status": "success"})
         except Exception as e:
@@ -429,6 +441,8 @@ def update_japam_state(request):
     return JsonResponse({
         "status": state.status,
         "label": state.label,
+        "audio_url": state.audio_url,
+        "started_at": int(state.started_at.timestamp() * 1000) if state.started_at else None,
         "timestamp": int(state.updated_at.timestamp() * 1000)
     })
 

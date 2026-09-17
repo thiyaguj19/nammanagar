@@ -22,4 +22,6 @@ urlpatterns = [
     path(r'traffic-signals/', views.traffic_signals, name='traffic_signals'),
     path("api/japam-state/", update_japam_state, name="japam_state_api"),
     path("api/cron/archive-japams/", run_archive_cron, name="run_archive_cron"),
+    path(r'short-stories/', views.short_stories, name='short_stories'),
+    path(r'short-stories/ganesha-muruga/', views.ganesha_muruga_story, name='ganesha_muruga_story'),
 ]

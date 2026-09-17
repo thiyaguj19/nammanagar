@@ -751,6 +751,7 @@
     <aside class="rail">
       <h3>விரைவு அணுகல்</h3>
       <ul class="rail-list">
+		<li><a href="{% url 'short_stories' %}">சிறுகதைகள்</a></li>
         <li><a href="#upcoming-events">80வது சுதந்திர தின விழா</a></li>
         <li><a href="#stories">நினைவுகள்</a></li>
         <li><a href="#community">நம் சமூகக் குரல்</a></li>
@@ -817,6 +818,17 @@
         </div>
 
         <div class="stories">
+		
+		  <a class="story" href="{% url 'short_stories' %}">
+            <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&w=1200&q=80" alt="சிறுகதைகள்">
+            <div>
+              <span class="tag">புதிய பகுதி</span>
+              <h3>சிறுகதைகள்</h3>
+              <p>விநாயகர் மற்றும் முருகனின் உலகைச் சுற்றிய போட்டி போன்ற ஆன்மீக சிந்தனைகள்.</p>
+              <span class="arrow">கதைகள் பார்க்க →</span>
+            </div>
+          </a>
+		  
           <a class="story" href="{% url 'traffic_signals' %}">
             <img src="https://images.unsplash.com/photo-1481437156560-3205f6a55735?auto=format&fit=crop&w=1200&q=80" alt="Traffic signals and road safety">
             <div>

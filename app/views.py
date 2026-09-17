@@ -458,3 +458,9 @@ def run_archive_cron(request):
     call_command("archive_old_japams")
     
     return JsonResponse({"status": "success", "message": "Archive job executed successfully."})
+    
+def short_stories(request):
+    return render(request, 'short_stories.html')
+
+def ganesha_muruga_story(request):
+    return render(request, 'ganesha-muruga-scene.html')

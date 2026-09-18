@@ -138,6 +138,11 @@
     transition:background .2s ease, border-color .2s ease;
   }
   .home-link:hover{ background:rgba(217,169,74,.12); border-color:var(--gold); }
+  .nav-row{
+    position:relative; z-index:2; display:flex; gap:10px; flex-wrap:wrap;
+    justify-content:center; margin-bottom:26px;
+  }
+  .nav-row .home-link{ margin-bottom:0; }
 
   /* Reflection section */
   .reflection{
@@ -216,7 +221,10 @@
 <div class="stage">
   <div class="stars" id="stars"></div>
 
-  <a class="home-link" href="https://www.nammanagar.in/">&larr; Back to Home</a>
+  <div class="nav-row">
+    <a class="home-link" href="https://www.nammanagar.in/">&larr; Back to Home</a>
+    <a class="home-link" href="https://www.nammanagar.in/short-stories/">&larr; Back to Stories</a>
+  </div>
 
   <div class="eyebrow">A Story of Devotion</div>
   <h1>The Race Around the World</h1>
@@ -460,7 +468,10 @@
     </div>
   </section>
 
-  <a class="home-link" href="https://www.nammanagar.in/" style="margin-top:34px;">&larr; Back to Home</a>
+  <div class="nav-row" style="margin-top:34px;">
+    <a class="home-link" href="https://www.nammanagar.in/">&larr; Back to Home</a>
+    <a class="home-link" href="https://www.nammanagar.in/short-stories/">&larr; Back to Stories</a>
+  </div>
 
   <footer>Ganpati Bappa Morya · Vetrivel Muruganukku Vetri</footer>
 </div>

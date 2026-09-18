@@ -40,6 +40,11 @@
     letter-spacing:.02em; transition:background .2s ease, border-color .2s ease;
   }
   .home-link:hover{ background:rgba(217,169,74,.12); border-color:var(--gold); }
+  .nav-row{
+    position:relative; z-index:2; display:flex; gap:10px; flex-wrap:wrap;
+    justify-content:center; margin-bottom:26px;
+  }
+  .nav-row .home-link{ margin-bottom:0; }
 
   .eyebrow{ font-size:13px; letter-spacing:.08em; color:#9FC3E8; opacity:.85; margin-bottom:8px; z-index:2; }
   h1{
@@ -106,7 +111,10 @@
 <body>
 <div class="stage">
   <div class="stars" id="stars"></div>
-  <a class="home-link" href="https://www.nammanagar.in/">&larr; Back to Home</a>
+  <div class="nav-row">
+    <a class="home-link" href="https://www.nammanagar.in/">&larr; Back to Home</a>
+    <a class="home-link" href="https://www.nammanagar.in/short-stories/">&larr; Back to Stories</a>
+  </div>
 
   <div class="eyebrow">A Story of Sacrifice</div>
   <h1>Neelakantha</h1>
@@ -207,7 +215,10 @@
     </div>
   </section>
 
-  <a class="home-link" href="https://www.nammanagar.in/" style="margin-top:34px;">&larr; Back to Home</a>
+  <div class="nav-row" style="margin-top:34px;">
+    <a class="home-link" href="https://www.nammanagar.in/">&larr; Back to Home</a>
+    <a class="home-link" href="https://www.nammanagar.in/short-stories/">&larr; Back to Stories</a>
+  </div>
   <footer>Om Namah Shivaya</footer>
 </div>
 

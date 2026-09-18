@@ -120,6 +120,92 @@
   .caption{ margin-top:16px; font-size:13px; color:#C9BEDB; max-width:400px; line-height:1.6; z-index:2; }
   footer{ margin-top:20px; font-size:12px; letter-spacing:.04em; color:#8A7BB0; z-index:2; }
 
+  /* Home link */
+  .home-link{
+    position:relative;
+    z-index:2;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    margin-bottom:26px;
+    padding:8px 16px;
+    border:1px solid rgba(217,169,74,.4);
+    border-radius:999px;
+    color:var(--marigold);
+    text-decoration:none;
+    font-size:13px;
+    letter-spacing:.02em;
+    transition:background .2s ease, border-color .2s ease;
+  }
+  .home-link:hover{ background:rgba(217,169,74,.12); border-color:var(--gold); }
+
+  /* Reflection section */
+  .reflection{
+    position:relative;
+    z-index:2;
+    max-width:640px;
+    width:100%;
+    margin:36px auto 0;
+    padding:0 4px;
+    text-align:left;
+  }
+  .reflection h2{
+    font-family:'Yatra One', cursive;
+    font-weight:400;
+    font-size:clamp(1.4rem, 3.4vw, 1.9rem);
+    color:var(--marigold);
+    text-align:center;
+    margin:0 0 10px;
+  }
+  .reflection > .intro{
+    text-align:center;
+    font-size:14.5px;
+    line-height:1.75;
+    color:#E7DFF4;
+    opacity:.9;
+    max-width:560px;
+    margin:0 auto 28px;
+  }
+  .lesson-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:16px;
+  }
+  @media (min-width:640px){
+    .lesson-grid{ grid-template-columns:1fr 1fr; }
+  }
+  .lesson-card{
+    background:rgba(253,246,236,0.05);
+    border:1px solid rgba(217,169,74,.22);
+    border-radius:14px;
+    padding:20px 20px 22px;
+  }
+  .lesson-card .num{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:28px; height:28px;
+    border-radius:50%;
+    background:rgba(217,169,74,.18);
+    color:var(--marigold);
+    font-family:'Yatra One', cursive;
+    font-size:15px;
+    margin-bottom:10px;
+  }
+  .lesson-card h3{
+    margin:0 0 8px;
+    font-size:15.5px;
+    font-weight:600;
+    color:var(--cream);
+  }
+  .lesson-card p{
+    margin:0;
+    font-size:13.5px;
+    line-height:1.7;
+    color:#CFC6E4;
+    opacity:.92;
+  }
+
   @media (prefers-reduced-motion: reduce){
     .leg, .ear-walk, .center-halo, .star, .tailfeather, .wing{ animation:none !important; }
     .walker, .racer{ animation:none !important; }
@@ -129,6 +215,8 @@
 <body>
 <div class="stage">
   <div class="stars" id="stars"></div>
+
+  <a class="home-link" href="https://www.nammanagar.in/">&larr; Back to Home</a>
 
   <div class="eyebrow">A Story of Devotion</div>
   <h1>The Race Around the World</h1>
@@ -341,6 +429,39 @@
   </div>
 
   <p class="caption">Both paths end the same way: wisdom isn't measured in distance.</p>
+
+  <section class="reflection">
+    <h2>What the Common Man Can Learn</h2>
+    <p class="intro">
+      This story from Hindu mythology offers profound practical wisdom for everyday life.
+      At its core, Ganesha's choice implies several timeless principles:
+    </p>
+    <div class="lesson-grid">
+      <div class="lesson-card">
+        <span class="num">1</span>
+        <h3>Perception Defines Reality</h3>
+        <p>Murugan interpreted "the world" literally as physical space, speed, and distance. Ganesha interpreted it spiritually as what holds the ultimate value in his life. The story implies that we often burn ourselves out racing across the external world seeking fulfillment, when the most meaningful reality is right in front of us.</p>
+      </div>
+      <div class="lesson-card">
+        <span class="num">2</span>
+        <h3>Love and Gratitude Over Ambition</h3>
+        <p>By circumambulating Shiva and Parvati, Ganesha demonstrated that those who give us life, care, and guidance — like parents, teachers, and loved ones — are foundational to our existence. For the common man, it is a reminder to value, respect, and prioritize personal relationships over endless material pursuits.</p>
+      </div>
+      <div class="lesson-card">
+        <span class="num">3</span>
+        <h3>Wisdom Trumps Brute Effort</h3>
+        <p>Murugan relied on physical speed and raw effort, while Ganesha used intellect and wisdom (Buddhi). It teaches that solving a problem isn't always about moving faster or working harder; it's about understanding the true essence of the task.</p>
+      </div>
+      <div class="lesson-card">
+        <span class="num">4</span>
+        <h3>Finding Extraordinary Value in the Ordinary</h3>
+        <p>The race suggests that peace and fulfillment aren't locked away in distant places or grand achievements. You don't need to travel the globe to find meaning; you can find your "entire world" in your home, community, or current purpose if you choose to see it that way.</p>
+      </div>
+    </div>
+  </section>
+
+  <a class="home-link" href="https://www.nammanagar.in/" style="margin-top:34px;">&larr; Back to Home</a>
+
   <footer>Ganpati Bappa Morya · Vetrivel Muruganukku Vetri</footer>
 </div>
 

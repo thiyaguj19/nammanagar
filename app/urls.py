@@ -27,4 +27,7 @@ urlpatterns = [
     path(r'short-stories/shiva-neelakantha/', views.shiva_neelakantha_story, name='shiva_neelakantha_story'),
     path(r'short-stories/muruga-soorasamharam/', views.muruga_soorasamharam_story, name='muruga_soorasamharam_story'),
     path(r'short-stories/gayatri-devi/', views.gayatri_devi_story, name='gayatri_devi_story'),
+    path(r'short-stories/hanuman-sanjeevani/', views.hanuman_sanjeevani_story, name='hanuman_sanjeevani_story'),
+    path(r'short-stories/jesus-calms-storm/', views.jesus_calms_storm_story, name='jesus_calms_storm_story'),
+    path(r'short-stories/yunus-whale/', views.yunus_whale_story, name='yunus_whale_story'),
 ]

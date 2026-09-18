@@ -473,3 +473,12 @@ def muruga_soorasamharam_story(request):
 
 def gayatri_devi_story(request):
     return render(request, 'gayatri-devi-scene.html')
+
+def hanuman_sanjeevani_story(request):
+    return render(request, 'hanuman-sanjeevani-scene.html')
+
+def jesus_calms_storm_story(request):
+    return render(request, 'jesus-calms-storm-scene.html')
+
+def yunus_whale_story(request):
+    return render(request, 'yunus-whale-scene.html')

@@ -24,4 +24,7 @@ urlpatterns = [
     path("api/cron/archive-japams/", run_archive_cron, name="run_archive_cron"),
     path(r'short-stories/', views.short_stories, name='short_stories'),
     path(r'short-stories/ganesha-muruga/', views.ganesha_muruga_story, name='ganesha_muruga_story'),
+    path(r'short-stories/shiva-neelakantha/', views.shiva_neelakantha_story, name='shiva_neelakantha_story'),
+    path(r'short-stories/muruga-soorasamharam/', views.muruga_soorasamharam_story, name='muruga_soorasamharam_story'),
+    path(r'short-stories/gayatri-devi/', views.gayatri_devi_story, name='gayatri_devi_story'),
 ]

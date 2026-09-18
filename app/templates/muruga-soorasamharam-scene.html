@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Soorasamharam — The Vel's Victory</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Yatra+One&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --night-deep:#1B1035;
+    --night-mid:#2C1656;
+    --marigold:#F2994A;
+    --vermillion:#C0392B;
+    --gold:#D9A94A;
+    --cream:#FDF6EC;
+    --teal:#3F9A8C;
+  }
+  *{box-sizing:border-box;}
+  html,body{
+    margin:0; padding:0; width:100%; min-height:100%;
+    background:radial-gradient(ellipse at 50% 12%, var(--night-mid) 0%, var(--night-deep) 55%, #0F0A22 100%);
+    font-family:'Poppins', sans-serif; color:var(--cream);
+  }
+  .stage{
+    position:relative; min-height:100vh; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; padding:44px 20px 56px;
+    text-align:center; overflow:hidden;
+  }
+  .stars{ position:absolute; inset:0; z-index:0; pointer-events:none; }
+  .star{ position:absolute; width:3px; height:3px; border-radius:50%; background:var(--cream); opacity:.5; animation:twinkle 3.2s ease-in-out infinite; }
+  @keyframes twinkle{ 0%,100%{opacity:.15; transform:scale(1);} 50%{opacity:.9; transform:scale(1.6);} }
+
+  .home-link{
+    position:relative; z-index:2; display:inline-flex; align-items:center; gap:6px;
+    margin-bottom:26px; padding:8px 16px; border:1px solid rgba(217,169,74,.4);
+    border-radius:999px; color:var(--marigold); text-decoration:none; font-size:13px;
+    letter-spacing:.02em; transition:background .2s ease, border-color .2s ease;
+  }
+  .home-link:hover{ background:rgba(217,169,74,.12); border-color:var(--gold); }
+
+  .eyebrow{ font-size:13px; letter-spacing:.08em; color:#D8B8E0; opacity:.85; margin-bottom:8px; z-index:2; }
+  h1{
+    font-family:'Yatra One', cursive; font-weight:400;
+    font-size:clamp(1.8rem, 5vw, 2.8rem); margin:0 0 8px; color:var(--marigold);
+    text-shadow:0 0 24px rgba(242,153,74,.4); z-index:2;
+  }
+  .sub{ max-width:480px; font-size:14.5px; line-height:1.7; color:#E7DFF4; opacity:.85; margin:0 0 26px; z-index:2; }
+
+  .scene{
+    position:relative; width:min(460px, 90vw); height:min(300px, 60vw); z-index:2; margin-bottom:6px;
+  }
+  .ground-glow{
+    position:absolute; left:50%; top:78%; transform:translate(-50%,-50%);
+    width:80%; aspect-ratio:3/1; border-radius:50%;
+    background:radial-gradient(ellipse, rgba(217,169,74,.28) 0%, rgba(217,169,74,.06) 55%, transparent 75%);
+    filter:blur(2px);
+  }
+
+  .muruga-side{ position:absolute; left:2%; bottom:16%; width:30%; z-index:2; }
+  .muruga-side svg{ width:100%; height:auto; display:block; }
+  .wing{ transform-origin:50% 50%; animation:flap .3s ease-in-out infinite alternate; }
+  @keyframes flap{ from{ transform:rotate(9deg);} to{ transform:rotate(-9deg);} }
+  .tailfeather{ transform-origin: 10px 34px; animation:fan .4s ease-in-out infinite alternate; }
+  @keyframes fan{ from{ transform:rotate(-5deg);} to{ transform:rotate(5deg);} }
+
+  .target-side{ position:absolute; right:4%; bottom:14%; width:26%; z-index:1; }
+  .target-side svg{ width:100%; height:auto; display:block; }
+  .form-demon{ animation:showDemon 4s steps(1) infinite; }
+  .form-split{ animation:showSplit 4s steps(1) infinite; }
+  @keyframes showDemon{ 0%,55%{ opacity:1;} 56%,100%{ opacity:0;} }
+  @keyframes showSplit{ 0%,55%{ opacity:0;} 56%,100%{ opacity:1;} }
+
+  .vel-wrap{
+    position:absolute; left:26%; bottom:34%; width:14%; z-index:3;
+    animation:throw 4s ease-in-out infinite;
+    transform-origin:center;
+  }
+  .vel-wrap svg{ width:100%; height:auto; display:block; }
+  @keyframes throw{
+    0%{ left:26%; bottom:34%; transform:rotate(20deg) scale(1); opacity:1; }
+    45%{ left:66%; bottom:40%; transform:rotate(380deg) scale(1); opacity:1; }
+    52%{ left:70%; bottom:40%; transform:rotate(400deg) scale(1.15); opacity:1; }
+    58%{ opacity:0; }
+    59%{ left:26%; bottom:34%; transform:rotate(20deg) scale(1); opacity:0; }
+    64%{ opacity:1; }
+    100%{ left:26%; bottom:34%; transform:rotate(20deg) scale(1); opacity:1; }
+  }
+
+  .impact-glow{
+    position:absolute; right:14%; bottom:30%; width:14%; aspect-ratio:1/1; border-radius:50%;
+    background:radial-gradient(circle, rgba(242,153,74,.7), transparent 70%);
+    z-index:2; animation:impact 4s steps(1) infinite;
+  }
+  @keyframes impact{ 0%,52%{ opacity:0; transform:scale(.6);} 53%,58%{ opacity:1; transform:scale(1.3);} 59%,100%{ opacity:0; transform:scale(.6);} }
+
+  .caption{ margin-top:16px; font-size:13px; color:#C9BEDB; max-width:420px; line-height:1.6; z-index:2; }
+  footer{ margin-top:20px; font-size:12px; letter-spacing:.04em; color:#8A7BB0; z-index:2; }
+
+  .reflection{ position:relative; z-index:2; max-width:640px; width:100%; margin:36px auto 0; padding:0 4px; text-align:left; }
+  .reflection h2{ font-family:'Yatra One', cursive; font-weight:400; font-size:clamp(1.4rem, 3.4vw, 1.9rem); color:var(--marigold); text-align:center; margin:0 0 10px; }
+  .reflection > .intro{ text-align:center; font-size:14.5px; line-height:1.75; color:#E7DFF4; opacity:.9; max-width:560px; margin:0 auto 28px; }
+  .lesson-grid{ display:grid; grid-template-columns:1fr; gap:16px; }
+  @media (min-width:640px){ .lesson-grid{ grid-template-columns:1fr 1fr; } }
+  .lesson-card{ background:rgba(253,246,236,0.05); border:1px solid rgba(217,169,74,.22); border-radius:14px; padding:20px 20px 22px; }
+  .lesson-card .num{ display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px; border-radius:50%; background:rgba(217,169,74,.18); color:var(--marigold); font-family:'Yatra One', cursive; font-size:15px; margin-bottom:10px; }
+  .lesson-card h3{ margin:0 0 8px; font-size:15.5px; font-weight:600; color:var(--cream); }
+  .lesson-card p{ margin:0; font-size:13.5px; line-height:1.7; color:#CFC6E4; opacity:.92; }
+
+  @media (prefers-reduced-motion: reduce){
+    .wing, .tailfeather, .star, .form-demon, .form-split, .vel-wrap, .impact-glow{ animation:none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="stars" id="stars"></div>
+  <a class="home-link" href="https://www.nammanagar.in/">&larr; Back to Home</a>
+
+  <div class="eyebrow">A Story of Courage</div>
+  <h1>Soorasamharam</h1>
+  <p class="sub">The demon Sooran had grown so powerful that even the heavens feared him. Murugan rode out on his peacock and hurled his Vel — and when it struck, Sooran's pride split apart, becoming the very peacock and rooster that now stand beside his conqueror.</p>
+
+  <div class="scene">
+    <div class="ground-glow"></div>
+
+    <!-- Murugan on peacock, left -->
+    <div class="muruga-side">
+      <svg viewBox="0 0 100 90" xmlns="http://www.w3.org/2000/svg">
+        <g class="tailfeather">
+          <path d="M10,40 C-6,18 -6,62 10,40 Z" fill="#2E8B7A"/>
+          <path d="M8,40 C-10,14 -10,66 8,40 Z" fill="#3FA48E" opacity=".8"/>
+          <circle cx="-2" cy="24" r="3.4" fill="#F2994A" opacity=".85"/>
+          <circle cx="-2" cy="56" r="3.4" fill="#F2994A" opacity=".85"/>
+          <circle cx="-9" cy="40" r="3.4" fill="var(--gold)" opacity=".85"/>
+        </g>
+        <ellipse cx="32" cy="46" rx="20" ry="14" fill="#3F9A8C"/>
+        <ellipse cx="32" cy="46" rx="20" ry="14" fill="none" stroke="#2E6E63" stroke-width="1.6"/>
+        <g class="wing"><path d="M24,38 C10,32 8,50 24,52 Z" fill="#347F73"/></g>
+        <path d="M48,38 C58,28 58,16 50,10" stroke="#2E8B7A" stroke-width="8" fill="none" stroke-linecap="round"/>
+        <circle cx="51" cy="10" r="6.6" fill="#2E8B7A"/>
+        <path d="M51,3 l-1,-5 M55,4 l1,-5" stroke="#2E8B7A" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="54" cy="9" r="1.2" fill="#0F1A2E"/>
+
+        <!-- Murugan rider -->
+        <g transform="translate(22,2)">
+          <ellipse cx="16" cy="24" rx="9" ry="10" fill="#E9A65B"/>
+          <circle cx="16" cy="10" r="7.8" fill="#E9A65B"/>
+          <path d="M8,7 C11,-3 21,-3 24,7 C19,3 13,3 8,7 Z" fill="#2E8B7A"/>
+          <circle cx="16" cy="0" r="2.6" fill="#F2994A"/>
+          <circle cx="12" cy="10" r="1.2" fill="#2C1656"/>
+          <circle cx="20" cy="10" r="1.2" fill="#2C1656"/>
+          <!-- throwing arm -->
+          <path d="M24,20 C34,16 42,14 48,10" stroke="#E9A65B" stroke-width="6" stroke-linecap="round" fill="none"/>
+        </g>
+      </svg>
+    </div>
+
+    <!-- flying Vel -->
+    <div class="vel-wrap">
+      <svg viewBox="0 0 40 12" xmlns="http://www.w3.org/2000/svg">
+        <line x1="4" y1="6" x2="34" y2="6" stroke="var(--gold)" stroke-width="2.4"/>
+        <path d="M34,6 L27,1 L27,11 Z" fill="var(--gold)"/>
+        <circle cx="4" cy="6" r="2" fill="var(--vermillion)"/>
+      </svg>
+    </div>
+
+    <div class="impact-glow"></div>
+
+    <!-- Target: demon tree <-> peacock & rooster -->
+    <div class="target-side">
+      <svg viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg">
+        <g class="form-demon">
+          <path d="M50,100 L50,60" stroke="#5A3A1E" stroke-width="6"/>
+          <ellipse cx="50" cy="46" rx="34" ry="30" fill="#5A3A78"/>
+          <ellipse cx="50" cy="46" rx="34" ry="30" fill="none" stroke="#3A2456" stroke-width="2"/>
+          <path d="M30,38 q6,-8 12,0 M58,38 q6,-8 12,0" stroke="#2A1840" stroke-width="2.4" fill="none"/>
+          <circle cx="38" cy="44" r="4" fill="#F2994A"/>
+          <circle cx="62" cy="44" r="4" fill="#F2994A"/>
+          <path d="M36,58 q14,10 28,0" stroke="#2A1840" stroke-width="2.4" fill="none"/>
+          <path d="M20,24 L28,10 M80,24 L72,10" stroke="#3A2456" stroke-width="4" stroke-linecap="round"/>
+        </g>
+        <g class="form-split">
+          <!-- rooster -->
+          <g transform="translate(6,46)">
+            <ellipse cx="14" cy="30" rx="13" ry="17" fill="#C0392B"/>
+            <circle cx="14" cy="10" r="8" fill="#C0392B"/>
+            <path d="M8,3 q6,-8 12,0" fill="#F2994A"/>
+            <path d="M22,10 l8,-2 l-6,6 Z" fill="var(--gold)"/>
+            <ellipse cx="6" cy="42" rx="3" ry="8" fill="#C0392B"/>
+          </g>
+          <!-- peacock -->
+          <g transform="translate(44,20)">
+            <g class="tailfeather">
+              <path d="M8,26 C-6,10 -6,42 8,26 Z" fill="#2E8B7A"/>
+              <circle cx="0" cy="16" r="2.6" fill="#F2994A" opacity=".85"/>
+              <circle cx="0" cy="36" r="2.6" fill="#F2994A" opacity=".85"/>
+            </g>
+            <ellipse cx="26" cy="30" rx="15" ry="11" fill="#3F9A8C"/>
+            <path d="M38,24 C46,16 46,6 40,2" stroke="#2E8B7A" stroke-width="6" fill="none" stroke-linecap="round"/>
+            <circle cx="41" cy="2" r="5" fill="#2E8B7A"/>
+          </g>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <p class="caption">Even Murugan's enemy was not destroyed, but transformed — becoming the peacock he rides and the flag he carries.</p>
+
+  <section class="reflection">
+    <h2>What the Common Man Can Learn</h2>
+    <p class="intro">
+      Soorasamharam is often read as a war story, but its deeper meaning is about facing what
+      seems unbeatable — and what happens to conflict once it's truly resolved.
+    </p>
+    <div class="lesson-grid">
+      <div class="lesson-card">
+        <span class="num">1</span>
+        <h3>Courage Is Acting Despite the Odds</h3>
+        <p>Sooran's power seemed absolute — yet Murugan rode out anyway. The lesson isn't that the obstacle was small; it's that facing something honestly, fully prepared, matters more than its apparent size.</p>
+      </div>
+      <div class="lesson-card">
+        <span class="num">2</span>
+        <h3>Focused Intent Cuts Through Confusion</h3>
+        <p>The Vel is single-pointed — it doesn't waver. In daily life, scattered effort rarely resolves a hard problem; a clear, committed decision usually does.</p>
+      </div>
+      <div class="lesson-card">
+        <span class="num">3</span>
+        <h3>Even Defeated Enemies Can Become Allies</h3>
+        <p>Sooran isn't erased — he's transformed into the peacock Murugan rides and the rooster on his flag. Conflict handled with dignity, rather than pure destruction, can turn what opposed you into something that now serves a higher purpose.</p>
+      </div>
+      <div class="lesson-card">
+        <span class="num">4</span>
+        <h3>Victory Should Change You, Not Just the Outcome</h3>
+        <p>After the battle, Murugan doesn't discard what he fought — he carries it forward with him. True resolution isn't about walking away from a struggle unchanged; it's about integrating what you learned from it.</p>
+      </div>
+    </div>
+  </section>
+
+  <a class="home-link" href="https://www.nammanagar.in/" style="margin-top:34px;">&larr; Back to Home</a>
+  <footer>Vetrivel Muruganukku Vetri</footer>
+</div>
+
+<script>
+  const starsEl = document.getElementById('stars');
+  for(let i=0;i<50;i++){
+    const s = document.createElement('div');
+    s.className='star';
+    s.style.left = Math.random()*100+'%';
+    s.style.top = Math.random()*55+'%';
+    s.style.animationDelay = (Math.random()*3)+'s';
+    s.style.animationDuration = (2.4+Math.random()*2.4)+'s';
+    starsEl.appendChild(s);
+  }
+</script>
+</body>
+</html>

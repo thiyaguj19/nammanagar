@@ -464,3 +464,12 @@ def short_stories(request):
 
 def ganesha_muruga_story(request):
     return render(request, 'ganesha-muruga-scene.html')
+
+def shiva_neelakantha_story(request):
+    return render(request, 'shiva-neelakantha-scene.html')
+
+def muruga_soorasamharam_story(request):
+    return render(request, 'muruga-soorasamharam-scene.html')
+
+def gayatri_devi_story(request):
+    return render(request, 'gayatri-devi-scene.html')

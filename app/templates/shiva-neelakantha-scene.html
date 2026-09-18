@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Neelakantha — The One Who Drank the Poison</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Yatra+One&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --night-deep:#0E1B2E;
+    --night-mid:#16314F;
+    --marigold:#F2994A;
+    --vermillion:#C0392B;
+    --gold:#D9A94A;
+    --cream:#FDF6EC;
+    --poison:#7A4FB5;
+    --throat:#3E6FD9;
+  }
+  *{box-sizing:border-box;}
+  html,body{
+    margin:0; padding:0; width:100%; min-height:100%;
+    background:radial-gradient(ellipse at 50% 12%, var(--night-mid) 0%, var(--night-deep) 55%, #08111F 100%);
+    font-family:'Poppins', sans-serif; color:var(--cream);
+  }
+  .stage{
+    position:relative; min-height:100vh; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; padding:44px 20px 56px;
+    text-align:center; overflow:hidden;
+  }
+  .stars{ position:absolute; inset:0; z-index:0; pointer-events:none; }
+  .star{ position:absolute; width:3px; height:3px; border-radius:50%; background:var(--cream); opacity:.5; animation:twinkle 3.2s ease-in-out infinite; }
+  @keyframes twinkle{ 0%,100%{opacity:.15; transform:scale(1);} 50%{opacity:.9; transform:scale(1.6);} }
+
+  .home-link{
+    position:relative; z-index:2; display:inline-flex; align-items:center; gap:6px;
+    margin-bottom:26px; padding:8px 16px; border:1px solid rgba(217,169,74,.4);
+    border-radius:999px; color:var(--marigold); text-decoration:none; font-size:13px;
+    letter-spacing:.02em; transition:background .2s ease, border-color .2s ease;
+  }
+  .home-link:hover{ background:rgba(217,169,74,.12); border-color:var(--gold); }
+
+  .eyebrow{ font-size:13px; letter-spacing:.08em; color:#9FC3E8; opacity:.85; margin-bottom:8px; z-index:2; }
+  h1{
+    font-family:'Yatra One', cursive; font-weight:400;
+    font-size:clamp(1.8rem, 5vw, 2.8rem); margin:0 0 8px; color:var(--marigold);
+    text-shadow:0 0 24px rgba(242,153,74,.4); z-index:2;
+  }
+  .sub{ max-width:480px; font-size:14.5px; line-height:1.7; color:#DCE7F5; opacity:.85; margin:0 0 26px; z-index:2; }
+
+  /* ---------- Scene ---------- */
+  .scene{
+    position:relative; width:min(420px, 88vw); aspect-ratio:1/1; z-index:2; margin-bottom:6px;
+  }
+  .halo{
+    position:absolute; left:50%; top:24%; transform:translate(-50%,-50%);
+    width:60%; aspect-ratio:1/1; border-radius:50%;
+    background:radial-gradient(circle, rgba(62,111,217,.45) 0%, rgba(62,111,217,.1) 45%, transparent 70%);
+    animation:pulse 3s ease-in-out infinite; z-index:0;
+  }
+  @keyframes pulse{ 0%,100%{ opacity:.6; transform:translate(-50%,-50%) scale(1);} 50%{ opacity:1; transform:translate(-50%,-50%) scale(1.08);} }
+
+  .scene svg{ position:relative; z-index:1; width:100%; height:auto; display:block; }
+
+  .churn{ transform-origin:170px 205px; animation:churn 3.4s ease-in-out infinite; }
+  @keyframes churn{ 0%,100%{ transform:rotate(-7deg);} 50%{ transform:rotate(7deg);} }
+  .wave{ animation:bob 2.6s ease-in-out infinite; }
+  .wave.w2{ animation-delay:.4s; }
+  @keyframes bob{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(4px);} }
+  .throat-glow{ animation:throbglow 2.2s ease-in-out infinite; }
+  @keyframes throbglow{ 0%,100%{ opacity:.5; r:11;} 50%{ opacity:1; r:14;} }
+
+  .poison-particles{ position:absolute; inset:0; z-index:2; pointer-events:none; }
+  .p{
+    position:absolute; width:8px; height:8px; border-radius:50%;
+    background:radial-gradient(circle, var(--poison), transparent 70%);
+    bottom:38%; animation:rise linear infinite; opacity:0;
+  }
+  @keyframes rise{
+    0%{ transform:translateY(0) scale(.6); opacity:0; }
+    15%{ opacity:.85; }
+    85%{ opacity:.5; }
+    100%{ transform:translateY(-150px) scale(1.1); opacity:0; }
+  }
+
+  .caption{ margin-top:16px; font-size:13px; color:#B9CBE4; max-width:400px; line-height:1.6; z-index:2; }
+  footer{ margin-top:20px; font-size:12px; letter-spacing:.04em; color:#7B93B3; z-index:2; }
+
+  .reflection{ position:relative; z-index:2; max-width:640px; width:100%; margin:36px auto 0; padding:0 4px; text-align:left; }
+  .reflection h2{ font-family:'Yatra One', cursive; font-weight:400; font-size:clamp(1.4rem, 3.4vw, 1.9rem); color:var(--marigold); text-align:center; margin:0 0 10px; }
+  .reflection > .intro{ text-align:center; font-size:14.5px; line-height:1.75; color:#DCE7F5; opacity:.9; max-width:560px; margin:0 auto 28px; }
+  .lesson-grid{ display:grid; grid-template-columns:1fr; gap:16px; }
+  @media (min-width:640px){ .lesson-grid{ grid-template-columns:1fr 1fr; } }
+  .lesson-card{ background:rgba(253,246,236,0.05); border:1px solid rgba(217,169,74,.22); border-radius:14px; padding:20px 20px 22px; }
+  .lesson-card .num{ display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px; border-radius:50%; background:rgba(217,169,74,.18); color:var(--marigold); font-family:'Yatra One', cursive; font-size:15px; margin-bottom:10px; }
+  .lesson-card h3{ margin:0 0 8px; font-size:15.5px; font-weight:600; color:var(--cream); }
+  .lesson-card p{ margin:0; font-size:13.5px; line-height:1.7; color:#C7D3E8; opacity:.92; }
+
+  @media (prefers-reduced-motion: reduce){
+    .churn, .wave, .throat-glow, .star, .halo{ animation:none !important; }
+    .p{ animation:none !important; opacity:0; }
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="stars" id="stars"></div>
+  <a class="home-link" href="https://www.nammanagar.in/">&larr; Back to Home</a>
+
+  <div class="eyebrow">A Story of Sacrifice</div>
+  <h1>Neelakantha</h1>
+  <p class="sub">When the churning of the ocean released a poison strong enough to destroy all creation, Shiva swallowed it himself — holding it forever in his throat, neither letting it pass nor spitting it out.</p>
+
+  <div class="scene">
+    <div class="halo"></div>
+    <div class="poison-particles" id="particles"></div>
+
+    <svg viewBox="0 0 340 300" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="oceanG" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#1B3A5C"/>
+          <stop offset="100%" stop-color="#0E2338"/>
+        </linearGradient>
+        <linearGradient id="shivaSkin2" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#6E93C9"/>
+          <stop offset="100%" stop-color="#3F5D8C"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Ocean -->
+      <path class="wave" d="M0,260 Q40,250 80,260 T160,260 T240,260 T320,260 T340,260 L340,300 L0,300 Z" fill="url(#oceanG)"/>
+      <path class="wave w2" d="M0,268 Q40,260 80,268 T160,268 T240,268 T320,268 T340,268 L340,300 L0,300 Z" fill="#132A44" opacity=".7"/>
+
+      <!-- Mount Mandara + churning serpent -->
+      <g class="churn">
+        <path d="M170,270 L150,190 L190,190 Z" fill="#3A2A1E"/>
+        <path d="M170,270 L150,190 L190,190 Z" fill="none" stroke="var(--gold)" stroke-width="1.4" opacity=".6"/>
+        <path d="M120,225 C150,205 190,245 220,222" stroke="#3F9A5C" stroke-width="9" fill="none" stroke-linecap="round"/>
+        <path d="M120,225 C150,205 190,245 220,222" stroke="#5CC17A" stroke-width="4" fill="none" stroke-linecap="round" opacity=".6"/>
+        <ellipse cx="118" cy="226" rx="8" ry="6" fill="#3F9A5C"/>
+        <ellipse cx="222" cy="220" rx="8" ry="6" fill="#3F9A5C"/>
+      </g>
+
+      <!-- Shiva, seated above, drinking the poison -->
+      <g transform="translate(170,120)">
+        <ellipse cx="0" cy="48" rx="46" ry="44" fill="url(#shivaSkin2)"/>
+        <ellipse cx="0" cy="48" rx="46" ry="44" fill="none" stroke="var(--gold)" stroke-width="1.6"/>
+        <!-- rudraksha -->
+        <g fill="#8A6A44">
+          <circle cx="-14" cy="16" r="2.6"/><circle cx="-6" cy="22" r="2.6"/><circle cx="2" cy="24" r="2.6"/>
+          <circle cx="10" cy="22" r="2.6"/><circle cx="18" cy="16" r="2.6"/>
+        </g>
+        <!-- neck + throat glow -->
+        <rect x="-10" y="4" width="20" height="16" rx="7" fill="url(#shivaSkin2)"/>
+        <circle class="throat-glow" cx="0" cy="12" r="11" fill="var(--throat)" opacity=".7"/>
+        <!-- head -->
+        <circle cx="0" cy="-22" r="30" fill="url(#shivaSkin2)"/>
+        <!-- jata -->
+        <path d="M-30,-32 C-26,-64 30,-64 30,-32 C18,-46 -18,-46 -30,-32 Z" fill="#1D2A42"/>
+        <path d="M18,-48 a10,10 0 1,1 -3,-16 a7,7 0 1,0 3,16 Z" fill="var(--gold)"/>
+        <path d="M-14,-40 q4,-10 -2,-18" stroke="#8FB6D8" stroke-width="2" fill="none" opacity=".8"/>
+        <!-- third eye -->
+        <ellipse cx="0" cy="-34" rx="5" ry="2.4" fill="var(--gold)"/>
+        <!-- brows + eyes closed in resolve -->
+        <path d="M-16,-24 q8,-6 15,0" stroke="#1D2A42" stroke-width="1.8" fill="none"/>
+        <path d="M1,-24 q8,-6 15,0" stroke="#1D2A42" stroke-width="1.8" fill="none"/>
+        <path d="M-14,-18 q6,3 11,0" stroke="#0F1A2E" stroke-width="1.8" fill="none"/>
+        <path d="M3,-18 q6,3 11,0" stroke="#0F1A2E" stroke-width="1.8" fill="none"/>
+        <!-- ash marks -->
+        <path d="M-20,-14 q20,-6 40,0" stroke="#DDE7F2" stroke-width="1.4" fill="none" opacity=".8"/>
+        <!-- cupped hand at mouth, drinking -->
+        <path d="M-2,-6 C-10,-2 -12,8 -4,10 C2,12 6,4 2,-2" fill="url(#shivaSkin2)" stroke="var(--gold)" stroke-width="1"/>
+      </g>
+    </svg>
+  </div>
+
+  <p class="caption">He kept the poison in his throat forever — never swallowing it fully, never releasing it. Only his skin turned blue.</p>
+
+  <section class="reflection">
+    <h2>What the Common Man Can Learn</h2>
+    <p class="intro">
+      Shiva's choice to hold the world's poison in his own throat — without letting it harm
+      either himself or others — is one of the most quietly radical acts in Hindu mythology.
+    </p>
+    <div class="lesson-grid">
+      <div class="lesson-card">
+        <span class="num">1</span>
+        <h3>Protecting Others Sometimes Costs You</h3>
+        <p>Shiva didn't create the poison, and he didn't have to drink it. But when no one else could bear it, he chose to. Real strength is often invisible — it looks like quietly absorbing a difficulty so others don't have to carry it.</p>
+      </div>
+      <div class="lesson-card">
+        <span class="num">2</span>
+        <h3>Restraint Is Its Own Kind of Power</h3>
+        <p>Shiva neither swallowed the poison completely nor spat it out — he held it in his throat, in perfect control. It's a reminder that the goal isn't always to eliminate pain or push it away, but to hold it wisely without letting it consume you.</p>
+      </div>
+      <div class="lesson-card">
+        <span class="num">3</span>
+        <h3>Scars Can Become Identity, Not Shame</h3>
+        <p>The blue throat that could have been a wound instead became Shiva's most recognisable mark — Neelakantha, "the blue-throated one." What we survive doesn't have to be hidden; it can become part of who we are.</p>
+      </div>
+      <div class="lesson-card">
+        <span class="num">4</span>
+        <h3>Good Comes From Shared Effort — and Shared Risk</h3>
+        <p>Both devas and asuras churned the ocean together, hoping only for the nectar. The poison came before the nectar did. Anything truly valuable — in work, in relationships, in growth — usually asks something difficult of us before it gives back.</p>
+      </div>
+    </div>
+  </section>
+
+  <a class="home-link" href="https://www.nammanagar.in/" style="margin-top:34px;">&larr; Back to Home</a>
+  <footer>Om Namah Shivaya</footer>
+</div>
+
+<script>
+  const starsEl = document.getElementById('stars');
+  for(let i=0;i<50;i++){
+    const s = document.createElement('div');
+    s.className='star';
+    s.style.left = Math.random()*100+'%';
+    s.style.top = Math.random()*55+'%';
+    s.style.animationDelay = (Math.random()*3)+'s';
+    s.style.animationDuration = (2.4+Math.random()*2.4)+'s';
+    starsEl.appendChild(s);
+  }
+
+  const particlesEl = document.getElementById('particles');
+  for(let i=0;i<14;i++){
+    const p = document.createElement('div');
+    p.className='p';
+    p.style.left = (44 + Math.random()*12) + '%';
+    p.style.animationDuration = (3.4 + Math.random()*2.2) + 's';
+    p.style.animationDelay = (Math.random()*4) + 's';
+    particlesEl.appendChild(p);
+  }
+</script>
+</body>
+</html>

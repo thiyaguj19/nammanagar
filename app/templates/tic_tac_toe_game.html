@@ -109,6 +109,7 @@
       font-weight: 700;
       color: var(--slate);
       margin: 1rem 0 1.5rem;
+      min-height: 2rem;
     }
 
     .ttt-grid {
@@ -189,10 +190,10 @@
       <div class="game-wrapper">
         <div class="game-header">
           <h1>Tic-Tac-Toe (டிக் டாக் டோ)</h1>
-          <p>வரிசையாக 3 குறிக்கோள்களை அமைத்து வெற்றி பெறுங்கள்!</p>
+          <p>கணினியுடன் (Computer) போட்டியிட்டு வெற்றி பெறுங்கள்!</p>
         </div>
 
-        <div class="status-text" id="status">முறை: ❌ Player (X)</div>
+        <div class="status-text" id="status">உங்கள் முறை: ❌</div>
 
         <div class="ttt-grid" id="grid">
           <div class="cell" data-index="0"></div>
@@ -217,7 +218,7 @@
 
   <script>
     let board = ["", "", "", "", "", "", "", "", ""];
-    let currentPlayer = "❌";
+    let currentPlayer = "❌"; // Human is ❌, Computer is ⭕
     let isGameActive = true;
 
     const winConditions = [
@@ -234,13 +235,71 @@
     function handleCellClick() {
       const index = this.dataset.index;
 
-      if (board[index] !== "" || !isGameActive) return;
+      // Prevent click if cell is taken, game is over, or it's computer's turn
+      if (board[index] !== "" || !isGameActive || currentPlayer === "⭕") return;
 
-      board[index] = currentPlayer;
-      this.textContent = currentPlayer;
-      this.classList.add(currentPlayer === "❌" ? "x" : "o");
+      makeMove(index, "❌");
+
+      // Trigger computer move if game is still active
+      if (isGameActive && currentPlayer === "⭕") {
+        statusText.textContent = "கணினி யோசிக்கிறது... 🤖";
+        setTimeout(makeComputerMove, 400);
+      }
+    }
+
+    function makeMove(index, symbol) {
+      board[index] = symbol;
+      const cell = cells[index];
+      cell.textContent = symbol;
+      cell.classList.add(symbol === "❌" ? "x" : "o");
 
       checkResult();
+    }
+
+    function makeComputerMove() {
+      if (!isGameActive) return;
+
+      // 1. Try to WIN
+      let bestMove = findWinningMove("⭕");
+
+      // 2. Try to BLOCK Human
+      if (bestMove === null) {
+        bestMove = findWinningMove("❌");
+      }
+
+      // 3. Take CENTER cell
+      if (bestMove === null && board[4] === "") {
+        bestMove = 4;
+      }
+
+      // 4. Take RANDOM available cell
+      if (bestMove === null) {
+        const emptyIndices = board
+          .map((val, idx) => (val === "" ? idx : null))
+          .filter(val => val !== null);
+
+        if (emptyIndices.length > 0) {
+          bestMove = emptyIndices[Math.floor(Math.random() * emptyIndices.length)];
+        }
+      }
+
+      if (bestMove !== null) {
+        makeMove(bestMove, "⭕");
+      }
+    }
+
+    function findWinningMove(symbol) {
+      for (let condition of winConditions) {
+        const [a, b, c] = condition;
+        const line = [board[a], board[b], board[c]];
+
+        if (line.filter(val => val === symbol).length === 2 && line.includes("")) {
+          if (board[a] === "") return a;
+          if (board[b] === "") return b;
+          if (board[c] === "") return c;
+        }
+      }
+      return null;
     }
 
     function checkResult() {
@@ -255,7 +314,7 @@
       }
 
       if (roundWon) {
-        statusText.textContent = `வெற்றி! Player ${currentPlayer} வெற்றி பெற்றார்! 🎉`;
+        statusText.textContent = currentPlayer === "❌" ? "வெற்றி! நீங்கள் வெற்றி பெற்றீர்கள்! 🎉" : "கணினி வெற்றி பெற்றது! 🤖";
         isGameActive = false;
         return;
       }
@@ -266,15 +325,18 @@
         return;
       }
 
+      // Switch turn
       currentPlayer = currentPlayer === "❌" ? "⭕" : "❌";
-      statusText.textContent = `முறை: ${currentPlayer} Player`;
+      if (currentPlayer === "❌") {
+        statusText.textContent = "உங்கள் முறை: ❌";
+      }
     }
 
     function resetGame() {
       board = ["", "", "", "", "", "", "", "", ""];
       currentPlayer = "❌";
       isGameActive = true;
-      statusText.textContent = "முறை: ❌ Player (X)";
+      statusText.textContent = "உங்கள் முறை: ❌";
       cells.forEach(cell => {
         cell.textContent = "";
         cell.classList.remove("x", "o");

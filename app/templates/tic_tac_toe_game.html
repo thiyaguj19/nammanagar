@@ -1,0 +1,285 @@
+{% load static %}
+<!doctype html>
+<html lang="ta">
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GBD3RJKWN1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-GBD3RJKWN1');
+  </script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Tic Tac Toe Game — நம்ம நகரம்.">
+  <title>Tic-Tac-Toe — நம்ம நகரம்</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anek+Tamil:wght@400;500;700;800&family=Noto+Serif+Tamil:wght@600;700&display=swap" rel="stylesheet">
+  <link href="{% static 'app/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'app/css/site_chrome.css' %}" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f7f2e9;
+      --ink: #15372f;
+      --deep: #0c2721;
+      --leaf: #36775f;
+      --sun: #f6b941;
+      --coral: #e76f51;
+      --slate: #46645b;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background:
+        linear-gradient(90deg, rgba(54, 119, 95, 0.08) 0 13%, transparent 13% 87%, rgba(231, 111, 81, 0.08) 87% 100%),
+        radial-gradient(900px 460px at -8% -6%, rgba(246, 185, 65, 0.2), transparent 65%),
+        radial-gradient(850px 420px at 108% 16%, rgba(54, 119, 95, 0.15), transparent 66%),
+        var(--paper);
+      color: var(--deep);
+      font-family: "Anek Tamil", "Noto Sans Tamil", sans-serif;
+    }
+
+    .layout {
+      width: min(100% - 2.4rem, 1200px);
+      margin: 1.4rem auto 2rem;
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      gap: 1.5rem;
+    }
+
+    .rail {
+      align-self: start;
+      position: sticky;
+      top: 96px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.86);
+      border: 1px solid rgba(12, 39, 33, 0.1);
+      box-shadow: 0 14px 30px rgba(12, 39, 33, 0.07);
+      padding: 1rem;
+    }
+
+    .rail h3 {
+      margin: 0 0 0.7rem;
+      font-size: 1.02rem;
+      font-family: "Noto Serif Tamil", serif;
+    }
+
+    .rail-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .rail-list a {
+      display: block;
+      text-decoration: none;
+      color: var(--ink);
+      font-weight: 700;
+      border-radius: 10px;
+      padding: 0.5rem 0.64rem;
+      background: #eef6f1;
+    }
+
+    .rail-list a:hover {
+      background: #ddecdf;
+    }
+
+    .game-wrapper {
+      background: #fff;
+      border-radius: 20px;
+      padding: 2rem;
+      border: 1px solid rgba(12, 39, 33, 0.12);
+      box-shadow: 0 10px 25px rgba(12, 39, 33, 0.08);
+      text-align: center;
+    }
+
+    .game-header h1 {
+      font-family: "Noto Serif Tamil", serif;
+      color: var(--ink);
+      margin-bottom: 0.3rem;
+    }
+
+    .status-text {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--slate);
+      margin: 1rem 0 1.5rem;
+    }
+
+    .ttt-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      max-width: 320px;
+      margin: 0 auto;
+    }
+
+    .cell {
+      aspect-ratio: 1;
+      background: #f0f7f4;
+      border: 2px solid var(--leaf);
+      border-radius: 12px;
+      font-size: 2.8rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .cell:hover {
+      background: #ddecdf;
+    }
+
+    .cell.x {
+      color: var(--coral);
+    }
+
+    .cell.o {
+      color: var(--leaf);
+    }
+
+    .controls {
+      margin-top: 1.8rem;
+    }
+
+    .btn-restart {
+      background: var(--coral);
+      color: #fff;
+      border: none;
+      font-weight: 700;
+      padding: 0.6rem 1.8rem;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.2s;
+    }
+
+    .btn-restart:hover {
+      background: #d65a3c;
+    }
+
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+      .rail { position: static; }
+    }
+  </style>
+</head>
+<body>
+  {% include 'partials/site_header.html' %}
+
+  <main class="layout">
+    <aside class="rail">
+      <h3>விரைவு அணுகல்</h3>
+      <ul class="rail-list">
+        <li><a href="{% url 'nagarhome' %}">முகப்பு (Home)</a></li>
+        <li><a href="{% url 'js_games' %}">ஜாவாஸ்கிரிப்ட் விளையாட்டுகள்</a></li>
+        <li><a href="{% url 'short_stories' %}">சிறுகதைகள்</a></li>
+      </ul>
+    </aside>
+
+    <div class="content">
+      <div class="game-wrapper">
+        <div class="game-header">
+          <h1>Tic-Tac-Toe (டிக் டாக் டோ)</h1>
+          <p>வரிசையாக 3 குறிக்கோள்களை அமைத்து வெற்றி பெறுங்கள்!</p>
+        </div>
+
+        <div class="status-text" id="status">முறை: ❌ Player (X)</div>
+
+        <div class="ttt-grid" id="grid">
+          <div class="cell" data-index="0"></div>
+          <div class="cell" data-index="1"></div>
+          <div class="cell" data-index="2"></div>
+          <div class="cell" data-index="3"></div>
+          <div class="cell" data-index="4"></div>
+          <div class="cell" data-index="5"></div>
+          <div class="cell" data-index="6"></div>
+          <div class="cell" data-index="7"></div>
+          <div class="cell" data-index="8"></div>
+        </div>
+
+        <div class="controls">
+          <button class="btn-restart" onclick="resetGame()">மீண்டும் தொடங்கு (Restart)</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  {% include 'partials/site_footer.html' %}
+
+  <script>
+    let board = ["", "", "", "", "", "", "", "", ""];
+    let currentPlayer = "❌";
+    let isGameActive = true;
+
+    const winConditions = [
+      [0, 1, 2], [3, 4, 5], [6, 7, 8],
+      [0, 3, 6], [1, 4, 7], [2, 5, 8],
+      [0, 4, 8], [2, 4, 6]
+    ];
+
+    const cells = document.querySelectorAll('.cell');
+    const statusText = document.getElementById('status');
+
+    cells.forEach(cell => cell.addEventListener('click', handleCellClick));
+
+    function handleCellClick() {
+      const index = this.dataset.index;
+
+      if (board[index] !== "" || !isGameActive) return;
+
+      board[index] = currentPlayer;
+      this.textContent = currentPlayer;
+      this.classList.add(currentPlayer === "❌" ? "x" : "o");
+
+      checkResult();
+    }
+
+    function checkResult() {
+      let roundWon = false;
+
+      for (let i = 0; i < winConditions.length; i++) {
+        const [a, b, c] = winConditions[i];
+        if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+          roundWon = true;
+          break;
+        }
+      }
+
+      if (roundWon) {
+        statusText.textContent = `வெற்றி! Player ${currentPlayer} வெற்றி பெற்றார்! 🎉`;
+        isGameActive = false;
+        return;
+      }
+
+      if (!board.includes("")) {
+        statusText.textContent = "ஆட்டம் சமனில் முடிந்தது! (Draw) 🤝";
+        isGameActive = false;
+        return;
+      }
+
+      currentPlayer = currentPlayer === "❌" ? "⭕" : "❌";
+      statusText.textContent = `முறை: ${currentPlayer} Player`;
+    }
+
+    function resetGame() {
+      board = ["", "", "", "", "", "", "", "", ""];
+      currentPlayer = "❌";
+      isGameActive = true;
+      statusText.textContent = "முறை: ❌ Player (X)";
+      cells.forEach(cell => {
+        cell.textContent = "";
+        cell.classList.remove("x", "o");
+      });
+    }
+  </script>
+</body>
+</html>

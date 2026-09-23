@@ -530,3 +530,6 @@ def javascript_games(request):
 
 def emoji_mask_memory_game(request):
     return render(request, 'emoji_mask_memory_game.html')
+    
+def tic_tac_toe_game(request):
+    return render(request, 'tic_tac_toe_game.html')

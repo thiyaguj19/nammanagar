@@ -46,4 +46,5 @@ urlpatterns = [
     path(r'astrology/meenam/', views.astrology_meenam, name='astrology_meenam'),
     path(r'javascript-games/', views.javascript_games, name='js_games'),
     path(r'javascript-games/emoji-mask-memory/', views.emoji_mask_memory_game, name='emoji_mask_memory_game'),
+    path(r'javascript-games/tic-tac-toe/', views.tic_tac_toe_game, name='tic_tac_toe_game'),
 ]

@@ -30,6 +30,7 @@ urlpatterns = [
     path(r'short-stories/hanuman-sanjeevani/', views.hanuman_sanjeevani_story, name='hanuman_sanjeevani_story'),
     path(r'short-stories/jesus-calms-storm/', views.jesus_calms_storm_story, name='jesus_calms_storm_story'),
     path(r'short-stories/yunus-whale/', views.yunus_whale_story, name='yunus_whale_story'),
+    path(r'timer/', views.timer_app, name='timer_app'),
     path(r'astrology/', views.astrology_home, name='astrology_home'),
     path(r'astrology/mesham/', views.astrology_mesham, name='astrology_mesham'),
     path(r'astrology/rishabam/', views.astrology_rishabam, name='astrology_rishabam'),

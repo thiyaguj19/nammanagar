@@ -482,7 +482,10 @@ def jesus_calms_storm_story(request):
 
 def yunus_whale_story(request):
     return render(request, 'yunus-whale-scene.html')
-    
+
+def timer_app(request):
+    return render(request, 'timer-app.html')
+
 def astrology_home(request):
     return render(request, 'astrology.html')
 

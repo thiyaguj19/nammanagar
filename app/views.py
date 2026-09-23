@@ -524,3 +524,9 @@ def astrology_kumbam(request):
 
 def astrology_meenam(request):
     return render(request, 'astrology-meenam.html')
+
+def javascript_games(request):
+    return render(request, 'javascript_games.html')
+
+def emoji_mask_memory_game(request):
+    return render(request, 'emoji_mask_memory_game.html')

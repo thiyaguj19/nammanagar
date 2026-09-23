@@ -1,0 +1,256 @@
+{% load static %}
+<!doctype html>
+<html lang="ta">
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GBD3RJKWN1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-GBD3RJKWN1');
+  </script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="நம்ம நகரம் — ஜாவாஸ்கிரிப்ட் விளையாட்டுகள்.">
+  <title>ஜாவாஸ்கிரிப்ட் விளையாட்டுகள் — நம்ம நகரம்</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anek+Tamil:wght@400;500;700;800&family=Noto+Serif+Tamil:wght@600;700&display=swap" rel="stylesheet">
+  <link href="{% static 'app/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'app/css/site_chrome.css' %}" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f7f2e9;
+      --ink: #15372f;
+      --deep: #0c2721;
+      --leaf: #36775f;
+      --sun: #f6b941;
+      --coral: #e76f51;
+      --mist: #dce8de;
+      --slate: #46645b;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background:
+        linear-gradient(90deg, rgba(54, 119, 95, 0.08) 0 13%, transparent 13% 87%, rgba(231, 111, 81, 0.08) 87% 100%),
+        radial-gradient(900px 460px at -8% -6%, rgba(246, 185, 65, 0.2), transparent 65%),
+        radial-gradient(850px 420px at 108% 16%, rgba(54, 119, 95, 0.15), transparent 66%),
+        var(--paper);
+      color: var(--deep);
+      font-family: "Anek Tamil", "Noto Sans Tamil", sans-serif;
+    }
+
+    h1, h2, h3 {
+      font-family: "Noto Serif Tamil", serif;
+      letter-spacing: -0.03em;
+    }
+
+    .layout {
+      width: min(100% - 2.4rem, 1380px);
+      margin: 1.4rem auto 0;
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      gap: 1.5rem;
+    }
+
+    .rail {
+      align-self: start;
+      position: sticky;
+      top: 96px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.86);
+      border: 1px solid rgba(12, 39, 33, 0.1);
+      box-shadow: 0 14px 30px rgba(12, 39, 33, 0.07);
+      padding: 1rem;
+      min-height: 68vh;
+    }
+
+    .rail h3 {
+      margin: 0 0 0.7rem;
+      font-size: 1.02rem;
+    }
+
+    .rail-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .rail-list a {
+      display: block;
+      text-decoration: none;
+      color: var(--ink);
+      font-weight: 700;
+      border-radius: 10px;
+      padding: 0.5rem 0.64rem;
+      background: #eef6f1;
+    }
+
+    .rail-list a:hover {
+      background: #ddecdf;
+    }
+
+    /* Landing Banner */
+    .album-hero {
+      background: var(--ink);
+      color: #fff;
+      border-radius: 20px;
+      padding: 2.5rem 2rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .album-hero h1 {
+      color: var(--sun);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      margin-bottom: 0.5rem;
+    }
+
+    .album-hero p {
+      color: #d7e8dc;
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+
+    /* Card Grid Styling */
+    .album-card {
+      border: 1px solid rgba(12, 39, 33, 0.12);
+      border-radius: 16px;
+      background: #fff;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(12, 39, 33, 0.06);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .album-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 28px rgba(12, 39, 33, 0.12);
+    }
+
+    .album-card-img {
+      width: 100%;
+      height: 220px;
+      background: var(--night-deep, #1B1035);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      font-size: 3.5rem;
+    }
+
+    .album-card-body {
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .album-card-title {
+      font-size: 1.35rem;
+      margin: 0 0 0.5rem;
+      color: var(--ink);
+    }
+
+    .album-card-text {
+      color: var(--slate);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      flex-grow: 1;
+      margin-bottom: 1.2rem;
+    }
+
+    .album-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .btn-read {
+      background: var(--leaf);
+      color: #fff;
+      font-weight: 700;
+      padding: 0.45rem 1rem;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 0.85rem;
+    }
+
+    .btn-read:hover {
+      background: var(--deep);
+      color: #fff;
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+      .rail {
+        position: static;
+        min-height: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  {% include 'partials/site_header.html' %}
+
+  <main class="layout">
+    <aside class="rail">
+      <h3>விரைவு அணுகல்</h3>
+      <ul class="rail-list">
+        <li><a href="{% url 'nagarhome' %}">முகப்பு (Home)</a></li>
+        <li><a href="{% url 'js_games' %}">ஜாவாஸ்கிரிப்ட் விளையாட்டுகள்</a></li>
+        <li><a href="{% url 'short_stories' %}">சிறுகதைகள்</a></li>
+        <li><a href="{% url 'collective_prayer' %}">கூட்டு பிரார்த்தனை</a></li>
+        <li><a href="{% url 'walking_log' %}">நடைப் பயிற்சி பதிவு</a></li>
+      </ul>
+    </aside>
+
+    <div class="content">
+      <section class="album-hero">
+        <h1>ஜாவாஸ்கிரிப்ட் விளையாட்டுகள்</h1>
+        <p>பிரவுசரிலேயே உடனடியாக விளையாடக்கூடிய சுவாரஸ்யமான விளையாட்டுகளின் தொகுப்பு.</p>
+      </section>
+
+      <div class="container-fluid px-0">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+          
+          <!-- Card 1: Animated Emoji Mask Memory Game -->
+          <div class="col">
+            <div class="album-card">
+              <div class="album-card-img" style="background: linear-gradient(135deg, #1B1035, #3A2E5B);">
+                <span>🎭🧠✨</span>
+              </div>
+              <div class="album-card-body">
+                <h2 class="album-card-title">Emoji Mask Memory Game</h2>
+                <p class="album-card-text">அனிமேஷன் செய்யப்பட்ட ஈமோஜி முகமூடிகளைக் கொண்டு அட்டைகளை நினைவில் வைத்து ஜோடிகளைத் தேர்ந்தெடுக்கும் விளையாட்டு.</p>
+                <div class="album-card-footer">
+                  <a href="{% url 'emoji_mask_memory_game' %}" class="btn-read">விளையாட →</a>
+                  <small class="text-muted">JS Game</small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Add future JS Game Cards below this line -->
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  {% include 'partials/site_footer.html' %}
+</body>
+</html>

@@ -1,0 +1,473 @@
+{% load static %}
+<!doctype html>
+<html lang="ta">
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GBD3RJKWN1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-GBD3RJKWN1');
+  </script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="நம்ம நகரம் — 2026 ராசி பலன்கள், 12 ராசிகளுக்கும் மீம் ஸ்டைலில்.">
+  <title>2026 ராசி பலன்கள் — நம்ம நகரம்</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anek+Tamil:wght@400;500;700;800&family=Noto+Serif+Tamil:wght@600;700&display=swap" rel="stylesheet">
+  <link href="{% static 'app/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'app/css/site_chrome.css' %}" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f7f2e9;
+      --ink: #15372f;
+      --deep: #0c2721;
+      --leaf: #36775f;
+      --sun: #f6b941;
+      --coral: #e76f51;
+      --mist: #dce8de;
+      --slate: #46645b;
+      --night: #100C22;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background:
+        linear-gradient(90deg, rgba(54, 119, 95, 0.08) 0 13%, transparent 13% 87%, rgba(231, 111, 81, 0.08) 87% 100%),
+        radial-gradient(900px 460px at -8% -6%, rgba(246, 185, 65, 0.2), transparent 65%),
+        radial-gradient(850px 420px at 108% 16%, rgba(54, 119, 95, 0.15), transparent 66%),
+        var(--paper);
+      color: var(--deep);
+      font-family: "Anek Tamil", "Noto Sans Tamil", sans-serif;
+    }
+
+    h1, h2, h3 {
+      font-family: "Noto Serif Tamil", serif;
+      letter-spacing: -0.03em;
+    }
+
+    .layout {
+      width: min(100% - 2.4rem, 1380px);
+      margin: 1.4rem auto 0;
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      gap: 1.5rem;
+    }
+
+    .rail {
+      align-self: start;
+      position: sticky;
+      top: 96px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.86);
+      border: 1px solid rgba(12, 39, 33, 0.1);
+      box-shadow: 0 14px 30px rgba(12, 39, 33, 0.07);
+      padding: 1rem;
+      min-height: 68vh;
+    }
+
+    .rail h3 {
+      margin: 0 0 0.7rem;
+      font-size: 1.02rem;
+    }
+
+    .rail-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .rail-list a {
+      display: block;
+      text-decoration: none;
+      color: var(--ink);
+      font-weight: 700;
+      border-radius: 10px;
+      padding: 0.5rem 0.64rem;
+      background: #eef6f1;
+    }
+
+    .rail-list a:hover {
+      background: #ddecdf;
+    }
+
+    /* Astrology hero banner */
+    .astro-hero {
+      background: var(--night);
+      color: #fff;
+      border-radius: 20px;
+      padding: 2.6rem 2rem;
+      margin-bottom: 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .astro-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(2px 2px at 10% 20%, rgba(255,255,255,.5), transparent),
+        radial-gradient(2px 2px at 80% 30%, rgba(255,255,255,.4), transparent),
+        radial-gradient(1.5px 1.5px at 40% 70%, rgba(255,255,255,.5), transparent),
+        radial-gradient(1.5px 1.5px at 60% 15%, rgba(255,255,255,.4), transparent),
+        radial-gradient(2px 2px at 90% 80%, rgba(255,255,255,.4), transparent),
+        radial-gradient(1.5px 1.5px at 25% 85%, rgba(255,255,255,.4), transparent);
+      pointer-events: none;
+    }
+
+    .astro-hero h1 {
+      position: relative;
+      color: var(--sun);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      margin-bottom: 0.5rem;
+    }
+
+    .astro-hero p {
+      position: relative;
+      color: #e6ddf6;
+      max-width: 620px;
+      margin: 0 auto;
+      font-size: 1.05rem;
+      line-height: 1.65;
+    }
+
+    .astro-hero .glyph-row {
+      position: relative;
+      margin-top: 1.1rem;
+      font-size: 1.3rem;
+      letter-spacing: 0.35em;
+      color: rgba(246, 185, 65, 0.75);
+    }
+
+    /* Zodiac card grid */
+    .zodiac-card {
+      border: 1px solid rgba(12, 39, 33, 0.12);
+      border-radius: 16px;
+      background: #fff;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(12, 39, 33, 0.06);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .zodiac-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 28px rgba(12, 39, 33, 0.12);
+    }
+
+    .zodiac-card-top {
+      padding: 1.6rem 1.25rem 1rem;
+      text-align: center;
+      background: linear-gradient(160deg, var(--night), #1D1740);
+      position: relative;
+    }
+
+    .zodiac-glyph {
+      width: 62px;
+      height: 62px;
+      margin: 0 auto 0.6rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      color: var(--card-accent, var(--sun));
+      border: 2px solid var(--card-accent, var(--sun));
+      background: rgba(255,255,255,0.04);
+    }
+
+    .zodiac-name-ta {
+      color: var(--card-accent, var(--sun));
+      font-family: "Noto Serif Tamil", serif;
+      font-size: 1.25rem;
+      margin: 0;
+    }
+
+    .zodiac-name-en {
+      color: #cfc3e8;
+      font-size: 0.82rem;
+      margin: 0.15rem 0 0;
+    }
+
+    .zodiac-dates {
+      color: #a99bd0;
+      font-size: 0.74rem;
+      margin: 0.3rem 0 0;
+    }
+
+    .zodiac-card-body {
+      padding: 1.1rem 1.25rem 1.3rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .zodiac-meme {
+      color: var(--slate);
+      font-size: 0.88rem;
+      line-height: 1.6;
+      flex-grow: 1;
+      margin-bottom: 1.1rem;
+    }
+
+    .btn-read {
+      background: var(--leaf);
+      color: #fff;
+      font-weight: 700;
+      padding: 0.45rem 1rem;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      display: inline-block;
+    }
+
+    .btn-read:hover {
+      background: var(--deep);
+      color: #fff;
+    }
+
+    .disclaimer {
+      text-align: center;
+      color: var(--slate);
+      font-size: 0.82rem;
+      margin: 1.8rem 0 0.4rem;
+      opacity: 0.85;
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+      .rail {
+        position: static;
+        min-height: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  {% include 'partials/site_header.html' %}
+
+  <main class="layout">
+    <aside class="rail">
+      <h3>விரைவு அணுகல்</h3>
+      <ul class="rail-list">
+        <li><a href="{% url 'nagarhome' %}">முகப்பு (Home)</a></li>
+        <li><a href="{% url 'short_stories' %}">சிறுகதைகள்</a></li>
+        <li><a href="{% url 'astrology_home' %}">ராசி பலன்கள்</a></li>
+        <li><a href="{% url 'collective_prayer' %}">கூட்டு பிரார்த்தனை</a></li>
+        <li><a href="{% url 'walking_log' %}">நடைப் பயிற்சி பதிவு</a></li>
+        <li><a href="{% url 'traffic_signals' %}">இந்திய சாலை அறிகுறிகள்</a></li>
+      </ul>
+    </aside>
+
+    <div class="content">
+      <section class="astro-hero">
+        <h1>2026 ராசி பலன்கள்</h1>
+        <p>12 ராசிகளுக்கும் — காதல், தொழில், பணம், ஆரோக்கியம் எல்லாம் ஒரே இடத்துல, கொஞ்சம் மீம் மசாலாவுடன் 😄</p>
+        <div class="glyph-row">♈ ♉ ♊ ♋ ♌ ♍ ♎ ♏ ♐ ♑ ♒ ♓</div>
+      </section>
+
+      <div class="container-fluid px-0">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+
+          <div class="col">
+            <div class="zodiac-card">
+              <div class="zodiac-card-top" style="--card-accent:#E8613F;">
+                <div class="zodiac-glyph">♈</div>
+                <h2 class="zodiac-name-ta">மேஷம்</h2>
+                <p class="zodiac-name-en">Aries</p>
+                <p class="zodiac-dates">மார்ச் 21 – ஏப்ரல் 19</p>
+              </div>
+              <div class="zodiac-card-body">
+                <p class="zodiac-meme">"2026-ல confidence-u full-u தான்… ஆனா பேசுறதுக்கு முன்ன ஒரு நிமிஷம் யோசிங்க பாஸ்!" 😤</p>
+                <a href="{% url 'astrology_mesham' %}" class="btn-read">பலன் காண →</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="zodiac-card">
+              <div class="zodiac-card-top" style="--card-accent:#C99A3B;">
+                <div class="zodiac-glyph">♉</div>
+                <h2 class="zodiac-name-ta">ரிஷபம்</h2>
+                <p class="zodiac-name-en">Taurus</p>
+                <p class="zodiac-dates">ஏப்ரல் 20 – மே 20</p>
+              </div>
+              <div class="zodiac-card-body">
+                <p class="zodiac-meme">"Namma pace-la than poganum" — 2026 உங்க motto இதுதான் 🐂</p>
+                <a href="{% url 'astrology_rishabam' %}" class="btn-read">பலன் காண →</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="zodiac-card">
+              <div class="zodiac-card-top" style="--card-accent:#3FA0C9;">
+                <div class="zodiac-glyph">♊</div>
+                <h2 class="zodiac-name-ta">மிதுனம்</h2>
+                <p class="zodiac-name-en">Gemini</p>
+                <p class="zodiac-dates">மே 21 – ஜூன் 20</p>
+              </div>
+              <div class="zodiac-card-body">
+                <p class="zodiac-meme">ஒரு நாளைக்கு 5 group chat-ல active-ஆ இருக்குற உங்களுக்கு 2026 full entertainment தான் 🎭</p>
+                <a href="{% url 'astrology_mithunam' %}" class="btn-read">பலன் காண →</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="zodiac-card">
+              <div class="zodiac-card-top" style="--card-accent:#7D5FB5;">
+                <div class="zodiac-glyph">♋</div>
+                <h2 class="zodiac-name-ta">கடகம்</h2>
+                <p class="zodiac-name-en">Cancer</p>
+                <p class="zodiac-dates">ஜூன் 21 – ஜூலை 22</p>
+              </div>
+              <div class="zodiac-card-body">
+                <p class="zodiac-meme">"Family group-ல ஒரு meme அனுப்பிட்டு disappear ஆகிற" உங்களுக்கு 2026 emotional-ஆ இருக்கும் 🦀</p>
+                <a href="{% url 'astrology_kadagam' %}" class="btn-read">பலன் காண →</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="zodiac-card">
+              <div class="zodiac-card-top" style="--card-accent:#F0A33F;">
+                <div class="zodiac-glyph">♌</div>
+                <h2 class="zodiac-name-ta">சிம்மம்</h2>
+                <p class="zodiac-name-en">Leo</p>
+                <p class="zodiac-dates">ஜூலை 23 – ஆகஸ்ட் 22</p>
+              </div>
+              <div class="zodiac-card-body">
+                <p class="zodiac-meme">"Spotlight என் மேலயே இருக்கணும்" — 2026-லயும் இதே vibe தொடரும் 👑</p>
+                <a href="{% url 'astrology_simmam' %}" class="btn-read">பலன் காண →</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="zodiac-card">
+              <div class="zodiac-card-top" style="--card-accent:#5FA872;">
+                <div class="zodiac-glyph">♍</div>
+                <h2 class="zodiac-name-ta">கன்னி</h2>
+                <p class="zodiac-name-en">Virgo</p>
+                <p class="zodiac-dates">ஆகஸ்ட் 23 – செப்டம்பர் 22</p>
+              </div>
+              <div class="zodiac-card-body">
+                <p class="zodiac-meme">"Plan B, Plan C, Plan D எல்லாம் ready" — 2026 அதுக்கான ஆண்டு தான் 📋</p>
+                <a href="{% url 'astrology_kanni' %}" class="btn-read">பலன் காண →</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="zodiac-card">
+              <div class="zodiac-card-top" style="--card-accent:#4FA6D9;">
+                <div class="zodiac-glyph">♎</div>
+                <h2 class="zodiac-name-ta">துலாம்</h2>
+                <p class="zodiac-name-en">Libra</p>
+                <p class="zodiac-dates">செப்டம்பர் 23 – அக்டோபர் 22</p>
+              </div>
+              <div class="zodiac-card-body">
+                <p class="zodiac-meme">"Rendu options-லயும் confuse" — 2026-ல decision எடுக்குறது கொஞ்சம் easy ஆகும் ⚖️</p>
+                <a href="{% url 'astrology_thulam' %}" class="btn-read">பலன் காண →</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="zodiac-card">
+              <div class="zodiac-card-top" style="--card-accent:#8A3F6E;">
+                <div class="zodiac-glyph">♏</div>
+                <h2 class="zodiac-name-ta">விருச்சிகம்</h2>
+                <p class="zodiac-name-en">Scorpio</p>
+                <p class="zodiac-dates">அக்டோபர் 23 – நவம்பர் 21</p>
+              </div>
+              <div class="zodiac-card-body">
+                <p class="zodiac-meme">"Mystery vibe" full-ஆ carry பண்ற உங்களுக்கு 2026 transformation-ஓட ஆண்டு 🔥</p>
+                <a href="{% url 'astrology_viruchigam' %}" class="btn-read">பலன் காண →</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="zodiac-card">
+              <div class="zodiac-card-top" style="--card-accent:#D9772E;">
+                <div class="zodiac-glyph">♐</div>
+                <h2 class="zodiac-name-ta">தனுசு</h2>
+                <p class="zodiac-name-en">Sagittarius</p>
+                <p class="zodiac-dates">நவம்பர் 22 – டிசம்பர் 21</p>
+              </div>
+              <div class="zodiac-card-body">
+                <p class="zodiac-meme">"Trip plan பண்றது dhaan main job" — 2026-ல adventure spirit-க்கு நல்ல காலம் 🏹</p>
+                <a href="{% url 'astrology_dhanusu' %}" class="btn-read">பலன் காண →</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="zodiac-card">
+              <div class="zodiac-card-top" style="--card-accent:#8E7048;">
+                <div class="zodiac-glyph">♑</div>
+                <h2 class="zodiac-name-ta">மகரம்</h2>
+                <p class="zodiac-name-en">Capricorn</p>
+                <p class="zodiac-dates">டிசம்பர் 22 – ஜனவரி 19</p>
+              </div>
+              <div class="zodiac-card-body">
+                <p class="zodiac-meme">"Goal list-ல ஒவ்வொரு item-உம் tick pannanum" — 2026 அதுக்கான ஆண்டு தான் 🎯</p>
+                <a href="{% url 'astrology_magaram' %}" class="btn-read">பலன் காண →</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="zodiac-card">
+              <div class="zodiac-card-top" style="--card-accent:#3F8FA6;">
+                <div class="zodiac-glyph">♒</div>
+                <h2 class="zodiac-name-ta">கும்பம்</h2>
+                <p class="zodiac-name-en">Aquarius</p>
+                <p class="zodiac-dates">ஜனவரி 20 – பிப்ரவரி 18</p>
+              </div>
+              <div class="zodiac-card-body">
+                <p class="zodiac-meme">"Normal-ஆ இருக்குறது boring" — 2026-ல உங்க unique ideas-க்கு நல்ல வரவேற்பு 💡</p>
+                <a href="{% url 'astrology_kumbam' %}" class="btn-read">பலன் காண →</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="zodiac-card">
+              <div class="zodiac-card-top" style="--card-accent:#6E7FC9;">
+                <div class="zodiac-glyph">♓</div>
+                <h2 class="zodiac-name-ta">மீனம்</h2>
+                <p class="zodiac-name-en">Pisces</p>
+                <p class="zodiac-dates">பிப்ரவரி 19 – மார்ச் 20</p>
+              </div>
+              <div class="zodiac-card-body">
+                <p class="zodiac-meme">"Daydream பண்றதுல PhD" வாங்கின உங்களுக்கு 2026 creativity-க்கு நல்ல காலம் 🐟</p>
+                <a href="{% url 'astrology_meenam' %}" class="btn-read">பலன் காண →</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <p class="disclaimer">✨ இந்த ராசி பலன்கள் வெறும் பொழுதுபோக்கிற்காக மட்டுமே — life-ல முக்கியமான முடிவுகளுக்கு உங்க அறிவையே நம்புங்க 😄</p>
+    </div>
+  </main>
+
+  {% include 'partials/site_footer.html' %}
+</body>
+</html>

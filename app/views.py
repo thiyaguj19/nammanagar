@@ -482,3 +482,42 @@ def jesus_calms_storm_story(request):
 
 def yunus_whale_story(request):
     return render(request, 'yunus-whale-scene.html')
+    
+def astrology_home(request):
+    return render(request, 'astrology.html')
+
+def astrology_mesham(request):
+    return render(request, 'astrology-mesham.html')
+
+def astrology_rishabam(request):
+    return render(request, 'astrology-rishabam.html')
+
+def astrology_mithunam(request):
+    return render(request, 'astrology-mithunam.html')
+
+def astrology_kadagam(request):
+    return render(request, 'astrology-kadagam.html')
+
+def astrology_simmam(request):
+    return render(request, 'astrology-simmam.html')
+
+def astrology_kanni(request):
+    return render(request, 'astrology-kanni.html')
+
+def astrology_thulam(request):
+    return render(request, 'astrology-thulam.html')
+
+def astrology_viruchigam(request):
+    return render(request, 'astrology-viruchigam.html')
+
+def astrology_dhanusu(request):
+    return render(request, 'astrology-dhanusu.html')
+
+def astrology_magaram(request):
+    return render(request, 'astrology-magaram.html')
+
+def astrology_kumbam(request):
+    return render(request, 'astrology-kumbam.html')
+
+def astrology_meenam(request):
+    return render(request, 'astrology-meenam.html')

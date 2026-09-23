@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+<meta charset="UTF-8">
+<title>துலாம் (Libra) - 2026 ராசி பலன் | நம்ம நகரம்</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Yatra+One&family=Noto+Sans+Tamil:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --night-deep:#100C22;
+    --night-mid:#1D1740;
+    --accent:#4FA6D9;
+    --accent-soft:rgba(79,166,217,.35);
+    --gold:#D9A94A;
+    --cream:#FDF6EC;
+  }
+  *{box-sizing:border-box;}
+  html,body{
+    margin:0; padding:0; width:100%; min-height:100%;
+    background:radial-gradient(ellipse at 50% 8%, var(--night-mid) 0%, var(--night-deep) 55%, #08061A 100%);
+    font-family:'Noto Sans Tamil','Poppins', sans-serif; color:var(--cream);
+  }
+  .stage{
+    position:relative; min-height:100vh; display:flex; flex-direction:column;
+    align-items:center; padding:40px 20px 56px; text-align:center; overflow:hidden;
+  }
+  .stars{ position:absolute; inset:0; z-index:0; pointer-events:none; }
+  .star{ position:absolute; width:2.6px; height:2.6px; border-radius:50%; background:var(--cream); opacity:.45; animation:twinkle 3.2s ease-in-out infinite; }
+  @keyframes twinkle{ 0%,100%{opacity:.12; transform:scale(1);} 50%{opacity:.85; transform:scale(1.6);} }
+
+  .nav-row{
+    position:relative; z-index:2; display:flex; gap:10px; flex-wrap:wrap;
+    justify-content:center; margin-bottom:22px;
+  }
+  .nav-link{
+    display:inline-flex; align-items:center; gap:6px; padding:8px 16px;
+    border:1px solid rgba(217,169,74,.4); border-radius:999px;
+    color:var(--gold); text-decoration:none; font-size:13px; letter-spacing:.02em;
+    transition:background .2s ease, border-color .2s ease;
+  }
+  .nav-link:hover{ background:rgba(217,169,74,.12); border-color:var(--gold); }
+
+  .badge-wrap{ position:relative; z-index:2; margin-bottom:10px; }
+  .badge-halo{
+    position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+    width:150px; height:150px; border-radius:50%;
+    background:radial-gradient(circle, var(--accent-soft) 0%, transparent 70%);
+    animation:pulse 3.2s ease-in-out infinite; z-index:0;
+  }
+  @keyframes pulse{ 0%,100%{ opacity:.6; transform:translate(-50%,-50%) scale(1);} 50%{ opacity:1; transform:translate(-50%,-50%) scale(1.08);} }
+  .badge{
+    position:relative; z-index:1; width:104px; height:104px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    background:rgba(255,255,255,0.04);
+    border:2px solid var(--accent);
+    font-size:52px; color:var(--accent);
+    margin:0 auto;
+    box-shadow:0 0 30px var(--accent-soft);
+  }
+
+  .eyebrow{ font-size:12.5px; letter-spacing:.08em; color:#CFC3E8; opacity:.85; z-index:2; margin:14px 0 4px; }
+  h1{
+    font-family:'Yatra One', cursive; font-weight:400;
+    font-size:clamp(1.9rem, 5vw, 2.7rem); margin:0 0 4px; color:var(--accent);
+    text-shadow:0 0 20px var(--accent-soft); z-index:2;
+  }
+  .dates{ font-size:13px; color:#C9BEDB; opacity:.8; z-index:2; margin-bottom:4px; }
+  .element{ font-size:12px; color:var(--accent); opacity:.9; z-index:2; margin-bottom:18px; letter-spacing:.04em; }
+
+  .tagline{
+    max-width:520px; font-size:15px; line-height:1.7; color:#F0E9FA;
+    background:rgba(255,255,255,0.04); border:1px solid var(--accent-soft);
+    border-radius:14px; padding:16px 20px; z-index:2; margin:0 0 30px;
+  }
+
+  .info-grid{
+    display:grid; grid-template-columns:1fr; gap:14px;
+    max-width:640px; width:100%; z-index:2; text-align:left; margin-bottom:22px;
+  }
+  @media (min-width:640px){ .info-grid{ grid-template-columns:1fr 1fr; } }
+  .info-card{
+    background:rgba(253,246,236,0.04); border:1px solid rgba(217,169,74,.2);
+    border-radius:14px; padding:18px 18px 20px;
+  }
+  .info-card h3{
+    margin:0 0 8px; font-size:14.5px; font-weight:600; color:var(--accent);
+    display:flex; align-items:center; gap:8px;
+  }
+  .info-card p{ margin:0; font-size:13.5px; line-height:1.75; color:#E7DFF4; opacity:.94; }
+
+  .meme-quote{
+    max-width:560px; width:100%; z-index:2; margin:6px 0 26px;
+    background:linear-gradient(135deg, var(--accent-soft), transparent);
+    border-left:3px solid var(--accent); border-radius:8px;
+    padding:14px 18px; font-size:13.5px; line-height:1.7; color:var(--cream);
+    text-align:left;
+  }
+
+  .lucky-row{
+    display:flex; flex-wrap:wrap; gap:14px; justify-content:center;
+    z-index:2; margin-bottom:26px;
+  }
+  .lucky-chip{
+    display:flex; flex-direction:column; align-items:center; gap:4px;
+    background:rgba(255,255,255,0.04); border:1px solid rgba(217,169,74,.22);
+    border-radius:12px; padding:10px 18px; min-width:110px;
+  }
+  .lucky-chip .label{ font-size:11px; color:#B8ABD0; opacity:.85; }
+  .lucky-chip .value{ font-size:14px; color:var(--gold); font-weight:600; }
+
+  .closing{
+    max-width:520px; font-size:13.5px; line-height:1.7; color:#DCD1F0;
+    opacity:.9; z-index:2; margin-bottom:4px; font-style:italic;
+  }
+  footer{ margin-top:22px; font-size:12px; letter-spacing:.04em; color:#8A7BB0; z-index:2; }
+
+  @media (prefers-reduced-motion: reduce){
+    .star, .badge-halo{ animation:none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="stars" id="stars"></div>
+
+  <div class="nav-row">
+    <a class="nav-link" href="https://www.nammanagar.in/">&larr; முகப்பு</a>
+    <a class="nav-link" href="https://www.nammanagar.in/astrology/">&larr; ராசி பலன்கள்</a>
+  </div>
+
+  <div class="badge-wrap">
+    <div class="badge-halo"></div>
+    <div class="badge">♎</div>
+  </div>
+
+  <div class="eyebrow">2026 ஆண்டு ராசி பலன்</div>
+  <h1>துலாம் <span style="font-size:0.55em; color:#C9BEDB; font-family:'Poppins',sans-serif;">(Libra)</span></h1>
+  <div class="dates">செப்டம்பர் 23 – அக்டோபர் 22</div>
+  <div class="element">காற்று ராசி</div>
+
+  <div class="tagline">'Rendu options-லயும் confuse' — 2026-ல decision எடுக்குறது கொஞ்சம் easy ஆகும் ⚖️</div>
+
+  <div class="info-grid">
+    <div class="info-card">
+      <h3>🌟 பொது பலன்</h3>
+      <p>Balance தேடுற ஆண்டு இது — relationships-லயும், work-லயும், சொந்த நேரத்துலயும். Peace-ஐ முதல் priority-யா வையுங்க.</p>
+    </div>
+    <div class="info-card">
+      <h3>💞 காதல் &amp; உறவுகள்</h3>
+      <p>Partnership-ல deep connection வளரும் ஆண்டு. ஆனா எல்லாரையும் happy வெக்கணும்னு தன்ன தியாகம் பண்ணுறத கொஞ்சம் குறையுங்க.</p>
+    </div>
+    <div class="info-card">
+      <h3>💼 தொழில் &amp; வேலை</h3>
+      <p>Collaboration-ல நல்ல வெற்றி கிடைக்கும். நியாயமான negotiation உங்களுக்கு advantage-ஆ இருக்கும்.</p>
+    </div>
+    <div class="info-card">
+      <h3>💰 பணம்</h3>
+      <p>ஷாப்பிங் பண்றப்போ 'இது வேணுமா, வேணாமா' அப்படி ரெண்டு மணி நேரம் யோசிக்குற பழக்கம் இந்த வருஷம் money save பண்ணும் 😄</p>
+    </div>
+  </div>
+
+  <div class="meme-quote">'Naanga rendu perum correct' சொல்லிட்டு, முடிவே எடுக்காம இருக்காதீங்க 😂</div>
+
+  <div class="info-grid" style="max-width:640px;">
+    <div class="info-card" style="grid-column:1/-1;">
+      <h3>🩺 ஆரோக்கியம்</h3>
+      <p>Skin, kidney related விஷயங்கள கொஞ்சம் கவனிக்கணும். தண்ணி நிறைய குடிங்க.</p>
+    </div>
+  </div>
+
+  <div class="lucky-row">
+    <div class="lucky-chip"><span class="label">லக்கி கலர்</span><span class="value">pastel pink / வெள்ளை</span></div>
+    <div class="lucky-chip"><span class="label">லக்கி நம்பர்</span><span class="value">6</span></div>
+    <div class="lucky-chip"><span class="label">லக்கி நாள்</span><span class="value">வெள்ளி</span></div>
+  </div>
+
+  <p class="closing">2026-ல உங்க சொந்த happiness-க்கும் ஒரு vote கொடுங்க 🗳️</p>
+
+  <div class="nav-row" style="margin-top:14px;">
+    <a class="nav-link" href="https://www.nammanagar.in/">&larr; முகப்பு</a>
+    <a class="nav-link" href="https://www.nammanagar.in/astrology/">&larr; ராசி பலன்கள்</a>
+  </div>
+
+  <footer>2026 ராசி பலன் — வெறும் பொழுதுபோக்கிற்காக மட்டுமே 🌙</footer>
+</div>
+
+<script>
+  const starsEl = document.getElementById('stars');
+  for(let i=0;i<45;i++){
+    const s = document.createElement('div');
+    s.className='star';
+    s.style.left = Math.random()*100+'%';
+    s.style.top = Math.random()*100+'%';
+    s.style.animationDelay = (Math.random()*3)+'s';
+    s.style.animationDuration = (2.4+Math.random()*2.4)+'s';
+    starsEl.appendChild(s);
+  }
+</script>
+</body>
+</html>

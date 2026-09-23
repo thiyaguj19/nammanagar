@@ -1,0 +1,447 @@
+{% load static %}
+<!doctype html>
+<html lang="ta">
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GBD3RJKWN1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-GBD3RJKWN1');
+  </script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Battleship Game — நம்ம நகரம்.">
+  <title>Battleship — நம்ம நகரம்</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anek+Tamil:wght@400;500;700;800&family=Noto+Serif+Tamil:wght@600;700&display=swap" rel="stylesheet">
+  <link href="{% static 'app/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'app/css/site_chrome.css' %}" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f7f2e9;
+      --ink: #15372f;
+      --deep: #0c2721;
+      --leaf: #36775f;
+      --sun: #f6b941;
+      --coral: #e76f51;
+      --slate: #46645b;
+      --ocean: #1d3557;
+      --water: #457b9d;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background:
+        linear-gradient(90deg, rgba(54, 119, 95, 0.08) 0 13%, transparent 13% 87%, rgba(231, 111, 81, 0.08) 87% 100%),
+        radial-gradient(900px 460px at -8% -6%, rgba(246, 185, 65, 0.2), transparent 65%),
+        radial-gradient(850px 420px at 108% 16%, rgba(54, 119, 95, 0.15), transparent 66%),
+        var(--paper);
+      color: var(--deep);
+      font-family: "Anek Tamil", "Noto Sans Tamil", sans-serif;
+    }
+
+    .layout {
+      width: min(100% - 2.4rem, 1200px);
+      margin: 1.4rem auto 2rem;
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      gap: 1.5rem;
+    }
+
+    .rail {
+      align-self: start;
+      position: sticky;
+      top: 96px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.86);
+      border: 1px solid rgba(12, 39, 33, 0.1);
+      box-shadow: 0 14px 30px rgba(12, 39, 33, 0.07);
+      padding: 1rem;
+    }
+
+    .rail h3 {
+      margin: 0 0 0.7rem;
+      font-size: 1.02rem;
+      font-family: "Noto Serif Tamil", serif;
+    }
+
+    .rail-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .rail-list a {
+      display: block;
+      text-decoration: none;
+      color: var(--ink);
+      font-weight: 700;
+      border-radius: 10px;
+      padding: 0.5rem 0.64rem;
+      background: #eef6f1;
+    }
+
+    .rail-list a:hover {
+      background: #ddecdf;
+    }
+
+    .game-wrapper {
+      background: #fff;
+      border-radius: 20px;
+      padding: 2rem;
+      border: 1px solid rgba(12, 39, 33, 0.12);
+      box-shadow: 0 10px 25px rgba(12, 39, 33, 0.08);
+      text-align: center;
+    }
+
+    .game-header h1 {
+      font-family: "Noto Serif Tamil", serif;
+      color: var(--ink);
+      margin-bottom: 0.3rem;
+    }
+
+    .status-text {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--slate);
+      margin: 1rem 0 1.5rem;
+      min-height: 2rem;
+    }
+
+    .boards-container {
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .board-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .board-title {
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 0.8rem;
+      color: var(--ocean);
+    }
+
+    .bs-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 6px;
+      background: #eef4f8;
+      padding: 10px;
+      border-radius: 12px;
+      border: 2px solid var(--water);
+    }
+
+    .bs-cell {
+      width: 42px;
+      height: 42px;
+      background: #fff;
+      border: 1px solid #a8dadc;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .computer-board .bs-cell:hover {
+      background: #caf0f8;
+      transform: scale(1.05);
+    }
+
+    .bs-cell.ship {
+      background: #457b9d;
+      color: #fff;
+    }
+
+    .bs-cell.hit {
+      background: var(--coral) !important;
+      color: #fff;
+      animation: pop 0.3s ease-in-out;
+    }
+
+    .bs-cell.miss {
+      background: #a8dadc !important;
+      color: #1d3557;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    .controls {
+      margin-top: 2rem;
+    }
+
+    .btn-restart {
+      background: var(--coral);
+      color: #fff;
+      border: none;
+      font-weight: 700;
+      padding: 0.6rem 1.8rem;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.2s;
+    }
+
+    .btn-restart:hover {
+      background: #d65a3c;
+    }
+
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+      .rail { position: static; }
+      .bs-cell { width: 36px; height: 36px; font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  {% include 'partials/site_header.html' %}
+
+  <main class="layout">
+    <aside class="rail">
+      <h3>விரைவு அணுகல்</h3>
+      <ul class="rail-list">
+        <li><a href="{% url 'nagarhome' %}">முகப்பு (Home)</a></li>
+        <li><a href="{% url 'js_games' %}">ஜாவாஸ்கிரிப்ட் விளையாட்டுகள்</a></li>
+        <li><a href="{% url 'short_stories' %}">சிறுகதைகள்</a></li>
+      </ul>
+    </aside>
+
+    <div class="content">
+      <div class="game-wrapper">
+        <div class="game-header">
+          <h1>Battleship (போர்க் கப்பல்)</h1>
+          <p>வலதுபுறக் கடலில் உள்ள கணினியின் போர்க் கப்பல்களைக் தாக்கி அளியுங்கள்!</p>
+        </div>
+
+        <div class="status-text" id="status">தாக்குதலுக்குத் தயாராகுங்கள்! கணினியின் கடலைக் கிளிக் செய்யவும். 🎯</div>
+
+        <div class="boards-container">
+          <div class="board-box">
+            <div class="board-title">🛡️ உங்கள் கடல் (Your Fleet)</div>
+            <div class="bs-grid player-board" id="playerGrid"></div>
+          </div>
+
+          <div class="board-box">
+            <div class="board-title">🎯 கணினியின் கடல் (Enemy Fleet)</div>
+            <div class="bs-grid computer-board" id="computerGrid"></div>
+          </div>
+        </div>
+
+        <div class="controls">
+          <button class="btn-restart" onclick="resetGame()">புதிய போர் தொடங்க (Restart)</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  {% include 'partials/site_footer.html' %}
+
+  <script>
+    const GRID_SIZE = 6;
+    const shipLengths = [4, 3, 2, 1]; // Ship sizes
+
+    let playerBoard = Array(GRID_SIZE * GRID_SIZE).fill(null);
+    let computerBoard = Array(GRID_SIZE * GRID_SIZE).fill(null);
+    
+    let playerHits = 0;
+    let computerHits = 0;
+    const totalShipCells = shipLengths.reduce((a, b) => a + b, 0);
+
+    let isGameActive = true;
+    let computerHuntTargets = []; // AI memory for targeting hits
+
+    const playerGridEl = document.getElementById('playerGrid');
+    const computerGridEl = document.getElementById('computerGrid');
+    const statusText = document.getElementById('status');
+
+    function initGame() {
+      playerGridEl.innerHTML = '';
+      computerGridEl.innerHTML = '';
+      playerBoard.fill(null);
+      computerBoard.fill(null);
+      playerHits = 0;
+      computerHits = 0;
+      isGameActive = true;
+      computerHuntTargets = [];
+
+      // Place ships automatically for both
+      placeShips(playerBoard);
+      placeShips(computerBoard);
+
+      // Render grids
+      for (let i = 0; i < GRID_SIZE * GRID_SIZE; i++) {
+        // Player Cell
+        const pCell = document.createElement('div');
+        pCell.classList.add('bs-cell');
+        if (playerBoard[i] === 'S') {
+          pCell.classList.add('ship');
+          pCell.textContent = '🚢';
+        }
+        pCell.dataset.index = i;
+        playerGridEl.appendChild(pCell);
+
+        // Computer Cell
+        const cCell = document.createElement('div');
+        cCell.classList.add('bs-cell');
+        cCell.dataset.index = i;
+        cCell.addEventListener('click', handlePlayerAttack);
+        computerGridEl.appendChild(cCell);
+      }
+
+      statusText.textContent = 'தாக்குதலுக்குத் தயாராகுங்கள்! கணினியின் கடலைக் கிளிக் செய்யவும். 🎯';
+    }
+
+    function placeShips(board) {
+      shipLengths.forEach(length => {
+        let placed = false;
+        while (!placed) {
+          const isHorizontal = Math.random() < 0.5;
+          const row = Math.floor(Math.random() * GRID_SIZE);
+          const col = Math.floor(Math.random() * GRID_SIZE);
+
+          if (canPlaceShip(board, row, col, length, isHorizontal)) {
+            for (let i = 0; i < length; i++) {
+              const idx = isHorizontal ? row * GRID_SIZE + (col + i) : (row + i) * GRID_SIZE + col;
+              board[idx] = 'S';
+            }
+            placed = true;
+          }
+        }
+      });
+    }
+
+    function canPlaceShip(board, row, col, length, isHorizontal) {
+      if (isHorizontal) {
+        if (col + length > GRID_SIZE) return false;
+        for (let i = 0; i < length; i++) {
+          if (board[row * GRID_SIZE + (col + i)] !== null) return false;
+        }
+      } else {
+        if (row + length > GRID_SIZE) return false;
+        for (let i = 0; i < length; i++) {
+          if (board[(row + i) * GRID_SIZE + col] !== null) return false;
+        }
+      }
+      return true;
+    }
+
+    function handlePlayerAttack() {
+      const idx = this.dataset.index;
+
+      if (!isGameActive || computerBoard[idx] === 'H' || computerBoard[idx] === 'M') return;
+
+      if (computerBoard[idx] === 'S') {
+        computerBoard[idx] = 'H';
+        this.classList.add('hit');
+        this.textContent = '💥';
+        playerHits++;
+        statusText.textContent = 'அருமை! கணினியின் கப்பல் தாக்கப்பட்டது! 💥';
+      } else {
+        computerBoard[idx] = 'M';
+        this.classList.add('miss');
+        this.textContent = '🌊';
+        statusText.textContent = 'இலக்கு தவறவிட்டது! 🌊';
+      }
+
+      if (playerHits === totalShipCells) {
+        statusText.textContent = '🎉 வெற்றி! கணினியின் அனைத்து கப்பல்களையும் அழித்துவிட்டீர்கள்!';
+        isGameActive = false;
+        return;
+      }
+
+      // Computer Turn
+      if (isGameActive) {
+        setTimeout(makeComputerAttack, 600);
+      }
+    }
+
+    function makeComputerAttack() {
+      if (!isGameActive) return;
+
+      let targetIdx;
+
+      // Smart AI: Attack adjacent cells if previously hit a ship
+      if (computerHuntTargets.length > 0) {
+        targetIdx = computerHuntTargets.pop();
+      } else {
+        // Pick random cell that hasn't been fired on
+        let available = playerBoard.map((val, idx) => (val !== 'H' && val !== 'M' ? idx : null)).filter(v => v !== null);
+        targetIdx = available[Math.floor(Math.random() * available.length)];
+      }
+
+      const playerCells = playerGridEl.children;
+
+      if (playerBoard[targetIdx] === 'S') {
+        playerBoard[targetIdx] = 'H';
+        playerCells[targetIdx].classList.add('hit');
+        playerCells[targetIdx].textContent = '💥';
+        computerHits++;
+
+        // Add adjacent cells to AI hunting memory
+        addHuntingTargets(targetIdx);
+
+        if (computerHits === totalShipCells) {
+          statusText.textContent = '🤖 கணினி வெற்றி பெற்றது! உங்கள் அனைத்து கப்பல்களும் அழிக்கப்பட்டன.';
+          isGameActive = false;
+          return;
+        } else {
+          statusText.textContent = 'எச்சரிக்கை! கணினி உங்கள் கப்பலைத் தாக்கிவிட்டது! 💥';
+        }
+      } else {
+        playerBoard[targetIdx] = 'M';
+        playerCells[targetIdx].classList.add('miss');
+        playerCells[targetIdx].textContent = '🌊';
+        statusText.textContent = 'உங்கள் முறை! கணினியின் கடலில் தாக்குங்கள். 🎯';
+      }
+    }
+
+    function addHuntingTargets(idx) {
+      const row = Math.floor(idx / GRID_SIZE);
+      const col = idx % GRID_SIZE;
+
+      const neighbors = [
+        { r: row - 1, c: col }, // Up
+        { r: row + 1, c: col }, // Down
+        { r: row, c: col - 1 }, // Left
+        { r: row, c: col + 1 }  // Right
+      ];
+
+      neighbors.forEach(n => {
+        if (n.r >= 0 && n.r < GRID_SIZE && n.c >= 0 && n.c < GRID_SIZE) {
+          const nIdx = n.r * GRID_SIZE + n.c;
+          if (playerBoard[nIdx] !== 'H' && playerBoard[nIdx] !== 'M' && !computerHuntTargets.includes(nIdx)) {
+            computerHuntTargets.push(nIdx);
+          }
+        }
+      });
+    }
+
+    function resetGame() {
+      initGame();
+    }
+
+    // Initialize game on page load
+    initGame();
+  </script>
+</body>
+</html>

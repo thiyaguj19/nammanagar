@@ -533,3 +533,6 @@ def emoji_mask_memory_game(request):
     
 def tic_tac_toe_game(request):
     return render(request, 'tic_tac_toe_game.html')
+    
+def battleship_game(request):
+    return render(request, 'battleship_game.html')

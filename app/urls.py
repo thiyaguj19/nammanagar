@@ -48,4 +48,5 @@ urlpatterns = [
     path(r'javascript-games/emoji-mask-memory/', views.emoji_mask_memory_game, name='emoji_mask_memory_game'),
     path(r'javascript-games/tic-tac-toe/', views.tic_tac_toe_game, name='tic_tac_toe_game'),
     path(r'javascript-games/battleship/', views.battleship_game, name='battleship_game'),
+    path(r'javascript-games/quiz/', views.quiz_game, name='quiz_game'),
 ]

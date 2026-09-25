@@ -536,3 +536,6 @@ def tic_tac_toe_game(request):
     
 def battleship_game(request):
     return render(request, 'battleship_game.html')
+    
+def quiz_game(request):
+    return render(request, 'quiz_game.html')

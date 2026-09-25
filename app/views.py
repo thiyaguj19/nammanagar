@@ -539,3 +539,6 @@ def battleship_game(request):
     
 def quiz_game(request):
     return render(request, 'quiz_game.html')
+    
+def india_sports_quiz_game(request):
+    return render(request, 'india_sports_quiz_game.html')

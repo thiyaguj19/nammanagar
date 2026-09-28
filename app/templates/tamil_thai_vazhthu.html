@@ -1,0 +1,161 @@
+{% load static %}
+<!doctype html>
+<html lang="ta">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="தமிழ்த்தாய் வாழ்த்து — வரிகள், பொருள், வரலாறு, எப்போது ஏன் பாடுகிறோம் என்பதன் விளக்கம்.">
+  <title>தமிழ்த்தாய் வாழ்த்து — நம்ம நகரம்</title>
+  <link rel="icon" type="image/svg+xml" href="https://nammanagar.s3.eu-north-1.amazonaws.com/nagarlogo/high-constrast.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anek+Tamil:wght@400;500;700;800&family=Noto+Serif+Tamil:wght@600;700&display=swap" rel="stylesheet">
+  <link href="{% static 'app/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'app/css/site_chrome.css' %}" rel="stylesheet">
+  <style>
+    :root { --paper:#f7f2e9; --ink:#15372f; --deep:#0c2721; --leaf:#36775f; --sun:#f6b941; --coral:#e76f51; --mist:#dce8de; --slate:#46645b; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; color: var(--deep);
+      font-family: "Anek Tamil", "Noto Sans Tamil", sans-serif;
+      background:
+        radial-gradient(900px 460px at -8% -6%, rgba(246,185,65,.2), transparent 65%),
+        radial-gradient(850px 420px at 108% 16%, rgba(54,119,95,.15), transparent 66%),
+        var(--paper);
+    }
+    h1, h2, h3 { font-family: "Noto Serif Tamil", serif; letter-spacing: -0.02em; }
+    .wrap { width: min(100% - 2rem, 900px); margin: 1.4rem auto 3rem; }
+    .back { display: inline-block; margin-bottom: 1rem; color: var(--ink); font-weight: 700; text-decoration: none; }
+    .back:hover { text-decoration: underline; }
+
+    .hero { border-radius: 24px; background: var(--ink); color: #fff; padding: clamp(1.4rem, 4vw, 2.6rem); position: relative; overflow: hidden; }
+    .hero::after { content: ""; position: absolute; right: -90px; top: -110px; width: 280px; height: 280px; border-radius: 50%; background: var(--sun); }
+    .hero > * { position: relative; z-index: 1; }
+    .hero h1 { margin: 0 0 .6rem; font-size: clamp(2.2rem, 6vw, 3.8rem); line-height: 1.05; max-width: 14ch; }
+    .hero p { margin: 0; max-width: 56ch; color: #d7e8dc; line-height: 1.75; }
+    .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: .7rem; margin-top: 1.4rem; }
+    .fact { background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2); border-radius: 14px; padding: .7rem .9rem; }
+    .fact small { display: block; color: var(--sun); font-weight: 700; font-size: .78rem; }
+    .fact strong { font-size: 1.02rem; }
+
+    section { margin-top: clamp(2rem, 5vw, 3.2rem); }
+    section > h2 { margin: 0 0 1rem; font-size: clamp(1.5rem, 3.4vw, 2.2rem); }
+    .lead { color: var(--slate); line-height: 1.8; max-width: 70ch; margin: 0 0 1rem; }
+
+    .verse { background: rgba(255,255,255,.9); border: 1px solid rgba(12,39,33,.1); border-left: 6px solid var(--coral); border-radius: 16px; padding: 1.1rem 1.3rem; margin-bottom: .9rem; }
+    .verse .ta { margin: 0; font: 700 clamp(1.1rem, 2.4vw, 1.4rem)/1.7 "Noto Serif Tamil", serif; color: var(--ink); }
+    .verse .ta span { display: block; }
+    .verse .mean { margin: .7rem 0 0; color: #2f4d44; line-height: 1.75; }
+    .verse .en { margin: .3rem 0 0; color: #62786e; font-size: .92rem; line-height: 1.6; font-style: italic; }
+    .verse.refrain { border-left-color: var(--sun); }
+
+    .timeline { list-style: none; margin: 0; padding: 0 0 0 1.3rem; border-left: 3px solid var(--leaf); }
+    .timeline li { position: relative; padding: 0 0 1.4rem 1.2rem; }
+    .timeline li::before { content: ""; position: absolute; left: -1.75rem; top: .45rem; width: 13px; height: 13px; border-radius: 50%; background: var(--sun); border: 3px solid var(--ink); }
+    .timeline b { font: 700 1.25rem "Noto Serif Tamil", serif; color: var(--coral); }
+    .timeline p { margin: .2rem 0 0; line-height: 1.75; color: #2f4d44; }
+
+    .two { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .box { background: var(--mist); border-radius: 18px; padding: 1.2rem 1.3rem; }
+    .box h3 { margin: 0 0 .6rem; font-size: 1.15rem; }
+    .box ul { margin: 0; padding-left: 1.1rem; line-height: 1.8; color: #2f4d44; }
+    .note { margin-top: 1rem; border-radius: 16px; background: #fff0d0; color: #5c4210; padding: 1rem 1.2rem; line-height: 1.75; }
+    .src { margin-top: 2rem; color: #62786e; font-size: .86rem; line-height: 1.7; }
+    .src a { color: var(--leaf); }
+
+    @media (max-width: 700px) { .two { grid-template-columns: 1fr; } .hero::after { width: 180px; height: 180px; } }
+  </style>
+</head>
+<body>
+  {% include 'partials/site_header.html' %}
+
+  <main class="wrap">
+    <a class="back" href="/">← முகப்புக்கு</a>
+
+    <header class="hero">
+      <h1>தமிழ்த்தாய் வாழ்த்து</h1>
+      <p>தமிழ்நாட்டின் மாநிலப் பாடல். தமிழ்மொழியைத் தாயாக வணங்கிப் போற்றும் இந்தப் பாடல், அரசு நிகழ்ச்சிகள் மற்றும் பள்ளி, கல்லூரி விழாக்களின் தொடக்கத்தில் பாடப்படுகிறது.</p>
+      <div class="facts">
+        <div class="fact"><small>எழுதியவர்</small><strong>மனோன்மணியம் சுந்தரனார்</strong></div>
+        <div class="fact"><small>எழுதிய ஆண்டு</small><strong>1891</strong></div>
+        <div class="fact"><small>மாநிலப் பாடல்</small><strong>17 டிசம்பர் 2021</strong></div>
+        <div class="fact"><small>பாடும் நேரம்</small><strong>55 வினாடிகள்</strong></div>
+      </div>
+    </header>
+
+    <section id="lyrics">
+      <h2>பாடல் வரிகளும் பொருளும்</h2>
+      <p class="lead">இந்த வரிகள் 1891-ல் எழுதப்பட்டவை; பாடலின் உரிமைக் காலம் முடிந்து பொதுவெளியில் உள்ளது. கீழே ஒவ்வொரு பகுதிக்கும் எளிய பொருள் தரப்பட்டுள்ளது.</p>
+
+      <article class="verse">
+        <p class="ta" lang="ta"><span>நீராருங் கடலுடுத்த நிலமடந்தை கெழிலொழுகும்</span><span>சீராரும் வதனமெனத் திகழ்பரதக் கண்டமிதில்</span></p>
+        <p class="mean">நீர் நிறைந்த கடலை ஆடையாக உடுத்திய நிலமகளின் அழகு ஒழுகும் சிறப்பான முகம் போல் விளங்குகிறது பாரத நாடு.</p>
+        <p class="en">India shines like the radiant face of Mother Earth, who wears the ocean as her garment.</p>
+      </article>
+
+      <article class="verse">
+        <p class="ta" lang="ta"><span>தெக்கணமும் அதிற்சிறந்த திராவிடநல் திருநாடும்</span><span>தக்கசிறு பிறைநுதலும் தரித்தநறுந் திலகமுமே!</span></p>
+        <p class="mean">அந்த முகத்தில் தெற்குப் பகுதியான தக்காணம்; அதிலும் சிறந்த திராவிடத் திருநாடு, பிறை போன்ற நெற்றியும் அதில் அணிந்த மணமுள்ள திலகமும் ஆகும்.</p>
+        <p class="en">In that face, the southern land, and within it the noble Dravidian country, is the crescent forehead and the fragrant tilak she wears.</p>
+      </article>
+
+      <article class="verse">
+        <p class="ta" lang="ta"><span>அத்திலக வாசனைபோல் அனைத்துலகும் இன்பமுற</span><span>எத்திசையும் புகழ்மணக்க இருந்தபெருந் தமிழணங்கே!</span></p>
+        <p class="mean">அந்தத் திலகத்தின் மணம் போல, உலகெங்கும் மகிழ்ச்சி பரவவும் எல்லாத் திசைகளிலும் புகழ் மணக்கவும் வீற்றிருக்கும் பெருமைமிக்க தமிழ்த்தாயே!</p>
+        <p class="en">O great Tamil mother, whose fame spreads in every direction like the tilak's fragrance, bringing joy to the whole world.</p>
+      </article>
+
+      <article class="verse refrain">
+        <p class="ta" lang="ta"><span>உன்சீரிளமைத் திறம்வியந்து செயல்மறந்து வாழ்த்துதுமே!</span><span>வாழ்த்துதுமே! வாழ்த்துதுமே! வாழ்த்துதுமே!</span></p>
+        <p class="mean">என்றும் குன்றாத உன் இளமையின் ஆற்றலை வியந்து, எங்கள் செயல்களையும் மறந்து உன்னை வாழ்த்துகிறோம்.</p>
+        <p class="en">Marvelling at your ever-youthful strength, we forget our tasks and praise you.</p>
+      </article>
+    </section>
+
+    <section id="history">
+      <h2>வரலாறு</h2>
+      <ol class="timeline">
+        <li><b>1891</b><p>பேராசிரியர் பெ. சுந்தரம் பிள்ளை (மனோன்மணியம் சுந்தரனார், 1855–1897) தம் "மனோன்மணியம்" நாடகத்தின் தொடக்கத்தில் "தமிழ்த் தெய்வ வணக்கம்" என்ற பகுதியை எழுதினார். அதிலிருந்தே இந்தப் பாடல் உருவானது.</p></li>
+        <li><b>1970</b><p>முதலமைச்சர் மு. கருணாநிதி தலைமையிலான அரசு, அரசுத் துறைகள், உள்ளாட்சி அமைப்புகள், கல்வி நிறுவனங்களின் விழாக்களின் தொடக்கத்தில் இப்பாடலை வழிபாட்டுப் பாடலாகப் பாட ஆணை வெளியிட்டது (நவம்பர் 23, 1970). எம். எஸ். விஸ்வநாதன் இசையமைத்தார்.</p></li>
+        <li><b>2021</b><p>டிசம்பர் 17 அன்று முதலமைச்சர் மு. க. ஸ்டாலின், இதை தமிழ்நாட்டின் அதிகாரப்பூர்வ மாநிலப் பாடலாக அறிவித்தார்; 55 வினாடிகளில் பாட வேண்டும் என்றும் குறிப்பிட்டார்.</p></li>
+      </ol>
+    </section>
+
+    <section id="when-why">
+      <h2>எப்போது, ஏன் பாடுகிறோம்?</h2>
+      <div class="two">
+        <div class="box">
+          <h3>எப்போது?</h3>
+          <ul>
+            <li>அரசுத் துறைகளின் நிகழ்ச்சிகளின் தொடக்கத்தில்</li>
+            <li>உள்ளாட்சி அமைப்புகளின் விழாக்களில்</li>
+            <li>பள்ளி, கல்லூரி நிகழ்ச்சிகளில்</li>
+            <li>தனியார் நிகழ்ச்சிகளிலும் பாடலாம் என ஊக்குவிக்கப்படுகிறது</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>ஏன்?</h3>
+          <ul>
+            <li>தமிழ் மொழியையும் பண்பாட்டையும் தாயாக மதித்து வணங்க</li>
+            <li>இது வழிபாட்டுப் பாடல் என்பதால் நிகழ்ச்சியின் தொடக்கத்தில் (முடிவில் அல்ல) பாடப்படுகிறது</li>
+            <li>புதிய தலைமுறைக்குப் பாடலையும் அதன் பொருளையும் கொண்டு செல்ல</li>
+          </ul>
+        </div>
+      </div>
+      <div class="note">
+        <strong>பாடும் முறை:</strong> மோகன ராகம், திஸ்ர தாளத்தில் 55 வினாடிகள். 2021 அறிவிப்பின்படி மாற்றுத்திறனாளிகள் தவிர அனைவரும் எழுந்து நிற்க வேண்டும். இது தேசிய கீதம் அல்ல, வழிபாட்டுப் பாடல் என்றும், மரியாதையைப் பல வழிகளில் காட்டலாம் என்றும் மதுரை உயர் நீதிமன்றக் கிளை 2021-ல் கருத்துத் தெரிவித்தது.
+      </div>
+    </section>
+
+    <p class="src">
+      ஆதாரங்கள்:
+      <a href="https://en.wikipedia.org/wiki/Tamil_Thai_Valthu_(Tamil_Nadu)" target="_blank" rel="noopener">Wikipedia</a>,
+      <a href="https://www.dtnext.in/news/tamilnadu/did-you-know-tamil-thai-vazhthu-became-tamil-nadus-state-song-only-in-2021-here-are-9-other-facts-about-it" target="_blank" rel="noopener">DT Next</a>,
+      <a href="https://www.deccanherald.com/amp/story/india%2Ftamil-nadu-declares-tamil-thai-vaazhthu-as-state-song-1061803.html" target="_blank" rel="noopener">Deccan Herald</a>.
+      1970 ஆணையின் தேதி ஆதாரங்களில் சற்று மாறுபடுகிறது.
+    </p>
+  </main>
+
+  {% include 'partials/site_footer.html' %}
+</body>
+</html>

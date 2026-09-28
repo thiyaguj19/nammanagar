@@ -542,3 +542,6 @@ def quiz_game(request):
     
 def india_sports_quiz_game(request):
     return render(request, 'india_sports_quiz_game.html')
+    
+def tamil_thai_vazhthu(request):
+    return render(request, 'tamil_thai_vazhthu.html')

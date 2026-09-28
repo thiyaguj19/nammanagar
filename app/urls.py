@@ -50,4 +50,5 @@ urlpatterns = [
     path(r'javascript-games/battleship/', views.battleship_game, name='battleship_game'),
     path(r'javascript-games/quiz/', views.quiz_game, name='quiz_game'),
     path(r'javascript-games/india-sports-quiz/', views.india_sports_quiz_game, name='india_sports_quiz_game'),
+    path('tamil-thai-vazhthu/', views.tamil_thai_vazhthu, name='tamil_thai_vazhthu'),
 ]

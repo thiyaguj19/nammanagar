@@ -743,6 +743,173 @@
         align-items: flex-start;
       }
     }
+
+    /* ---------- இன்றைய திருக்குறள் (Daily Thirukkural) ---------- */
+    .section.kural-section {
+      padding: clamp(1.6rem, 3.5vw, 2.6rem) 0 0;
+    }
+
+    .kural-section[hidden] { display: none; }
+
+    .kural-card {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: clamp(1rem, 3vw, 2rem);
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(12, 39, 33, 0.1);
+      box-shadow: 0 14px 30px rgba(12, 39, 33, 0.07);
+      padding: clamp(1.2rem, 3vw, 2rem);
+    }
+
+    .kural-mark {
+      width: clamp(76px, 10vw, 112px);
+      height: clamp(76px, 10vw, 112px);
+      border-radius: 50%;
+      background: var(--sun);
+      color: var(--deep);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      line-height: 1.05;
+      text-align: center;
+    }
+
+    .kural-mark small { font-size: 0.72rem; font-weight: 700; }
+
+    .kural-mark strong {
+      font: 700 clamp(1.5rem, 3vw, 2.2rem) "Noto Serif Tamil", serif;
+      letter-spacing: -0.02em;
+    }
+
+    .kural-top {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem 1rem;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .kural-title {
+      margin: 0;
+      font-size: 1.05rem;
+      color: var(--coral);
+      font-weight: 800;
+      letter-spacing: normal;
+    }
+
+    .kural-date {
+      color: var(--slate);
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+
+    .kural-chapter {
+      margin: 0.15rem 0 0;
+      color: var(--slate);
+      font-size: 0.9rem;
+    }
+
+    .kural-text {
+      margin: 0.8rem 0 1rem;
+      padding: 0;
+      border: 0;
+      font-family: "Noto Serif Tamil", serif;
+      font-weight: 700;
+      font-size: clamp(1.3rem, 2.6vw, 2rem);
+      line-height: 1.5;
+      color: var(--ink);
+    }
+
+    .kural-text span { display: block; }
+
+    .kural-text span + span { padding-left: clamp(1rem, 4vw, 3rem); }
+
+    .kural-translit {
+      margin: -0.4rem 0 1rem;
+      color: #62786e;
+      font-size: 0.86rem;
+      font-style: italic;
+    }
+
+    .kural-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 0.7rem;
+    }
+
+    .kural-tab {
+      border: 1px solid #d3e3d8;
+      border-radius: 999px;
+      background: #eef6f1;
+      color: var(--ink);
+      font: 700 0.82rem "Anek Tamil", "Noto Sans Tamil", sans-serif;
+      padding: 0.38rem 0.8rem;
+      cursor: pointer;
+    }
+
+    .kural-tab:hover { background: #ddecdf; }
+
+    .kural-tab[aria-pressed="true"] {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: #fff;
+    }
+
+    .kural-meaning {
+      margin: 0;
+      color: #2f4d44;
+      line-height: 1.75;
+      font-size: 1.02rem;
+      max-width: 72ch;
+    }
+
+    .kural-actions {
+      margin-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .kural-btn {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      border: 1px solid var(--ink);
+      background: transparent;
+      color: var(--ink);
+      font: 800 0.86rem "Anek Tamil", "Noto Sans Tamil", sans-serif;
+      padding: 0.5rem 0.95rem;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .kural-btn:hover { background: var(--ink); color: #fff; }
+
+    .kural-btn.wa { background: var(--leaf); border-color: var(--leaf); color: #fff; }
+    .kural-btn.wa:hover { background: var(--ink); border-color: var(--ink); }
+
+    .kural-tab:focus-visible,
+    .kural-btn:focus-visible {
+      outline: 3px solid var(--sun);
+      outline-offset: 2px;
+    }
+
+    @media (max-width: 620px) {
+      .kural-card { grid-template-columns: 1fr; }
+      .kural-mark {
+        width: auto;
+        height: auto;
+        border-radius: 999px;
+        flex-direction: row;
+        gap: 0.4rem;
+        justify-self: start;
+        padding: 0.4rem 1rem;
+      }
+      .kural-mark strong { font-size: 1.15rem; }
+    }
   </style>
 </head>
 <body>
@@ -789,6 +956,37 @@
             </div>
           </figure>
           </div>
+      </section>
+
+      <section id="daily-kural" class="section kural-section" aria-labelledby="kuralTitle" hidden>
+        <article class="kural-card">
+          <div class="kural-mark" aria-hidden="true">
+            <small>குறள்</small>
+            <strong id="kuralNumber"></strong>
+          </div>
+          <div>
+            <div class="kural-top">
+              <h2 id="kuralTitle" class="kural-title">இன்றைய திருக்குறள்</h2>
+              <span id="kuralDate" class="kural-date"></span>
+            </div>
+            <p id="kuralChapter" class="kural-chapter"></p>
+            <blockquote class="kural-text" lang="ta">
+              <span id="kuralLine1"></span>
+              <span id="kuralLine2"></span>
+            </blockquote>
+            <p id="kuralTranslit" class="kural-translit" lang="ta-Latn"></p>
+            <div class="kural-tabs" role="group" aria-label="விளக்க உரை தேர்வு">
+              <button type="button" class="kural-tab" data-field="meaning_ta" aria-pressed="true">மு. வரதராசனார்</button>
+              <button type="button" class="kural-tab" data-field="meaning_ta_mk" aria-pressed="false">கலைஞர் உரை</button>
+              <button type="button" class="kural-tab" data-field="meaning_en" aria-pressed="false">English</button>
+            </div>
+            <p id="kuralMeaning" class="kural-meaning" aria-live="polite"></p>
+            <div class="kural-actions">
+              <a id="kuralWhatsapp" class="kural-btn wa" href="#" target="_blank" rel="noopener">WhatsApp-ல் பகிர</a>
+              <button type="button" id="kuralCopy" class="kural-btn">நகலெடு</button>
+            </div>
+          </div>
+        </article>
       </section>
 
       <section id="upcoming-events" class="section">
@@ -1172,6 +1370,111 @@
       applyViewMode("horizontal");
       render();
       startAutoplay();
+    })();
+  </script>
+  
+  <script>
+    /* இன்றைய திருக்குறள் — same kural for everyone each day, cycles through all 1330. */
+    (function () {
+      var DATA_URL = "{% static 'app/data/thirukkural.json' %}";
+      var START = Date.UTC(2026, 0, 1);            // kural #1 was shown on 1 Jan 2026
+      var section = document.getElementById("daily-kural");
+      if (!section) { return; }
+
+      var now = new Date();                        // visitor's local date (India for most readers)
+      var todayUtc = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
+      var dayIndex = Math.floor((todayUtc - START) / 86400000);
+      var cacheKey = "kural-day-" + todayUtc;
+
+      var current = null;
+      var field = "meaning_ta";
+
+      var el = {
+        number: document.getElementById("kuralNumber"),
+        date: document.getElementById("kuralDate"),
+        chapter: document.getElementById("kuralChapter"),
+        line1: document.getElementById("kuralLine1"),
+        line2: document.getElementById("kuralLine2"),
+        translit: document.getElementById("kuralTranslit"),
+        meaning: document.getElementById("kuralMeaning"),
+        wa: document.getElementById("kuralWhatsapp"),
+        copy: document.getElementById("kuralCopy")
+      };
+      var tabs = section.querySelectorAll(".kural-tab");
+
+      function shareText() {
+        return "இன்றைய திருக்குறள் (குறள் " + current.number + ")\n\n" +
+          current.line1 + "\n" + current.line2 + "\n\n" +
+          (current[field] || current.meaning_ta) + "\n\n" +
+          "நம்ம நகரம் — " + window.location.origin + "/";
+      }
+
+      function renderMeaning() {
+        el.meaning.textContent = current[field] || current.meaning_ta;
+        el.wa.href = "https://wa.me/?text=" + encodeURIComponent(shareText());
+      }
+
+      function render(k) {
+        current = k;
+        el.number.textContent = k.number;
+        el.chapter.textContent = k.paal + " › " + k.iyal + " › " + k.adhikaram;
+        el.line1.textContent = k.line1;
+        el.line2.textContent = k.line2;
+        el.translit.textContent = k.transliteration || "";
+        el.date.textContent = now.toLocaleDateString("ta-IN", { day: "numeric", month: "long", year: "numeric" });
+        renderMeaning();
+        section.hidden = false;
+      }
+
+      function pick(list) {
+        var n = list.length;
+        return list[((dayIndex % n) + n) % n];
+      }
+
+      Array.prototype.forEach.call(tabs, function (tab) {
+        tab.addEventListener("click", function () {
+          if (!current) { return; }
+          field = tab.getAttribute("data-field");
+          Array.prototype.forEach.call(tabs, function (t) {
+            t.setAttribute("aria-pressed", t === tab ? "true" : "false");
+          });
+          renderMeaning();
+        });
+      });
+
+      el.copy.addEventListener("click", function () {
+        if (!current) { return; }
+        var text = shareText();
+        var done = function () {
+          el.copy.textContent = "நகலெடுக்கப்பட்டது ✓";
+          setTimeout(function () { el.copy.textContent = "நகலெடு"; }, 2000);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(done).catch(function () {});
+        }
+      });
+
+      // Reuse today's kural from this browser if we already downloaded it.
+      try {
+        var cached = localStorage.getItem(cacheKey);
+        if (cached) { render(JSON.parse(cached)); return; }
+      } catch (e) {}
+
+      fetch(DATA_URL)
+        .then(function (res) { if (!res.ok) { throw new Error(res.status); } return res.json(); })
+        .then(function (list) {
+          var k = pick(list);
+          render(k);
+          try {
+            // keep only today's entry; drop older days
+            for (var i = localStorage.length - 1; i >= 0; i--) {
+              var key = localStorage.key(i);
+              if (key && key.indexOf("kural-day-") === 0) { localStorage.removeItem(key); }
+            }
+            localStorage.setItem(cacheKey, JSON.stringify(k));
+          } catch (e) {}
+        })
+        .catch(function () { /* leave the section hidden if the data can't load */ });
     })();
   </script>
   
